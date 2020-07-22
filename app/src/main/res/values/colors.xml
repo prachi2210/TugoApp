@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="colorPrimary">#173e43</color>-->
+<!--    <color name="colorPrimaryDark">#00191c</color>-->
+<!--    <color name="colorAccent">#ff9d3f</color>-->
+    <color name="colorPrimary">#27AE60</color>
+    <color name="colorPrimaryDark">#27AE60</color>
+    <color name="colorAccent">#BB6729</color>
+
+    <color name="colorBlue">#2b71b6</color>
+
+    <color name="lightcolorPrimary">#EEEEEE</color>
+
+
+    <color name="inputTextColor">#212121</color>
+
+    <color name="colorHoloBlue">#ff33b5e5</color>
+    <color name="colorHoloBlueDark">#0099CC</color>
+    <color name="colorWhite">#ffffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlackOpacity">#80000000</color>
+    <color name="darkGray">#a2a2a2</color>
+    <color name="grey">#e7e7e7</color>
+    <color name="crimson">#B00000</color>
+    <color name="blue">#003c66</color>
+    <color name="darkBlue">#0000A0</color>
+    <color name="yellow">#FF4500</color>
+    <color name="divideryellow">#ffbf00</color>
+    <color name="imageViewBlue">#38a4e8</color>
+    <color name="hyperlinkBlue">#0000EE</color>
+    <color name="noteColor">#FF6A67</color>
+    <color name="offWhite">#f7f7f7</color>
+    <color name="darkGreen">#193e44</color>
+    <color name="dashboard_section_1">#f1e9fe</color>
+    <color name="dashboard_section_2">#d4ecfd</color>
+    <color name="dashboard_section_3">#ffe2c9</color>
+    <color name="dashboard_section_4">#dfffd4</color>
+    <color name="colorLabel">#010F07</color>
+    <color name="walkthrough_subtitle">#6C6C6C</color>
+    <color name="colorFbBlue">#395998</color>
+    <color name="colorGPlus">#4285F4</color>
+    <color name="colorScreenTitle">#141618</color>
+
+</resources>

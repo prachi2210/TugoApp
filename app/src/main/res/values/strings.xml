@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Tugo</string>
+
+    <!--Network error -->
+    <string name="networkError">Oh! You are not connected to a wifi or cellular data network. Please connect and try again</string>
+    <string name="networkErrorCode">NO_INTERNET_CONNECTION</string>
+    <string name="unknownError">Something went wrong!</string>
+
+    <string name="requestTimeOutError">Oooops! We couldn’t capture your request in time. Please try again.</string>
+
+    <string name="errorCodeMalformedJson">MALFORMED_JSON</string>
+    <string name="responseMalformedJson">Oops! We hit an error. Try again later.</string>
+    <string name="title_splash">Splash</string>
+    <string name="txt_loading">Loading</string>
+    <string name="title_home">Home</string>
+    <string name="title_orders">Orders</string>
+    <string name="title_profile">Profile</string>
+    <string name="txt_email_address">Email Address</string>
+    <string name="txt_pswd">Password</string>
+    <string name="txt_forgot_pswd">Forgot Password?</string>
+    <string name="txt_login">Sign In</string>
+    <string name="txt_dont_have_acnt">Don\'t have account?</string>
+    <string name="txt_create_new_account">Create new account.</string>
+    <string name="title_wt1">Everyday meals in a click</string>
+    <string name="subtitle_wt1">Browse once, have meals on time with a designed package!</string>
+    <string name="title_wt2">Widerange of providers</string>
+    <string name="subtitle_wt2">A healthy and affordable delivery always at your front door on time</string>
+    <string name="title_wt3">The right meal plan for you</string>
+    <string name="subtitle_wt3">Fresh, diverse and delicious, find your own plan now.</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_get_started">Get Started</string>
+    <string name="txt_or">OR</string>
+    <string name="txt_connect_with_fb">Connect with facebook</string>
+    <string name="txt_connect_with_google">Connect with google</string>
+    <string name="txt_signup">Sign Up</string>
+    <string name="txt_tc_header">By Signing up you agree to our</string>
+    <string name="txt_tc">Terms Conditions</string>
+    <string name="txt_pp">Privacy Policy.</string>
+    <string name="txt_full_name">Full name</string>
+    <string name="txt_confirm_pswd">Confirm Password</string>
+    <string name="txt_create_account">Create account</string>
+    <string name="txt_signin">Sign in</string>
+    <string name="txt_signin_header_message">Please sign in to continue.</string>
+</resources>

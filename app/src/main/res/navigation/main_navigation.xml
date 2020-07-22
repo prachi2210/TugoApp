@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/fragmentSplash">
+
+    <fragment
+        android:id="@+id/fragmentSplash"
+        android:name="com.tugoapp.mobile.ui.splash.FragmentSplash"
+        android:label="@string/title_splash">
+        <action
+            android:id="@+id/action_fragmentSplash_to_fragmentWelcome"
+            app:destination="@id/fragmentWelcome"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragmentSplash"/>
+        <action
+            android:id="@+id/action_fragmentSplash_to_fragmentWalkthrough"
+            app:destination="@id/fragmentWalkthrough"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragmentSplash"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.tugoapp.mobile.ui.login.FragmentLogin"
+        android:label="FragmentLogin" >
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentSignUp"
+            app:destination="@id/fragmentSignUp" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.tugoapp.mobile.ui.home.FragmentHome"
+        android:label="FragmentHome">
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentOrders"
+            app:destination="@id/fragmentOrders" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentProfile"
+            app:destination="@id/fragmentProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentOrders"
+        android:name="com.tugoapp.mobile.ui.orders.FragmentOrders"
+        android:label="FragmentOrders">
+        <action
+            android:id="@+id/action_fragmentOrders_to_fragmentProfile"
+            app:destination="@id/fragmentProfile" />
+        <action
+            android:id="@+id/action_fragmentOrders_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="com.tugoapp.mobile.ui.profile.FragmentProfile"
+        android:label="FragmentProfile">
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentOrders"
+            app:destination="@id/fragmentOrders" />
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentWalkthrough"
+        android:name="com.tugoapp.mobile.ui.walkthrough.FragmentWalkthrough"
+        android:label="FragmentWalkthrough" />
+    <fragment
+        android:id="@+id/fragmentWelcome"
+        android:name="com.tugoapp.mobile.ui.login.FragmentWelcome"
+        android:label="FragmentWelcome" >
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentSignUp"
+            app:destination="@id/fragmentSignUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSignUp"
+        android:name="com.tugoapp.mobile.ui.login.FragmentSignUp"
+        android:label="FragmentSignUp" />
+</navigation>

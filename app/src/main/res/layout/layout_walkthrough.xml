@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/walkthroughImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/walkthroughTitle"
+            android:layout_width="match_parent"
+            style="@style/StyleWalkthroughTitle"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"
+            android:padding="@dimen/margin_10" />
+
+        <TextView
+            android:id="@+id/walkthroughSubTitle"
+            style="@style/StyleWalkthroughSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_30"
+            android:layout_marginLeft="@dimen/margin_30"/>
+    </LinearLayout>
+</layout>

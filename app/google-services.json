@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "908606240987",
+    "firebase_url": "https://tugo-app-e2579.firebaseio.com",
+    "project_id": "tugo-app-e2579",
+    "storage_bucket": "tugo-app-e2579.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908606240987:android:b4597d9ae86b72cbca74fe",
+        "android_client_info": {
+          "package_name": "com.tugoapp.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908606240987-hr3qt5kihtmd23gf4tjf101fa4ulehm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeKsIGbNvRXReC443z3jFT8FNtHGSTkEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908606240987-hr3qt5kihtmd23gf4tjf101fa4ulehm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

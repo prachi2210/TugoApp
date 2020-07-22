@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.7"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_welcome"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginLeft="@dimen/margin_12"
+                android:layout_marginRight="@dimen/margin_12"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnWelcomeSignIn"
+                    style="@style/StyleButtonNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:text="@string/txt_login"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgWelcome" />
+
+                <LinearLayout
+                    android:id="@+id/llSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnWelcomeSignIn">
+
+                    <TextView
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_dont_have_acnt" />
+
+                    <TextView
+                        android:id="@+id/txtWelcomeSignUp"
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="1dp"
+                        android:padding="@dimen/margin_6"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/txt_create_new_account" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtOr"
+                    style="@style/HeaderMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:text="@string/txt_or"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/llSignUp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnWelcomeSignInFb"
+                    style="@style/StyleButtonFb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:text="@string/txt_connect_with_fb"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtOr" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnWelcomeSignInGPlus"
+                    style="@style/StyleButtonGPlus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:text="@string/txt_connect_with_google"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnWelcomeSignInFb" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>
