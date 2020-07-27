@@ -76,6 +76,18 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentChangePswd"
+            app:destination="@id/fragmentChangePswd" />
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentPersonalInformation"
+            app:destination="@id/fragmentPersonalInformation" />
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentPaymentMethods"
+            app:destination="@id/fragmentPaymentMethods" />
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentManageAddress"
+            app:destination="@id/fragmentManageAddress" />
     </fragment>
     <fragment
         android:id="@+id/fragmentWalkthrough"
@@ -150,4 +162,36 @@
         android:id="@+id/fragmentOrderDetail"
         android:name="com.tugoapp.mobile.ui.orders.FragmentOrderDetail"
         android:label="@string/title_order_detail" />
+    <fragment
+        android:id="@+id/fragmentChangePswd"
+        android:name="com.tugoapp.mobile.ui.profile.FragmentChangePswd"
+        android:label="@string/txt_change_pswd" />
+    <fragment
+        android:id="@+id/fragmentPersonalInformation"
+        android:name="com.tugoapp.mobile.ui.profile.FragmentPersonalInformation"
+        android:label="@string/txt_personal_info" />
+    <fragment
+        android:id="@+id/fragmentPaymentMethods"
+        android:name="com.tugoapp.mobile.ui.profile.FragmentPaymentMethods"
+        android:label="@string/title_payment_methods" >
+        <action
+            android:id="@+id/action_fragmentPaymentMethods_to_fragmentAddPaymentMethod"
+            app:destination="@id/fragmentAddPaymentMethod" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentManageAddress"
+        android:name="com.tugoapp.mobile.ui.profile.FragmentManageAddress"
+        android:label="@string/title_delivery_address" >
+        <action
+            android:id="@+id/action_fragmentManageAddress_to_fragmentAddAddress"
+            app:destination="@id/fragmentAddAddress" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentAddAddress"
+        android:name="com.tugoapp.mobile.ui.profile.FragmentAddAddress"
+        android:label="@string/txt_add_a_new_address" />
+    <fragment
+        android:id="@+id/fragmentAddPaymentMethod"
+        android:name="com.tugoapp.mobile.ui.profile.FragmentAddPaymentMethod"
+        android:label="@string/txt_add_a_new_card" />
 </navigation>

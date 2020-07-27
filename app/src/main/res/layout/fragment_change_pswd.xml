@@ -12,61 +12,64 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/margin_14">
+            android:padding="@dimen/margin_12">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameInputLayout"
+                android:id="@+id/tiPswd"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                app:hintTextAppearance="@style/MyAppearance">
+                android:layout_marginTop="@dimen/margin_10"
+                app:hintTextAppearance="@style/MyAppearance"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtName"
+                    android:id="@+id/edtPswd"
                     style="@style/MyTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_full_name"
-                    android:inputType="text"
+                    android:hint="@string/txt_pswd"
+                    android:inputType="textPassword"
                     android:maxLength="50" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailInputLayout"
+                android:id="@+id/tiNewPswd"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                app:hintTextAppearance="@style/MyAppearance">
+                android:layout_marginTop="@dimen/margin_10"
+                app:hintTextAppearance="@style/MyAppearance"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtEmail"
+                    android:id="@+id/edtNewPswd"
                     style="@style/MyTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_email_address"
-                    android:inputType="text"
+                    android:hint="@string/txt_new_pswd"
+                    android:inputType="textPassword"
                     android:maxLength="50" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phoneInputLayout"
+                android:id="@+id/tiConfirmPswd"
                 style="@style/MyTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                app:hintTextAppearance="@style/MyAppearance">
+                android:layout_marginTop="@dimen/margin_10"
+                app:hintTextAppearance="@style/MyAppearance"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtPhone"
+                    android:id="@+id/edtConfirmPswd"
                     style="@style/MyTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_phone_number"
-                    android:inputType="text"
+                    android:hint="@string/txt_confirm_pswd"
+                    android:inputType="textPassword"
                     android:maxLength="50" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="@string/txt_update"
+                android:text="@string/txt_change_pswd"
                 android:layout_marginBottom="@dimen/margin_15"
                 style="@style/StyleButtonNext"/>
         </LinearLayout>

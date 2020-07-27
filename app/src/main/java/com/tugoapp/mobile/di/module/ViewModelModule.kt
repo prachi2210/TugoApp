@@ -8,7 +8,7 @@ import com.tugoapp.mobile.ui.login.AddPhoneNumberViewModel
 import com.tugoapp.mobile.ui.login.FragmentVerifyOTP
 import com.tugoapp.mobile.ui.login.VerifyOTPViewModel
 import com.tugoapp.mobile.ui.orders.OrdersViewModel
-import com.tugoapp.mobile.ui.profile.ProfileViewModel
+import com.tugoapp.mobile.ui.profile.*
 import com.tugoapp.mobile.ui.splash.SplashViewModel
 import dagger.Module
 import dagger.Provides
@@ -64,6 +64,50 @@ class ViewModelModule {
     fun verifyOtpViewModel(application: TugoApplication?, service: MerchantApiService?): VerifyOTPViewModel {
         return VerifyOTPViewModel(application,service!!)
     }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(ChangePswdViewModel::class)
+    fun changePswdViewModel(application: TugoApplication?, service: MerchantApiService?): ChangePswdViewModel {
+        return ChangePswdViewModel(application,service!!)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(PersonalInformationViewModel::class)
+    fun personalInformationViewModel(application: TugoApplication?, service: MerchantApiService?): PersonalInformationViewModel {
+        return PersonalInformationViewModel(application,service!!)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(PaymentMethodsViewModel::class)
+    fun paymentMethodsViewModel(application: TugoApplication?, service: MerchantApiService?): PaymentMethodsViewModel {
+        return com.tugoapp.mobile.ui.profile.PaymentMethodsViewModel(application, service!!)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(ManageAddressViewModel::class)
+    fun manageAddressViewModel(application: TugoApplication?, service: MerchantApiService?): ManageAddressViewModel {
+        return ManageAddressViewModel(application,service!!)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(AddPaymentMethodViewModel::class)
+    fun addPaymentMethodViewModel(application: TugoApplication?, service: MerchantApiService?): AddPaymentMethodViewModel {
+        return AddPaymentMethodViewModel(application,service!!)
+    }
+
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(AddAddressViewModel::class)
+    fun addAddressViewModel(application: TugoApplication?, service: MerchantApiService?): AddAddressViewModel {
+        return AddAddressViewModel(application,service!!)
+    }
+
 
 
 }

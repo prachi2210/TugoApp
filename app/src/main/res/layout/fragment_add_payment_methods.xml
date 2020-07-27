@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_toolbar">
+
+            <TextView
+                style="@style/HeaderMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="bottom"
+                android:paddingLeft="@dimen/margin_30"
+                android:paddingBottom="@dimen/margin_20"
+                android:text="@string/txt_add_card_detail" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15">
+
+                <EditText
+                    android:id="@+id/edtCardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_input_card"
+                    android:drawableStart="@drawable/ic_credit_card"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:hint="@string/hint_card_num"
+                    android:paddingLeft="@dimen/margin_10" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edtExpiry"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/bg_input_card"
+                        android:hint="@string/hint_card_expiry"
+                        android:paddingLeft="@dimen/margin_10" />
+
+                    <EditText
+                        android:id="@+id/edtCvc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_input_card"
+                        android:hint="@string/hint_card_cvc"
+                        android:paddingLeft="@dimen/margin_10" />
+                </LinearLayout>
+
+                <CheckBox
+                    style="@style/HeaderMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:text="@string/txt_set_as_default"
+                    android:textColor="@color/emptyViewColor" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/StyleButtonNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_30"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:text="@string/txt_add_card" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -54,6 +54,8 @@
         <item name="android:background">@drawable/rounded_border_colored</item>
         <item name="android:textSize">@dimen/size_14</item>
         <item name="android:letterSpacing">0.1</item>
+        <item name="android:paddingTop">@dimen/margin_5</item>
+        <item name="android:paddingBottom">@dimen/margin_5</item>
         <item name="android:fontFamily">@font/font_sf_pro_text_bold</item>
     </style>
 

@@ -71,4 +71,24 @@
     <string name="txt_promo_noti">Promotional Notifications</string>
     <string name="txt_logout">Logout</string>
     <string name="title_account_settings">Account Setting</string>
+    <string name="txt_new_pswd">New Password</string>
+    <string name="txt_update">Update</string>
+    <string name="title_payment_methods">Payment Methods</string>
+    <string name="title_delivery_address">Delivery Address</string>
+    <string name="txt_add_a_new_address">Add a new address</string>
+    <string name="txt_saved_address">Saved Address</string>
+    <string name="txt_edit">Edit</string>
+    <string name="txt_saved_cards">Saved Cards</string>
+    <string name="txt_add_a_new_card">Add a new card</string>
+    <string name="txt_add_card_detail">This card will only be charged when you place an order.</string>
+    <string name="hint_card_num">4343 4343 4343 4343</string>
+    <string name="hint_card_expiry">MM/YY</string>
+    <string name="hint_card_cvc">CVC</string>
+    <string name="txt_set_as_default">Set as default</string>
+    <string name="txt_add_card">Add Card</string>
+    <string name="hint_address">Add address</string>
+    <string name="txt_add_address">Enter the address into the form below, or you can use your current location</string>
+    <string name="txt_btn_add_address">Add address</string>
+    <string name="txt_btn_redeem_plan">Redeem this plan</string>
+    <string name="txt_btn_write_comment">Write a comment</string>
 </resources>
