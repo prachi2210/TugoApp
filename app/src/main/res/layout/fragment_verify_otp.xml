@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="-20dp"
+                android:layout_weight="1.2"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_12">
+
+                <TextView
+                    android:id="@+id/txtVerifyOtpTitle"
+                    style="@style/HeaderScreenTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_30"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_raleway_bold"
+                    android:text="@string/txt_verify_phone_number"
+                    android:textColor="@color/colorScreenTitle"
+                    android:textSize="@dimen/size_24"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/HeaderMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_50"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_50"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="@string/txt_verify_otp_header_message"
+                    android:textColor="@color/walkthrough_subtitle" />
+
+                <com.alimuzaffar.lib.pin.PinEntryEditText
+                    android:id="@+id/otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_30"
+                    android:layout_marginTop="@dimen/margin_50"
+                    android:layout_marginRight="@dimen/margin_30"
+                    android:digits="4" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnOtpContinue"
+                    style="@style/StyleButtonNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_40"
+                    android:text="@string/txt_continue" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_didnt_receive_code" />
+
+                    <TextView
+                        android:id="@+id/txtOtpResend"
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="1dp"
+                        android:padding="@dimen/margin_6"
+                        android:text="@string/txt_resend_again"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

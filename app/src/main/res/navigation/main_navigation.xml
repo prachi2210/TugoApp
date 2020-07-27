@@ -12,12 +12,11 @@
             android:id="@+id/action_fragmentSplash_to_fragmentWelcome"
             app:destination="@id/fragmentWelcome"
             app:popUpToInclusive="true"
-            app:popUpTo="@id/fragmentSplash"/>
-        <action
-            android:id="@+id/action_fragmentSplash_to_fragmentWalkthrough"
-            app:destination="@id/fragmentWalkthrough"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/fragmentSplash"/>
+            app:popUpTo="@id/fragmentSplash"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
@@ -25,59 +24,130 @@
         android:label="FragmentLogin" >
         <action
             android:id="@+id/action_fragmentLogin_to_fragmentSignUp"
-            app:destination="@id/fragmentSignUp" />
+            app:destination="@id/fragmentSignUp"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
         android:id="@+id/fragmentHome"
         android:name="com.tugoapp.mobile.ui.home.FragmentHome"
-        android:label="FragmentHome">
+        android:label="@string/title_home">
         <action
             android:id="@+id/action_fragmentHome_to_fragmentOrders"
-            app:destination="@id/fragmentOrders" />
+            app:destination="@id/fragmentOrders"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_fragmentHome_to_fragmentProfile"
-            app:destination="@id/fragmentProfile" />
+            app:destination="@id/fragmentProfile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentOrders"
         android:name="com.tugoapp.mobile.ui.orders.FragmentOrders"
-        android:label="FragmentOrders">
+        android:label="@string/title_orders">
         <action
-            android:id="@+id/action_fragmentOrders_to_fragmentProfile"
-            app:destination="@id/fragmentProfile" />
-        <action
-            android:id="@+id/action_fragmentOrders_to_fragmentHome"
-            app:destination="@id/fragmentHome" />
+            android:id="@+id/action_fragmentOrders_to_fragmentOrderDetail"
+            app:destination="@id/fragmentOrderDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentProfile"
         android:name="com.tugoapp.mobile.ui.profile.FragmentProfile"
-        android:label="FragmentProfile">
+        android:label="@string/title_account_settings">
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentOrders"
             app:destination="@id/fragmentOrders" />
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentHome"
-            app:destination="@id/fragmentHome" />
+            app:destination="@id/fragmentHome"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentWalkthrough"
         android:name="com.tugoapp.mobile.ui.walkthrough.FragmentWalkthrough"
-        android:label="FragmentWalkthrough" />
+        android:label="FragmentWalkthrough">
+        <action
+            android:id="@+id/action_fragmentWalkthrough_to_fragmentHome"
+            app:destination="@id/fragmentHome"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/fragmentWelcome"
         android:name="com.tugoapp.mobile.ui.login.FragmentWelcome"
         android:label="FragmentWelcome" >
         <action
             android:id="@+id/action_fragmentWelcome_to_fragmentLogin"
-            app:destination="@id/fragmentLogin" />
+            app:destination="@id/fragmentLogin"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_fragmentWelcome_to_fragmentSignUp"
-            app:destination="@id/fragmentSignUp" />
+            app:destination="@id/fragmentSignUp"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentSignUp"
         android:name="com.tugoapp.mobile.ui.login.FragmentSignUp"
-        android:label="FragmentSignUp" />
+        android:label="FragmentSignUp" >
+        <action
+            android:id="@+id/action_fragmentSignUp_to_fragmentAddPhoneNumber"
+            app:destination="@id/fragmentAddPhoneNumber"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentAddPhoneNumber"
+        android:name="com.tugoapp.mobile.ui.login.FragmentAddPhoneNumber"
+        android:label="@string/title_create_an_acnt" >
+        <action
+            android:id="@+id/action_fragmentAddPhoneNumber_to_fragmentVerifyOTP"
+            app:destination="@id/fragmentVerifyOTP"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentVerifyOTP"
+        android:name="com.tugoapp.mobile.ui.login.FragmentVerifyOTP"
+        android:label="@string/title_create_an_acnt" >
+        <action
+            android:id="@+id/action_fragmentVerifyOTP_to_fragmentWalkthrough"
+            app:destination="@id/fragmentWalkthrough"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentOrderDetail"
+        android:name="com.tugoapp.mobile.ui.orders.FragmentOrderDetail"
+        android:label="@string/title_order_detail" />
 </navigation>

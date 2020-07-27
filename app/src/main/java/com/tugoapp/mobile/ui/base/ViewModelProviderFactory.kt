@@ -6,9 +6,10 @@ import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.ui.RootViewModel
 import com.tugoapp.mobile.ui.home.HomeViewModel
-import com.tugoapp.mobile.ui.login.LoginViewModel
-import com.tugoapp.mobile.ui.login.SignUpViewModel
-import com.tugoapp.mobile.ui.login.WelcomeViewModel
+import com.tugoapp.mobile.ui.login.*
+import com.tugoapp.mobile.ui.orders.HistoryOrdersViewModel
+import com.tugoapp.mobile.ui.orders.OngoingOrdersViewModel
+import com.tugoapp.mobile.ui.orders.OrderDetailViewModel
 import com.tugoapp.mobile.ui.orders.OrdersViewModel
 import com.tugoapp.mobile.ui.profile.ProfileViewModel
 import com.tugoapp.mobile.ui.splash.SplashViewModel
@@ -48,6 +49,27 @@ class ViewModelProviderFactory @Inject constructor(private val application: Appl
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                 SignUpViewModel(application, apiservice) as T
             }
+
+            modelClass.isAssignableFrom(AddPhoneNumberViewModel::class.java) -> {
+                AddPhoneNumberViewModel(application, apiservice) as T
+            }
+
+            modelClass.isAssignableFrom(VerifyOTPViewModel::class.java) -> {
+                VerifyOTPViewModel(application, apiservice) as T
+            }
+
+            modelClass.isAssignableFrom(OngoingOrdersViewModel::class.java) -> {
+                OngoingOrdersViewModel(application, apiservice) as T
+            }
+
+            modelClass.isAssignableFrom(HistoryOrdersViewModel::class.java) -> {
+                HistoryOrdersViewModel(application, apiservice) as T
+            }
+
+            modelClass.isAssignableFrom(OrderDetailViewModel::class.java) -> {
+                OrderDetailViewModel(application, apiservice) as T
+            }
+
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

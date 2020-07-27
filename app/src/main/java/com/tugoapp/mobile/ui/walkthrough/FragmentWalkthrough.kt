@@ -42,27 +42,41 @@ class FragmentWalkthrough : BaseFragment<BaseViewModel?>() {
         mContext = context
 
         val data: ArrayList<WalkthroughModel> = ArrayList()
-        data.add(WalkthroughModel(getString(R.string.title_wt1),getString(R.string.subtitle_wt1), R.drawable.ic_wt1))
-        data.add(WalkthroughModel(getString(R.string.title_wt2),getString(R.string.subtitle_wt2),R.drawable.ic_wt2))
-        data.add(WalkthroughModel(getString(R.string.title_wt3),getString(R.string.subtitle_wt3),R.drawable.ic_wt3))
+        data.add(WalkthroughModel(getString(R.string.title_wt1), getString(R.string.subtitle_wt1), R.drawable.ic_wt1))
+        data.add(WalkthroughModel(getString(R.string.title_wt2), getString(R.string.subtitle_wt2), R.drawable.ic_wt2))
+        data.add(WalkthroughModel(getString(R.string.title_wt3), getString(R.string.subtitle_wt3), R.drawable.ic_wt3))
 
-        pager.adapter =  WalkthroughPagerAdpter(data)
+        pager.adapter = WalkthroughPagerAdpter(data)
         dotsIndicator.setViewPager(pager)
 
         pager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
+
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
+
             override fun onPageSelected(position: Int) {
-                if(position == 0 || position == 1) {
+                if (position == 0 || position == 1) {
                     btnWalkthrough.text = getString(R.string.btn_next)
+                    btnSkip.visibility = View.VISIBLE
                 } else {
+                    btnSkip.visibility = View.GONE
                     btnWalkthrough.text = getString(R.string.btn_get_started)
                 }
             }
         })
 
-        btnWalkthrough.setOnClickListener(View.OnClickListener { pager.setCurrentItem(pager.currentItem + 1) })
+        btnSkip.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWalkthrough_to_fragmentHome)
+        })
+
+        btnWalkthrough.setOnClickListener(View.OnClickListener {
+            if (pager.currentItem == 2) {
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWalkthrough_to_fragmentHome)
+            } else {
+                pager.setCurrentItem(pager.currentItem + 1)
+            }
+        })
     }
 }

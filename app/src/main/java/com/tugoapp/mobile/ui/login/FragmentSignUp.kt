@@ -8,6 +8,7 @@ import androidx.navigation.Navigation
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import kotlinx.android.synthetic.main.fragment_add_phone_number.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_signup.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
@@ -46,7 +47,7 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
 
     private fun initControls() {
         btnSignUp.setOnClickListener(View.OnClickListener {
-
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSignUp_to_fragmentAddPhoneNumber)
         })
     }
 }

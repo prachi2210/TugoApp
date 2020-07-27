@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="-20dp"
+                android:layout_weight="1.2"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_12">
+
+                <TextView
+                    android:id="@+id/txtVerifyOtpTitle"
+                    style="@style/HeaderScreenTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_30"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_raleway_bold"
+                    android:text="@string/txt_get_started_with_tugo"
+                    android:textColor="@color/colorScreenTitle"
+                    android:textSize="@dimen/size_24"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/HeaderMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_50"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_50"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="@string/txt_add_phone_header_message"
+                    android:textColor="@color/walkthrough_subtitle" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phoneInputLayout"
+                    style="@style/MyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_50"
+                    app:hintTextAppearance="@style/MyAppearance">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPhone"
+                        style="@style/MyTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/txt_phone_number"
+                        android:inputType="phone"
+                        android:maxLength="50" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddPhoneSignUp"
+                    style="@style/StyleButtonNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_40"
+                    android:text="@string/txt_signup" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

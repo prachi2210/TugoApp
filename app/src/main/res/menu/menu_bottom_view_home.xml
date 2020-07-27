@@ -2,18 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@android:drawable/ic_menu_help"
+        android:id="@+id/fragmentHome"
+        android:icon="@drawable/ic_home"
+        android:menuCategory="secondary"
         android:title="@string/title_home"/>
 
     <item
-        android:id="@+id/navigation_orders"
-        android:icon="@android:drawable/ic_menu_help"
+        android:id="@+id/fragmentOrders"
+        android:icon="@drawable/ic_order"
+        android:menuCategory="secondary"
         android:title="@string/title_orders"/>
 
     <item
-        android:id="@+id/navigation_profile"
-        android:icon="@android:drawable/ic_menu_help"
+        android:id="@+id/fragmentProfile"
+        android:icon="@drawable/ic_profile"
+        android:menuCategory="secondary"
         android:title="@string/title_profile"/>
 
 </menu>

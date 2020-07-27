@@ -15,8 +15,8 @@
             app:contentInsetLeft="-10dp"
             app:contentInsetStartWithNavigation="-20dp"
             app:titleTextAppearance="@style/HeaderToolbar"
-            android:background="@color/colorPrimary"
-            android:theme="@style/AppTheme.ActionBar"/>
+            android:background="@color/colorWhite"
+            android:theme="@style/HeaderToolbar"/>
 
         <fragment
             android:id="@+id/fragmentNavHost"
@@ -33,8 +33,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
+            app:itemIconTint="@drawable/selector_bottom_view"
+            app:itemTextColor="@drawable/selector_bottom_view"
             android:background="?android:attr/windowBackground"
-            app:itemBackground="@color/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

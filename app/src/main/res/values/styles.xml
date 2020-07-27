@@ -28,11 +28,11 @@
 
     <style name="AppTheme.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:fontFamily">@font/font_raleway_semibold</item>
     </style>
     <style name="StyleMenuNext">
         <item name="android:textSize">@dimen/size_20</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:fontFamily">@font/font_raleway_semibold</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -53,15 +53,17 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:background">@drawable/rounded_border_colored</item>
         <item name="android:textSize">@dimen/size_14</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_bold</item>
     </style>
 
     <style name="StyleButtonFb" parent="StyleButtonNext">
+        <item name="android:textSize">@dimen/size_12</item>
         <item name="android:background">@drawable/rounded_border_colored_fb</item>
     </style>
 
     <style name="StyleButtonGPlus" parent="StyleButtonNext">
+        <item name="android:textSize">@dimen/size_12</item>
         <item name="android:background">@drawable/rounded_border_colored_gplus</item>
     </style>
 
@@ -69,24 +71,12 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/size_14</item>
         <item name="android:background">@drawable/rounded_border_colored_slim</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:fontFamily">@font/font_raleway_semibold</item>
         <item name="android:paddingBottom">@dimen/margin_12</item>
         <item name="android:paddingTop">@dimen/margin_12</item>
         <item name="android:paddingLeft">@dimen/margin_6</item>
         <item name="android:paddingRight">@dimen/margin_6</item>
         <item name="android:textAllCaps">true</item>
-    </style>
-
-    <style name="StyleNormalButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="strokeColor">@color/colorPrimary</item>
-        <item name="android:background">@drawable/rounded_border_colored_slim</item>
-        <item name="android:textSize">@dimen/size_16</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
-        <item name="android:paddingBottom">@dimen/margin_12</item>
-        <item name="android:paddingTop">@dimen/margin_12</item>
-        <item name="android:paddingLeft">@dimen/margin_6</item>
-        <item name="android:paddingRight">@dimen/margin_6</item>
     </style>
 
     <style name="CustomAlertDialogStyle">
@@ -105,91 +95,68 @@
     <style name="HeaderSmall">
         <item name="android:textColor">@color/colorLabel</item>
         <item name="android:textSize">@dimen/size_12</item>
-        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
     </style>
 
     <style name="HeaderMedium">
         <item name="android:textColor">@color/colorLabel</item>
         <item name="android:textSize">@dimen/size_16</item>
-        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
     </style>
 
     <style name="HeaderToolbar">
-        <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:textSize">@dimen/size_18</item>
+        <item name="android:textColor">@color/screenTitleColor</item>
+        <item name="android:textSize">@dimen/size_20</item>
         <item name="android:layout_marginLeft">-10dp</item>
-        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/font_raleway_bold</item>
     </style>
 
-    <style name="pathStyle" parent="HeaderMedium">
-        <item name="android:textColor">@color/hyperlinkBlue</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
-    </style>
 
     <style name="HeaderLarge">
         <item name="android:textColor">@color/colorLabel</item>
         <item name="android:textSize">@dimen/size_18</item>
-        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
+    </style>
+
+    <style name="HeaderOrderHistoryTitle">
+        <item name="android:textColor">@color/colorScreenTitle</item>
+        <item name="android:textSize">@dimen/size_18</item>
+        <item name="android:fontFamily">@font/font_raleway_bold</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+
+    <style name="HeaderEmptyView">
+        <item name="android:textColor">@color/emptyViewColor</item>
+        <item name="android:textSize">@dimen/size_18</item>
+        <item name="android:fontFamily">@font/font_raleway_semibold</item>
     </style>
 
     <style name="HeaderSemiMedium">
         <item name="android:textColor">@color/colorLabel</item>
         <item name="android:textSize">@dimen/size_14</item>
-        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
     </style>
 
-
-    <style name="StyleDashboard">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">@dimen/size_40</item>
-        <item name="android:fontFamily">@font/sourcesanspro_regular</item>
-    </style>
-    <style name="StyleDashboardHeader">
-        <item name="android:textColor">@color/inputTextColor</item>
-        <item name="android:textSize">@dimen/size_14</item>
-        <item name="android:fontFamily">@font/sourcesanspro_regular</item>
-        <item name="android:layout_margin">@dimen/margin_10</item>
-    </style>
-
-    <style name="HelpDeskTitle">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">@dimen/size_18</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
-    </style>
-
-    <style name="HelpDeskDescription">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">@dimen/size_14</item>
-        <item name="android:fontFamily">@font/sourcesanspro_regular</item>
-    </style>
 
     <style name="HeaderExtraLarge">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/size_20</item>
-        <item name="android:fontFamily">@font/sourcesanspro_regular</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
     </style>
 
     <style name="HeaderScreenTitle">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/margin_36</item>
-        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/font_montserrat_bold</item>
     </style>
 
-    <style name="fab">
-        <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:textSize">@dimen/size_16</item>
-        <item name="android:fontFamily">@font/sourcesanspro_regular</item>
-    </style>
-
-    <style name="HelperText">
-        <item name="android:textColor">@color/darkGray</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/sourcesanspro_regular</item>
-    </style>
-
-    <style name="MyTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="MyTextInputLayout" parent="Widget.Design.TextInputLayout">
         <item name="boxStrokeColor">@color/colorWhite</item>//boxBorderColor
         <item name="android:layout_marginTop">@dimen/margin_10</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="MyTextInputLayoutWithDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
@@ -199,37 +166,32 @@
 
     <style name="MyTextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
         <item name="android:textColor">@color/inputTextColor</item>//textColor
-        <item name="android:textSize">@dimen/size_14</item>//textSize
-        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:textSize">@dimen/size_16</item>//textSize
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
         <item name="android:textColorHint">@color/colorBlackOpacity</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:paddingTop">@dimen/margin_15</item>
     </style>
 
   <style name="MyTextInputPhoneNumberEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
         <item name="android:textColor">@color/inputTextColor</item>//textColor
         <item name="android:textSize">@dimen/size_18</item>//textSize
-        <item name="android:fontFamily">@font/sourcesanspro_regular</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
         <item name="android:textColorHint">@color/colorBlackOpacity</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="MyAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/size_14</item>
+        <item name="android:padding">@dimen/margin_20</item>
+        <item name="android:letterSpacing">1.8</item>
     </style>
 
     <style name="StyleSnackbar">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="TextLabel" parent="TextAppearance.AppCompat.Caption">
-
-    </style>
-
-    <style name="styleExpandableCard">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:fontFamily">@font/font_raleway_semibold</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -239,48 +201,41 @@
         <item name="android:windowNoTitle">false</item>
         <item name="android:textColor">@color/inputTextColor</item>//textColor
         <item name="android:textSize">@dimen/size_16</item>//textSize
-        <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:fontFamily">@font/font_raleway_regular</item>
         <item name="android:textColorHint">@color/colorBlackOpacity</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    </style>
-
-    <style name="searchStyle" parent="Widget.AppCompat.SearchView.ActionBar">
-        <item name="android:textSize">@dimen/margin_14</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textColorHint">@color/darkGray</item>
-        <item name="android:fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="SpinnerTitleStyle">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">@dimen/size_16</item>
-        <item name="android:fontFamily">@font/raleway_semibold</item>
-        <item name="android:layout_marginBottom">1dp</item>
-        <item name="android:layout_marginLeft">1dp</item>
-    </style>
-
-    <style name="SpinnerHelperStyle">
-        <item name="android:textColor">@color/colorBlackOpacity</item>
-        <item name="android:textSize">@dimen/size_12</item>
-        <item name="android:fontFamily">@font/raleway_medium</item>
-        <item name="android:layout_marginBottom">1dp</item>
-        <item name="android:layout_marginLeft">1dp</item>
     </style>
 
     <style name="StyleWalkthroughTitle">
         <item name="android:textColor">@color/colorLabel</item>
         <item name="android:textSize">@dimen/size_24</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/raleway_regular</item>
+        <item name="android:fontFamily">@font/font_raleway_bold</item>
     </style>
 
     <style name="StyleWalkthroughSubTitle">
         <item name="android:textColor">@color/walkthrough_subtitle</item>
         <item name="android:textSize">@dimen/size_16</item>
-        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
         <item name="android:layout_marginBottom">1dp</item>
         <item name="android:layout_marginLeft">1dp</item>
     </style>
 
+    <style name="ProfileHeaderStyle">
+        <item name="android:textColor">@color/colorScreenTitle</item>
+        <item name="android:textSize">@dimen/size_16</item>
+        <item name="android:fontFamily">@font/font_raleway_bold</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+    </style>
+
+    <style name="ProfileSubHeaderStyle">
+        <item name="android:textColor">@color/walkthrough_subtitle</item>
+        <item name="android:textSize">@dimen/size_14</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
+    </style>
+
+    <color name="screenTitleColor">#141618</color>
+    <color name="hintColor">#868686</color>
 </resources>

@@ -37,13 +37,13 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    style="@style/HeaderSemiMedium"
+                    style="@style/StyleWalkthroughSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_5"
                     android:gravity="left"
                     android:text="@string/txt_signin_header_message"
-                    android:textColor="@color/colorScreenTitle" />
+                    android:textColor="@color/walkthrough_subtitle" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/emailInputLayout"
@@ -149,6 +149,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_20"
                     android:text="@string/txt_connect_with_fb"
+                    android:drawableLeft="@drawable/ic_fb"
+                    android:paddingLeft="@dimen/margin_10"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtOr" />
@@ -158,7 +160,9 @@
                     style="@style/StyleButtonGPlus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_12"
+                    android:drawableLeft="@drawable/ic_gplus"
                     android:layout_marginBottom="@dimen/margin_10"
                     android:text="@string/txt_connect_with_google"
                     app:layout_constraintLeft_toLeftOf="parent"

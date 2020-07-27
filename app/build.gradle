@@ -13,7 +13,7 @@ android {
         multiDexEnabled =true
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.0"
+        versionName "0.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -60,8 +60,8 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.10.2'
 
     //Navigation
-    implementation "androidx.navigation:navigation-fragment:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
     //For Permission
     implementation "org.permissionsdispatcher:permissionsdispatcher:$rootProject.permissionVersion"
@@ -91,9 +91,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.afollestad:viewpagerdots:1.0.0'
-
-    implementation 'com.github.tizisdeepan:dots:1.0.1'
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 }
 repositories {
     mavenCentral()

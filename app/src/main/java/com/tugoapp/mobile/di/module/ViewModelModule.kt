@@ -4,6 +4,9 @@ import com.tugoapp.mobile.TugoApplication
 import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.ui.RootViewModel
 import com.tugoapp.mobile.ui.home.HomeViewModel
+import com.tugoapp.mobile.ui.login.AddPhoneNumberViewModel
+import com.tugoapp.mobile.ui.login.FragmentVerifyOTP
+import com.tugoapp.mobile.ui.login.VerifyOTPViewModel
 import com.tugoapp.mobile.ui.orders.OrdersViewModel
 import com.tugoapp.mobile.ui.profile.ProfileViewModel
 import com.tugoapp.mobile.ui.splash.SplashViewModel
@@ -47,5 +50,20 @@ class ViewModelModule {
     fun profileViewModel(application: TugoApplication?, service: MerchantApiService?): ProfileViewModel {
         return ProfileViewModel(application,service!!)
     }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(AddPhoneNumberViewModel::class)
+    fun addPhoneNumberViewModel(application: TugoApplication?, service: MerchantApiService?): AddPhoneNumberViewModel {
+        return AddPhoneNumberViewModel(application,service!!)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(VerifyOTPViewModel::class)
+    fun verifyOtpViewModel(application: TugoApplication?, service: MerchantApiService?): VerifyOTPViewModel {
+        return VerifyOTPViewModel(application,service!!)
+    }
+
 
 }

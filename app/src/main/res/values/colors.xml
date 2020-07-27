@@ -40,5 +40,9 @@
     <color name="colorFbBlue">#395998</color>
     <color name="colorGPlus">#4285F4</color>
     <color name="colorScreenTitle">#141618</color>
+    <color name="unselectedTabcolor">#979797</color>
+    <color name="bgColor">#F5F7F9</color>
+    <color name="emptyViewColor">#959595</color>
+
 
 </resources>
