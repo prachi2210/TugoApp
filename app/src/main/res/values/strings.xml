@@ -99,4 +99,10 @@
     <string name="txt_message_us">Message Us</string>
     <string name="txt_reorder_this_plan">Reorder this plan</string>
     <string name="txt_write_comment">Write a comment</string>
+    <string name="txt_header_home">Find the right meal preps for you</string>
+    <string name="hint_searchview_home">looking for a specific provider?</string>
+    <string name="txt_browse_by_diet">Browse by diet</string>
+    <string name="txt_browse_all_providers">Browse all providers</string>
+    <string name="txt_lets_find_you_meal_plan">Lets find you a meal plan</string>
+    <string name="txt_view_all">View All</string>
 </resources>

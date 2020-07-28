@@ -4,7 +4,7 @@
 <!--    <color name="colorPrimaryDark">#00191c</color>-->
 <!--    <color name="colorAccent">#ff9d3f</color>-->
     <color name="colorPrimary">#27AE60</color>
-    <color name="colorPrimaryDark">#27AE60</color>
+    <color name="colorPrimaryDark">@color/colorWhite</color>
     <color name="colorAccent">#BB6729</color>
 
     <color name="colorBlue">#2b71b6</color>
@@ -45,6 +45,7 @@
     <color name="emptyViewColor">#959595</color>
     <color name="colorRed">#E76A56</color>
     <color name="colorYellow">#F8B64C</color>
-
+    <color name="screenTitleColor">#141618</color>
+    <color name="hintColor">#868686</color>
 
 </resources>

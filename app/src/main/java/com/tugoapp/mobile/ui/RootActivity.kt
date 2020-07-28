@@ -59,12 +59,12 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
                     || destination.id == R.id.fragmentSignUp || destination.id == R.id.fragmentWelcome) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.GONE
-            } else if (destination.id == R.id.fragmentHome || destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
+            } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
+                toolbar.visibility = View.VISIBLE
                 navigationView.visibility = View.VISIBLE
-                toolbar.visibility = View.VISIBLE
-            } else if (destination.id == R.id.fragmentOrderDetail) {
-                toolbar.visibility = View.VISIBLE
-                navigationView.visibility = View.GONE
+            } else if(destination.id == R.id.fragmentHome){
+                toolbar.visibility = View.GONE
+                navigationView.visibility = View.VISIBLE
             } else {
                 toolbar.visibility = View.VISIBLE
                 navigationView.visibility = View.GONE

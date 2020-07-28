@@ -249,6 +249,5 @@
         <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
     </style>
 
-    <color name="screenTitleColor">#141618</color>
-    <color name="hintColor">#868686</color>
+
 </resources>
