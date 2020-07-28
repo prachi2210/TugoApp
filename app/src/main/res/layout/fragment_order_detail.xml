@@ -186,7 +186,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_20"
+                            android:layout_marginTop="@dimen/margin_15"
                             android:background="@color/bgColor"
                             android:orientation="vertical"
                             android:padding="@dimen/margin_10">
@@ -247,10 +247,11 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llPauseCancel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_20"
-                            android:layout_marginBottom="@dimen/margin_10"
+                            android:layout_marginTop="@dimen/margin_15"
+                            android:layout_marginBottom="@dimen/margin_20"
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatButton
@@ -276,6 +277,33 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/llReorderOrWrite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnReorder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/StyleButtonNext"
+                        android:textColor="@color/colorWhite"
+                        android:background="@drawable/rounded_border_colored_yellow"
+                        android:text="@string/txt_reorder_this_plan"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnWriteComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/StyleButtonNext"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:text="@string/txt_write_comment"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMessageUs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15"

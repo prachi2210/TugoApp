@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.ui.base.OnListItemClickListener
 
 class OrderHistoryListAdapter(private val context: Context,
                               private val list: ArrayList<String>,
-                              private val cellClickListener: OnCellClickListener
+                              private val cellClickListener: OnListItemClickListener
 ) : RecyclerView.Adapter<OrderHistoryListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -35,7 +36,7 @@ class OrderHistoryListAdapter(private val context: Context,
 //        holder.subtitleTV.text = data.subtitle
 
         holder.itemView.setOnClickListener {
-            cellClickListener.onCellClickListener(position)
+            cellClickListener.onListItemClick(position)
         }
     }
 }

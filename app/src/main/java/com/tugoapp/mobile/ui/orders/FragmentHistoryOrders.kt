@@ -5,21 +5,18 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
+import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.fragment_history_orders.*
 import javax.inject.Inject
 
 
 class FragmentHistoryOrders : BaseFragment<HistoryOrdersViewModel?>() {
-    public interface OnOrderItemSelectedListener {
-        fun onOrderSelectionSet(data: String)
-    }
 
-    private lateinit var mOnPlayerSelectionSetListener: OnOrderItemSelectedListener
+    private lateinit var mOnOrderSelected: OnListItemClickListener
 
     @JvmField
     @Inject
@@ -39,7 +36,7 @@ class FragmentHistoryOrders : BaseFragment<HistoryOrdersViewModel?>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
-            mOnPlayerSelectionSetListener = parentFragment as OnOrderItemSelectedListener
+            mOnOrderSelected = parentFragment as OnListItemClickListener
         } catch (e: ClassCastException) {
             throw ClassCastException("$fragment must implement OnPlayerSelectionSetListener")
         }
@@ -66,9 +63,9 @@ class FragmentHistoryOrders : BaseFragment<HistoryOrdersViewModel?>() {
         users.add("t1")
         users.add("t1")
         val adapter = mContext?.let {
-            OrderHistoryListAdapter(it, users, object : OnCellClickListener {
-                override fun onCellClickListener(position: Int) {
-                    mOnPlayerSelectionSetListener.onOrderSelectionSet(users.get(position))
+            OrderHistoryListAdapter(it, users, object : OnListItemClickListener {
+                override fun onListItemClick(position: Int) {
+                   // mOnOrderSelected.onListItemClick(users.get(position))
                 }
             })
         }

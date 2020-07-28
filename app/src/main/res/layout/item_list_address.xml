@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_10"
+        android:background="@drawable/bg_card"
+        android:elevation="@dimen/margin_20"
+        android:padding="@dimen/margin_5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="@dimen/margin_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_marker"
+                android:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/txtAddress"
+                style="@style/HeaderSemiMedium"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:padding="@dimen/margin_10"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="230, Baker Rd, Chicago, IL, 60315, USA" />
+
+            <ImageView
+                android:id="@+id/imgIsChecked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_right"
+                android:padding="@dimen/margin_10"
+                android:textColor="@color/emptyViewColor" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -97,4 +97,6 @@
     <string name="txt_pause">Pause</string>
     <string name="txt_cancel">Cancel</string>
     <string name="txt_message_us">Message Us</string>
+    <string name="txt_reorder_this_plan">Reorder this plan</string>
+    <string name="txt_write_comment">Write a comment</string>
 </resources>

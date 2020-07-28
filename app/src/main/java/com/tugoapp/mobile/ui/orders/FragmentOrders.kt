@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
+import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_orders.*
 import javax.inject.Inject
 
-class FragmentOrders : BaseFragment<OrdersViewModel?>() , FragmentHistoryOrders.OnOrderItemSelectedListener {
+class FragmentOrders : BaseFragment<OrdersViewModel?>() , OnListItemClickListener {
     private lateinit var mTabsAdapter: TabsAdapter
 
 
@@ -49,8 +50,8 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>() , FragmentHistoryOrders.
         tabLayout.setupWithViewPager(orderViewPager)
     }
 
-    override fun onOrderSelectionSet(data: String) {
+    override fun onListItemClick(position: Int) {
         CommonUtils.showToast(mContext,"coming soon.")
-       // Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail)
+        // Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail)
     }
 }
