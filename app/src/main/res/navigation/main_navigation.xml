@@ -29,6 +29,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentOrderDetails"
+            app:destination="@id/fragmentOrderDetails"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -78,16 +85,32 @@
             app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentChangePswd"
-            app:destination="@id/fragmentChangePswd" />
+            app:destination="@id/fragmentChangePswd"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentPersonalInformation"
-            app:destination="@id/fragmentPersonalInformation" />
+            app:destination="@id/fragmentPersonalInformation"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentPaymentMethods"
-            app:destination="@id/fragmentPaymentMethods" />
+            app:destination="@id/fragmentPaymentMethods"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentManageAddress"
-            app:destination="@id/fragmentManageAddress" />
+            app:destination="@id/fragmentManageAddress"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentWalkthrough"
@@ -176,7 +199,11 @@
         android:label="@string/title_payment_methods" >
         <action
             android:id="@+id/action_fragmentPaymentMethods_to_fragmentAddPaymentMethod"
-            app:destination="@id/fragmentAddPaymentMethod" />
+            app:destination="@id/fragmentAddPaymentMethod"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentManageAddress"
@@ -184,7 +211,11 @@
         android:label="@string/title_delivery_address" >
         <action
             android:id="@+id/action_fragmentManageAddress_to_fragmentAddAddress"
-            app:destination="@id/fragmentAddAddress" />
+            app:destination="@id/fragmentAddAddress"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentAddAddress"
@@ -194,4 +225,8 @@
         android:id="@+id/fragmentAddPaymentMethod"
         android:name="com.tugoapp.mobile.ui.profile.FragmentAddPaymentMethod"
         android:label="@string/txt_add_a_new_card" />
+    <fragment
+        android:id="@+id/fragmentOrderDetails"
+        android:name="com.tugoapp.mobile.ui.orderdetail.FragmentOrderDetails"
+        android:label="@string/title_order_detail" />
 </navigation>

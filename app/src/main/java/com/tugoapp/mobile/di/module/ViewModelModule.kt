@@ -5,8 +5,8 @@ import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.ui.RootViewModel
 import com.tugoapp.mobile.ui.home.HomeViewModel
 import com.tugoapp.mobile.ui.login.AddPhoneNumberViewModel
-import com.tugoapp.mobile.ui.login.FragmentVerifyOTP
 import com.tugoapp.mobile.ui.login.VerifyOTPViewModel
+import com.tugoapp.mobile.ui.orderdetail.OrderDetailsViewModel
 import com.tugoapp.mobile.ui.orders.OrdersViewModel
 import com.tugoapp.mobile.ui.profile.*
 import com.tugoapp.mobile.ui.splash.SplashViewModel
@@ -106,6 +106,13 @@ class ViewModelModule {
     @ViewModelKey(AddAddressViewModel::class)
     fun addAddressViewModel(application: TugoApplication?, service: MerchantApiService?): AddAddressViewModel {
         return AddAddressViewModel(application,service!!)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(OrderDetailsViewModel::class)
+    fun orderDetailsViewModel(application: TugoApplication?, service: MerchantApiService?): OrderDetailsViewModel {
+        return OrderDetailsViewModel(application,service!!)
     }
 
 

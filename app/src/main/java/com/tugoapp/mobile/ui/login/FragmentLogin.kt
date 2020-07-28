@@ -43,7 +43,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
 
     private fun initControls() {
         txtLoginSignUp.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentSignUp)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentOrderDetails)
         })
     }
 }

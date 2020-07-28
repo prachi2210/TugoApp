@@ -43,6 +43,8 @@
     <color name="unselectedTabcolor">#979797</color>
     <color name="bgColor">#F5F7F9</color>
     <color name="emptyViewColor">#959595</color>
+    <color name="colorRed">#E76A56</color>
+    <color name="colorYellow">#F8B64C</color>
 
 
 </resources>

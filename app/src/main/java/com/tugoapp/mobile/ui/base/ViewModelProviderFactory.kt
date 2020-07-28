@@ -7,9 +7,9 @@ import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.ui.RootViewModel
 import com.tugoapp.mobile.ui.home.HomeViewModel
 import com.tugoapp.mobile.ui.login.*
+import com.tugoapp.mobile.ui.orderdetail.OrderDetailsViewModel
 import com.tugoapp.mobile.ui.orders.HistoryOrdersViewModel
 import com.tugoapp.mobile.ui.orders.OngoingOrdersViewModel
-import com.tugoapp.mobile.ui.orders.OrderDetailViewModel
 import com.tugoapp.mobile.ui.orders.OrdersViewModel
 import com.tugoapp.mobile.ui.profile.*
 import com.tugoapp.mobile.ui.splash.SplashViewModel
@@ -66,10 +66,6 @@ class ViewModelProviderFactory @Inject constructor(private val application: Appl
                 HistoryOrdersViewModel(application, apiservice) as T
             }
 
-            modelClass.isAssignableFrom(OrderDetailViewModel::class.java) -> {
-                OrderDetailViewModel(application, apiservice) as T
-            }
-
             modelClass.isAssignableFrom(PersonalInformationViewModel::class.java) -> {
                 PersonalInformationViewModel(application, apiservice) as T
             }
@@ -92,6 +88,10 @@ class ViewModelProviderFactory @Inject constructor(private val application: Appl
 
             modelClass.isAssignableFrom(AddPaymentMethodViewModel::class.java) -> {
                 AddPaymentMethodViewModel(application, apiservice) as T
+            }
+
+            modelClass.isAssignableFrom(OrderDetailsViewModel::class.java) -> {
+                OrderDetailsViewModel(application, apiservice) as T
             }
 
 

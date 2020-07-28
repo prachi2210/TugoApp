@@ -91,4 +91,10 @@
     <string name="txt_btn_add_address">Add address</string>
     <string name="txt_btn_redeem_plan">Redeem this plan</string>
     <string name="txt_btn_write_comment">Write a comment</string>
+    <string name="txt_order_summary">Order Summary</string>
+    <string name="txt_total_paid">Total Paid</string>
+    <string name="txt_payment">Payment</string>
+    <string name="txt_pause">Pause</string>
+    <string name="txt_cancel">Cancel</string>
+    <string name="txt_message_us">Message Us</string>
 </resources>
