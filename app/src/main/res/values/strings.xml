@@ -108,4 +108,20 @@
     <string name="txt_discover_all">Discover All</string>
     <string name="txt_meal_providers">Meal Providers</string>
     <string name="txt_starting_from">Starting from</string>
+    <string name="txt_customize_your_result">Customize your results</string>
+    <string name="txt_meal_plan_price">Meal plan price</string>
+    <string name="txt_delivers_to">Delivers to</string>
+    <string name="txt_minimum_meals_available">Minimum Meals Available</string>
+    <string name="txt_trial_meal">Trial Meals</string>
+    <string name="txt_available">Available</string>
+    <string name="txt_delivers_on">Delivers on</string>
+    <string name="txt_select_meal_per_day">Select meal / day</string>
+    <string name="txt_minus">-</string>
+    <string name="txt_select_day_for_plan">Select days / plan</string>
+    <string name="txt_trial_meal_available">Trial Meal Available</string>
+    <string name="txt_try_now">Try now</string>
+    <string name="txt_your_plan">Your Plan</string>
+    <string name="txt_select_plan">Select Plan</string>
+    <string name="txt_delivery_location">Delivery Location</string>
+    <string name="txt_edit_address">(Edit address)</string>
 </resources>

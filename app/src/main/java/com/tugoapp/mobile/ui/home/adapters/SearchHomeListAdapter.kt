@@ -1,18 +1,14 @@
-package com.tugoapp.mobile.ui.home
+package com.tugoapp.mobile.ui.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
-import com.tugoapp.mobile.ui.orders.OrderHistoryListAdapter
-import kotlinx.android.synthetic.main.fragment_history_orders.*
 
 class SearchHomeListAdapter(private val context: Context,
                             private val list: ArrayList<Int>,

@@ -1,21 +1,19 @@
 package com.tugoapp.mobile.ui.home
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
-import com.tugoapp.mobile.ui.orders.OrderHistoryListAdapter
+import com.tugoapp.mobile.ui.home.adapters.CategoryListAdapter
+import com.tugoapp.mobile.ui.home.adapters.SearchHomeListAdapter
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_browse_all_providers.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {

@@ -1,11 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar1" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_header_customize" />
+
+            <LinearLayout
+                android:id="@+id/llHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_15">
+
+                <TextView
+                    style="@style/HeaderExtraLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_raleway_regular"
+                    android:gravity="center"
+                    android:text="@string/txt_customize_your_result"
+                    android:textColor="@color/colorWhite" />
+
+                <ImageView
+                    android:id="@+id/imgClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_close" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/llHeader"
+                android:layout_margin="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/colorWhite"
+                android:elevation="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/margin_20">
+
+                    <TextView
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_raleway_regular"
+                        android:text="@string/txt_meal_plan_price"
+                        android:textColor="@color/color444444" />
+
+                    <it.sephiroth.android.library.rangeseekbar.RangeSeekBar
+                        android:id="@+id/rangeSeekBar"
+                        style="@style/Base.Sephiroth.Widget.RangeSeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:max="100"
+                        app:range_progress_endValue="100"
+                        app:range_progress_startEnd_minDiff="10"
+                        app:range_progress_startValue="1" />
+
+                    <TextView
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_25"
+                        android:fontFamily="@font/font_raleway_regular"
+                        android:text="@string/txt_delivers_to"
+                        android:textColor="@color/color444444" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDeliversTo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:orientation="horizontal" />
+
+                    <TextView
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_25"
+                        android:fontFamily="@font/font_raleway_regular"
+                        android:text="@string/txt_minimum_meals_available"
+                        android:textColor="@color/color444444" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvMinimalMealsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:orientation="horizontal" />
+
+                    <TextView
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_25"
+                        android:fontFamily="@font/font_raleway_regular"
+                        android:text="@string/txt_trial_meal"
+                        android:textColor="@color/color444444" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:background="@drawable/rounded_border_colored_empty"
+                        android:backgroundTint="@color/grey"
+                        android:paddingLeft="@dimen/margin_30"
+                        android:paddingTop="@dimen/margin_5"
+                        android:paddingRight="@dimen/margin_30"
+                        android:paddingBottom="@dimen/margin_5"
+                        android:text="@string/txt_available"
+                        android:textColor="@color/color999999" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnUpdate"
+                            style="@style/StyleButtonNext"
+                            android:layout_width="wrap_content"
+                            android:background="@drawable/extra_rounded_border_colored"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_50"
+                            android:paddingRight="@dimen/margin_30"
+                            android:paddingLeft="@dimen/margin_30"
+                            android:fontFamily="@font/font_montserrat_regular"
+                            android:gravity="center"
+                            android:text="@string/txt_update" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
     </LinearLayout>
 </layout>

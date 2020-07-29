@@ -43,7 +43,7 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>() , OnListItemClickListene
 
     private fun iniUI() {
         mContext = context
-        mTabsAdapter = TabsAdapter(childFragmentManager)
+        mTabsAdapter  = TabsAdapter(childFragmentManager)
         mTabsAdapter.addFragment(FragmentOnGoingOrders(), "Ongoing")
         mTabsAdapter.addFragment(FragmentHistoryOrders(), "History")
         orderViewPager.adapter = mTabsAdapter

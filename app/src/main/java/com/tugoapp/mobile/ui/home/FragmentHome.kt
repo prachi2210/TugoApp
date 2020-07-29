@@ -3,7 +3,6 @@ package com.tugoapp.mobile.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +10,8 @@ import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.ui.home.adapters.BrowseByDietListAdapter
+import com.tugoapp.mobile.ui.home.adapters.SearchHomeListAdapter
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
@@ -83,7 +84,7 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
         val adapter = mContext?.let {
             SearchHomeListAdapter(it, data, object : OnListItemClickListener {
                 override fun onListItemClick(position: Int) {
-                    CommonUtils.showToast(mContext, "Clicked:" + position)
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders)
                 }
             })
         }

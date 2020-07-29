@@ -6,6 +6,32 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/HeaderSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:paddingLeft="@dimen/margin_20"
+                android:paddingRight="@dimen/margin_20"
+                android:paddingTop="@dimen/margin_2"
+                android:paddingBottom="@dimen/margin_2"
+                android:background="@drawable/extra_rounded_border_colored_empty"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/txt_delivers_on"/>
+
+            <TextView
+                android:id="@+id/deliveryDays"
+                style="@style/HeaderMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/screenTitleColor"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="Mon|Wed|Thu"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>

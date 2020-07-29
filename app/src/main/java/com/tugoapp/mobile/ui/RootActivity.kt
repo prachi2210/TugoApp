@@ -56,7 +56,7 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
         NavigationUI.setupWithNavController(navigationView, controller);
         controller.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.fragmentSplash || destination.id == R.id.fragmentWalkthrough || destination.id == R.id.fragmentLogin
-                    || destination.id == R.id.fragmentSignUp || destination.id == R.id.fragmentWelcome) {
+                    || destination.id == R.id.fragmentSignUp || destination.id == R.id.fragmentWelcome || destination.id == R.id.fragmentCustomizePlan) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.GONE
             } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
