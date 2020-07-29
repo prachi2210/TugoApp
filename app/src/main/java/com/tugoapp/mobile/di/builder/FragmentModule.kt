@@ -1,6 +1,9 @@
 package com.tugoapp.mobile.di.builder
 
+import com.tugoapp.mobile.ui.home.FragmentBrowseAllProviders
+import com.tugoapp.mobile.ui.home.FragmentCustomizePlan
 import com.tugoapp.mobile.ui.home.FragmentHome
+import com.tugoapp.mobile.ui.home.FragmentProviderDetails
 import com.tugoapp.mobile.ui.login.*
 import com.tugoapp.mobile.ui.orderdetail.FragmentOrderDetails
 import com.tugoapp.mobile.ui.orders.FragmentHistoryOrders
@@ -70,5 +73,15 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun bindAddPaymentMethod() : FragmentAddPaymentMethod?
+
+    @ContributesAndroidInjector
+    abstract fun bindBrowseAllProviders() : FragmentBrowseAllProviders?
+
+    @ContributesAndroidInjector
+    abstract fun bindCustomizePlan() : FragmentCustomizePlan?
+
+
+    @ContributesAndroidInjector
+    abstract fun bindProviderDetails() : FragmentProviderDetails?
 
 }

@@ -47,5 +47,9 @@
     <color name="colorYellow">#F8B64C</color>
     <color name="screenTitleColor">#141618</color>
     <color name="hintColor">#868686</color>
+    <color name="color252525">#252525</color>
+    <color name="color969696">#969696</color>
+    <color name="colorCCCCCC">#CCCCCC</color>
+    <color name="color999999">#999999</color>
 
 </resources>

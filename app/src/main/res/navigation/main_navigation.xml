@@ -56,6 +56,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentBrowseAllProviders"
+            app:destination="@id/fragmentBrowseAllProviders" />
     </fragment>
     <fragment
         android:id="@+id/fragmentOrders"
@@ -229,4 +232,31 @@
         android:id="@+id/fragmentOrderDetails"
         android:name="com.tugoapp.mobile.ui.orderdetail.FragmentOrderDetails"
         android:label="@string/title_order_detail" />
+    <fragment
+        android:id="@+id/fragmentBrowseAllProviders"
+        android:name="com.tugoapp.mobile.ui.home.FragmentBrowseAllProviders"
+        android:label="FragmentBrowseAllProviders" >
+        <action
+            android:id="@+id/action_fragmentBrowseAllProviders_to_fragmentCustomizePlan"
+            app:destination="@id/fragmentCustomizePlan"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentBrowseAllProviders_to_fragmentProviderDetails"
+            app:destination="@id/fragmentProviderDetails"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentCustomizePlan"
+        android:name="com.tugoapp.mobile.ui.home.FragmentCustomizePlan"
+        android:label="FragmentCustomizePlan" />
+    <fragment
+        android:id="@+id/fragmentProviderDetails"
+        android:name="com.tugoapp.mobile.ui.home.FragmentProviderDetails"
+        android:label="FragmentProviderDetails" />
 </navigation>

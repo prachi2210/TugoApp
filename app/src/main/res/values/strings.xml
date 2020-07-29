@@ -105,4 +105,7 @@
     <string name="txt_browse_all_providers">Browse all providers</string>
     <string name="txt_lets_find_you_meal_plan">Lets find you a meal plan</string>
     <string name="txt_view_all">View All</string>
+    <string name="txt_discover_all">Discover All</string>
+    <string name="txt_meal_providers">Meal Providers</string>
+    <string name="txt_starting_from">Starting from</string>
 </resources>

@@ -62,7 +62,7 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
             } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
                 toolbar.visibility = View.VISIBLE
                 navigationView.visibility = View.VISIBLE
-            } else if(destination.id == R.id.fragmentHome){
+            } else if(destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders){
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.VISIBLE
             } else {
