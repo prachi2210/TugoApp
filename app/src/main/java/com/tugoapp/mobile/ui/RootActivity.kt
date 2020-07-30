@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseActivity
+import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_root.*
 import javax.inject.Inject
 
 
-class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector {
+class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector, OnListItemClickListener {
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -60,7 +61,7 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
             || destination.id == R.id.fragmentSelectPlan || destination.id == R.id.fragmentOrderSummary|| destination.id == R.id.fragmentThankYou) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.GONE
-            } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
+            } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile || destination.id == R.id.fragmentOnGoingOrders || destination.id == R.id.fragmentHistoryOrders) {
                 toolbar.visibility = View.VISIBLE
                 navigationView.visibility = View.VISIBLE
             } else if(destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders){
@@ -91,5 +92,9 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
         } else {
             super.onBackPressed();
         }
+    }
+
+    override fun onListItemClick(position: Int) {
+
     }
 }

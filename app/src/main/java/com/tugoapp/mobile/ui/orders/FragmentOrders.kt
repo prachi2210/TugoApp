@@ -3,8 +3,13 @@ package com.tugoapp.mobile.ui.orders
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
@@ -13,9 +18,9 @@ import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_orders.*
 import javax.inject.Inject
 
-class FragmentOrders : BaseFragment<OrdersViewModel?>() , OnListItemClickListener {
-    private lateinit var mTabsAdapter: TabsAdapter
 
+class FragmentOrders : BaseFragment<OrdersViewModel?>()  {
+    private lateinit var mTabsAdapter: TabsAdapter
 
     @JvmField
     @Inject
@@ -43,15 +48,23 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>() , OnListItemClickListene
 
     private fun iniUI() {
         mContext = context
-        mTabsAdapter  = TabsAdapter(childFragmentManager)
-        mTabsAdapter.addFragment(FragmentOnGoingOrders(), "Ongoing")
-        mTabsAdapter.addFragment(FragmentHistoryOrders(), "History")
-        orderViewPager.adapter = mTabsAdapter
-        tabLayout.setupWithViewPager(orderViewPager)
-    }
+        var controller = activity?.let { Navigation.findNavController(it,R.id.child_container) };
 
-    override fun onListItemClick(position: Int) {
-        CommonUtils.showToast(mContext,"coming soon.")
-        // Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail)
+//        mTabsAdapter  = TabsAdapter(childFragmentManager)
+//        mTabsAdapter.addFragment(FragmentOnGoingOrders(), "Ongoing")
+//        mTabsAdapter.addFragment(FragmentHistoryOrders(), "History")
+//        orderViewPager.adapter = mTabsAdapter
+        tabLayout.setupWithViewPager(orderViewPager)
+
+        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when (tab.position) {
+                    0 -> controller?.navigate(R.id.action_fragmentHistoryOrders_to_fragmentOnGoingOrders, null)
+                    1 -> controller?.navigate(R.id.action_fragmentOnGoingOrders_to_fragmentHistoryOrders, null)
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
     }
 }

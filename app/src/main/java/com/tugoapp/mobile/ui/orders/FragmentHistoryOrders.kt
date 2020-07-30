@@ -1,10 +1,10 @@
 package com.tugoapp.mobile.ui.orders
 
-import android.R.attr.fragment
 import android.content.Context
 import android.os.Bundle
-import android.view.View
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
@@ -14,32 +14,33 @@ import kotlinx.android.synthetic.main.fragment_history_orders.*
 import javax.inject.Inject
 
 
-class FragmentHistoryOrders : BaseFragment<HistoryOrdersViewModel?>() {
+class FragmentHistoryOrders : BaseFragment<OrdersViewModel?>() {
 
     private lateinit var mOnOrderSelected: OnListItemClickListener
 
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
-    private var mViewModel: HistoryOrdersViewModel? = null
+    private var mViewModel: OrdersViewModel? = null
     var mContext: Context? = null
 
     override val layoutId: Int
         get() = R.layout.fragment_history_orders
 
-    override val viewModel: HistoryOrdersViewModel
+    override val viewModel: OrdersViewModel
         get() {
-            mViewModel = ViewModelProviders.of(this, factory).get(HistoryOrdersViewModel::class.java)
+            mViewModel = ViewModelProviders.of(this, factory).get(OrdersViewModel::class.java)
             return mViewModel!!
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        try {
-            mOnOrderSelected = parentFragment as OnListItemClickListener
-        } catch (e: ClassCastException) {
-            throw ClassCastException("$fragment must implement OnPlayerSelectionSetListener")
-        }
+
+//        try {
+//            mOnOrderSelected = parentFragment as OnListItemClickListener
+//        } catch (e: ClassCastException) {
+//            throw ClassCastException(parentFragment.toString() + " must implement OnPlayerSelectionSetListener")
+//        }
     }
 
     override fun onResume() {
@@ -47,9 +48,6 @@ class FragmentHistoryOrders : BaseFragment<HistoryOrdersViewModel?>() {
         iniUI()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     private fun iniUI() {
         mContext = context
@@ -65,7 +63,12 @@ class FragmentHistoryOrders : BaseFragment<HistoryOrdersViewModel?>() {
         val adapter = mContext?.let {
             OrderHistoryListAdapter(it, users, object : OnListItemClickListener {
                 override fun onListItemClick(position: Int) {
-                   // mOnOrderSelected.onListItemClick(users.get(position))
+                    /*val fm: FragmentManager? = childFragmentManager
+                    val fragm: FragmentOrders = fm?.findFragmentById(R.id.main_navigation) as FragmentOrders
+                    fragm?.sendNavigation()*/
+
+                   // FragmentOrders.click()
+                   // Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHistoryOrders_to_fragmentOrderDetail)
                 }
             })
         }

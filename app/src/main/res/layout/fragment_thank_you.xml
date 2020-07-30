@@ -75,8 +75,8 @@
                         android:padding="@dimen/margin_10">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_marginLeft="@dimen/margin_20"
                             android:src="@drawable/ic_lets_find_meal" />
 

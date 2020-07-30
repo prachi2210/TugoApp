@@ -7,9 +7,9 @@ import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.tugoapp.mobile.R
-import com.tugoapp.mobile.databinding.FragmentSplashBinding
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.BaseViewModel
+import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils.getAppVersion
@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_splash.*
 import javax.inject.Inject
 
 class FragmentOnGoingOrders : BaseFragment<OngoingOrdersViewModel?>() {
+
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -25,6 +26,7 @@ class FragmentOnGoingOrders : BaseFragment<OngoingOrdersViewModel?>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_ongoing_orders
+
 
     override val viewModel: OngoingOrdersViewModel
         get() {
