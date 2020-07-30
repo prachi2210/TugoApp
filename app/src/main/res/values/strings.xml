@@ -124,4 +124,24 @@
     <string name="txt_select_plan">Select Plan</string>
     <string name="txt_delivery_location">Delivery Location</string>
     <string name="txt_edit_address">(Edit address)</string>
+    <string name="txt_delivery_time">Delivery Time</string>
+    <string name="txt_available_timing">Available Timings</string>
+    <string name="txt_instructions_or_allergies">Instructions/allergies</string>
+    <string name="hint_add_instructions">Enter any instructions you wish to inform the provider</string>
+    <string name="txt_customize">Customize</string>
+    <string name="title_delivery">Delivery</string>
+    <string name="txt_location">Location</string>
+    <string name="txt_instructions">Instructions</string>
+    <string name="txt_total_amount_to_pay">Total amount to pay</string>
+    <string name="txt_choose_payment_method">Choose Payment Method</string>
+    <string name="txt_payment_method">Payment Method</string>
+    <string name="txt_payment_method_subtitle">Select your prefered card</string>
+    <string name="txt_add_a_new_payment_method">Add a new payment methos</string>
+    <string name="txt_pay">Pay</string>
+    <string name="txt_thank_you">Thank You</string>
+    <string name="txt_your_trans_success">Your transaction was successful</string>
+    <string name="txt_back_to_home">Back to home</string>
+    <string name="txt_view_plan"><u>View Plan</u></string>
+    <string name="txt_date">Date</string>
+    <string name="txt_paid_with">Paid with</string>
 </resources>

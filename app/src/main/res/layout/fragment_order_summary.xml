@@ -2,163 +2,240 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/bg_card"
+        android:elevation="@dimen/margin_2"
+        app:cardElevation="@dimen/margin_2">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/bg_toolbar"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/HeaderSmall"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10">
+
+                <TextView
+                    style="@style/HeaderLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_raleway_bold"
+                    android:text="@string/txt_order_summary" />
+
+                <TextView
+                    style="@style/HeaderSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:text="@string/txt_edit"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_10"
-                android:background="@drawable/rounded_border_colored"
-                android:backgroundTint="@color/colorPrimary"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingTop="@dimen/margin_2"
-                android:paddingRight="@dimen/margin_20"
-                android:paddingBottom="@dimen/margin_2"
-                android:text="@string/txt_delivers_on"
-                android:textColor="@color/colorWhite" />
+                android:layout_marginRight="@dimen/margin_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtPlanName"
+                    style="@style/HeaderMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_raleway_bold"
+                    android:text="Meal Plan" />
+
+                <TextView
+                    android:id="@+id/txtPlanAmount"
+                    style="@style/HeaderMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1233 AED"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/deliveryDays"
+                android:id="@+id/txtPlanDetail"
+                style="@style/HeaderSemiMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
+                android:text="Kcal Extra - Lifestyle Meal Plan" />
+
+            <TextView
+                android:id="@+id/txtPlanSub"
+                style="@style/HeaderSemiMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_2"
+                android:text="3 meals * 5 days a week for 20 days" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/grey" />
+
+            <TextView
                 style="@style/HeaderMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_10"
-                android:text="Mon|Wed|Thu"
-                android:textColor="@color/screenTitleColor" />
-        </LinearLayout>
+                android:fontFamily="@font/font_raleway_bold"
+                android:text="@string/txt_location" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@color/colorWhite"
-            android:elevation="@dimen/margin_2"
-            app:cardElevation="@dimen/margin_2">
+            <TextView
+                android:id="@+id/txtLocation"
+                style="@style/HeaderSemiMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_2"
+                android:text="230, Baker Road, Chicago, IL, 369852, USA" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/grey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/margin_10"
-                android:paddingTop="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/HeaderMedium"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/font_raleway_bold"
-                        android:text="@string/txt_delivery_location" />
-
-                    <TextView
-                        android:id="@+id/btnEditAddress"
-                        style="@style/HeaderSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/font_raleway_bold"
-                        android:text="@string/txt_edit_address"
-                        android:textColor="@color/colorPrimary" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_15"
-                    android:background="@color/grey" />
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/txtAddress"
-                    style="@style/HeaderSemiMedium"
-                    android:layout_width="match_parent"
+                    style="@style/HeaderMedium"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:layout_marginBottom="@dimen/margin_10"
-                    android:text="230, Baker Road, Chicago, IL, 63520, USA" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_raleway_bold"
+                    android:text="@string/txt_delivery_time" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@color/colorWhite"
-            android:elevation="@dimen/margin_2"
-            app:cardElevation="@dimen/margin_2">
+                <TextView
+                    android:id="@+id/txtDeliveryType"
+                    style="@style/HeaderMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FREE"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtDeliveryTime"
+                style="@style/HeaderSemiMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
+                android:text="6:00 AM" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/grey" />
+
+            <TextView
+                style="@style/HeaderMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/font_raleway_bold"
+                android:text="@string/txt_instructions" />
+
+            <TextView
+                android:id="@+id/txtInstructions"
+                style="@style/HeaderSemiMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
+                android:text="Do not use onions in the food. Leave food outside" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/grey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/margin_10"
-                android:paddingTop="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    style="@style/HeaderMedium"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_raleway_bold"
+                    android:text="@string/txt_total_amount_to_pay"
+                    android:textColor="@color/colorPrimary" />
 
-                    <TextView
-                        style="@style/HeaderMedium"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/font_raleway_bold"
-                        android:text="@string/txt_starting_from" />
-
-                    <TextView
-                        android:id="@+id/txtDuration"
-                        style="@style/HeaderSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/font_raleway_bold"
-                        android:text="Duration: 16 Days" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_15"
-                    android:background="@color/grey" />
-
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/txtPlanTotalAmount"
+                    style="@style/HeaderExtraLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_date"
-                    android:layout_margin="@dimen/margin_10"
-                    android:layout_weight="1">
+                    android:text="1233"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/txtStartdate"
-                        style="@style/HeaderSemiMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_10" />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_calender"
-                        android:layout_alignRight="@id/txtStartdate"/>
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtPlanTotalAmountUnit"
+                    style="@style/HeaderSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_2"
+                    android:gravity="bottom"
+                    android:text="AED"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnChoosePaymentMethod"
+                style="@style/StyleButtonNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_25"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_15"
+                android:text="@string/txt_choose_payment_method" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

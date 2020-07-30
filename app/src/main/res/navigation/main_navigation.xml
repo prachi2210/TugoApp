@@ -186,7 +186,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentOrderDetail"
-        android:name="com.tugoapp.mobile.ui.orders.FragmentOrderDetail"
+        android:name="com.tugoapp.mobile.ui.orderdetail.FragmentOrderDetails"
         android:label="@string/title_order_detail" />
     <fragment
         android:id="@+id/fragmentChangePswd"
@@ -258,5 +258,66 @@
     <fragment
         android:id="@+id/fragmentProviderDetails"
         android:name="com.tugoapp.mobile.ui.home.FragmentProviderDetails"
-        android:label="FragmentProviderDetails" />
+        android:label="@string/txt_meal_providers" >
+        <action
+            android:id="@+id/action_fragmentProviderDetails_to_fragmentSampleMenu"
+            app:destination="@id/fragmentSampleMenu"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentProviderDetails_to_fragmentSelectPlan"
+            app:destination="@id/fragmentSelectPlan"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentOrderSummary"
+        android:name="com.tugoapp.mobile.ui.home.FragmentOrderSummary"
+        android:label="FragmentOrderSummary" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSampleMenu"
+        android:name="com.tugoapp.mobile.ui.home.FragmentSampleMenu"
+        android:label="FragmentSampleMenu" />
+    <fragment
+        android:id="@+id/fragmentSelectPlan"
+        android:name="com.tugoapp.mobile.ui.home.FragmentSelectPlan"
+        android:label="FragmentSelectPlan" >
+        <action
+            android:id="@+id/action_fragmentSelectPlan_to_fragmentDeliveryDetail"
+            app:destination="@id/fragmentDeliveryDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDeliveryDetail"
+        android:name="com.tugoapp.mobile.ui.home.FragmentDeliveryDetail"
+        android:label="@string/title_delivery" >
+        <action
+            android:id="@+id/action_fragmentDeliveryDetail_to_fragmentOrderSummary"
+            app:destination="@id/fragmentOrderSummary"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_fragmentDeliveryDetail_to_fragmentThankYou"
+            app:destination="@id/fragmentThankYou" />
+    </fragment>
+    <dialog
+        android:id="@+id/fragmentSelectPaymentMethod"
+        android:name="com.tugoapp.mobile.ui.home.FragmentSelectPaymentMethod"
+        android:label="FragmentSelectPaymentMethod" />
+    <fragment
+        android:id="@+id/fragmentThankYou"
+        android:name="com.tugoapp.mobile.ui.home.FragmentThankYou"
+        android:label="FragmentThankYou" />
 </navigation>

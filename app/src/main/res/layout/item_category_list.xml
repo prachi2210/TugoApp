@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/rounded_border_colored"
+        android:background="@drawable/bg_rounded_border_colored"
         android:backgroundTint="@color/grey"
         android:paddingLeft="@dimen/margin_30"
         android:paddingRight="@dimen/margin_30"

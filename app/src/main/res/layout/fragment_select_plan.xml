@@ -56,7 +56,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/margin_20">
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingRight="@dimen/margin_20"
+            android:paddingLeft="@dimen/margin_20">
 
             <TextView
                 style="@style/HeaderSemiMedium"
@@ -118,7 +121,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/margin_20">
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_15"
+            android:paddingRight="@dimen/margin_20"
+            android:paddingLeft="@dimen/margin_20">
 
             <TextView
                 style="@style/HeaderSemiMedium"
@@ -178,15 +184,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_10"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:layout_marginRight="@dimen/margin_5"
+            android:layout_marginBottom="@dimen/margin_8"
             android:background="@drawable/bg_trial_meal"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="left|center"
+                android:layout_marginLeft="@dimen/margin_10"
                 android:orientation="vertical"
                 android:padding="@dimen/margin_10">
 
@@ -196,6 +205,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_raleway_bold"
                     android:text="@string/txt_trial_meal_available"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:gravity="center"
                     android:textColor="@color/colorPrimary" />
 
                 <TextView
@@ -204,6 +215,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="spend 200 AED for 7 days"
+                    android:layout_marginTop="@dimen/margin_2"
                     android:textColor="@color/screenTitleColor" />
             </LinearLayout>
 
@@ -212,8 +224,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="@dimen/margin_10"
-                android:background="@drawable/extra_rounded_border_colored_empty"
+                android:layout_marginRight="@dimen/margin_20"
+                android:background="@drawable/rounded_border_colored_empty"
                 android:gravity="right"
                 android:padding="@dimen/margin_10"
                 android:text="@string/txt_try_now"
@@ -224,8 +236,8 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_20"
-            android:layout_marginRight="@dimen/margin_20"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
             android:elevation="@dimen/margin_2"
             app:cardElevation="@dimen/margin_2">
 
@@ -247,10 +259,10 @@
                         android:src="@drawable/bg_plus_minus" />
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/ic_cart" />
+                        android:src="@drawable/ic_no_bg_cart" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -304,12 +316,22 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bgColor"
+            android:orientation="horizontal">
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSelectPlan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/StyleButtonNext"
-            android:layout_margin="@dimen/margin_20"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:layout_marginTop="@dimen/margin_15"
+            android:layout_marginBottom="@dimen/margin_10"
             android:text="@string/txt_select_plan"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>

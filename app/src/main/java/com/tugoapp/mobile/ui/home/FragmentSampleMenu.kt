@@ -13,10 +13,9 @@ import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_provider_details.*
 import javax.inject.Inject
 
-class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
+class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -24,7 +23,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     var mContext: Context? = null
 
     override val layoutId: Int
-        get() = R.layout.fragment_provider_details
+        get() = R.layout.fragment_sample_menu
 
     override val viewModel: HomeViewModel
         get() {
@@ -43,8 +42,6 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
 
     private fun iniUI() {
         mContext = context
-
-        imgSampleMenu.setOnClickListener(View.OnClickListener { Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSampleMenu) })
-        btnCustomize.setOnClickListener(View.OnClickListener { Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSelectPlan) })
     }
 }
+

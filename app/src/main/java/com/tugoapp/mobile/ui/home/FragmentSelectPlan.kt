@@ -3,20 +3,15 @@ package com.tugoapp.mobile.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
-import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
-import com.tugoapp.mobile.utils.CommonUtils
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_provider_details.*
+import kotlinx.android.synthetic.main.fragment_select_plan.*
 import javax.inject.Inject
 
-class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
+class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -24,7 +19,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     var mContext: Context? = null
 
     override val layoutId: Int
-        get() = R.layout.fragment_provider_details
+        get() = R.layout.fragment_select_plan
 
     override val viewModel: HomeViewModel
         get() {
@@ -44,7 +39,9 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private fun iniUI() {
         mContext = context
 
-        imgSampleMenu.setOnClickListener(View.OnClickListener { Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSampleMenu) })
-        btnCustomize.setOnClickListener(View.OnClickListener { Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSelectPlan) })
+        btnSelectPlan.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail)
+        })
     }
 }
+

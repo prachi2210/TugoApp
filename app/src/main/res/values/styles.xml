@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="actionMenuTextColor">@color/colorWhite</item>
         <item name="actionMenuTextAppearance">@style/StyleMenuNext</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -19,17 +20,18 @@
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">@color/colorPrimary</item>
 
-<!--        &lt;!&ndash; inactive thumb color &ndash;&gt;-->
-<!--        <item name="colorSwitchThumbNormal">@color/darkGray</item>-->
+        <!--        &lt;!&ndash; inactive thumb color &ndash;&gt;-->
+        <!--        <item name="colorSwitchThumbNormal">@color/darkGray</item>-->
 
-<!--        &lt;!&ndash; inactive track color (30% transparency) &ndash;&gt;-->
-<!--        <item name="android:colorForeground">#42221f1f</item>-->
+        <!--        &lt;!&ndash; inactive track color (30% transparency) &ndash;&gt;-->
+        <!--        <item name="android:colorForeground">#42221f1f</item>-->
     </style>
 
     <style name="AppTheme.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:fontFamily">@font/font_raleway_semibold</item>
     </style>
+
     <style name="StyleMenuNext">
         <item name="android:textSize">@dimen/size_20</item>
         <item name="android:fontFamily">@font/font_raleway_semibold</item>
@@ -51,7 +53,7 @@
 
     <style name="StyleButtonNext" parent="android:Widget.Material.Button.Colored">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:background">@drawable/rounded_border_colored</item>
+        <item name="android:background">@drawable/bg_rounded_border_colored</item>
         <item name="android:textSize">@dimen/size_14</item>
         <item name="android:letterSpacing">0.1</item>
         <item name="android:paddingTop">@dimen/margin_5</item>
@@ -72,24 +74,12 @@
 
     <style name="StyleButtonFb" parent="StyleButtonNext">
         <item name="android:textSize">@dimen/size_12</item>
-        <item name="android:background">@drawable/rounded_border_colored_fb</item>
+        <item name="android:background">@drawable/bg_rounded_border_colored_fb</item>
     </style>
 
     <style name="StyleButtonGPlus" parent="StyleButtonNext">
         <item name="android:textSize">@dimen/size_12</item>
-        <item name="android:background">@drawable/rounded_border_colored_gplus</item>
-    </style>
-
-    <style name="StyleDialogButton">
-        <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:textSize">@dimen/size_14</item>
-        <item name="android:background">@drawable/rounded_border_colored_slim</item>
-        <item name="android:fontFamily">@font/font_raleway_semibold</item>
-        <item name="android:paddingBottom">@dimen/margin_12</item>
-        <item name="android:paddingTop">@dimen/margin_12</item>
-        <item name="android:paddingLeft">@dimen/margin_6</item>
-        <item name="android:paddingRight">@dimen/margin_6</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/bg_rounded_border_colored_gplus</item>
     </style>
 
     <style name="CustomAlertDialogStyle">
@@ -186,7 +176,7 @@
         <item name="android:paddingTop">@dimen/margin_15</item>
     </style>
 
-  <style name="MyTextInputPhoneNumberEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+    <style name="MyTextInputPhoneNumberEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
         <item name="android:textColor">@color/inputTextColor</item>//textColor
         <item name="android:textSize">@dimen/size_18</item>//textSize
         <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
@@ -249,5 +239,12 @@
         <item name="android:fontFamily">@font/font_sf_pro_text_regular</item>
     </style>
 
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_border_bottom_sheet</item>
+    </style>
 
 </resources>
