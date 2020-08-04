@@ -146,4 +146,13 @@
     <string name="txt_paid_with">Paid with</string>
     <string name="txt_ongoing">Ongoing</string>
     <string name="txt_history">History</string>
+    <string name="txt_trial_meal_subtitle">This pack includes a 1-week portion of your exploration</string>
+    <string name="txt_have_some_questions">Have some questions?</string>
+    <string name="txt_let_us_know">Let us know!</string>
+    <string name="txt_no_trial_meal_title">No Trial Meals Available</string>
+    <string name="txt_no_trial_meal_subtitle">This provider currently has no trial plans available</string>
+    <string name="txt_info">Info</string>
+    <string name="txt_delivery_locations">Delivery Locations</string>
+    <string name="txt_readall">Read all></string>
+    <string name="err_fill_detail">Fill required detail</string>
 </resources>

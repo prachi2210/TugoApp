@@ -53,5 +53,8 @@
     <color name="color999999">#999999</color>
     <color name="color444444">#444444</color>
     <color name="colorCBCBCB">#CBCBCB</color>
+    <color name="colorA2A2A2">#A2A2A2</color>
+    <color name="color7E7E7E">#7E7E7E</color>
+    <color name="colorF8B64C">#F8B64C</color>
 
 </resources>

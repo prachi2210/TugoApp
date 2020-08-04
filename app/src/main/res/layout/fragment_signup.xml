@@ -65,7 +65,7 @@
                     app:hintTextAppearance="@style/MyAppearance">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtEmail"
+                        android:id="@+id/edtSignupEmail"
                         style="@style/MyTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtPswd"
+                        android:id="@+id/edtSignupPswd"
                         style="@style/MyTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

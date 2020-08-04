@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_orders.*
 import javax.inject.Inject
 
 
-class FragmentOrders : BaseFragment<OrdersViewModel?>()  {
+class FragmentOrders : BaseFragment<OrdersViewModel?>(), OnListItemClickListener  {
     private lateinit var mTabsAdapter: TabsAdapter
 
     @JvmField
@@ -66,5 +66,9 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>()  {
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+    }
+
+    override fun onListItemClick(position: Int) {
+        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail)
     }
 }

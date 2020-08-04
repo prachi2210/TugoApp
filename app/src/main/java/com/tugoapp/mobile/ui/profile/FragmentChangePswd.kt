@@ -35,6 +35,7 @@ class FragmentChangePswd : BaseFragment<ChangePswdViewModel?>() {
         iniUI()
     }
 
+
     private fun iniUI() {
         mContext = context
     }

@@ -35,7 +35,6 @@ class FragmentHistoryOrders : BaseFragment<OrdersViewModel?>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 //        try {
 //            mOnOrderSelected = parentFragment as OnListItemClickListener
 //        } catch (e: ClassCastException) {

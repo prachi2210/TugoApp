@@ -1,51 +1,402 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_10"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/HeaderSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingRight="@dimen/margin_20"
-                android:paddingTop="@dimen/margin_2"
-                android:paddingBottom="@dimen/margin_2"
-                android:background="@drawable/extra_rounded_border_colored_empty"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/txt_delivers_on"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/deliveryDays"
-                style="@style/HeaderMedium"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/screenTitleColor"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:text="Mon|Wed|Thu"/>
+                android:layout_margin="@dimen/margin_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/HeaderSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_border_colored_empty"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingTop="@dimen/margin_2"
+                    android:paddingRight="@dimen/margin_20"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:text="@string/txt_delivers_on"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/deliveryDays"
+                    style="@style/HeaderSemiMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="Mon|Wed|Thu"
+                    android:textColor="@color/screenTitleColor"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bgColor"
+                android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabMainProvidersType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/colorBlack"
+                    app:tabTextColor="@color/unselectedTabcolor">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_info" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_info" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_info" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_info" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <ImageView
+                    android:id="@+id/imgSampleMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:src="@drawable/ic_sample_menu" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabInfoLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:paddingLeft="@dimen/margin_15"
+                    android:paddingRight="@dimen/margin_15"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextColor="@color/unselectedTabcolor">
+
+                    <com.google.android.material.tabs.TabItem
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_info" />
+
+                    <com.google.android.material.tabs.TabItem
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_delivery_locations" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_5"
+                    android:background="@drawable/bg_toolbar"
+                    android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtInfoDeliveryLocation"
+                    style="@style/HeaderSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingTop="@dimen/margin_5"
+                    android:paddingRight="@dimen/margin_20"
+                    android:text="This plan is for people who is looking to loose weight but also not compromise on losing muscle. Perfect blend of protein and carbs."
+                    android:textColor="@color/screenTitleColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_marginRight="@dimen/margin_20"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/margin_5">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <RatingBar
+                                android:id="@+id/rateBar"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:backgroundTint="@color/colorF8B64C"
+                                android:foregroundTint="@color/colorF8B64C"
+                                android:rating="3"
+                                android:theme="@style/ThemeRatingBar" />
+
+                            <TextView
+                                android:id="@+id/txtRating"
+                                style="@style/HeaderSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_5"
+                                android:text="4.8"
+                                android:textColor="@color/colorPrimary" />
+
+                            <TextView
+                                android:id="@+id/txtCountReviews"
+                                style="@style/HeaderSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_2"
+                                android:text="(14 Reviews)"
+                                android:textColor="@color/color969696" />
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/HeaderSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_2"
+                            android:layout_marginRight="@dimen/margin_5"
+                            android:text="@string/txt_readall"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_marginRight="@dimen/margin_20"
+                        android:background="@color/emptyViewColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_25"
+                        android:layout_marginTop="@dimen/margin_5"
+                        android:layout_marginRight="@dimen/margin_5"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/HeaderSemiMedium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/font_raleway_regular"
+                                android:text="@string/txt_starting_from" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_2"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/StyleWalkthroughTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/font_poppins_bold"
+                                    android:text="2125"
+                                    android:textColor="@color/colorPrimary" />
+
+                                <TextView
+                                    style="@style/HeaderSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/margin_5"
+                                    android:fontFamily="@font/font_poppins_bold"
+                                    android:text="AED"
+                                    android:textColor="@color/colorPrimary" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnCustomize"
+                            style="@style/StyleButtonNext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/margin_20"
+                            android:layout_marginRight="@dimen/margin_20"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/margin_15"
+                            android:paddingRight="@dimen/margin_15"
+                            android:text="@string/txt_customize" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bgColor"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llTrialMealAvailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_12"
+                    android:layout_marginRight="@dimen/margin_12"
+                    android:layout_marginBottom="@dimen/margin_8"
+                    android:background="@drawable/bg_trial_meal"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_10">
+
+                        <TextView
+                            style="@style/HeaderSemiMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_raleway_bold"
+                            android:gravity="center"
+                            android:text="@string/txt_trial_meal_available"
+                            android:textColor="@color/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/txtTrianPlanData"
+                            style="@style/HeaderSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:text="@string/txt_trial_meal_subtitle"
+                            android:textColor="@color/screenTitleColor" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btnTryNow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/margin_20"
+                        android:background="@drawable/rounded_border_colored_empty"
+                        android:gravity="right"
+                        android:padding="@dimen/margin_10"
+                        android:text="@string/txt_try_now"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardNoTrialmeal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:background="@drawable/bg_card"
+                    android:elevation="@dimen/margin_2"
+                    android:visibility="gone"
+                    app:cardElevation="@dimen/margin_2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_10">
+
+                        <TextView
+                            style="@style/HeaderSemiMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_raleway_bold"
+                            android:text="@string/txt_no_trial_meal_title"
+                            android:textColor="@color/colorA2A2A2" />
+
+                        <TextView
+                            style="@style/HeaderSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_5"
+                            android:text="@string/txt_no_trial_meal_subtitle"
+                            android:textColor="@color/color7E7E7E" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_20"
+                    android:layout_marginBottom="@dimen/margin_20"
+                    android:background="@drawable/bg_card"
+                    android:elevation="@dimen/margin_2"
+                    app:cardElevation="@dimen/margin_2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/margin_10">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_questions" />
+
+                        <TextView
+                            style="@style/HeaderSemiMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:text="@string/txt_have_some_questions" />
+
+                        <TextView
+                            android:id="@+id/txtLetusKnow"
+                            style="@style/HeaderSemiMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:text="@string/txt_let_us_know"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imgSampleMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_sample_menu"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCustomize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/StyleButtonNext"
-            android:layout_margin="@dimen/margin_20"
-            android:text="@string/txt_customize"/>
-    </LinearLayout>
+    </ScrollView>
 </layout>
