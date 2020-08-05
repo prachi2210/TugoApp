@@ -37,84 +37,152 @@
                     android:textColor="@color/colorScreenTitle"
                     android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/nameInputLayout"
-                    style="@style/MyTextInputLayout"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
-                    app:hintTextAppearance="@style/MyAppearance">
+                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtName"
-                        style="@style/MyTextInputEditText"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nameInputLayout"
+                        style="@style/MyTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/txt_full_name"
-                        android:inputType="text"
-                        android:maxLength="50" />
+                        android:layout_marginTop="@dimen/margin_20"
+                        app:hintTextAppearance="@style/MyAppearance">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtName"
+                            style="@style/MyTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/txt_full_name"
+                            android:inputType="text"
+                            android:maxLength="50" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/emailInputLayout"
-                    style="@style/MyTextInputLayout"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgSignupFullNameRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin_18"
+                        android:layout_alignBottom="@id/nameInputLayout"
+                        android:paddingBottom="@dimen/margin_15"
+                        android:src="@drawable/ic_done"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10"
-                    app:hintTextAppearance="@style/MyAppearance">
+                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtSignupEmail"
-                        style="@style/MyTextInputEditText"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/emailInputLayout"
+                        style="@style/MyTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/txt_email_address"
-                        android:inputType="textEmailAddress"
-                        android:maxLength="50" />
+                        android:layout_marginTop="@dimen/margin_10"
+                        app:hintTextAppearance="@style/MyAppearance">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtSignupEmail"
+                            style="@style/MyTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/txt_email_address"
+                            android:inputType="textEmailAddress"
+                            android:maxLength="50" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tiPswd"
-                    style="@style/MyTextInputLayout"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgSignupEmailRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignBottom="@id/emailInputLayout"
+                        android:layout_marginRight="@dimen/margin_18"
+                        android:layout_marginBottom="@dimen/margin_15"
+                        android:src="@drawable/ic_done"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10"
-                    app:hintTextAppearance="@style/MyAppearance"
-                    app:passwordToggleEnabled="true">
+                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtSignupPswd"
-                        style="@style/MyTextInputEditText"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tiPswd"
+                        style="@style/MyTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/txt_pswd"
-                        android:inputType="textPassword"
-                        android:maxLength="50" />
+                        android:layout_marginTop="@dimen/margin_10"
+                        app:hintTextAppearance="@style/MyAppearance"
+                        app:passwordToggleEnabled="true">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtSignupPswd"
+                            style="@style/MyTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/txt_pswd"
+                            android:inputType="textPassword"
+                            android:maxLength="50" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tiConfirmPswd"
-                    style="@style/MyTextInputLayout"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgSignupPswdRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin_18"
+                        android:paddingBottom="@dimen/margin_30"
+                        android:src="@drawable/ic_done"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10"
-                    app:hintTextAppearance="@style/MyAppearance"
-                    app:passwordToggleEnabled="true">
+                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtConfirmPswd"
-                        style="@style/MyTextInputEditText"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tiConfirmPswd"
+                        style="@style/MyTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/txt_confirm_pswd"
-                        android:inputType="textPassword"
-                        android:maxLength="50" />
+                        android:layout_marginTop="@dimen/margin_10"
+                        app:hintTextAppearance="@style/MyAppearance"
+                        app:passwordToggleEnabled="true">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtConfirmPswd"
+                            style="@style/MyTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/txt_confirm_pswd"
+                            android:inputType="textPassword"
+                            android:maxLength="50" />
 
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgSignupConfirmPswdRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin_18"
+                        android:paddingBottom="@dimen/margin_30"
+                        android:src="@drawable/ic_done"
+                        android:visibility="gone"/>
+                </RelativeLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSignUp"

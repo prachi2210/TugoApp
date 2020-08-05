@@ -3,16 +3,20 @@ package com.tugoapp.mobile.ui.login
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_add_phone_number.*
 import java.util.concurrent.TimeUnit
@@ -57,33 +61,35 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
-               // signInWithPhoneAuthCredential(credential)
+                 signInWithPhoneAuthCredential(credential)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
                 if (e is FirebaseAuthInvalidCredentialsException) {
-                    // Invalid request
-                    // ...
+                    CommonUtils.showToast(mContext, "Invalid Request")
                 } else if (e is FirebaseTooManyRequestsException) {
-                    CommonUtils.showToast(mContext,"SMS limit excceed")
+                    CommonUtils.showToast(mContext, "SMS limit excceed")
+                } else {
+                    CommonUtils.showToast(mContext, e.localizedMessage)
                 }
-
-                // Show a message and update the UI
-                // ...
             }
 
-            override fun onCodeSent(
-                    verificationId: String,
-                    token: PhoneAuthProvider.ForceResendingToken
-            ) {
-                // The SMS verification code has been sent to the provided phone number, we
-                // now need to ask the user to enter the code and then construct a credential
-                // by combining the code with a verification ID.
+            override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
+                var bundle = bundleOf(AppConstant.FIREBASE_VERIFICATION_ID to verificationId,
+                        AppConstant.FIREBASE_RESEND_TOKEN to token, AppConstant.FIREBASE_PHONE_NUMBER to edtPhone.text.toString())
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentVerifyOTP,bundle)
+            }
+        }
+    }
 
-                // Save verification ID and resending token so we can use them later
-               // storedVerificationId = verificationId
-                //resendToken = token
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentVerifyOTP)
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+              Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentWalkthrough)
+            } else {
+                if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                    CommonUtils.showToast(mContext,"Invalid code")
+                }
             }
         }
     }
@@ -96,11 +102,18 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
 
     private fun doValidateAndAuthenticateNumber() {
 
-//        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-//                "7016500705",
-//                60,
-//                TimeUnit.SECONDS,
-//                this,
-//                mCallbacks)
+        var phone = edtPhone.text.toString()
+        if (phone.isNullOrBlank()) {
+            CommonUtils.showToast(mContext, getString(R.string.txt_err_phone_number))
+            return
+        }
+        activity?.let {
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    phone,
+                    60,
+                    TimeUnit.SECONDS,
+                    it,
+                    mCallbacks)
+        }
     }
 }

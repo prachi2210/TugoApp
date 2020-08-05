@@ -9,7 +9,6 @@ import android.view.Window
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseActivity
@@ -44,7 +43,7 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector,
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_root)
         mContext = this
         initToolbar()
@@ -53,19 +52,19 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector,
     private fun initToolbar() {
         val controller = Navigation.findNavController((mContext as Activity?)!!, R.id.fragmentNavHost)
         setSupportActionBar(toolbar)
-        NavigationUI.setupWithNavController(toolbar, controller);
-        NavigationUI.setupWithNavController(navigationView, controller);
+        NavigationUI.setupWithNavController(toolbar, controller)
+        NavigationUI.setupWithNavController(navigationView, controller)
         controller.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.fragmentSplash || destination.id == R.id.fragmentWalkthrough || destination.id == R.id.fragmentLogin
                     || destination.id == R.id.fragmentSignUp || destination.id == R.id.fragmentWelcome || destination.id == R.id.fragmentCustomizePlan
-                    || destination.id == R.id.fragmentSelectPlan || destination.id == R.id.fragmentOrderSummary|| destination.id == R.id.fragmentThankYou) {
+                    || destination.id == R.id.fragmentSelectPlan || destination.id == R.id.fragmentOrderSummary || destination.id == R.id.fragmentThankYou) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.GONE
             } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile || destination.id == R.id.fragmentOnGoingOrders
                     || destination.id == R.id.fragmentHistoryOrders || destination.id == R.id.fragmentProviderDetails) {
                 toolbar.visibility = View.VISIBLE
                 navigationView.visibility = View.VISIBLE
-            } else if(destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders){
+            } else if (destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.VISIBLE
             } else {
@@ -80,18 +79,11 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector,
                 || super.onSupportNavigateUp())
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
-
-            supportFragmentManager.popBackStack();
-
-
+            supportFragmentManager.popBackStack()
         } else {
-            super.onBackPressed();
+            super.onBackPressed()
         }
     }
 

@@ -53,7 +53,8 @@
                     android:layout_marginLeft="@dimen/margin_30"
                     android:layout_marginTop="@dimen/margin_50"
                     android:layout_marginRight="@dimen/margin_30"
-                    android:digits="4" />
+                    android:cursorVisible="false"
+                    android:maxLength="6"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnOtpContinue"

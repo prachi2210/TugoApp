@@ -159,4 +159,6 @@
     <string name="txt_confirm_logout">Are you sure you want to logout?</string>
     <string name="btn_yes">Yes</string>
     <string name="btn_no">No</string>
+    <string name="txt_err_phone_number">Please enter a valid phone number</string>
+    <string name="txt_err_valid_otp">Please enter valid code</string>
 </resources>

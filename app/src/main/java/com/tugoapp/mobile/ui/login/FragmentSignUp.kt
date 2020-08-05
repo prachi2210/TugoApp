@@ -2,7 +2,11 @@ package com.tugoapp.mobile.ui.login
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import androidx.core.widget.doOnTextChanged
+import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.gms.tasks.OnCompleteListener
@@ -50,6 +54,62 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
         mContext = context
         auth = FirebaseAuth.getInstance()
         initControls()
+
+        initTextChangeListener()
+    }
+
+    private fun initTextChangeListener() {
+        edtName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var name = s.toString()
+                if(!name.isNullOrBlank() && name.length >= 6) {
+                    imgSignupFullNameRight.visibility = View.VISIBLE
+                } else {
+                    imgSignupFullNameRight.visibility = View.GONE
+                }
+            }
+        })
+
+        edtSignupEmail.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var data = s.toString()
+                if(!data.isNullOrBlank() && com.tugoapp.mobile.utils.CommonUtils.isEmailValid(data)) {
+                    imgSignupEmailRight.visibility = View.VISIBLE
+                } else {
+                    imgSignupEmailRight.visibility = View.GONE
+                }
+            }
+        })
+
+        edtSignupPswd.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var data = s.toString()
+                if(!data.isNullOrBlank() && data.length >=6 ) {
+                    imgSignupPswdRight.visibility = View.VISIBLE
+                } else {
+                    imgSignupPswdRight.visibility = View.GONE
+                }
+            }
+        })
+
+        edtConfirmPswd.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var data = s.toString()
+                if(!data.isNullOrBlank() &&  data.length >=6 && edtSignupPswd.text.toString() == data) {
+                    imgSignupConfirmPswdRight.visibility = View.VISIBLE
+                } else {
+                    imgSignupConfirmPswdRight.visibility = View.GONE
+                }
+            }
+        })
     }
 
     private fun initControls() {

@@ -3,21 +3,36 @@ package com.tugoapp.mobile.ui.login
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.AppConstant
+import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_verify_otp.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
+    private lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
     private var mViewModel: VerifyOTPViewModel? = null
     var mContext: Context? = null
+    private var mResendToken : PhoneAuthProvider.ForceResendingToken? = null
+    private lateinit var mVerificationId : String
+    private lateinit var mPhoneNumber : String
 
     override val layoutId: Int
         get() = R.layout.fragment_verify_otp
@@ -39,12 +54,98 @@ class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
 
     private fun iniUI() {
         mContext = context
+        mResendToken = arguments?.getParcelable<PhoneAuthProvider.ForceResendingToken>(AppConstant.FIREBASE_RESEND_TOKEN)
+        mVerificationId = arguments?.getString(AppConstant.FIREBASE_VERIFICATION_ID).toString()
+        mPhoneNumber = arguments?.getString(AppConstant.FIREBASE_PHONE_NUMBER).toString()
+        if(mResendToken == null || mVerificationId.isNullOrBlank() || mPhoneNumber.isNullOrBlank()) {
+            CommonUtils.showToast(mContext,"Required info not found")
+            return
+        }
         initControls()
+        initCallbacks()
+    }
+
+    private fun initCallbacks() {
+        mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                // This callback will be invoked in two situations:
+                // 1 - Instant verification. In some cases the phone number can be instantly
+                //     verified without needing to send or enter a verification code.
+                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                //     detect the incoming verification SMS and perform verification without
+                //     user action.
+                signInWithPhoneAuthCredential(credential)
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                if (e is FirebaseAuthInvalidCredentialsException) {
+                    CommonUtils.showToast(mContext, "Invalid Reuest")
+                } else if (e is FirebaseTooManyRequestsException) {
+                    CommonUtils.showToast(mContext, "SMS limit excceed")
+                }
+            }
+
+            override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
+               CommonUtils.showToast(mContext,"Code Resent!")
+            }
+        }
+    }
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentVerifyOTP_to_fragmentWalkthrough)
+            } else {
+                if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                    CommonUtils.showToast(mContext,"Invalid code")
+                }
+            }
+        }
     }
 
     private fun initControls() {
         btnOtpContinue.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentVerifyOTP_to_fragmentWalkthrough)
+            doVerifyOTP()
         })
+
+        txtOtpResend.setOnClickListener(View.OnClickListener {
+            doResendToken()
+        })
+    }
+
+    private fun doResendToken() {
+        activity?.let {
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    mPhoneNumber,
+                    60,
+                    TimeUnit.SECONDS,
+                    it,
+                    mCallbacks,
+                    mResendToken)
+        }
+    }
+
+    private fun doVerifyOTP() {
+        var otpData = otp.text.toString()
+        if(otpData.isNullOrBlank() || otpData.length < 6) {
+            CommonUtils.showToast(mContext,getString(R.string.txt_err_valid_otp))
+            return
+        }
+
+        val credential = PhoneAuthProvider.getCredential(mVerificationId!!, otpData)
+        activity?.let {
+            FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener(it) { task ->
+                    if (task.isSuccessful) {
+                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentVerifyOTP_to_fragmentWalkthrough)
+                    } else {
+                        if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                            CommonUtils.showToast(mContext,"Invalid code")
+                        }
+                    }
+                }
+        }
+
     }
 }
