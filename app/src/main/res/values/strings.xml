@@ -155,4 +155,8 @@
     <string name="txt_delivery_locations">Delivery Locations</string>
     <string name="txt_readall">Read all></string>
     <string name="err_fill_detail">Fill required detail</string>
+    <string name="title_warning">Warning</string>
+    <string name="txt_confirm_logout">Are you sure you want to logout?</string>
+    <string name="btn_yes">Yes</string>
+    <string name="btn_no">No</string>
 </resources>

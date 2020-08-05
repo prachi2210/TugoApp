@@ -1,13 +1,16 @@
 package com.tugoapp.mobile.ui.profile
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
@@ -16,7 +19,7 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
     @Inject
     var factory: ViewModelProviderFactory? = null
     private var mViewModel: ProfileViewModel? = null
-    var mContext: Context? = null
+    lateinit var mContext: Context
 
     override val layoutId: Int
         get() = R.layout.fragment_profile
@@ -37,7 +40,7 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
     }
 
     private fun iniUI() {
-        mContext = context
+        mContext = this!!.requireContext()
 
         llPersonalInfo.setOnClickListener(View.OnClickListener { Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProfile_to_fragmentPersonalInformation) })
 
@@ -47,6 +50,17 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
 
         llPaymentMethods.setOnClickListener(View.OnClickListener { Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProfile_to_fragmentPaymentMethods) })
 
-
+        llLogout.setOnClickListener(View.OnClickListener {
+            var builder = CommonUtils.showDialog(mContext, R.string.title_warning, R.string.txt_confirm_logout)
+            builder.setOnCancelListener(DialogInterface.OnCancelListener { dialog -> dialog.dismiss() })
+            builder.setPositiveButton(R.string.btn_yes){dialogInterface, which ->
+               FirebaseAuth.getInstance().signOut()
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProfile_to_fragmentWelcome)
+            }
+            builder.setNegativeButton(R.string.btn_no){dialogInterface, which ->
+                dialogInterface.dismiss()
+            }
+            builder.create().show()
+        })
     }
 }

@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.databinding.FragmentSplashBinding
 import com.tugoapp.mobile.ui.base.BaseFragment
@@ -22,6 +23,7 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
     var factory: ViewModelProviderFactory? = null
     private var mSplashViewModel: SplashViewModel? = null
     var mContext: Context? = null
+    private lateinit var auth: FirebaseAuth
 
     override val layoutId: Int
         get() = R.layout.fragment_splash
@@ -43,6 +45,7 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
 
     private fun iniUI() {
         mContext = context
+        auth = FirebaseAuth.getInstance()
         txtAppVersion.text = "App Version: " + getAppVersion(mContext!!)
         navigateToStartPage()
     }
@@ -53,6 +56,10 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
     }
 
     private fun navigate() {
-        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentWelcome)
+        if(auth.currentUser != null) {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
+        } else {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentWelcome)
+        }
     }
 }
