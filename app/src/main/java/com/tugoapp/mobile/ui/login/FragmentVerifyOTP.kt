@@ -58,7 +58,7 @@ class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
         mVerificationId = arguments?.getString(AppConstant.FIREBASE_VERIFICATION_ID).toString()
         mPhoneNumber = arguments?.getString(AppConstant.FIREBASE_PHONE_NUMBER).toString()
         if(mResendToken == null || mVerificationId.isNullOrBlank() || mPhoneNumber.isNullOrBlank()) {
-            CommonUtils.showToast(mContext,"Required info not found")
+            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_pref_value))
             return
         }
         initControls()
@@ -80,26 +80,16 @@ class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
 
             override fun onVerificationFailed(e: FirebaseException) {
                 if (e is FirebaseAuthInvalidCredentialsException) {
-                    CommonUtils.showToast(mContext, "Invalid Reuest")
+                    CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_phone_number))
                 } else if (e is FirebaseTooManyRequestsException) {
-                    CommonUtils.showToast(mContext, "SMS limit excceed")
+                    CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_firebase_sms_excceed))
+                } else {
+                    CommonUtils.showSnakeBar(rootView, e.localizedMessage)
                 }
             }
 
             override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-               CommonUtils.showToast(mContext,"Code Resent!")
-            }
-        }
-    }
-
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentVerifyOTP_to_fragmentWalkthrough)
-            } else {
-                if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                    CommonUtils.showToast(mContext,"Invalid code")
-                }
+               CommonUtils.showSnakeBar(rootView,getString(R.string.txt_msg_code_resend))
             }
         }
     }
@@ -129,7 +119,7 @@ class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
     private fun doVerifyOTP() {
         var otpData = otp.text.toString()
         if(otpData.isNullOrBlank() || otpData.length < 6) {
-            CommonUtils.showToast(mContext,getString(R.string.txt_err_valid_otp))
+            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_valid_otp))
             return
         }
 
@@ -141,11 +131,22 @@ class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
                         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentVerifyOTP_to_fragmentWalkthrough)
                     } else {
                         if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                            CommonUtils.showToast(mContext,"Invalid code")
+                            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_valid_otp))
                         }
                     }
                 }
         }
+    }
 
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentVerifyOTP_to_fragmentWalkthrough)
+            } else {
+                if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                    CommonUtils.showToast(mContext,getString(R.string.txt_err_valid_otp))
+                }
+            }
+        }
     }
 }

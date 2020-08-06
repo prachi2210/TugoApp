@@ -13,10 +13,10 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.crashlytics.internal.common.CommonUtils
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_add_phone_number.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_signup.*
@@ -125,7 +125,7 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
         var email = edtSignupEmail.text.toString()
 
         if(fullName.isNullOrBlank() || pswd.isNullOrBlank() || confirmPswd.isNullOrBlank() || email.isNullOrBlank()) {
-            com.tugoapp.mobile.utils.CommonUtils.showToast(mContext,getString(R.string.err_fill_detail))
+            CommonUtils.showSnakeBar(rootView,getString(R.string.err_fill_detail))
             return
         }
 
@@ -134,7 +134,7 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
                 val firebaseUser = auth.currentUser!!
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSignUp_to_fragmentAddPhoneNumber)
             } else {
-                com.tugoapp.mobile.utils.CommonUtils.showToast(mContext,"Authentication failed"+task.exception?.localizedMessage)
+                com.tugoapp.mobile.utils.CommonUtils.showSnakeBar(rootView,"Authentication failed"+task.exception?.localizedMessage)
             }
         }
 

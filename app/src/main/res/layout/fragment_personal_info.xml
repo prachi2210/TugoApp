@@ -27,7 +27,7 @@
                     style="@style/MyTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_full_name"
+                    android:hint="@string/hint_full_name"
                     android:inputType="text"
                     android:maxLength="50" />
 
@@ -46,7 +46,7 @@
                     style="@style/MyTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_email_address"
+                    android:hint="@string/hint_email_address"
                     android:inputType="text"
                     android:maxLength="50" />
 
@@ -65,7 +65,7 @@
                     style="@style/MyTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_phone_number"
+                    android:hint="@string/hint_phone_number"
                     android:inputType="text"
                     android:maxLength="50" />
 

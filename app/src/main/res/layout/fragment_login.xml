@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android.support.design="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,15 +55,14 @@
                         style="@style/MyTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_20"
-                        app:hintTextAppearance="@style/MyAppearance">
+                        android:layout_marginTop="@dimen/margin_20">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtEmail"
                             style="@style/MyTextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/txt_email_address"
+                            android:hint="@string/hint_email_address"
                             android:inputType="textEmailAddress"
                             android:maxLength="50" />
 
@@ -92,7 +92,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_10"
-                        app:hintTextAppearance="@style/MyAppearance"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -100,7 +99,7 @@
                             style="@style/MyTextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/txt_pswd"
+                            android:hint="@string/hint_pswd"
                             android:inputType="textPassword"
                             android:maxLength="50" />
 
@@ -125,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:text="@string/txt_forgot_pswd"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

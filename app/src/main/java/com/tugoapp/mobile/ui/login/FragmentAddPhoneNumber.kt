@@ -66,11 +66,11 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
 
             override fun onVerificationFailed(e: FirebaseException) {
                 if (e is FirebaseAuthInvalidCredentialsException) {
-                    CommonUtils.showToast(mContext, "Invalid Request")
+                    CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_phone_number))
                 } else if (e is FirebaseTooManyRequestsException) {
-                    CommonUtils.showToast(mContext, "SMS limit excceed")
+                    CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_firebase_sms_excceed))
                 } else {
-                    CommonUtils.showToast(mContext, e.localizedMessage)
+                    CommonUtils.showSnakeBar(rootView, e.localizedMessage)
                 }
             }
 
@@ -88,7 +88,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
               Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentWalkthrough)
             } else {
                 if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                    CommonUtils.showToast(mContext,"Invalid code")
+                    CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_valid_otp))
                 }
             }
         }
@@ -104,7 +104,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
 
         var phone = edtPhone.text.toString()
         if (phone.isNullOrBlank()) {
-            CommonUtils.showToast(mContext, getString(R.string.txt_err_phone_number))
+            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_phone_number))
             return
         }
         activity?.let {

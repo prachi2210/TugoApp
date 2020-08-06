@@ -15,7 +15,6 @@ import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_signup.*
 import javax.inject.Inject
 
 class FragmentLogin : BaseFragment<LoginViewModel?>() {
@@ -85,6 +84,10 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentSignUp)
         })
 
+        txtForgotPswd.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentForgotPswd)
+        })
+
         btnLoginSignIn.setOnClickListener(View.OnClickListener {doValidateAndLogin()  })
     }
 
@@ -94,7 +97,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
         var pswd = edtPswd.text.toString()
 
         if(email.isNullOrBlank() || pswd.isNullOrBlank()) {
-            CommonUtils.showToast(mContext,"Please fill details")
+            CommonUtils.showSnakeBar(rootView,getString(R.string.err_fill_detail))
             return
         }
 
@@ -102,7 +105,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             if (task.isSuccessful) {
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
             } else {
-                CommonUtils.showToast(mContext,"Login Failed" +task.exception?.localizedMessage)
+                CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
             }
         }
     }

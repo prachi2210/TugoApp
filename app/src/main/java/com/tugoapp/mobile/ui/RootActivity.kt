@@ -57,7 +57,8 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector,
         controller.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.fragmentSplash || destination.id == R.id.fragmentWalkthrough || destination.id == R.id.fragmentLogin
                     || destination.id == R.id.fragmentSignUp || destination.id == R.id.fragmentWelcome || destination.id == R.id.fragmentCustomizePlan
-                    || destination.id == R.id.fragmentSelectPlan || destination.id == R.id.fragmentOrderSummary || destination.id == R.id.fragmentThankYou) {
+                    || destination.id == R.id.fragmentSelectPlan || destination.id == R.id.fragmentOrderSummary || destination.id == R.id.fragmentThankYou
+                    || destination.id == R.id.fragmentForgotPassword) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.GONE
             } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile || destination.id == R.id.fragmentOnGoingOrders

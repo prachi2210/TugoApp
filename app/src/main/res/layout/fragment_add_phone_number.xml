@@ -59,7 +59,7 @@
                         style="@style/MyTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/txt_phone_number"
+                        android:hint="@string/hint_phone_number"
                         android:inputType="phone"
                         android:maxLength="50" />
 
