@@ -48,7 +48,7 @@
                     style="@style/MyTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_new_pswd"
+                    android:hint="@string/hint_new_pswd"
                     android:inputType="textPassword"
                     android:maxLength="50" />
 

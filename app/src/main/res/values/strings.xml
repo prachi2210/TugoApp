@@ -42,7 +42,7 @@
     <string name="txt_signin">Sign in</string>
     <string name="txt_signin_header_message">Please sign in to continue.</string>
     <string name="txt_verify_phone_number">Verify phone number</string>
-    <string name="txt_verify_otp_header_message">Enter the 4-Digit code sent to you at %s</string>
+    <string name="txt_verify_otp_header_message">Enter the 6-Digit code sent to you at %s</string>
     <string name="txt_continue">Continue</string>
     <string name="txt_didnt_receive_code">Didn\'t receive code?</string>
     <string name="txt_resend_again">Resend Again.</string>
@@ -71,7 +71,7 @@
     <string name="txt_promo_noti">Promotional Notifications</string>
     <string name="txt_logout">Logout</string>
     <string name="title_account_settings">Account Setting</string>
-    <string name="txt_new_pswd">New Password</string>
+    <string name="hint_new_pswd">NEW PASSWORD</string>
     <string name="txt_update">Update</string>
     <string name="title_payment_methods">Payment Methods</string>
     <string name="title_delivery_address">Delivery Address</string>
@@ -170,4 +170,5 @@
     <string name="txt_err_no_pref_value">Required information not found</string>
     <string name="txt_err_firebase_sms_excceed">Daily SMS limit exceed</string>
     <string name="txt_msg_code_resend">Code resend. Please verify again</string>
+    <string name="txt_err_fail_firebase_acnt_link">Failed to link email address with phone number</string>
 </resources>

@@ -56,13 +56,15 @@ object CommonUtils {
     @JvmStatic
     fun showSnakeBar(view: View?, message: String?) {
         val formattedMessage = "Message: $message"
-        val snackbar = Snackbar.make(view!!, formattedMessage, Snackbar.LENGTH_LONG).setDuration(3000)
+        val snackbar = Snackbar.make(view!!, formattedMessage, Snackbar.LENGTH_LONG)
         snackbar.view.setBackgroundColor(Color.parseColor("#27AE60"))
         val textView = snackbar.view.findViewById<TextView>(R.id.snackbar_text)
         if (message != null && message.length > 100) {
             textView.setLines(4)
+            snackbar.duration = 6000
         } else {
             textView.setLines(3)
+            snackbar.duration = 3000
         }
         textView.setTextColor(Color.WHITE)
         textView.setTextAppearance(R.style.StyleSnackbar)

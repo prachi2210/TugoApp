@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.lifecycle.ViewModelProviders
@@ -16,7 +17,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_add_phone_number.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_signup.*
@@ -131,8 +134,9 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
 
         auth.createUserWithEmailAndPassword(email, pswd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
-                val firebaseUser = auth.currentUser!!
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSignUp_to_fragmentAddPhoneNumber)
+                SharedPrefsUtils.setStringPreference(mContext,email,pswd)
+                var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSignUp_to_fragmentAddPhoneNumber,bundle)
             } else {
                 com.tugoapp.mobile.utils.CommonUtils.showSnakeBar(rootView,"Authentication failed"+task.exception?.localizedMessage)
             }

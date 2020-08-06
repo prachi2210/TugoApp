@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
+    private lateinit var mEmailAddress: String
     private lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
     @JvmField
@@ -47,6 +48,11 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
 
     private fun iniUI() {
         mContext = context
+        mEmailAddress = arguments?.getString(AppConstant.FIREBASE_EMAIL_ADDRESS).toString()
+        if(mEmailAddress.isNullOrBlank()) {
+            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_pref_value))
+            return
+        }
         initControls()
         initCallbacks()
     }
@@ -76,7 +82,8 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
 
             override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
                 var bundle = bundleOf(AppConstant.FIREBASE_VERIFICATION_ID to verificationId,
-                        AppConstant.FIREBASE_RESEND_TOKEN to token, AppConstant.FIREBASE_PHONE_NUMBER to edtPhone.text.toString())
+                        AppConstant.FIREBASE_RESEND_TOKEN to token, AppConstant.FIREBASE_PHONE_NUMBER to edtPhone.text.toString(),
+                        AppConstant.FIREBASE_EMAIL_ADDRESS to mEmailAddress)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentVerifyOTP,bundle)
             }
         }

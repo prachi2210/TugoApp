@@ -8,9 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
-import com.tugoapp.mobile.databinding.FragmentSplashBinding
 import com.tugoapp.mobile.ui.base.BaseFragment
-import com.tugoapp.mobile.ui.base.BaseViewModel
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils.getAppVersion
@@ -56,8 +54,14 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
     }
 
     private fun navigate() {
-        if(auth.currentUser != null) {
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
+        if(auth.currentUser != null && !auth.currentUser?.email.isNullOrBlank()) {
+            var email = auth.currentUser?.email
+            var phoneNumber = auth.currentUser?.phoneNumber
+            if(!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentAddPhoneNumber)
+            } else if(!email.isNullOrBlank() && !phoneNumber.isNullOrBlank()) {
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
+            }
         } else {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentWelcome)
         }

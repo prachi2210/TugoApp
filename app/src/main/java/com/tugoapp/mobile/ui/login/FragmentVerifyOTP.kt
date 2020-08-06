@@ -3,26 +3,22 @@ package com.tugoapp.mobile.ui.login
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.*
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_verify_otp.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
+    private lateinit var mEmailAddress: String
     private lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
     @JvmField
@@ -57,10 +53,13 @@ class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
         mResendToken = arguments?.getParcelable<PhoneAuthProvider.ForceResendingToken>(AppConstant.FIREBASE_RESEND_TOKEN)
         mVerificationId = arguments?.getString(AppConstant.FIREBASE_VERIFICATION_ID).toString()
         mPhoneNumber = arguments?.getString(AppConstant.FIREBASE_PHONE_NUMBER).toString()
-        if(mResendToken == null || mVerificationId.isNullOrBlank() || mPhoneNumber.isNullOrBlank()) {
+        mEmailAddress = arguments?.getString(AppConstant.FIREBASE_EMAIL_ADDRESS).toString()
+
+        if(mResendToken == null || mVerificationId.isNullOrBlank() || mPhoneNumber.isNullOrBlank() || mEmailAddress.isNullOrBlank()) {
             CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_pref_value))
             return
         }
+        txtVerifyPhoneSubtitle.setText(String.format(getString(R.string.txt_verify_otp_header_message),mPhoneNumber))
         initControls()
         initCallbacks()
     }
@@ -124,17 +123,17 @@ class FragmentVerifyOTP : BaseFragment<VerifyOTPViewModel?>() {
         }
 
         val credential = PhoneAuthProvider.getCredential(mVerificationId!!, otpData)
-        activity?.let {
-            FirebaseAuth.getInstance().signInWithCredential(credential)
-                .addOnCompleteListener(it) { task ->
-                    if (task.isSuccessful) {
-                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentVerifyOTP_to_fragmentWalkthrough)
-                    } else {
-                        if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_valid_otp))
-                        }
-                    }
-                }
+        doLinkAccount(credential)
+    }
+
+    private fun doLinkAccount(credential: PhoneAuthCredential) {
+        FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener{
+            task ->
+            if(task.isSuccessful) {
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentVerifyOTP_to_fragmentWalkthrough)
+            } else {
+                CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
+            }
         }
     }
 

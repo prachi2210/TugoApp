@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import kotlinx.android.synthetic.main.fragment_personal_info.*
 import javax.inject.Inject
 
 class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>() {
@@ -37,5 +39,8 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
 
     private fun iniUI() {
         mContext = context
+
+        edtEmail.setText(FirebaseAuth.getInstance().currentUser?.email)
+        edtPhone.setText(FirebaseAuth.getInstance().currentUser?.phoneNumber)
     }
 }
