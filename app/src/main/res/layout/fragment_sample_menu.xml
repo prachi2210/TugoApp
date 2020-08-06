@@ -6,5 +6,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabSampleMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:outlineSpotShadowColor="@color/grey"
+            android:paddingLeft="@dimen/margin_10"
+            android:paddingRight="@dimen/margin_10"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/colorBlack"
+            app:tabTextColor="@color/unselectedTabcolor"/>
+        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+            android:id="@+id/imgSampleMenu"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:padding="@dimen/margin_10"
+            app:carouselType="SHOWCASE"/>
     </LinearLayout>
 </layout>

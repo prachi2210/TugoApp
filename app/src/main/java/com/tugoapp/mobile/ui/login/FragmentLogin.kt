@@ -1,23 +1,32 @@
 package com.tugoapp.mobile.ui.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
 class FragmentLogin : BaseFragment<LoginViewModel?>() {
+    private var googleSignInClient: GoogleSignInClient? = null
+
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -46,6 +55,11 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
     private fun iniUI() {
         mContext = context
         auth = FirebaseAuth.getInstance()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+        googleSignInClient = GoogleSignIn.getClient(mContext!!, gso)
         initControls()
         initTextChange()
     }
@@ -88,6 +102,12 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentForgotPswd)
         })
 
+        btnLoginSignInGPlus.setOnClickListener(View.OnClickListener {
+            val signInIntent = googleSignInClient?.signInIntent
+            startActivityForResult(signInIntent, AppConstant.RC_SIGN_IN)
+            showLoading()
+        })
+
         btnLoginSignIn.setOnClickListener(View.OnClickListener {doValidateAndLogin()  })
     }
 
@@ -108,5 +128,41 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
                 CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
             }
         }
+    }
+
+    // G+ login
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AppConstant.RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                CommonUtils.showSnakeBar(rootView!!,e?.localizedMessage)
+                hideLoading()
+            }
+        } else {
+            hideLoading()
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        hideLoading()
+                        val user = auth.currentUser
+                        if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber)
+                        } else {
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                        }
+                    } else {
+                        hideLoading()
+                        CommonUtils.showSnakeBar(rootView!!,task.exception?.localizedMessage)
+                    }
+                }
     }
 }

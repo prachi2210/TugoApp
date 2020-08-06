@@ -3,17 +3,14 @@ package com.tugoapp.mobile.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
-import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
-import com.tugoapp.mobile.utils.CommonUtils
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_sample_menu.*
+import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import javax.inject.Inject
+
 
 class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
     @JvmField
@@ -42,6 +39,42 @@ class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
 
     private fun iniUI() {
         mContext = context
+        val list = mutableListOf<CarouselItem>()
+
+        list.add(
+                CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080"
+                )
+        )
+        list.add(
+                CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1080"
+                )
+        )
+        list.add(
+                CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080"
+                )
+        )
+        list.add(
+                CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1080"
+                )
+        )
+        list.add(
+                CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080"
+                )
+        )
+        list.add(
+                CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1080"
+                )
+        )
+
+        imgSampleMenu.addData(list)
+
+
     }
 }
 

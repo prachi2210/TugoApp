@@ -63,6 +63,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentAddPhoneNumber"
+            app:destination="@id/fragmentAddPhoneNumber"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -172,6 +180,22 @@
         <action
             android:id="@+id/action_fragmentWelcome_to_fragmentSignUp"
             app:destination="@id/fragmentSignUp"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentAddPhoneNumber"
+            app:destination="@id/fragmentAddPhoneNumber"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentWalkthrough"
+            app:destination="@id/fragmentWalkthrough"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/main_navigation"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -322,7 +346,7 @@
     <fragment
         android:id="@+id/fragmentSampleMenu"
         android:name="com.tugoapp.mobile.ui.home.FragmentSampleMenu"
-        android:label="FragmentSampleMenu" />
+        android:label="@string/title_sample_menu" />
     <fragment
         android:id="@+id/fragmentSelectPlan"
         android:name="com.tugoapp.mobile.ui.home.FragmentSelectPlan"

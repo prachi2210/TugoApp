@@ -2,22 +2,21 @@ package com.tugoapp.mobile.ui.home
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.SearchView
+import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
-import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
-import com.tugoapp.mobile.utils.CommonUtils
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_provider_details.*
 import javax.inject.Inject
+
 
 class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     @JvmField
@@ -54,11 +53,20 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         if(item.itemId == R.id.menu_fav) {
 
         } else if(item.itemId == R.id.menu_info) {
-            CommonUtils.showDialog(mContext,R.id.txtOrderSummaryTitle,R.id.llMessageUs)
+            showProviderDetailDialog()
             return true
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showProviderDetailDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_providr_info, null)
+        val providerDialog = AlertDialog.Builder(mContext)
+                .setView(dialogView)
+                .show()
+        val btnClose = dialogView.findViewById<ImageView>(R.id.imgClose)
+        btnClose.setOnClickListener(View.OnClickListener { providerDialog.dismiss() })
     }
 
     private fun iniUI() {
