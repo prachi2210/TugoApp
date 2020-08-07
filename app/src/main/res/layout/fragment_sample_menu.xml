@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabSampleMenu"
             android:layout_width="match_parent"
@@ -18,12 +19,15 @@
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/colorBlack"
-            app:tabTextColor="@color/unselectedTabcolor"/>
+            app:tabTextColor="@color/unselectedTabcolor" />
+
         <org.imaginativeworld.whynotimagecarousel.ImageCarousel
             android:id="@+id/imgSampleMenu"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:padding="@dimen/margin_10"
-            app:carouselType="SHOWCASE"/>
+            app:carouselType="SHOWCASE"
+            app:scaleOnScroll="true"
+            app:scalingFactor="5" />
     </LinearLayout>
 </layout>

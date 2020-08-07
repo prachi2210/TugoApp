@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -58,6 +59,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
+                .requestProfile()
                 .build()
         googleSignInClient = GoogleSignIn.getClient(mContext!!, gso)
         initControls()
@@ -105,7 +107,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
         btnLoginSignInGPlus.setOnClickListener(View.OnClickListener {
             val signInIntent = googleSignInClient?.signInIntent
             startActivityForResult(signInIntent, AppConstant.RC_SIGN_IN)
-            showLoading()
+            showLoading(getString(R.string.txt_please_wait))
         })
 
         btnLoginSignIn.setOnClickListener(View.OnClickListener {doValidateAndLogin()  })
@@ -137,7 +139,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account.idToken!!)
+                firebaseAuthWithGoogle(account.idToken!!,account.email)
             } catch (e: ApiException) {
                 CommonUtils.showSnakeBar(rootView!!,e?.localizedMessage)
                 hideLoading()
@@ -147,15 +149,18 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
         }
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String) {
+    private fun firebaseAuthWithGoogle(idToken: String, email: String?) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         hideLoading()
-                        val user = auth.currentUser
+                        if (email != null) {
+                            auth.currentUser?.updateEmail(email)
+                        }
                         if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
-                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber)
+                            var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to  email)
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber,bundle)
                         } else {
                             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
                         }

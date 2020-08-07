@@ -172,4 +172,14 @@
     <string name="txt_msg_code_resend">Code resend. Please verify again</string>
     <string name="txt_err_fail_firebase_acnt_link">Failed to link email address with phone number</string>
     <string name="title_sample_menu">Sample Menu</string>
+
+    <string name="facebook_app_id">[APP_ID]</string>
+    <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
+    <string name="txt_sending_code">Sending code</string>
+    <string name="txt_otp_autodetected">Authenticating user</string>
+    <string name="txt_resending_otp">Resending Code</string>
+    <string name="txt_please_wait">Please wait</string>
+    <string name="txt_err_fail_user_detail">Failed to save user detail on server</string>
+    <string name="txt_err_no_category_data_found">No detail found for browse by diet</string>
+    <string name="txt_meal_plan_available">%s meal plans available</string>
 </resources>

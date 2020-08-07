@@ -12,8 +12,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         multiDexEnabled =true
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "0.2"
+        versionCode 3
+        versionName "0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -63,6 +63,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'org.jsoup:jsoup:1.10.2'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -85,7 +87,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
     implementation 'com.google.firebase:firebase-auth:19.3.2'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
-
+    implementation 'com.facebook.android:facebook-login:[5,6)'
 
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.11.5'
 

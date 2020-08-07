@@ -42,9 +42,6 @@ abstract class FragmentModule {
     abstract fun bindAddPhoneNumber(): FragmentAddPhoneNumber?
 
     @ContributesAndroidInjector
-    abstract fun bindVerifyOtp(): FragmentVerifyOTP?
-
-    @ContributesAndroidInjector
     abstract fun bindHistory(): FragmentHistoryOrders?
 
     @ContributesAndroidInjector

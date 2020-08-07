@@ -73,7 +73,9 @@ class FragmentForgotPassword : BaseFragment<BaseViewModel?>() {
             return
         }
 
+        showLoading(getString(R.string.txt_please_wait))
         FirebaseAuth.getInstance().sendPasswordResetEmail(data).addOnCompleteListener { task ->
+            hideLoading()
             if (task.isSuccessful) {
                 CommonUtils.showSnakeBar(rootView,getString(R.string.txt_reset_link_sent))
             } else {

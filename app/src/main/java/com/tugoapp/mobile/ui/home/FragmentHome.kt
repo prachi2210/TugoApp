@@ -3,10 +3,14 @@ package com.tugoapp.mobile.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
+import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
+import com.tugoapp.mobile.data.remote.model.response.ProviderModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
@@ -39,56 +43,64 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         iniUI()
+
+        initObservers()
+    }
+
+    private fun initObservers() {
+
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
+
+
+            mViewModel?.mCategoryData?.observe(viewLifecycleOwner, Observer { it ->
+                if (it != null && it.size > 0) {
+                    rvBrowseByDiet.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+                    val categoryData = ArrayList<CategoryDetailModel>()
+                    categoryData.addAll(it)
+
+                    val adapter = mContext?.let {
+                        BrowseByDietListAdapter(it, categoryData, object : OnListItemClickListener {
+                            override fun onListItemClick(position: Int) {
+                                CommonUtils.showToast(mContext, "Clicked:" + position)
+                            }
+                        })
+                    }
+                    rvBrowseByDiet.adapter = adapter
+                } else {
+                    CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
+                }
+            })
+
+        mViewModel?.mProvidersData?.observe(viewLifecycleOwner, Observer { it ->
+            if (it != null && it.size > 0) {
+                rvBrowseAllProviders.layoutManager = LinearLayoutManager(mContext)
+                val data = ArrayList<ProviderModel>()
+                data.addAll(it)
+                val adapter = mContext?.let {
+                    SearchHomeListAdapter(it, data, object : OnListItemClickListener {
+                        override fun onListItemClick(position: Int) {
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders)
+                        }
+                    })
+                }
+                rvBrowseAllProviders.adapter = adapter
+            } else {
+                CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
+            }
+        })
+
     }
 
     private fun iniUI() {
         mContext = context
         searchHome.setOnQueryTextListener(this)
-        rvBrowseByDiet.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-        val data = ArrayList<Int>()
-        data.add(R.drawable.ic_bbf_1)
-        data.add(R.drawable.ic_bbf_2)
-        data.add(R.drawable.ic_bbf_1)
-        data.add(R.drawable.ic_bbf_2)
-        data.add(R.drawable.ic_bbf_1)
-        data.add(R.drawable.ic_bbf_2)
+        mViewModel?.doLoadCategory();
 
-
-        val adapter = mContext?.let {
-            BrowseByDietListAdapter(it, data, object : OnListItemClickListener {
-                override fun onListItemClick(position: Int) {
-                    CommonUtils.showToast(mContext, "Clicked:" + position)
-                }
-            })
-        }
-        rvBrowseByDiet.adapter = adapter
+        mViewModel?.doLoadProviders(GetProvidersRequestModel(null,null,null));
 
         llLetsFindMealPlan.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders)
         })
-    }
-
-    private fun doBrowseAllProviders() {
-        llMainView.visibility = View.GONE
-
-        rvBrowseAllProviders.layoutManager = LinearLayoutManager(mContext)
-        val data = ArrayList<Int>()
-        data.add(R.drawable.ic_search_image)
-        data.add(R.drawable.ic_search_image)
-        data.add(R.drawable.ic_search_image)
-        data.add(R.drawable.ic_search_image)
-        data.add(R.drawable.ic_search_image)
-        data.add(R.drawable.ic_search_image)
-
-
-        val adapter = mContext?.let {
-            SearchHomeListAdapter(it, data, object : OnListItemClickListener {
-                override fun onListItemClick(position: Int) {
-                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders)
-                }
-            })
-        }
-        rvBrowseAllProviders.adapter = adapter
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -100,7 +112,7 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             llMainView.visibility = View.VISIBLE
             rvBrowseAllProviders.visibility = View.GONE
         } else {
-            doBrowseAllProviders()
+           // doBrowseAllProviders()
             llMainView.visibility = View.GONE
             rvBrowseAllProviders.visibility = View.VISIBLE
         }

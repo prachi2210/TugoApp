@@ -12,7 +12,7 @@
         android:paddingTop="@dimen/margin_5">
 
         <ImageView
-            android:id="@+id/imgBrowseByDiet"
+            android:id="@+id/imgBrowseByProvider"
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_marginLeft="-5dp"
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_poppins_regular"
-                    android:text="3 meal plans available"
+                    android:text="@string/txt_meal_plan_available"
                     android:textColor="@color/color969696" />
             </LinearLayout>
 

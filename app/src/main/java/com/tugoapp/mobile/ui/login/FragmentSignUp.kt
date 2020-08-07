@@ -132,6 +132,7 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
             return
         }
 
+        showLoading(getString(R.string.txt_please_wait))
         auth.createUserWithEmailAndPassword(email, pswd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
                 SharedPrefsUtils.setStringPreference(mContext,email,pswd)
@@ -140,6 +141,7 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
             } else {
                 com.tugoapp.mobile.utils.CommonUtils.showSnakeBar(rootView,"Authentication failed"+task.exception?.localizedMessage)
             }
+            hideLoading()
         }
 
     }

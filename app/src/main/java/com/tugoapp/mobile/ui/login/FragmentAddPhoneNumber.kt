@@ -3,10 +3,9 @@ package com.tugoapp.mobile.ui.login
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
@@ -31,6 +31,10 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
     var factory: ViewModelProviderFactory? = null
     private var mViewModel: AddPhoneNumberViewModel? = null
     var mContext: Context? = null
+    private var mResendToken : PhoneAuthProvider.ForceResendingToken? = null
+    private lateinit var mVerificationId : String
+    private lateinit var mPhoneNumber : String
+    private var mIsResend : Boolean = false
 
     override val layoutId: Int
         get() = R.layout.fragment_add_phone_number
@@ -57,6 +61,76 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
         initCallbacks()
     }
 
+    private fun initControls() {
+        btnAddPhoneSignUp.setOnClickListener(View.OnClickListener {
+            doValidateAndAuthenticateNumber()
+        })
+
+        btnOtpContinue.setOnClickListener(View.OnClickListener {
+            doVerifyOTP()
+        })
+
+        txtOtpResend.setOnClickListener(View.OnClickListener {
+            doResendToken()
+        })
+
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
+
+        mViewModel?.mIsUserDetailSubmitted?.observe(viewLifecycleOwner, Observer {
+            if(it == 1) {
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentWalkthrough)
+            } else {
+                CommonUtils.showSnakeBar(rootView!!,getString(R.string.txt_err_fail_user_detail))
+            }
+        })
+    }
+
+    private fun doVerifyOTP() {
+        var otpData = otp.text.toString()
+        if(otpData.isNullOrBlank() || otpData.length < 6) {
+            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_valid_otp))
+            return
+        }
+
+        val credential = PhoneAuthProvider.getCredential(mVerificationId!!, otpData)
+        doLinkAccount(credential)
+    }
+
+    private fun doLinkAccount(credential: PhoneAuthCredential) {
+        FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener{
+            task ->
+            if(task.isSuccessful) {
+                doUpdateServerForUserDetail()
+            } else {
+                CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
+            }
+        }
+    }
+
+    private fun doUpdateServerForUserDetail() {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener {
+            task ->
+            if (task.isSuccessful) {
+                mViewModel?.doSaveUserDetailOnServer(task.result?.token,SaveUserDetailRequestModel(mEmailAddress,mPhoneNumber,"test",FirebaseAuth.getInstance().currentUser?.uid))
+            } else {
+        }
+        }
+    }
+
+    private fun doResendToken() {
+        mIsResend = true
+        showLoading(getString(R.string.txt_resending_otp))
+        activity?.let {
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    mPhoneNumber,
+                    60,
+                    TimeUnit.SECONDS,
+                    it,
+                    mCallbacks,
+                    mResendToken)
+        }
+    }
+
     private fun initCallbacks() {
         mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -67,6 +141,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
+                 otp.setText( credential.smsCode)
                  signInWithPhoneAuthCredential(credential)
             }
 
@@ -81,30 +156,36 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
             }
 
             override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-                var bundle = bundleOf(AppConstant.FIREBASE_VERIFICATION_ID to verificationId,
-                        AppConstant.FIREBASE_RESEND_TOKEN to token, AppConstant.FIREBASE_PHONE_NUMBER to edtPhone.text.toString(),
-                        AppConstant.FIREBASE_EMAIL_ADDRESS to mEmailAddress)
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentVerifyOTP,bundle)
-            }
-        }
-    }
-
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-              Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentWalkthrough)
-            } else {
-                if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                    CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_valid_otp))
+//                var bundle = bundleOf(AppConstant.FIREBASE_VERIFICATION_ID to verificationId,
+//                        AppConstant.FIREBASE_RESEND_TOKEN to token, AppConstant.FIREBASE_PHONE_NUMBER to edtPhone.text.toString(),
+//                        AppConstant.FIREBASE_EMAIL_ADDRESS to mEmailAddress)
+                mVerificationId = verificationId
+                mResendToken = token
+                mPhoneNumber = edtPhone.text.toString()
+                hideLoading()
+                if(!mIsResend) {
+                    doShowOTPView(true)
+                } else {
+                    mIsResend = false
                 }
             }
         }
     }
 
-    private fun initControls() {
-        btnAddPhoneSignUp.setOnClickListener(View.OnClickListener {
-            doValidateAndAuthenticateNumber()
-        })
+    private fun doShowOTPView(isShow: Boolean) {
+        if(isShow) {
+            llAddPhone.visibility = View.GONE
+            llVerifyOTP.visibility = View.VISIBLE
+            txtVerifyPhoneSubtitle.text = String.format(getString(R.string.txt_verify_otp_header_message),mPhoneNumber)
+        } else {
+            llAddPhone.visibility = View.VISIBLE
+            llVerifyOTP.visibility = View.GONE
+        }
+    }
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        showLoading(getString(R.string.txt_otp_autodetected))
+        doLinkAccount(credential)
     }
 
     private fun doValidateAndAuthenticateNumber() {
@@ -114,6 +195,8 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
             CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_phone_number))
             return
         }
+
+        showLoading(getString(R.string.txt_sending_code))
         activity?.let {
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
                     phone,

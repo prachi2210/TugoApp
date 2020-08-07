@@ -5,17 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 
 class BrowseByDietListAdapter(private val context: Context,
-                              private val list: ArrayList<Int>,
+                              private val list: ArrayList<CategoryDetailModel>,
                               private val cellClickListener: OnListItemClickListener
 ) : RecyclerView.Adapter<BrowseByDietListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        val name: TextView = view.findViewById(R.id.txtCategory)
+        val offer: TextView = view.findViewById(R.id.txtOffer)
         val image: ImageView = view.findViewById(R.id.imgBrowseByDiet)
     }
 
@@ -30,7 +35,13 @@ class BrowseByDietListAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
-        holder.image.setImageDrawable(ContextCompat.getDrawable(context, data))
+        holder.name.text = data.name
+        Glide.with(context)
+                .load(data.imagePath)
+                .centerCrop()
+                .placeholder(R.drawable.ic_bbf_1)
+                .error(R.drawable.ic_bbf_1)
+                .into(holder.image)
 
         holder.itemView.setOnClickListener {
             cellClickListener.onListItemClick(position)
