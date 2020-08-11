@@ -36,6 +36,9 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.title_delivery)
+
     override fun onResume() {
         super.onResume()
     }

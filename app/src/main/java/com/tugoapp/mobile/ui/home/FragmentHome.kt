@@ -38,6 +38,8 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             mViewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
             return mViewModel!!
         }
+    override val screenTitle: String
+        get() = ""
 
     override fun onResume() {
         super.onResume()

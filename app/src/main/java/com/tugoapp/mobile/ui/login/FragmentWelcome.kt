@@ -39,6 +39,9 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
             mViewModel = ViewModelProviders.of(this, factory).get(WelcomeViewModel::class.java)
             return mViewModel!!
         }
+    override val screenTitle: String
+        get() = ""
+
 
     override fun onResume() {
         super.onResume()

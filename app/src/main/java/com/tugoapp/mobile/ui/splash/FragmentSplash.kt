@@ -31,6 +31,9 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
             mSplashViewModel = ViewModelProviders.of(this, factory).get(SplashViewModel::class.java)
             return mSplashViewModel!!
         }
+    override val screenTitle: String
+        get() = ""
+
 
     override fun onResume() {
         super.onResume()

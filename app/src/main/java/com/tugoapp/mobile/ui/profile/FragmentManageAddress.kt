@@ -33,6 +33,10 @@ class FragmentManageAddress : BaseFragment<ManageAddressViewModel?>()  {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.title_delivery_address)
+
+
     override fun onResume() {
         super.onResume()
     }

@@ -29,6 +29,9 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.txt_select_plan)
+
     override fun onResume() {
         super.onResume()
     }

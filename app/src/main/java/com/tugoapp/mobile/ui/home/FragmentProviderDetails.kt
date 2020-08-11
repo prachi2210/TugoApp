@@ -33,6 +33,8 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             mViewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
             return mViewModel!!
         }
+    override val screenTitle: String
+        get() = ""
 
     override fun onResume() {
         super.onResume()

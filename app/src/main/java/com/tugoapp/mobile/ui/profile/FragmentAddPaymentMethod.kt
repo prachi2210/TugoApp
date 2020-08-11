@@ -26,6 +26,9 @@ class FragmentAddPaymentMethod : BaseFragment<AddPaymentMethodViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.txt_add_a_new_card)
+
     override fun onResume() {
         super.onResume()
     }

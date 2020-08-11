@@ -33,6 +33,10 @@ class FragmentForgotPassword : BaseFragment<BaseViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = ""
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         iniUI()

@@ -28,6 +28,8 @@ class FragmentWalkthrough : BaseFragment<BaseViewModel?>() {
             mViewModel = ViewModelProviders.of(this, factory).get(BaseViewModel::class.java)
             return mViewModel!!
         }
+    override val screenTitle: String
+        get() = ""
 
     override fun onResume() {
         super.onResume()

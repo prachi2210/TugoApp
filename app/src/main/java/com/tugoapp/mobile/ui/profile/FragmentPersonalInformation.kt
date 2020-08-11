@@ -28,6 +28,9 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.txt_personal_info)
+
     override fun onResume() {
         super.onResume()
     }

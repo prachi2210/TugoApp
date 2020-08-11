@@ -12,7 +12,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseActivity
-import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.ui.home.FragmentHome
 import com.tugoapp.mobile.ui.orders.FragmentOrders
@@ -55,8 +54,9 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
 
     private fun initToolbar() {
         val controller = Navigation.findNavController((mContext as Activity?)!!, R.id.fragmentNavHost)
+        toolbar.setNavigationIcon(R.drawable.ic_back)
         setSupportActionBar(toolbar)
-        NavigationUI.setupWithNavController(toolbar, controller)
+      //  NavigationUI.setupWithNavController(toolbar, controller)
         NavigationUI.setupWithNavController(navigationView, controller)
         controller.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.fragmentSplash || destination.id == R.id.fragmentWalkthrough || destination.id == R.id.fragmentLogin
@@ -67,6 +67,13 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
                 navigationView.visibility = View.GONE
             } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile || destination.id == R.id.fragmentOnGoingOrders
                     || destination.id == R.id.fragmentHistoryOrders || destination.id == R.id.fragmentProviderDetails) {
+                if(destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
+                    supportActionBar?.setHomeButtonEnabled(false)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                } else {
+                    supportActionBar?.setHomeButtonEnabled(true)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                }
                 toolbar.visibility = View.VISIBLE
                 navigationView.visibility = View.VISIBLE
             } else if (destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders) {
@@ -75,6 +82,8 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
             } else {
                 toolbar.visibility = View.VISIBLE
                 navigationView.visibility = View.GONE
+                supportActionBar?.setHomeButtonEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
         }
     }

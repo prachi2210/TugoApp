@@ -26,6 +26,9 @@ class FragmentChangePswd : BaseFragment<ChangePswdViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.txt_change_pswd)
+
     override fun onResume() {
         super.onResume()
     }

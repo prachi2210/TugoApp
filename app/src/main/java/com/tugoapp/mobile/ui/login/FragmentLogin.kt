@@ -44,6 +44,10 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = ""
+
+
     override fun onResume() {
         super.onResume()
     }

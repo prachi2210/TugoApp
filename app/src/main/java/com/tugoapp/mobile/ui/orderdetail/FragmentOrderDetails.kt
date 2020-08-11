@@ -22,6 +22,9 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
     override val layoutId: Int
         get() = R.layout.fragment_order_detail
 
+    override val screenTitle: String
+        get() = getString(R.string.title_order_detail)
+
     override val viewModel: OrderDetailsViewModel
         get() {
             mViewModel = ViewModelProviders.of(this, factory).get(OrderDetailsViewModel::class.java)

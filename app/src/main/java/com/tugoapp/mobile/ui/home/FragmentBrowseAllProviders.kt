@@ -12,6 +12,7 @@ import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
 import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
 import com.tugoapp.mobile.data.remote.model.response.ProviderModel
+import com.tugoapp.mobile.ui.RootActivity
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
@@ -40,6 +41,8 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
             mViewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
             return mViewModel!!
         }
+    override val screenTitle: String
+        get() = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +52,8 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
 
     private fun iniUI() {
         mContext = context
+        (activity as RootActivity).supportActionBar?.setHomeButtonEnabled(true)
+        (activity as RootActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         mSelectedCategory = arguments?.getString(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS).toString()
         mCategoryList = arguments?.getParcelableArrayList(AppConstant.ALL_CATEGORY_FOR_PROVIDERS)

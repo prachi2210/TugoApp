@@ -28,6 +28,9 @@ class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.title_sample_menu)
+
     override fun onResume() {
         super.onResume()
     }

@@ -26,6 +26,9 @@ class FragmentAddAddress : BaseFragment<AddAddressViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.txt_add_a_new_address)
+
     override fun onResume() {
         super.onResume()
     }

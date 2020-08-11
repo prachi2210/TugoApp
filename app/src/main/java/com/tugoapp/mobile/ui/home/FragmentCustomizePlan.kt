@@ -34,6 +34,9 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = ""
+
     override fun onResume() {
         super.onResume()
     }

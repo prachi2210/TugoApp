@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.ui.RootActivity
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
@@ -30,6 +31,9 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>()  {
 
     override val layoutId: Int
         get() = R.layout.fragment_orders
+
+    override val screenTitle: String
+        get() = getString(R.string.title_orders)
 
     override val viewModel: OrdersViewModel
         get() {

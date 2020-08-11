@@ -32,6 +32,9 @@ class FragmentPaymentMethods : BaseFragment<PaymentMethodsViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.title_payment_methods)
+
     override fun onResume() {
         super.onResume()
     }

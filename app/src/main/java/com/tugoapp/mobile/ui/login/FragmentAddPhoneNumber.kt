@@ -45,6 +45,9 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
             return mViewModel!!
         }
 
+    override val screenTitle: String
+        get() = getString(R.string.title_create_an_acnt)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         iniUI()

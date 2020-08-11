@@ -11,6 +11,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.tugoapp.mobile.R
+import com.tugoapp.mobile.ui.RootActivity
 import com.tugoapp.mobile.utils.CommonUtils
 import dagger.android.support.AndroidSupportInjection
 
@@ -26,6 +28,7 @@ abstract class BaseFragment<V : BaseViewModel?> : Fragment() {
      */
     @get:LayoutRes
     abstract val layoutId: Int
+    abstract val screenTitle: String
 
     /**
      * Override for set view model
@@ -70,6 +73,8 @@ abstract class BaseFragment<V : BaseViewModel?> : Fragment() {
 //        viewDataBinding!!.setVariable(bindingVariable, mViewModel)
 //        viewDataBinding!!.lifecycleOwner = this
 //        viewDataBinding!!.executePendingBindings()
+        (activity as RootActivity).supportActionBar?.setTitle(screenTitle)
+
     }
 
     fun hideKeyboard() {
