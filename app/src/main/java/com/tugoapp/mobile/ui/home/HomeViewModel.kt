@@ -6,11 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.data.remote.MerchantApiService
+import com.tugoapp.mobile.data.remote.model.request.GetProviderDetailRequestModel
 import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
-import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
-import com.tugoapp.mobile.data.remote.model.response.GetCategoryResponseModel
-import com.tugoapp.mobile.data.remote.model.response.GetProvidersResponseModel
-import com.tugoapp.mobile.data.remote.model.response.ProviderModel
+import com.tugoapp.mobile.data.remote.model.response.*
 import com.tugoapp.mobile.ui.base.BaseViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +18,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
     var mCategoryData: MutableLiveData<ArrayList<CategoryDetailModel>> = MutableLiveData()
     var mProvidersData: MutableLiveData<ArrayList<ProviderModel>> = MutableLiveData()
+    var mProvidersDetailData: MutableLiveData<GetProviderDetailsData> = MutableLiveData()
 
     var mToastMessage: MutableLiveData<String> = MutableLiveData()
 
@@ -53,6 +52,26 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
                     override fun onResponse(call: Call<GetProvidersResponseModel>, response: Response<GetProvidersResponseModel>) {
                         mProvidersData.postValue(response.body()?.data)
+                    }
+
+                })
+            } else {
+                mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+
+        })
+    }
+
+    fun doGetProviderDetails(mBusinessId: String) {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mPpsApiService.doGetProviderDetails(task.result?.token,  GetProviderDetailRequestModel(mBusinessId)).enqueue(object : Callback<GetProviderDetailsResponseModel> {
+                    override fun onFailure(call: Call<GetProviderDetailsResponseModel>, t: Throwable) {
+                        mToastMessage.postValue(t.localizedMessage)
+                    }
+
+                    override fun onResponse(call: Call<GetProviderDetailsResponseModel>, response: Response<GetProviderDetailsResponseModel>) {
+                        mProvidersDetailData.postValue(response.body()?.data)
                     }
 
                 })

@@ -5,6 +5,7 @@ import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
 import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
 import com.tugoapp.mobile.data.remote.model.response.BaseResponseModel
 import com.tugoapp.mobile.data.remote.model.response.GetCategoryResponseModel
+import com.tugoapp.mobile.data.remote.model.response.GetProviderDetailsResponseModel
 import com.tugoapp.mobile.data.remote.model.response.GetProvidersResponseModel
 import retrofit2.Call
 import retrofit2.http.Body
@@ -28,4 +29,7 @@ interface MerchantApiService { //
 
     @POST("getProviders")
     fun doGetProviders(@Header("token") token: String?, @Body data : GetProvidersRequestModel): Call<GetProvidersResponseModel>
+
+    @POST("getProviderDetails")
+    fun doGetProviderDetails(@Header("token") token: String?, @Body data : GetProviderDetailRequestModel): Call<GetProviderDetailsResponseModel>
 }

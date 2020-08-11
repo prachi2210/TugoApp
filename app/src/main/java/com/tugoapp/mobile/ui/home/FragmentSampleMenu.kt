@@ -5,14 +5,21 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
+import com.tugoapp.mobile.data.remote.model.response.SampleMenu
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.AppConstant
+import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_sample_menu.*
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
+import java.util.ArrayList
 import javax.inject.Inject
 
 
 class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
+    private var mSampleMenuList : ArrayList<SampleMenu>? = null
+
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -42,42 +49,23 @@ class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
 
     private fun iniUI() {
         mContext = context
+        mSampleMenuList = arguments?.getParcelableArrayList(AppConstant.SAMPLE_MENU_DATA)
+        if(mSampleMenuList == null) {
+            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_pref_value))
+            return
+        }
+
         val list = mutableListOf<CarouselItem>()
 
-        list.add(
-                CarouselItem(
-                        imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080"
-                )
-        )
-        list.add(
-                CarouselItem(
-                        imageUrl = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1080"
-                )
-        )
-        list.add(
-                CarouselItem(
-                        imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080"
-                )
-        )
-        list.add(
-                CarouselItem(
-                        imageUrl = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1080"
-                )
-        )
-        list.add(
-                CarouselItem(
-                        imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080"
-                )
-        )
-        list.add(
-                CarouselItem(
-                        imageUrl = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1080"
-                )
-        )
-
+        for(sample in mSampleMenuList!!) {
+            list.add(
+                    CarouselItem(
+                            imageUrl = sample.description,
+                            caption = sample.title
+                    )
+            )
+        }
         imgSampleMenu.addData(list)
-
-
     }
 }
 

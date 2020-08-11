@@ -23,11 +23,12 @@
 
         <org.imaginativeworld.whynotimagecarousel.ImageCarousel
             android:id="@+id/imgSampleMenu"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:padding="@dimen/margin_10"
             app:carouselType="SHOWCASE"
             app:scaleOnScroll="true"
+            android:foreground="@drawable/image_overlay"
             app:scalingFactor="5" />
     </LinearLayout>
 </layout>
