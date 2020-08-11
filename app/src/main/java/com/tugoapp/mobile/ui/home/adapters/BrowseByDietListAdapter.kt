@@ -39,8 +39,6 @@ class BrowseByDietListAdapter(private val context: Context,
         Glide.with(context)
                 .load(data.imagePath)
                 .centerCrop()
-                .placeholder(R.drawable.ic_bbf_1)
-                .error(R.drawable.ic_bbf_1)
                 .into(holder.image)
 
         holder.itemView.setOnClickListener {

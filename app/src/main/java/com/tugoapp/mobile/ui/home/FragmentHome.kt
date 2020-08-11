@@ -2,7 +2,9 @@ package com.tugoapp.mobile.ui.home
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -16,6 +18,7 @@ import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.ui.home.adapters.BrowseByDietListAdapter
 import com.tugoapp.mobile.ui.home.adapters.SearchHomeListAdapter
+import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
@@ -50,8 +53,6 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
     private fun initObservers() {
 
         mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
-
-
             mViewModel?.mCategoryData?.observe(viewLifecycleOwner, Observer { it ->
                 if (it != null && it.size > 0) {
                     rvBrowseByDiet.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
@@ -61,7 +62,9 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
                     val adapter = mContext?.let {
                         BrowseByDietListAdapter(it, categoryData, object : OnListItemClickListener {
                             override fun onListItemClick(position: Int) {
-                                CommonUtils.showToast(mContext, "Clicked:" + position)
+                                var bundle =  bundleOf(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS to  categoryData.get(position).categoryId,
+                                        AppConstant.ALL_CATEGORY_FOR_PROVIDERS to categoryData as ArrayList<CategoryDetailModel>)
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders,bundle)
                             }
                         })
                     }

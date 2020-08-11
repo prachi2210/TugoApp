@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_orders.*
 import javax.inject.Inject
 
 
-class FragmentOrders : BaseFragment<OrdersViewModel?>(), OnListItemClickListener  {
+class FragmentOrders : BaseFragment<OrdersViewModel?>()  {
     private lateinit var mTabsAdapter: TabsAdapter
 
     @JvmField
@@ -33,7 +33,7 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>(), OnListItemClickListener
 
     override val viewModel: OrdersViewModel
         get() {
-            mViewModel = ViewModelProviders.of(this, factory).get(OrdersViewModel::class.java)
+            mViewModel = activity?.let { ViewModelProviders.of(it, factory).get(OrdersViewModel::class.java) }
             return mViewModel!!
         }
 
@@ -54,7 +54,6 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>(), OnListItemClickListener
 //        mTabsAdapter.addFragment(FragmentOnGoingOrders(), "Ongoing")
 //        mTabsAdapter.addFragment(FragmentHistoryOrders(), "History")
 //        orderViewPager.adapter = mTabsAdapter
-        tabLayout.setupWithViewPager(orderViewPager)
 
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -66,9 +65,18 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>(), OnListItemClickListener
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+        tabLayout.setupWithViewPager(orderViewPager)
+
+        initObservers()
     }
 
-    override fun onListItemClick(position: Int) {
-        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail)
+    private fun initObservers() {
+       if(!mViewModel?.mSelectedHistoryOrder?.hasObservers()!!) {
+           activity?.let {
+               mViewModel?.mSelectedHistoryOrder?.observe(it, Observer {
+                   Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail)
+               })
+           }
+       }
     }
 }

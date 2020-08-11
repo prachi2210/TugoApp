@@ -2,8 +2,8 @@ package com.tugoapp.mobile.ui
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.Window
 import androidx.fragment.app.Fragment
@@ -14,13 +14,17 @@ import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseActivity
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.ui.home.FragmentHome
+import com.tugoapp.mobile.ui.orders.FragmentOrders
+import com.tugoapp.mobile.ui.profile.FragmentProfile
+import com.tugoapp.mobile.utils.CommonUtils
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_root.*
 import javax.inject.Inject
 
 
-class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector, OnListItemClickListener {
+class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector {
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -81,14 +85,34 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector,
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentNavHost)
+        val backStackEntryCount = navHostFragment?.childFragmentManager?.backStackEntryCount
+
+        if(checkIfBottomNavigationFragments()) {
+            doDoubleBackAndExit()
         } else {
-            super.onBackPressed()
+            super.onBackPressed();
         }
     }
 
-    override fun onListItemClick(position: Int) {
+    private fun doDoubleBackAndExit() {
+        if (doubleBackToExitPressedOnce) {
+            finish()
+            return;
+        }
 
+        this.doubleBackToExitPressedOnce = true;
+        CommonUtils.showToast(this, "Please click BACK again to exit")
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+    }
+
+    private fun checkIfBottomNavigationFragments(): Boolean {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentNavHost)
+        Navigation.findNavController(this,R.id.fragmentNavHost)
+        var visibleFragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
+        if(visibleFragment != null && ( visibleFragment is FragmentProfile ||  visibleFragment is FragmentHome ||  visibleFragment is FragmentOrders)) {
+            return true
+        }
+        return false
     }
 }

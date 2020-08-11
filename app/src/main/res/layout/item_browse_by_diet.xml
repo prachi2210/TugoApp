@@ -9,7 +9,6 @@
           android:id="@+id/imgBrowseByDiet"
           android:layout_width="140dp"
           android:layout_height="200dp"
-          android:src="@drawable/ic_bbf_1"
           android:layout_centerInParent="true"
           android:padding="@dimen/margin_5" />
       <TextView
@@ -17,7 +16,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           style="@style/HeaderLarge"
-          android:text="Category"
           android:layout_centerHorizontal="true"
           android:layout_marginTop="@dimen/margin_20"
           android:fontFamily="@font/font_raleway_bold"
@@ -27,15 +25,12 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           style="@style/HeaderSmall"
-          android:text="10 per off"
           android:layout_alignBottom="@id/imgBrowseByDiet"
           android:layout_marginBottom="@dimen/margin_30"
           android:fontFamily="@font/font_raleway_bold"
           android:layout_marginLeft="@dimen/margin_5"
           android:padding="@dimen/margin_2"
-          android:visibility="gone"
           android:background="@color/colorWhite"
           android:textColor="@color/black"/>
-
    </RelativeLayout>
 </layout>
