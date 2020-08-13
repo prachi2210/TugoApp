@@ -126,7 +126,7 @@
                     android:background="@color/colorWhite"
                     android:maxLines="4"
                     android:paddingLeft="@dimen/margin_20"
-                    android:paddingTop="@dimen/margin_5"
+                    android:paddingTop="@dimen/margin_15"
                     android:paddingRight="@dimen/margin_20"
                     android:text="This plan is for people who is looking to loose weight but also not compromise on losing muscle. Perfect blend of protein and carbs."
                     android:textColor="@color/screenTitleColor" />

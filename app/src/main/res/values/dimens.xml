@@ -54,6 +54,7 @@
     <dimen name="margin_32">32dp</dimen>
     <dimen name="margin_36">36dp</dimen>
     <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_100">100dp</dimen>
 
     //Image size
     <dimen name="image_50">40dp</dimen>

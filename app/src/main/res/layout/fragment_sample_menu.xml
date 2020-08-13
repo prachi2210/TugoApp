@@ -11,6 +11,7 @@
             android:id="@+id/tabSampleMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_30"
             android:background="@color/colorWhite"
             android:outlineSpotShadowColor="@color/grey"
             android:paddingLeft="@dimen/margin_10"
@@ -21,14 +22,75 @@
             app:tabSelectedTextColor="@color/colorBlack"
             app:tabTextColor="@color/unselectedTabcolor" />
 
-        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/imgSampleMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:padding="@dimen/margin_10"
-            app:carouselType="SHOWCASE"
-            app:scaleOnScroll="true"
-            android:foreground="@drawable/image_overlay"
-            app:scalingFactor="5" />
+        <LinearLayout
+            android:id="@+id/llMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/imageSampleCarousel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:autoPlay="true"
+                app:autoPlayDelay="4000"
+                app:carouselBackground="@color/white"
+                app:carouselType="SHOWCASE"
+                app:imageScaleType="centerCrop"
+                app:imageViewId="@id/image_view"
+                app:itemLayout="@layout/custom_fixed_size_item_layout"
+                app:nextButtonId="@id/custom_btn_next"
+                app:nextButtonLayout="@layout/custom_next_button_layout"
+                app:nextButtonMargin="8dp"
+                app:previousButtonId="@id/custom_btn_previous"
+                app:previousButtonLayout="@layout/custom_previous_button_layout"
+                app:previousButtonMargin="8dp"
+                app:scaleOnScroll="true"
+                app:scalingFactor=".25"
+                app:showBottomShadow="false"
+                app:showCaption="true"
+                app:showIndicator="true"
+                app:showNavigationButtons="false"
+                app:showTopShadow="false" />
+
+            <me.relex.circleindicator.CircleIndicator2
+                android:id="@+id/custom_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                app:ci_animator="@animator/scale_with_alpha"
+                app:ci_drawable="@drawable/dot"
+                app:ci_drawable_unselected="@drawable/dot" />
+
+            <TextView
+                android:id="@+id/txtTitleImage"
+                style="@style/HeaderExtraLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_30"
+                android:fontFamily="@font/font_raleway_bold"
+                android:text="Header Text"
+                android:textColor="@color/color454545" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_30"
+                android:background="@color/grey" />
+
+            <TextView
+                android:id="@+id/txtSubtitleImage"
+                style="@style/HeaderSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_30"
+                android:layout_marginBottom="@dimen/margin_100"
+                android:fontFamily="@font/font_raleway_regular"
+                android:text="Subtitle of image"
+                android:textColor="@color/color454545" />
+
+        </LinearLayout>
     </LinearLayout>
 </layout>

@@ -43,6 +43,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtProviderName"
                         style="@style/HeaderLarge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -66,6 +67,7 @@
                             android:tint="@color/colorPrimary" />
 
                         <TextView
+                            android:id="@+id/txtProviderLocation"
                             style="@style/HeaderSemiMedium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

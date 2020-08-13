@@ -17,9 +17,9 @@ public data class GetProviderDetailsData(var businessId : String?, var companyNa
 public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsData) : BaseResponseModel() {}
 
 
-
+@Parcelize
 public data class MealPlanModel(var title : String?, var description : String?, var planId : String? ,var startingFrom : String?,
-                                var review : String?, var locations : String?, var sampleMenu : ArrayList<SampleMenu>?) {}
+                                var review : String?, var locations : String?, var sampleMenu : ArrayList<SampleMenu>?): Parcelable {}
 
 @Parcelize
 public data class SampleMenu(var planId : String?, var title : String?, var imagePath : String? ,var description : String?) : Parcelable{}

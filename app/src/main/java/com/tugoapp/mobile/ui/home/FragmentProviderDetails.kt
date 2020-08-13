@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
@@ -30,6 +31,9 @@ import javax.inject.Inject
 
 class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private lateinit var mSelectedMealPlan: MealPlanModel
+    private lateinit var mMealPlanList: ArrayList<MealPlanModel>
+    private lateinit var mProviderDetails : GetProviderDetailsData
+
     private lateinit var mBusinessId: String
 
     @JvmField
@@ -81,6 +85,20 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
                 .setView(dialogView)
                 .show()
         val btnClose = dialogView.findViewById<ImageView>(R.id.imgClose)
+        val imgLogo = dialogView.findViewById<ImageView>(R.id.imgProvider)
+        val txtProviderName = dialogView.findViewById<TextView>(R.id.txtProviderName)
+        val txtProviderDesc = dialogView.findViewById<TextView>(R.id.txtProviderDesc)
+        val txtProviderLocation = dialogView.findViewById<TextView>(R.id.txtProviderLocation)
+        if(mProviderDetails != null) {
+            txtProviderName.text = mProviderDetails.companyName
+            txtProviderDesc.text = mProviderDetails.description
+            txtProviderLocation.text = mProviderDetails.address
+            Glide.with(mContext)
+                    .load(mProviderDetails.icon)
+                    .centerCrop()
+                    .into(imgLogo)
+        }
+
         btnClose.setOnClickListener(View.OnClickListener { providerDialog.dismiss() })
     }
 
@@ -102,7 +120,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private fun initControls() {
         imgSampleMenu.setOnClickListener(View.OnClickListener {
             if(mSelectedMealPlan != null && mSelectedMealPlan.sampleMenu?.size!! > 0) {
-                var bundle = bundleOf(AppConstant.SAMPLE_MENU_DATA to mSelectedMealPlan.sampleMenu)
+                var bundle = bundleOf(AppConstant.SAMPLE_MENU_DATA to mMealPlanList)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSampleMenu,bundle)
             } else {
                 CommonUtils.showToast(mContext,getString(R.string.txt_err_no_sample_menu))
@@ -120,13 +138,16 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     }
 
     private fun doSetProviderDetails(providerData: GetProviderDetailsData) {
+        mProviderDetails = providerData
         (activity as RootActivity).supportActionBar?.title = providerData.companyName
         deliveryDays.text = providerData.deliveryDays
         if(providerData.planData != null && providerData.planData!!.size > 0) {
+            mMealPlanList = providerData.planData!!
             for (planDetail in providerData.planData!!) {
                 tabMainProvidersType.addTab(tabMainProvidersType.newTab().setText(planDetail.title))
                 doSetMealPlanData(providerData.planData!![0])
                 mSelectedMealPlan = providerData.planData!![0]
+                doSetInfoOrLocationData(0)
                 if(planDetail.sampleMenu == null || planDetail.sampleMenu!!.size <= 0) {
                     rlSampleMenu.visibility = View.GONE
                 }
@@ -149,13 +170,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
 
             tabInfoLocation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    if(mSelectedMealPlan != null) {
-                        if(tab.position == 0) {
-                            txtInfoDeliveryLocation.text = mSelectedMealPlan.description
-                        } else {
-                            txtInfoDeliveryLocation.text = mSelectedMealPlan.locations
-                        }
-                    }
+                   doSetInfoOrLocationData(tab.position)
                 }
                 override fun onTabUnselected(tab: TabLayout.Tab) {
 
@@ -164,6 +179,16 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
 
                 }
             })
+        }
+    }
+
+    private fun doSetInfoOrLocationData(position: Int) {
+        if(mSelectedMealPlan != null) {
+            if(position == 0) {
+                txtInfoDeliveryLocation.text = mSelectedMealPlan.description
+            } else {
+                txtInfoDeliveryLocation.text = mSelectedMealPlan.locations
+            }
         }
     }
 
