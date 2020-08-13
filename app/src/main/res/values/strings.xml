@@ -117,7 +117,7 @@
     <string name="txt_delivers_on">Delivers on</string>
     <string name="txt_select_meal_per_day">Select meal / day</string>
     <string name="txt_minus">-</string>
-    <string name="txt_select_day_for_plan">Select days / plan</string>
+    <string name="txt_select_day_for_plan">Select week(s) / plan</string>
     <string name="txt_trial_meal_available">Trial Meal Available</string>
     <string name="txt_try_now">Try now</string>
     <string name="txt_your_plan">Your Plan</string>
@@ -186,4 +186,6 @@
     <string name="txt_err_provider_detail_failed">Provider details not found</string>
     <string name="txt_err_no_sample_menu">Sample menu not found</string>
     <string name="txt_view_sample_menu">View sample menu</string>
+    <string name="txt_no_of_reviews">(%s reviews)</string>
+    <string name="whatsapp_not_found">Whats App not found in phone to send message</string>
 </resources>

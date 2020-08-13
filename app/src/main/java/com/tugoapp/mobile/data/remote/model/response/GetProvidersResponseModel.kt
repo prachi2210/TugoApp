@@ -11,15 +11,21 @@ public data class ProviderModel(var businessId : String?, var companyName : Stri
                                 var startingFrom : String?, var numberOfPlans : String?, var offer : String?,
                                 var isActive : Boolean?) {}
 
-public data class GetProviderDetailsData(var businessId : String?, var companyName : String?, var imagePath : String? ,var icon : String?
-                                                  ,var address : String?,var description : String?,var deliveryDays : String?,var planData : ArrayList<MealPlanModel>?) {}
+public data class GetProviderDetailsData(var businessId : String?, var companyName : String?, var imagePath : String? ,var icon : String?,
+                                         var address : String?,
+                                         var companyLogo : String?,
+                                         var description : String?,var deliveryDays : String?,var planData : ArrayList<MealPlanModel>?) {}
 
 public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsData) : BaseResponseModel() {}
 
 
 @Parcelize
-public data class MealPlanModel(var title : String?, var description : String?, var planId : String? ,var startingFrom : String?,
-                                var review : String?, var locations : String?, var sampleMenu : ArrayList<SampleMenu>?): Parcelable {}
+public data class MealPlanModel(var title : String?, var description : String?, var planId : Int? ,var startingFrom : String?,
+                                var featuredImage : String?,var trailPlanMainDescription : String?,
+                                var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,
+                                var review : String?, var locations : String?, var noOfReviews : String?, var sampleMenu : ArrayList<SampleMenu>?,
+                                var priceForOneMeal : String?, var priceForTwoMeals : String? , var priceForThreeMeals : String?,
+                                var weekOptions : ArrayList<String>?,  var mealOptions : ArrayList<String>?): Parcelable {}
 
 @Parcelize
 public data class SampleMenu(var planId : String?, var title : String?, var imagePath : String? ,var description : String?) : Parcelable{}

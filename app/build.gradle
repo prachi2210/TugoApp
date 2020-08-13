@@ -107,7 +107,6 @@ dependencies {
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
-    implementation 'com.synnapps:carouselview:0.1.5'
     implementation 'com.github.ImaginativeShohag:Why-Not-Image-Carousel:v1.1.0'
 
     implementation 'me.relex:circleindicator:2.1.4'

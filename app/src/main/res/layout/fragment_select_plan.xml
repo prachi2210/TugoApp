@@ -7,341 +7,278 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.synnapps.carouselview.CarouselView
-            android:id="@+id/carouselView"
+        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+            android:id="@+id/imageCarousel"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:fillColor="#FFFFFFFF"
-            app:pageColor="#00000000"
-            app:radius="6dp"
-            app:slideInterval="3000"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="1dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:foreground="@drawable/image_overlay"
+            app:autoPlay="true"
+            app:carouselType="BLOCK"
+            app:showCaption="false" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_border_bottom_sheet"
             android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10">
-
-            <TextView
-                android:id="@+id/txtPlanName"
-                style="@style/StyleWalkthroughTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Clean Plan" />
-
-            <TextView
-                android:id="@+id/txtPlanAmount"
-                style="@style/HeaderExtraLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font_poppins_bold"
-                android:text="1233 AED" />
-
-            <TextView
-                style="@style/HeaderSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:text="PLAN" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/margin_5"
-            android:background="@color/grey" />
-
-        <LinearLayout
-            android:id="@+id/llSelectMealPerDay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_10"
-            android:paddingRight="@dimen/margin_20"
-            android:paddingLeft="@dimen/margin_20">
-
-            <TextView
-                style="@style/HeaderSemiMedium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/font_raleway_regular"
-                android:text="@string/txt_select_meal_per_day" />
-
-            <RelativeLayout
-                android:id="@+id/rlMealPerDayPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/bg_plus_minus" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_minus" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/countMealPerDay"
-                style="@style/HeaderExtraLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:text="03"
-                android:textColor="@color/screenTitleColor" />
-
-            <RelativeLayout
-                android:id="@+id/rlMealPerDayMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/bg_plus_minus" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_plus" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llSelectDaysForPlan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_15"
-            android:paddingRight="@dimen/margin_20"
-            android:paddingLeft="@dimen/margin_20">
-
-            <TextView
-                style="@style/HeaderSemiMedium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/font_raleway_regular"
-                android:text="@string/txt_select_day_for_plan" />
-
-            <RelativeLayout
-                android:id="@+id/rlDaysForPlanMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/bg_plus_minus" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_minus" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/countDaysForPlan"
-                style="@style/HeaderExtraLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:text="16"
-                android:textColor="@color/screenTitleColor" />
-
-            <RelativeLayout
-                android:id="@+id/rlDaysForPlanPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/bg_plus_minus" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_plus" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:layout_marginRight="@dimen/margin_5"
-            android:layout_marginBottom="@dimen/margin_8"
-            android:background="@drawable/bg_trial_meal"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left|center"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:orientation="vertical"
-                android:padding="@dimen/margin_10">
-
-                <TextView
-                    style="@style/HeaderSemiMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/font_raleway_bold"
-                    android:text="@string/txt_trial_meal_available"
-                    android:layout_marginTop="@dimen/margin_20"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimary" />
-
-                <TextView
-                    android:id="@+id/txtTrianPlanData"
-                    style="@style/HeaderSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="spend 200 AED for 7 days"
-                    android:layout_marginTop="@dimen/margin_2"
-                    android:textColor="@color/screenTitleColor" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/btnTryNow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="@dimen/margin_20"
-                android:background="@drawable/rounded_border_colored_empty"
-                android:gravity="right"
-                android:padding="@dimen/margin_10"
-                android:text="@string/txt_try_now"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimary" />
-        </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_10"
-            android:layout_marginRight="@dimen/margin_10"
-            android:elevation="@dimen/margin_2"
-            app:cardElevation="@dimen/margin_2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_10"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10">
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/txtPlanName"
+                    style="@style/StyleWalkthroughTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Clean Plan" />
+
+                <TextView
+                    android:id="@+id/txtPlanAmount"
+                    style="@style/HeaderExtraLarge"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_poppins_bold"
+                    android:text="0 AED" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/bg_plus_minus" />
+                <TextView
+                    style="@style/HeaderSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:text="PLAN" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/ic_no_bg_cart" />
-                </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_5"
+                android:background="@color/grey" />
+
+            <LinearLayout
+                android:id="@+id/llSelectMealPerDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_20"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_20"
+                android:paddingBottom="@dimen/margin_10">
+
+                <TextView
+                    style="@style/HeaderSemiMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_raleway_regular"
+                    android:text="@string/txt_select_meal_per_day" />
+
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:background="@drawable/rounded_border_spinner"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerSelectDay"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llSelectDaysForPlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_20"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_20"
+                android:paddingBottom="@dimen/margin_15">
+
+                <TextView
+                    style="@style/HeaderSemiMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_raleway_regular"
+                    android:text="@string/txt_select_day_for_plan" />
+
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:background="@drawable/rounded_border_spinner"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerSelectWeek"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llTrialMeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_marginRight="@dimen/margin_5"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:background="@drawable/bg_trial_meal"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="left|center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/margin_10">
 
                     <TextView
-                        style="@style/HeaderSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_your_plan"
-                        android:textAllCaps="true"
-                        android:layout_marginLeft="@dimen/margin_10"
-                        android:textColor="@color/emptyViewColor" />
-
-                    <TextView
-                        android:id="@+id/txtYourPlanDetail"
                         style="@style/HeaderSemiMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3 meals * 16 days"
-                        android:textAllCaps="true"
+                        android:layout_marginTop="@dimen/margin_20"
                         android:fontFamily="@font/font_raleway_bold"
-                        android:layout_marginLeft="@dimen/margin_10" />
+                        android:gravity="center"
+                        android:text="@string/txt_trial_meal_available"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/txtTrialPlanData"
+                        style="@style/HeaderSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_2"
+                        android:text=""
+                        android:textColor="@color/screenTitleColor" />
                 </LinearLayout>
 
-
                 <TextView
-                    android:id="@+id/txtYourPlanPrice"
-                    style="@style/HeaderExtraLarge"
+                    android:id="@+id/btnTryNow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1280"
-                    android:textColor="@color/colorPrimary"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/margin_20"
+                    android:background="@drawable/rounded_border_colored_empty"
+                    android:gravity="right"
+                    android:padding="@dimen/margin_10"
+                    android:text="@string/txt_try_now"
                     android:textAllCaps="true"
-                    android:fontFamily="@font/font_poppins_bold"
-                    android:layout_marginLeft="@dimen/margin_10" />
-
-                <TextView
-                    android:id="@+id/txtYourPlanPriceUnit"
-                    style="@style/HeaderSemiMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="AED"
-                    android:textColor="@color/colorPrimary"
-                    android:textAllCaps="true"
-                    android:layout_marginLeft="@dimen/margin_2"
-                    android:fontFamily="@font/font_poppins_bold" />
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bgColor"
-            android:orientation="horizontal">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:elevation="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_2">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSelectPlan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/StyleButtonNext"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginRight="@dimen/margin_15"
-            android:layout_marginTop="@dimen/margin_15"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:text="@string/txt_select_plan"/>
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_10">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/bg_plus_minus" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_no_bg_cart" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/HeaderSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:text="@string/txt_your_plan"
+                            android:textAllCaps="true"
+                            android:textColor="@color/emptyViewColor" />
+
+                        <TextView
+                            android:id="@+id/txtYourPlanDetail"
+                            style="@style/HeaderSemiMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:fontFamily="@font/font_raleway_bold"
+                            android:text="3 meals * 16 days"
+                            android:textAllCaps="true" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/txtYourPlanPrice"
+                        style="@style/HeaderExtraLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:fontFamily="@font/font_poppins_bold"
+                        android:text="1280"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/txtYourPlanPriceUnit"
+                        style="@style/HeaderSemiMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_2"
+                        android:fontFamily="@font/font_poppins_bold"
+                        android:text="AED"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bgColor"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSelectPlan"
+                    style="@style/StyleButtonNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:text="@string/txt_select_plan" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>

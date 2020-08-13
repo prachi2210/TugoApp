@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
@@ -16,6 +17,7 @@ import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_provider_details.*
 import kotlinx.android.synthetic.main.fragment_sample_menu.*
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
+import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -97,12 +99,24 @@ class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
         for(sample in mSampleMenuList?.get(position)?.sampleMenu!!) {
             list.add(
                     CarouselItem(
-                            imageUrl = sample.description,
+                            imageUrl = sample.imagePath,
                             caption = sample.title
                     )
             )
         }
         imageSampleCarousel.addData(list)
+        imageSampleCarousel.onScrollListener = object : CarouselOnScrollListener {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int, pos: Int, carouselItem: CarouselItem?) {
+                if(mSampleMenuList?.get(position)?.sampleMenu?.size!! > position) {
+                    txtTitleImage.text =  mSampleMenuList?.get(position)?.sampleMenu!![pos].title
+                    txtSubtitleImage.text =  mSampleMenuList?.get(position)?.sampleMenu!![pos].description
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                // ...
+            }
+        }
         imageSampleCarousel.setIndicator(custom_indicator)
     }
 }

@@ -33,8 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:autoPlay="true"
-                app:autoPlayDelay="4000"
+                app:autoPlay="false"
                 app:carouselBackground="@color/white"
                 app:carouselType="SHOWCASE"
                 app:imageScaleType="centerCrop"
@@ -49,7 +48,7 @@
                 app:scaleOnScroll="true"
                 app:scalingFactor=".25"
                 app:showBottomShadow="false"
-                app:showCaption="true"
+                app:showCaption="false"
                 app:showIndicator="true"
                 app:showNavigationButtons="false"
                 app:showTopShadow="false" />

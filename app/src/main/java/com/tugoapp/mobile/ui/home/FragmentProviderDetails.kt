@@ -1,8 +1,9 @@
 package com.tugoapp.mobile.ui.home
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -16,9 +17,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.GetProviderDetailsData
-import com.tugoapp.mobile.data.remote.model.response.GetProviderDetailsResponseModel
 import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 import com.tugoapp.mobile.ui.RootActivity
 import com.tugoapp.mobile.ui.base.BaseFragment
@@ -32,7 +33,7 @@ import javax.inject.Inject
 class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private lateinit var mSelectedMealPlan: MealPlanModel
     private lateinit var mMealPlanList: ArrayList<MealPlanModel>
-    private lateinit var mProviderDetails : GetProviderDetailsData
+    private var mProviderDetails: GetProviderDetailsData? = null
 
     private lateinit var mBusinessId: String
 
@@ -53,30 +54,174 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     override val screenTitle: String
         get() = getString(R.string.title_provider_detail)
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         iniUI()
         setHasOptionsMenu(true)
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_providerdetail,menu)
+        inflater.inflate(R.menu.menu_providerdetail, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.menu_fav) {
+        if (item.itemId == R.id.menu_fav) {
 
-        } else if(item.itemId == R.id.menu_info) {
+        } else if (item.itemId == R.id.menu_info) {
             showProviderDetailDialog()
             return true
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun iniUI() {
+        mContext = this.requireContext()
+
+        mBusinessId = arguments?.getString(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL).toString()
+
+        if (mBusinessId.isNullOrEmpty()) {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
+            return
+        }
+
+        if(mProviderDetails == null)
+        mViewModel?.doGetProviderDetails(mBusinessId)
+
+        initControls()
+        
+        initObservers()
+    }
+
+    private fun initObservers() {
+        if(!mViewModel?.mProvidersDetailData?.hasObservers()!!) {
+            mViewModel?.mProvidersDetailData?.observe(viewLifecycleOwner, Observer {
+                if (!(it?.planData == null || it.planData!!.size <= 0)) {
+                    doSetProviderDetails(it)
+                } else {
+                    CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_provider_detail_failed))
+                }
+            })
+        }
+    }
+
+    private fun initControls() {
+        imgSampleMenu.setOnClickListener(View.OnClickListener {
+            if (mSelectedMealPlan != null && mSelectedMealPlan.sampleMenu?.size!! > 0) {
+                var bundle = bundleOf(AppConstant.SAMPLE_MENU_DATA to mMealPlanList)
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSampleMenu, bundle)
+            } else {
+                CommonUtils.showToast(mContext, getString(R.string.txt_err_no_sample_menu))
+            }
+        })
+        btnCustomize.setOnClickListener(View.OnClickListener {
+            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSelectPlan,bundle)
+        })
+        
+        txtLetusKnow.setOnClickListener(View.OnClickListener {
+            doSendMessageToWhatsApp()
+        })
+    }
+
+    private fun doSendMessageToWhatsApp() {
+        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("content://com.android.contacts/data/" + FirebaseAuth.getInstance().currentUser?.phoneNumber))
+        intent.type = "text/plain"
+        intent.setPackage("com.whatsapp")
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Tugo App")
+        intent.putExtra(Intent.EXTRA_TEXT, "Please help me with following details")
+        if(intent.resolveActivity(mContext.packageManager) != null)
+            startActivity(intent)
+        else {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.whatsapp_not_found))
+        }
+    }
+
+    private fun doSetProviderDetails(providerData: GetProviderDetailsData) {
+        mProviderDetails = providerData
+        (activity as RootActivity).supportActionBar?.title = providerData.companyName
+        deliveryDays.text = providerData.deliveryDays
+        tabMainProvidersType.removeAllTabs()
+        if (providerData.planData != null && providerData.planData!!.size > 0) {
+            mMealPlanList = providerData.planData!!
+            for (planDetail in providerData.planData!!) {
+                tabMainProvidersType.addTab(tabMainProvidersType.newTab().setText(planDetail.title))
+            }
+
+            mSelectedMealPlan = providerData.planData!![0]
+            doSetTabDetails()
+
+            tabMainProvidersType.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    if (providerData.planData!!.size > tab.position) {
+                        mSelectedMealPlan = providerData.planData!!.get(tab.position)
+                        doSetTabDetails()
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab) {
+
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab) {
+
+                }
+            })
+
+            tabInfoLocation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    doSetInfoOrLocationData(tab.position)
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab) {
+
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab) {
+
+                }
+            })
+        }
+    }
+
+    private fun doSetTabDetails() {
+        doSetMealPlanData(mSelectedMealPlan)
+        doSetInfoOrLocationData(0)
+        if (mSelectedMealPlan.sampleMenu == null || mSelectedMealPlan.sampleMenu!!.size <= 0) {
+            rlSampleMenu.visibility = View.GONE
+        }
+        if (mSelectedMealPlan.isTrialPlanAvailable) {
+            llTrialMealAvailable.visibility = View.VISIBLE
+            cardNoTrialmeal.visibility = View.GONE
+            txtTrialPlanData.text = mSelectedMealPlan.trailPlanMainDescription
+        } else {
+            cardNoTrialmeal.visibility = View.VISIBLE
+            llTrialMealAvailable.visibility = View.GONE
+        }
+    }
+
+    private fun doSetInfoOrLocationData(position: Int) {
+        if (mSelectedMealPlan != null) {
+            if (position == 0) {
+                txtInfoDeliveryLocation.text = mSelectedMealPlan.description
+            } else {
+                txtInfoDeliveryLocation.text = mSelectedMealPlan.locations
+            }
+        }
+    }
+
+    private fun doSetMealPlanData(mealPlanData: MealPlanModel) {
+        if (mealPlanData != null) {
+            txtRating.text = mealPlanData.review
+            rateBar.rating = mealPlanData.review?.toFloat()!!
+            txtCountReviews.text = String.format(getString(R.string.txt_no_of_reviews), mealPlanData.noOfReviews)
+            txtStartingFrom.text = mealPlanData.startingFrom
+            Glide.with(mContext)
+                    .load(mealPlanData.featuredImage)
+                    .centerCrop()
+                    .into(imgSampleMenu)
+        }
     }
 
     private fun showProviderDetailDialog() {
@@ -89,124 +234,16 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         val txtProviderName = dialogView.findViewById<TextView>(R.id.txtProviderName)
         val txtProviderDesc = dialogView.findViewById<TextView>(R.id.txtProviderDesc)
         val txtProviderLocation = dialogView.findViewById<TextView>(R.id.txtProviderLocation)
-        if(mProviderDetails != null) {
-            txtProviderName.text = mProviderDetails.companyName
-            txtProviderDesc.text = mProviderDetails.description
-            txtProviderLocation.text = mProviderDetails.address
+        if (mProviderDetails != null) {
+            txtProviderName.text = mProviderDetails?.companyName
+            txtProviderDesc.text = mProviderDetails?.description
+            txtProviderLocation.text = mProviderDetails?.address
             Glide.with(mContext)
-                    .load(mProviderDetails.icon)
+                    .load(mProviderDetails?.icon)
                     .centerCrop()
                     .into(imgLogo)
         }
 
         btnClose.setOnClickListener(View.OnClickListener { providerDialog.dismiss() })
-    }
-
-    private fun iniUI() {
-        mContext = this!!.requireContext()
-
-        mBusinessId = arguments?.getString(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL).toString()
-
-        if (mBusinessId.isNullOrEmpty()) {
-            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_pref_value))
-            return
-        }
-
-        mViewModel?.doGetProviderDetails(mBusinessId)
-
-        initControls()
-    }
-
-    private fun initControls() {
-        imgSampleMenu.setOnClickListener(View.OnClickListener {
-            if(mSelectedMealPlan != null && mSelectedMealPlan.sampleMenu?.size!! > 0) {
-                var bundle = bundleOf(AppConstant.SAMPLE_MENU_DATA to mMealPlanList)
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSampleMenu,bundle)
-            } else {
-                CommonUtils.showToast(mContext,getString(R.string.txt_err_no_sample_menu))
-            }
-        })
-        btnCustomize.setOnClickListener(View.OnClickListener { Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSelectPlan) })
-
-        mViewModel?.mProvidersDetailData?.observe(viewLifecycleOwner, Observer {
-            if(!(it?.planData == null || it.planData!!.size <= 0)) {
-                doSetProviderDetails(it)
-            } else {
-                CommonUtils.showSnakeBar(rootView!!,getString(R.string.txt_err_provider_detail_failed))
-            }
-        })
-    }
-
-    private fun doSetProviderDetails(providerData: GetProviderDetailsData) {
-        mProviderDetails = providerData
-        (activity as RootActivity).supportActionBar?.title = providerData.companyName
-        deliveryDays.text = providerData.deliveryDays
-        if(providerData.planData != null && providerData.planData!!.size > 0) {
-            mMealPlanList = providerData.planData!!
-            for (planDetail in providerData.planData!!) {
-                tabMainProvidersType.addTab(tabMainProvidersType.newTab().setText(planDetail.title))
-                doSetMealPlanData(providerData.planData!![0])
-                mSelectedMealPlan = providerData.planData!![0]
-                doSetInfoOrLocationData(0)
-                if(planDetail.sampleMenu == null || planDetail.sampleMenu!!.size <= 0) {
-                    rlSampleMenu.visibility = View.GONE
-                }
-            }
-
-            tabMainProvidersType.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    if(providerData.planData!!.size > tab.position) {
-                        doSetMealPlanData(providerData.planData!!.get(tab.position))
-                        mSelectedMealPlan = providerData.planData!!.get(tab.position)
-                    }
-                }
-                override fun onTabUnselected(tab: TabLayout.Tab) {
-
-                }
-                override fun onTabReselected(tab: TabLayout.Tab) {
-
-                }
-            })
-
-            tabInfoLocation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                   doSetInfoOrLocationData(tab.position)
-                }
-                override fun onTabUnselected(tab: TabLayout.Tab) {
-
-                }
-                override fun onTabReselected(tab: TabLayout.Tab) {
-
-                }
-            })
-        }
-    }
-
-    private fun doSetInfoOrLocationData(position: Int) {
-        if(mSelectedMealPlan != null) {
-            if(position == 0) {
-                txtInfoDeliveryLocation.text = mSelectedMealPlan.description
-            } else {
-                txtInfoDeliveryLocation.text = mSelectedMealPlan.locations
-            }
-        }
-    }
-
-    private fun doSetMealPlanData(mealPlanData: MealPlanModel) {
-       if(mealPlanData != null) {
-           txtRating.text = mealPlanData.review
-           rateBar.rating = mealPlanData.review?.toFloat()!!
-           txtStartingFrom.text = mealPlanData.startingFrom
-           if(mealPlanData.sampleMenu != null) {
-               Glide.with(mContext)
-                       .load(mealPlanData.sampleMenu!![0].description)
-                       .centerCrop()
-                       .into(imgSampleMenu)
-           }
-       }
-    }
-
-    private fun doSetProviderDetails() {
-
     }
 }

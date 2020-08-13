@@ -15,8 +15,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10">
 
                 <TextView
                     style="@style/HeaderSmall"
@@ -69,26 +69,28 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
                     android:paddingTop="@dimen/margin_15">
+
                     <ImageView
                         android:id="@+id/imgSampleMenu"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
+                        android:layout_centerInParent="true"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_marginRight="@dimen/margin_10"
-                        android:scaleType="fitXY"
                         android:background="@color/colorWhite"
-                        android:layout_centerInParent="true"
-                        android:foreground="@drawable/image_overlay" />
+                        android:foreground="@drawable/image_overlay"
+                        android:scaleType="fitXY" />
+
                     <TextView
+                        style="@style/HeaderSemiMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        style="@style/HeaderSemiMedium"
-                        android:padding="@dimen/margin_10"
-                        android:backgroundTint="@color/colorWhite"
-                        android:textColor="@color/colorWhite"
                         android:background="@drawable/rounded_border_colored_empty"
-                        android:text="@string/txt_view_sample_menu"/>
+                        android:backgroundTint="@color/colorWhite"
+                        android:padding="@dimen/margin_10"
+                        android:text="@string/txt_view_sample_menu"
+                        android:textColor="@color/colorWhite" />
                 </RelativeLayout>
 
                 <com.google.android.material.tabs.TabLayout
@@ -118,6 +120,14 @@
                         android:text="@string/txt_delivery_locations" />
                 </com.google.android.material.tabs.TabLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_toolbar"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_10"
+                    android:paddingTop="@dimen/margin_10">
+
                 <TextView
                     android:id="@+id/txtInfoDeliveryLocation"
                     style="@style/HeaderSmall"
@@ -125,18 +135,12 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
                     android:maxLines="4"
+                    android:minLines="3"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingTop="@dimen/margin_15"
                     android:paddingRight="@dimen/margin_20"
-                    android:text="This plan is for people who is looking to loose weight but also not compromise on losing muscle. Perfect blend of protein and carbs."
+                    android:text=""
                     android:textColor="@color/screenTitleColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_toolbar"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/margin_10">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -180,7 +184,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_2"
-                                android:text="(0 Reviews)"
+                                android:text="@string/txt_no_of_reviews"
                                 android:textColor="@color/color969696" />
                         </LinearLayout>
 
@@ -303,12 +307,12 @@
                             android:textColor="@color/colorPrimary" />
 
                         <TextView
-                            android:id="@+id/txtTrianPlanData"
+                            android:id="@+id/txtTrialPlanData"
                             style="@style/HeaderSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_2"
-                            android:text="@string/txt_trial_meal_subtitle"
+                            android:text=""
                             android:textColor="@color/screenTitleColor" />
                     </LinearLayout>
 
@@ -330,8 +334,8 @@
                     android:id="@+id/cardNoTrialmeal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_20"
                     android:layout_marginBottom="@dimen/margin_10"
                     android:background="@drawable/bg_card"
                     android:elevation="@dimen/margin_2"
