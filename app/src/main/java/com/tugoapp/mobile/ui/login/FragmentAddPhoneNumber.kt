@@ -107,6 +107,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
             } else {
                 CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
             }
+            hideLoading()
         }
     }
 

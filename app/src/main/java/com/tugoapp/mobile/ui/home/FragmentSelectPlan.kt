@@ -93,6 +93,7 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         txtPlanAmount.text = mSelectedMealPlan?.startingFrom + " AED "
         if(mSelectedMealPlan?.isTrialPlanAvailable!!) {
             llTrialMeal.visibility = View.VISIBLE
+            txtTrialPlanData.text = mSelectedMealPlan?.trailPlanMainDescription
         } else {
             llTrialMeal.visibility = View.GONE
         }
@@ -143,19 +144,19 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
 
         when(mSelectedDay) {
             1 -> {
-                var price = (mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForOneMeal))
+                var price = (mSelectedWeek * mSelectedMealPlan?.numbeOfDeliveryDays!! * Integer.parseInt(mSelectedMealPlan?.priceForOneMeal))
                 mSelectedMealPlan?.price = price.toString()
                 txtYourPlanPrice.text = price.toString()
                 txtPlanAmount.text = mSelectedMealPlan?.priceForOneMeal + " AED"
             }
             2 -> {
-                var price = (mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForTwoMeals))
+                var price = (mSelectedWeek * mSelectedMealPlan?.numbeOfDeliveryDays!! * Integer.parseInt(mSelectedMealPlan?.priceForTwoMeals))
                 mSelectedMealPlan?.price = price.toString()
                 txtYourPlanPrice.text = price.toString()
                 txtPlanAmount.text = mSelectedMealPlan?.priceForTwoMeals + " AED"
             }
             3 -> {
-                var price = (mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForThreeMeals))
+                var price = (mSelectedWeek *  mSelectedMealPlan?.numbeOfDeliveryDays!! * Integer.parseInt(mSelectedMealPlan?.priceForThreeMeals))
                 mSelectedMealPlan?.price = price.toString()
                 txtYourPlanPrice.text = price.toString()
                 txtPlanAmount.text = mSelectedMealPlan?.priceForThreeMeals + " AED"

@@ -21,6 +21,7 @@ import com.tugoapp.mobile.ui.home.adapters.SearchHomeListAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_browse_all_providers.*
+import kotlinx.android.synthetic.main.toolbar1.view.*
 import javax.inject.Inject
 
 class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
@@ -55,6 +56,12 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
         (activity as RootActivity).supportActionBar?.setHomeButtonEnabled(true)
         (activity as RootActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        toolbarBrowseAllProvider?.imgBack?.visibility = View.VISIBLE
+
+        toolbarBrowseAllProvider?.imgBack?.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView!!).popBackStack()
+        })
+
         mSelectedCategory = arguments?.getString(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS).toString()
         mCategoryList = arguments?.getParcelableArrayList(AppConstant.ALL_CATEGORY_FOR_PROVIDERS)
 
@@ -64,7 +71,7 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
             doSetCategoryData(mCategoryList)
         }
 
-        mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null))
+        mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null,null))
         imgCustomize.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentBrowseAllProviders_to_fragmentCustomizePlan)
         })
@@ -109,9 +116,9 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                 CategoryListAdapter(it, categoryData, object : OnListItemClickListener {
                     override fun onListItemClick(position: Int) {
                         if (position == 0) {
-                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null))
+                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null,null))
                         } else {
-                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId))
+                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId,null))
                         }
                     }
                 })

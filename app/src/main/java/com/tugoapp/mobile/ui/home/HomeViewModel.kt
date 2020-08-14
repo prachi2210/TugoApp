@@ -22,6 +22,8 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
     var mToastMessage: MutableLiveData<String> = MutableLiveData()
 
+    var mShowProgress: MutableLiveData<Boolean> = MutableLiveData()
+
     fun doLoadCategory() {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -32,6 +34,26 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
                     override fun onResponse(call: Call<GetCategoryResponseModel>, response: Response<GetCategoryResponseModel>) {
                         mCategoryData.postValue(response.body()?.data)
+                    }
+
+                })
+            } else {
+                mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+
+        })
+    }
+
+    fun doSearchTerm(model : GetProvidersRequestModel) {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mPpsApiService.doSearchTermForProvider(task.result?.token, model).enqueue(object : Callback<GetProvidersResponseModel> {
+                    override fun onFailure(call: Call<GetProvidersResponseModel>, t: Throwable) {
+                        mToastMessage.postValue(t.localizedMessage)
+                    }
+
+                    override fun onResponse(call: Call<GetProvidersResponseModel>, response: Response<GetProvidersResponseModel>) {
+                        mProvidersData.postValue(response.body()?.data)
                     }
 
                 })

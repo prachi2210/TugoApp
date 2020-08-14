@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10"
-                    android:text="Mon|Wed|Thu"
+                    android:text=""
                     android:textColor="@color/screenTitleColor"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -236,7 +236,7 @@
 
                                 <TextView
                                     android:id="@+id/txtStartingFrom"
-                                    style="@style/StyleWalkthroughTitle"
+                                    style="@style/HeaderExtraLarge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/font_poppins_bold"

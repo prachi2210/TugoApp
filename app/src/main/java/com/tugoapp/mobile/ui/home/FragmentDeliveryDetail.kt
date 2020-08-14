@@ -67,6 +67,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         }
 
         txtAvailableDeliveryTime.text = mSelectedMealPlan?.startTime + " - " + mSelectedMealPlan?.endTime
+        deliveryDays.text = mSelectedMealPlan?.deliveryDays
         txtDuration.text = String.format(getString(R.string.txt_duration_days),Integer.parseInt(mSelectedMealPlan?.noOfWeeks)*7)
         mSelectedMealPlan?.address = "230, Baker Road, Chicago, IL, 369852, USA"
         mCalender.timeInMillis = System.currentTimeMillis()

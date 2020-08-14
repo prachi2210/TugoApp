@@ -1,5 +1,6 @@
 package com.tugoapp.mobile.data.remote
 
+import com.tugoapp.mobile.data.remote.model.request.GetPlaceOrderRequestModel
 import com.tugoapp.mobile.data.remote.model.request.GetProviderDetailRequestModel
 import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
 import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
@@ -32,4 +33,11 @@ interface MerchantApiService { //
 
     @POST("getProviderDetails")
     fun doGetProviderDetails(@Header("token") token: String?, @Body data : GetProviderDetailRequestModel): Call<GetProviderDetailsResponseModel>
+
+    @POST("placeOrder")
+    fun doGetProviderDetails(@Header("token") token: String?, @Body data : GetPlaceOrderRequestModel): Call<BaseResponseModel>
+
+    @POST("searchProviders")
+    fun doSearchTermForProvider(@Header("token") token: String?, @Body data : GetProvidersRequestModel): Call<GetProvidersResponseModel>
+
 }

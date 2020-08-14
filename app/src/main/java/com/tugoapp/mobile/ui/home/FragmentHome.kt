@@ -20,7 +20,9 @@ import com.tugoapp.mobile.ui.home.adapters.BrowseByDietListAdapter
 import com.tugoapp.mobile.ui.home.adapters.SearchHomeListAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import kotlinx.android.synthetic.main.fragment_browse_all_providers.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.toolbar1.view.*
 import javax.inject.Inject
 
 class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.SearchView.OnQueryTextListener{
@@ -77,21 +79,22 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             })
 
         mViewModel?.mProvidersData?.observe(viewLifecycleOwner, Observer { it ->
-            if (it != null && it.size > 0) {
+           // if (it != null && it.size > 0) {
                 rvBrowseAllProviders.layoutManager = LinearLayoutManager(mContext)
                 val data = ArrayList<ProviderModel>()
                 data.addAll(it)
                 val adapter = mContext?.let {
                     SearchHomeListAdapter(it, data, object : OnListItemClickListener {
                         override fun onListItemClick(position: Int) {
-                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders)
+                            var bundle = bundleOf(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL to data.get(position).businessId)
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentProviderDetails,bundle)
                         }
                     })
                 }
                 rvBrowseAllProviders.adapter = adapter
-            } else {
-                CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
-            }
+          //  } else {
+               // CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
+          //  }
         })
     }
 
@@ -102,7 +105,9 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
 
         searchHome.clearFocus()
 
-        mViewModel?.doLoadProviders(GetProvidersRequestModel(null,null,null));
+        toolbarBrowseAllProvider?.imgBack?.visibility = View.GONE
+
+        //mViewModel?.doLoadProviders(GetProvidersRequestModel(null,null,null,null));
 
         llLetsFindMealPlan.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders)
@@ -120,6 +125,7 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
         } else {
             llMainView.visibility = View.GONE
             rvBrowseAllProviders.visibility = View.VISIBLE
+            mViewModel?.doSearchTerm(GetProvidersRequestModel(null,null,null,newText))
         }
         return false;
     }
