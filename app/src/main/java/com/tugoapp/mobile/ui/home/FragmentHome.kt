@@ -93,13 +93,14 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
                 CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
             }
         })
-
     }
 
     private fun iniUI() {
         mContext = context
         searchHome.setOnQueryTextListener(this)
         mViewModel?.doLoadCategory();
+
+        searchHome.clearFocus()
 
         mViewModel?.doLoadProviders(GetProvidersRequestModel(null,null,null));
 
@@ -117,7 +118,6 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             llMainView.visibility = View.VISIBLE
             rvBrowseAllProviders.visibility = View.GONE
         } else {
-           // doBrowseAllProviders()
             llMainView.visibility = View.GONE
             rvBrowseAllProviders.visibility = View.VISIBLE
         }

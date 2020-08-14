@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -69,7 +70,9 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
 
     private fun initControls() {
         btnSelectPlan.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail)
+            mSelectedMealPlan?.isTrialMeal = false
+            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
         })
     }
 
@@ -103,11 +106,13 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         spinnerSelectWeek.adapter = adapterWeek
 
         btnTryNow.setOnClickListener(View.OnClickListener {
-
+            mSelectedMealPlan?.isTrialMeal = true
+            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
         })
 
-        spinnerSelectDay.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long) {
+        spinnerSelectDay?.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
                 mSelectedDay = Integer.parseInt(mSelectedMealPlan?.mealOptions?.get(position))
                 doCalculateAndShowData()
             }
@@ -117,8 +122,8 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
             }
         }
 
-        spinnerSelectWeek.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long) {
+        spinnerSelectWeek?.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
                 mSelectedWeek = Integer.parseInt(mSelectedMealPlan?.weekOptions?.get(position))
                 doCalculateAndShowData()
             }
@@ -130,15 +135,31 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     }
 
     private fun doCalculateAndShowData() {
+        mSelectedMealPlan?.noOfMeals = mSelectedDay.toString()
+        mSelectedMealPlan?.noOfWeeks = mSelectedWeek.toString()
+
+
         txtYourPlanDetail.text = mSelectedDay.toString() + " meals * " + (mSelectedWeek*7).toString() + " days"
 
         when(mSelectedDay) {
-            1 ->
-                txtYourPlanPrice.text =(mSelectedDay * mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForOneMeal)).toString()
-            2 ->
-                txtYourPlanPrice.text =(mSelectedDay * mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForTwoMeals)).toString()
-            3 ->
-                txtYourPlanPrice.text =(mSelectedDay * mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForThreeMeals)).toString()
+            1 -> {
+                var price = (mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForOneMeal))
+                mSelectedMealPlan?.price = price.toString()
+                txtYourPlanPrice.text = price.toString()
+                txtPlanAmount.text = mSelectedMealPlan?.priceForOneMeal + " AED"
+            }
+            2 -> {
+                var price = (mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForTwoMeals))
+                mSelectedMealPlan?.price = price.toString()
+                txtYourPlanPrice.text = price.toString()
+                txtPlanAmount.text = mSelectedMealPlan?.priceForTwoMeals + " AED"
+            }
+            3 -> {
+                var price = (mSelectedWeek * 7 * Integer.parseInt(mSelectedMealPlan?.priceForThreeMeals))
+                mSelectedMealPlan?.price = price.toString()
+                txtYourPlanPrice.text = price.toString()
+                txtPlanAmount.text = mSelectedMealPlan?.priceForThreeMeals + " AED"
+            }
         }
     }
 }

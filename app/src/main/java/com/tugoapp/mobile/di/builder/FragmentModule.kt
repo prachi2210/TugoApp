@@ -74,8 +74,6 @@ abstract class FragmentModule {
     @ContributesAndroidInjector
     abstract fun bindCustomizePlan(): FragmentCustomizePlan?
 
-    @ContributesAndroidInjector
-    abstract fun bindOrderSummary(): FragmentOrderSummary?
 
     @ContributesAndroidInjector
     abstract fun bindSampleMenu(): FragmentSampleMenu?

@@ -75,6 +75,7 @@
                         android:padding="@dimen/margin_10">
 
                         <ImageView
+                            android:id="@+id/imgPlan"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_marginLeft="@dimen/margin_20"
@@ -131,9 +132,10 @@
                             android:text="@string/txt_date" />
 
                         <TextView
+                            android:id="@+id/txtDate"
                             style="@style/HeaderMedium"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
@@ -183,13 +185,14 @@
                             android:text="@string/txt_total_paid" />
 
                         <TextView
+                            android:id="@+id/txtTotalPaid"
                             style="@style/HeaderMedium"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="2,250 AED" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -225,6 +228,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBackToHome"
             style="@style/StyleButtonNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

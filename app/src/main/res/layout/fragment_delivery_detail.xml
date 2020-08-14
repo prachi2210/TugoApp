@@ -142,7 +142,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/font_raleway_bold"
-                                android:text="Duration: 16 Days" />
+                                android:text="@string/txt_duration_days" />
                         </LinearLayout>
 
                         <View
@@ -157,6 +157,7 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
+                                android:id="@+id/llDeliveryStartDate"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/margin_10"
@@ -171,7 +172,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/margin_10"
                                     android:layout_weight="1"
-                                    android:text="24/04/2020" />
+                                    android:text="" />
 
                                 <ImageView
                                     android:layout_width="wrap_content"
@@ -188,7 +189,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:padding="@dimen/margin_10"
-                                android:text="End date is \n 06/05/2020"
+                                android:text="@string/txt_end_date_is"
                                 android:textColor="@color/emptyViewColor" />
                         </LinearLayout>
                     </LinearLayout>
@@ -247,14 +248,14 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/txtDeliveryTime"
+                                    android:id="@+id/txtAvailableDeliveryTime"
                                     style="@style/HeaderSemiMedium"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/margin_10"
                                     android:singleLine="true"
                                     android:layout_marginLeft="@dimen/margin_10"
-                                    android:text="6:00 AM - 10:00 PM" />
+                                    android:text="" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -303,7 +304,7 @@
                             android:background="@color/grey" />
 
                         <EditText
-                            android:id="@+id/txtInstructions"
+                            android:id="@+id/txtDeliveryInstructions"
                             style="@style/HeaderSemiMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

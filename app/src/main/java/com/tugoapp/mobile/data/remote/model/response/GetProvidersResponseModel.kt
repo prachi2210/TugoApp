@@ -22,10 +22,14 @@ public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsD
 @Parcelize
 public data class MealPlanModel(var title : String?, var description : String?, var planId : Int? ,var startingFrom : String?,
                                 var featuredImage : String?,var trailPlanMainDescription : String?,
-                                var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,
+                                var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trailPlanDays : String,
                                 var review : String?, var locations : String?, var noOfReviews : String?, var sampleMenu : ArrayList<SampleMenu>?,
-                                var priceForOneMeal : String?, var priceForTwoMeals : String? , var priceForThreeMeals : String?,
-                                var weekOptions : ArrayList<String>?,  var mealOptions : ArrayList<String>?): Parcelable {}
+                                var priceForOneMeal : String?, var priceForTwoMeals : String? , var priceForThreeMeals : String?,  var startTime : String?,var endTime : String?,
+                                var weekOptions : ArrayList<String>?,  var mealOptions : ArrayList<String>?,
+
+                                var isTrialMeal : Boolean,var noOfMeals : String?,var noOfWeeks : String?,var instructions : String?,
+                                var address : String?,var startFrom : String?,var endOn : String?, var price : String?): Parcelable {}
 
 @Parcelize
 public data class SampleMenu(var planId : String?, var title : String?, var imagePath : String? ,var description : String?) : Parcelable{}
+
