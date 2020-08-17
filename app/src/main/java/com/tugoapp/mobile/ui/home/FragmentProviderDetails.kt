@@ -95,6 +95,20 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     }
 
     private fun initObservers() {
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!, it) })
+
+        mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
+            if(it.first) {
+                if(it.second.isNullOrBlank()) {
+                    showLoading()
+                } else {
+                    showLoading(it.second)
+                }
+            } else {
+                hideLoading()
+            }
+        })
+
         if(!mViewModel?.mProvidersDetailData?.hasObservers()!!) {
             mViewModel?.mProvidersDetailData?.observe(viewLifecycleOwner, Observer {
                 if (!(it?.planData == null || it.planData!!.size <= 0)) {

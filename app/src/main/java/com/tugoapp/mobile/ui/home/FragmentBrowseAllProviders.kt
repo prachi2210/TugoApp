@@ -85,6 +85,18 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
             doSetCategoryData(it)
         })
 
+        mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
+            if(it.first) {
+                if(it.second.isNullOrBlank()) {
+                    showLoading()
+                } else {
+                    showLoading(it.second)
+                }
+            } else {
+                hideLoading()
+            }
+        })
+
         mViewModel?.mProvidersData?.observe(viewLifecycleOwner, Observer { it ->
             if (it != null && it.size > 0) {
                 rvMealProviders.layoutManager = LinearLayoutManager(mContext)

@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.data.remote.model.request.GetProviderDetailRequestModel
 import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
@@ -22,18 +23,21 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
     var mToastMessage: MutableLiveData<String> = MutableLiveData()
 
-    var mShowProgress: MutableLiveData<Boolean> = MutableLiveData()
+    var mShowProgress: MutableLiveData<Pair<Boolean,String>> = MutableLiveData()
 
     fun doLoadCategory() {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
             if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,""))
                 mPpsApiService.doGetCategories(task.result?.token).enqueue(object : Callback<GetCategoryResponseModel> {
                     override fun onFailure(call: Call<GetCategoryResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
                         mToastMessage.postValue(t.localizedMessage)
                     }
 
                     override fun onResponse(call: Call<GetCategoryResponseModel>, response: Response<GetCategoryResponseModel>) {
                         mCategoryData.postValue(response.body()?.data)
+                        mShowProgress.postValue(Pair(false,""))
                     }
 
                 })
@@ -47,13 +51,16 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
     fun doSearchTerm(model : GetProvidersRequestModel) {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
             if (task.isSuccessful) {
+                //mShowProgress.postValue(Pair(true,mApplicationContext.getString(R.string.txt_loading_searching_provider)))
                 mPpsApiService.doSearchTermForProvider(task.result?.token, model).enqueue(object : Callback<GetProvidersResponseModel> {
                     override fun onFailure(call: Call<GetProvidersResponseModel>, t: Throwable) {
+                       // mShowProgress.postValue(Pair(false,""))
                         mToastMessage.postValue(t.localizedMessage)
                     }
 
                     override fun onResponse(call: Call<GetProvidersResponseModel>, response: Response<GetProvidersResponseModel>) {
                         mProvidersData.postValue(response.body()?.data)
+                       // mShowProgress.postValue(Pair(false,""))
                     }
 
                 })
@@ -67,13 +74,16 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
     fun doLoadProviders(model : GetProvidersRequestModel) {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
             if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,mApplicationContext.getString(R.string.txt_loading_provider)))
                 mPpsApiService.doGetProviders(task.result?.token, model).enqueue(object : Callback<GetProvidersResponseModel> {
                     override fun onFailure(call: Call<GetProvidersResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
                         mToastMessage.postValue(t.localizedMessage)
                     }
 
                     override fun onResponse(call: Call<GetProvidersResponseModel>, response: Response<GetProvidersResponseModel>) {
                         mProvidersData.postValue(response.body()?.data)
+                        mShowProgress.postValue(Pair(false,""))
                     }
 
                 })
@@ -87,13 +97,16 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
     fun doGetProviderDetails(mBusinessId: String) {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
             if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,mApplicationContext.getString(R.string.txt_loading_searching_provider_detail)))
                 mPpsApiService.doGetProviderDetails(task.result?.token,  GetProviderDetailRequestModel(mBusinessId)).enqueue(object : Callback<GetProviderDetailsResponseModel> {
                     override fun onFailure(call: Call<GetProviderDetailsResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
                         mToastMessage.postValue(t.localizedMessage)
                     }
 
                     override fun onResponse(call: Call<GetProviderDetailsResponseModel>, response: Response<GetProviderDetailsResponseModel>) {
                         mProvidersDetailData.postValue(response.body()?.data)
+                        mShowProgress.postValue(Pair(false,""))
                     }
 
                 })

@@ -190,4 +190,8 @@
     <string name="whatsapp_not_found">Whats App not found in phone to send message</string>
     <string name="txt_duration_days">Duration: %s Days</string>
     <string name="txt_end_date_is">End date is \n %s</string>
+    <string name="txt_no_provider_available">Sorry! \n\n Provider detail not found with this name.</string>
+    <string name="txt_loading_searching_provider">Searching Provider</string>
+    <string name="txt_loading_provider">Loading Providers</string>
+    <string name="txt_loading_searching_provider_detail">Loading Provider Details</string>
 </resources>

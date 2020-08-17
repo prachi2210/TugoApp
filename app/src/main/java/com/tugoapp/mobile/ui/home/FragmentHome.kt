@@ -57,7 +57,21 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
     private fun initObservers() {
 
         mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
-            mViewModel?.mCategoryData?.observe(viewLifecycleOwner, Observer { it ->
+
+        mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
+            if(it.first) {
+                if(it.second.isNullOrBlank()) {
+                    showLoading()
+                } else {
+                    showLoading(it.second)
+                }
+            } else {
+                hideLoading()
+            }
+        })
+
+
+        mViewModel?.mCategoryData?.observe(viewLifecycleOwner, Observer { it ->
                 if (it != null && it.size > 0) {
                     rvBrowseByDiet.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
                     val categoryData = ArrayList<CategoryDetailModel>()
@@ -82,7 +96,14 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
            // if (it != null && it.size > 0) {
                 rvBrowseAllProviders.layoutManager = LinearLayoutManager(mContext)
                 val data = ArrayList<ProviderModel>()
-                data.addAll(it)
+                 if (it != null && it.size > 0) {
+                     data.addAll(it)
+                     llEmptyViewProvider.visibility = View.GONE
+                     rvBrowseAllProviders.visibility = View.VISIBLE
+                 } else {
+                     llEmptyViewProvider.visibility = View.VISIBLE
+                     rvBrowseAllProviders.visibility = View.GONE
+                 }
                 val adapter = mContext?.let {
                     SearchHomeListAdapter(it, data, object : OnListItemClickListener {
                         override fun onListItemClick(position: Int) {
@@ -122,9 +143,11 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
         if(newText.isNullOrBlank())  {
             llMainView.visibility = View.VISIBLE
             rvBrowseAllProviders.visibility = View.GONE
+            llEmptyViewProvider.visibility = View.GONE
         } else {
             llMainView.visibility = View.GONE
             rvBrowseAllProviders.visibility = View.VISIBLE
+            llEmptyViewProvider.visibility = View.GONE
             mViewModel?.doSearchTerm(GetProvidersRequestModel(null,null,null,newText))
         }
         return false;
