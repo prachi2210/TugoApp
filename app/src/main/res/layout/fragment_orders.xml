@@ -20,35 +20,61 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@android:color/black"
             app:tabTextColor="@color/unselectedTabcolor">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_ongoing" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_history" />
         </com.google.android.material.tabs.TabLayout>
-
-        <FrameLayout
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/orderViewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <fragment
-                android:id="@+id/child_container"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:defaultNavHost="false"
-                android:layout_centerInParent="true"
-                app:navGraph="@navigation/main_navigation2" />
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/orderViewPager"
-                android:layout_centerInParent="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"/>
 
-        </FrameLayout>
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/llOngoingOrdersEmpty"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@color/bgColor"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical"-->
+<!--                android:visibility="gone">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_cart" />-->
+
+<!--                <TextView-->
+<!--                    style="@style/HeaderEmptyView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/txt_header_empty_orders" />-->
+
+<!--                <TextView-->
+<!--                    style="@style/HeaderEmptyView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/margin_10"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/txt_msg_empty_orders"-->
+<!--                    android:textSize="@dimen/size_12" />-->
+
+<!--                <Button-->
+<!--                    style="@style/StyleButtonNext"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_20"-->
+<!--                    android:text="@string/txtExploreFood" />-->
+<!--            </LinearLayout>-->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rvOrderList"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:visibility="gone"-->
+<!--                android:background="@color/bgColor" />-->
+
     </LinearLayout>
 </layout>

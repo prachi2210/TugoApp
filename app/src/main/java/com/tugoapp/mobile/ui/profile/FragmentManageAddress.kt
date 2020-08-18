@@ -6,12 +6,10 @@ import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.crashlytics.internal.common.CommonUtils
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
-import com.tugoapp.mobile.ui.orders.FragmentHistoryOrders
 import com.tugoapp.mobile.ui.profile.adapter.AddressListAdapter
 import kotlinx.android.synthetic.main.fragment_manage_address.*
 import javax.inject.Inject

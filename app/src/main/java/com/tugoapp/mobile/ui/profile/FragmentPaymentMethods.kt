@@ -10,7 +10,6 @@ import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
-import com.tugoapp.mobile.ui.orders.FragmentHistoryOrders
 import com.tugoapp.mobile.ui.profile.adapter.CardsListAdapter
 import kotlinx.android.synthetic.main.fragment_payment_methods.*
 import javax.inject.Inject
