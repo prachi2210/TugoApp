@@ -1,13 +1,7 @@
 package com.tugoapp.mobile.data.remote
 
-import com.tugoapp.mobile.data.remote.model.request.GetPlaceOrderRequestModel
-import com.tugoapp.mobile.data.remote.model.request.GetProviderDetailRequestModel
-import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
-import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
-import com.tugoapp.mobile.data.remote.model.response.BaseResponseModel
-import com.tugoapp.mobile.data.remote.model.response.GetCategoryResponseModel
-import com.tugoapp.mobile.data.remote.model.response.GetProviderDetailsResponseModel
-import com.tugoapp.mobile.data.remote.model.response.GetProvidersResponseModel
+import com.tugoapp.mobile.data.remote.model.request.*
+import com.tugoapp.mobile.data.remote.model.response.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -40,4 +34,12 @@ interface MerchantApiService { //
     @POST("searchProviders")
     fun doSearchTermForProvider(@Header("token") token: String?, @Body data : GetProvidersRequestModel): Call<GetProvidersResponseModel>
 
+    @POST("saveAddress")
+    fun doAddAddress(@Header("token") token: String?, @Body data : AddAddressRequestModel): Call<BaseResponseModel>
+
+    @POST("updateAddress")
+    fun doUpdateAddress(@Header("token") token: String?, @Body data : UpdateAddressRequestModel): Call<BaseResponseModel>
+
+    @POST("getAddressData")
+    fun doGetAddressList(@Header("token") token: String?): Call<GetAddressResponseModel>
 }

@@ -11,19 +11,21 @@ import com.tugoapp.mobile.data.remote.model.request.GetProviderDetailRequestMode
 import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
 import com.tugoapp.mobile.data.remote.model.response.*
 import com.tugoapp.mobile.ui.base.BaseViewModel
+import com.tugoapp.mobile.ui.base.SingleLiveEvent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel(application: Application?, private val mPpsApiService: MerchantApiService) : BaseViewModel(application) {
 
-    var mCategoryData: MutableLiveData<ArrayList<CategoryDetailModel>> = MutableLiveData()
-    var mProvidersData: MutableLiveData<ArrayList<ProviderModel>> = MutableLiveData()
-    var mProvidersDetailData: MutableLiveData<GetProviderDetailsData> = MutableLiveData()
+    var mCategoryData: SingleLiveEvent<ArrayList<CategoryDetailModel>> = SingleLiveEvent()
+    var mProvidersData: SingleLiveEvent<ArrayList<ProviderModel>> = SingleLiveEvent()
+    var mSearchedProvidersData: SingleLiveEvent<ArrayList<ProviderModel>> = SingleLiveEvent()
+    var mProvidersDetailData: SingleLiveEvent<GetProviderDetailsData> = SingleLiveEvent()
 
-    var mToastMessage: MutableLiveData<String> = MutableLiveData()
+    var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
 
-    var mShowProgress: MutableLiveData<Pair<Boolean,String>> = MutableLiveData()
+    var mShowProgress: SingleLiveEvent<Pair<Boolean,String>> = SingleLiveEvent()
 
     fun doLoadCategory() {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
@@ -59,7 +61,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
                     }
 
                     override fun onResponse(call: Call<GetProvidersResponseModel>, response: Response<GetProvidersResponseModel>) {
-                        mProvidersData.postValue(response.body()?.data)
+                        mSearchedProvidersData.postValue(response.body()?.data)
                        // mShowProgress.postValue(Pair(false,""))
                     }
 

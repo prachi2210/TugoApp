@@ -110,6 +110,7 @@ dependencies {
     implementation 'com.github.ImaginativeShohag:Why-Not-Image-Carousel:v1.1.0'
 
     implementation 'me.relex:circleindicator:2.1.4'
+    implementation "com.github.hadilq:rxlifecyclehandler:0.1.0"
 }
 repositories {
     mavenCentral()

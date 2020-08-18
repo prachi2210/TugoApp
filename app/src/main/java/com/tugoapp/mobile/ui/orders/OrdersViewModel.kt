@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.ui.base.BaseViewModel
+import com.tugoapp.mobile.ui.base.SingleLiveEvent
 
 class OrdersViewModel(application: Application?, private val mPpsApiService: MerchantApiService) : BaseViewModel(application) {
     fun setSelectedHistoryOrder(position: Int) {
@@ -13,5 +14,5 @@ class OrdersViewModel(application: Application?, private val mPpsApiService: Mer
 
     private val mApplicationContext: Context = getApplication<Application>().applicationContext
 
-    val mSelectedHistoryOrder = MutableLiveData<Int>()
+    val mSelectedHistoryOrder = SingleLiveEvent<Int>()
 }

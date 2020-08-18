@@ -109,7 +109,6 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             }
         })
 
-        if(!mViewModel?.mProvidersDetailData?.hasObservers()!!) {
             mViewModel?.mProvidersDetailData?.observe(viewLifecycleOwner, Observer {
                 if (!(it?.planData == null || it.planData!!.size <= 0)) {
                     doSetProviderDetails(it)
@@ -117,7 +116,6 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
                     CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_provider_detail_failed))
                 }
             })
-        }
     }
 
     private fun initControls() {

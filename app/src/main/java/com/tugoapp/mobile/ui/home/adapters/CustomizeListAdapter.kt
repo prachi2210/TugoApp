@@ -45,4 +45,10 @@ class CustomizeListAdapter(private val context: Context,
             notifyDataSetChanged()
         }
     }
+
+    public fun doClickCategory(position : Int) {
+        cellClickListener.onListItemClick(position)
+        mSelectedCategoryIndex = position;
+        notifyDataSetChanged()
+    }
 }

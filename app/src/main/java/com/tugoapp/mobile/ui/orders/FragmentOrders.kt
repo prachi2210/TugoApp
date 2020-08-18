@@ -75,12 +75,10 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>()  {
     }
 
     private fun initObservers() {
-       if(!mViewModel?.mSelectedHistoryOrder?.hasObservers()!!) {
            activity?.let {
                mViewModel?.mSelectedHistoryOrder?.observe(it, Observer {
                   // Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail)
                })
            }
-       }
     }
 }

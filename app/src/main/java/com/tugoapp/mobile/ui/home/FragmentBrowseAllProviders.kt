@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
     private var mCategoryList: java.util.ArrayList<CategoryDetailModel>? = null
-    private lateinit var mSelectedCategory: String
+    private var mSelectedCategory: Int? = 0
 
     @JvmField
     @Inject
@@ -62,16 +62,17 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
             Navigation.findNavController(rootView!!).popBackStack()
         })
 
-        mSelectedCategory = arguments?.getString(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS).toString()
+        mSelectedCategory = arguments?.getInt(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS)
         mCategoryList = arguments?.getParcelableArrayList(AppConstant.ALL_CATEGORY_FOR_PROVIDERS)
 
-        if (mCategoryList.isNullOrEmpty()) {
-            mViewModel?.doLoadCategory()
-        } else {
-            doSetCategoryData(mCategoryList)
+        if (!(rvCategoryList.adapter != null && rvCategoryList.adapter?.itemCount != null && rvCategoryList.adapter?.itemCount!! > 0)) {
+            if (mCategoryList.isNullOrEmpty()) {
+                mViewModel?.doLoadCategory()
+            } else {
+                doSetCategoryData(mCategoryList)
+            }
         }
 
-        mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null,null))
         imgCustomize.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentBrowseAllProviders_to_fragmentCustomizePlan)
         })
@@ -86,8 +87,8 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
         })
 
         mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
-            if(it.first) {
-                if(it.second.isNullOrBlank()) {
+            if (it.first) {
+                if (it.second.isNullOrBlank()) {
                     showLoading()
                 } else {
                     showLoading(it.second)
@@ -105,7 +106,7 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                 val adapter = mContext?.let {
                     SearchHomeListAdapter(it, data, object : OnListItemClickListener {
                         override fun onListItemClick(position: Int) {
-                            var bundle = bundleOf(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL to data.get(position).businessId)
+                            var bundle = bundleOf(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL to data[position].businessId)
                             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentBrowseAllProviders_to_fragmentProviderDetails, bundle)
                         }
                     })
@@ -128,14 +129,22 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                 CategoryListAdapter(it, categoryData, object : OnListItemClickListener {
                     override fun onListItemClick(position: Int) {
                         if (position == 0) {
-                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null,null))
+                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null))
                         } else {
-                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId,null))
+                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId, null))
                         }
                     }
                 })
             }
             rvCategoryList.adapter = adapter
+
+            if (mViewModel?.mProvidersData?.value == null) {
+                if (mSelectedCategory != null && rvCategoryList.adapter != null) {
+                    rvCategoryList.findViewHolderForAdapterPosition(mSelectedCategory!!)?.itemView?.performClick();
+                } else {
+                    mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null))
+                }
+            }
         } else {
             CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
         }

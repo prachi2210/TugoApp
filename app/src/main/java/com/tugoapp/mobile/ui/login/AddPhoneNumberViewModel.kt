@@ -7,6 +7,7 @@ import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
 import com.tugoapp.mobile.data.remote.model.response.BaseResponseModel
 import com.tugoapp.mobile.ui.base.BaseViewModel
+import com.tugoapp.mobile.ui.base.SingleLiveEvent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,8 +15,8 @@ import retrofit2.Response
 class AddPhoneNumberViewModel(application: Application?, private val mPpsApiService: MerchantApiService) : BaseViewModel(application) {
     private val mApplicationContext: Context = getApplication<Application>().applicationContext
 
-    var mIsUserDetailSubmitted : MutableLiveData<Int> = MutableLiveData()
-    var mToastMessage: MutableLiveData<String> = MutableLiveData()
+    var mIsUserDetailSubmitted : SingleLiveEvent<Int> = SingleLiveEvent()
+    var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
 
 
     fun doSaveUserDetailOnServer(token: String?, saveUserDetailRequestModel: SaveUserDetailRequestModel) {

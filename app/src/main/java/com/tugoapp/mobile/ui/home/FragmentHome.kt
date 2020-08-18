@@ -70,8 +70,7 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             }
         })
 
-
-        mViewModel?.mCategoryData?.observe(viewLifecycleOwner, Observer { it ->
+            mViewModel?.mCategoryData?.observe(viewLifecycleOwner, Observer { it ->
                 if (it != null && it.size > 0) {
                     rvBrowseByDiet.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
                     val categoryData = ArrayList<CategoryDetailModel>()
@@ -80,9 +79,9 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
                     val adapter = mContext?.let {
                         BrowseByDietListAdapter(it, categoryData, object : OnListItemClickListener {
                             override fun onListItemClick(position: Int) {
-                                var bundle =  bundleOf(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS to  categoryData.get(position).categoryId,
+                                var bundle = bundleOf(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS to position,
                                         AppConstant.ALL_CATEGORY_FOR_PROVIDERS to categoryData as ArrayList<CategoryDetailModel>)
-                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders,bundle)
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders, bundle)
                             }
                         })
                     }
@@ -92,43 +91,43 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
                 }
             })
 
-        mViewModel?.mProvidersData?.observe(viewLifecycleOwner, Observer { it ->
-           // if (it != null && it.size > 0) {
+            mViewModel?.mSearchedProvidersData?.observe(viewLifecycleOwner, Observer { it ->
+                // if (it != null && it.size > 0) {
                 rvBrowseAllProviders.layoutManager = LinearLayoutManager(mContext)
                 val data = ArrayList<ProviderModel>()
-                 if (it != null && it.size > 0) {
-                     data.addAll(it)
-                     llEmptyViewProvider.visibility = View.GONE
-                     rvBrowseAllProviders.visibility = View.VISIBLE
-                 } else {
-                     llEmptyViewProvider.visibility = View.VISIBLE
-                     rvBrowseAllProviders.visibility = View.GONE
-                 }
+                if (it != null && it.size > 0) {
+                    data.addAll(it)
+                    llEmptyViewProvider.visibility = View.GONE
+                    rvBrowseAllProviders.visibility = View.VISIBLE
+                } else {
+                    llEmptyViewProvider.visibility = View.VISIBLE
+                    rvBrowseAllProviders.visibility = View.GONE
+                }
                 val adapter = mContext?.let {
                     SearchHomeListAdapter(it, data, object : OnListItemClickListener {
                         override fun onListItemClick(position: Int) {
-                            var bundle = bundleOf(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL to data.get(position).businessId)
-                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentProviderDetails,bundle)
+                            var bundle = bundleOf(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL to data[position].businessId)
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentProviderDetails, bundle)
                         }
                     })
                 }
                 rvBrowseAllProviders.adapter = adapter
-          //  } else {
-               // CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
-          //  }
-        })
+                //  } else {
+                // CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
+                //  }
+            })
     }
 
     private fun iniUI() {
         mContext = context
         searchHome.setOnQueryTextListener(this)
+
+        if(mViewModel?.mCategoryData?.value == null)
         mViewModel?.doLoadCategory();
 
         searchHome.clearFocus()
 
         toolbarBrowseAllProvider?.imgBack?.visibility = View.GONE
-
-        //mViewModel?.doLoadProviders(GetProvidersRequestModel(null,null,null,null));
 
         llLetsFindMealPlan.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders)
