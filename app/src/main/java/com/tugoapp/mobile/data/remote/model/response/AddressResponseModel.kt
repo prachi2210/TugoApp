@@ -7,4 +7,4 @@ import kotlinx.android.parcel.Parcelize
 
 public data class GetAddressResponseModel(var data : ArrayList<AddressModel>?) : BaseResponseModel() {}
 
-public data class AddressModel(var userId : String?,var address : String?,var addressId : String?,var isDefault : String?)  {}
+public data class AddressModel(var userId : String?,var address : String?,var addressId : String?,var isDefault : Boolean)  {}

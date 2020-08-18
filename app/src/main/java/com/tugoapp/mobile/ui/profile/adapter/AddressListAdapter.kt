@@ -8,10 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.AddressModel
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 
 class AddressListAdapter(private val context: Context,
-                         private val list: ArrayList<String>,
+                         private val list: ArrayList<AddressModel>,
                          private val cellClickListener: OnListItemClickListener
 ) : RecyclerView.Adapter<AddressListAdapter.ViewHolder>() {
 
@@ -32,7 +33,9 @@ class AddressListAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
 
-        if(position == 0) {
+        holder.titleAddress.text = data.address
+
+        if(data.isDefault) {
             holder.imgChecked.visibility = View.VISIBLE
         } else {
             holder.imgChecked.visibility = View.GONE

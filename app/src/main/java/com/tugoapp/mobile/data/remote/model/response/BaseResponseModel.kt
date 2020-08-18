@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 open class BaseResponseModel {
     @SerializedName("success")
-    var isSuccess: Int = 0
+    var isSuccess: Int? = 0
 
     @Expose
     @SerializedName("message")

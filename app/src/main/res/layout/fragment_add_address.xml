@@ -44,6 +44,7 @@
                     android:paddingLeft="@dimen/margin_10" />
 
                 <CheckBox
+                    android:id="@+id/cbIsDefault"
                     style="@style/HeaderMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -57,6 +58,7 @@
                     android:layout_weight="1" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddAddress"
                     style="@style/StyleButtonNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

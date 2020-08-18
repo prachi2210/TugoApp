@@ -46,6 +46,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
+                android:id="@+id/llAddressList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_30"
@@ -72,6 +77,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/txtEmptyViewAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/HeaderMedium"
+                android:visibility="gone"
+                android:textColor="@color/darkGray"
+                android:text="@string/txt_no_address_found"
+                android:gravity="center"/>
 
         </LinearLayout>
     </ScrollView>

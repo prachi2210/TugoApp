@@ -194,4 +194,8 @@
     <string name="txt_loading_searching_provider">Searching Provider</string>
     <string name="txt_loading_provider">Loading Providers</string>
     <string name="txt_loading_searching_provider_detail">Loading Provider Details</string>
+    <string name="txt_no_address_found">There are no address added. Please add one</string>
+    <string name="txt_fill_address">Please fill the address detail</string>
+    <string name="txt_loading_adding_address">Adding address</string>
+    <string name="txt_loading_address">Loading address(s)</string>
 </resources>
