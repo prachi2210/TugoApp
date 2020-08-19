@@ -1,20 +1,28 @@
 package com.tugoapp.mobile.ui.profile
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.google.firebase.crashlytics.internal.common.CommonUtils
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.AddAddressRequestModel
+import com.tugoapp.mobile.data.remote.model.request.DeleteAddressRequestModel
+import com.tugoapp.mobile.data.remote.model.request.UpdateAddressRequestModel
+import com.tugoapp.mobile.data.remote.model.response.AddressModel
+import com.tugoapp.mobile.ui.RootActivity
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.AppConstant
+import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_add_address.*
 import javax.inject.Inject
 
 class FragmentAddAddress : BaseFragment<AddAddressViewModel?>() {
+    private var mAddressModel: AddressModel? = null
+
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -45,6 +53,21 @@ class FragmentAddAddress : BaseFragment<AddAddressViewModel?>() {
     private fun iniUI() {
         mContext = context
 
+        mAddressModel = arguments?.getParcelable<AddressModel>(AppConstant.ADDRESS_TO_EDIT)
+
+        if(mAddressModel != null) {
+            edtLocation.setText(mAddressModel?.address)
+            llEditBtnLayout.visibility = View.VISIBLE
+            btnAddAddress.visibility = View.GONE
+            txtHeaderAddress.text = getString(R.string.txt_edit_address_header)
+            (activity as RootActivity).supportActionBar?.setTitle(getString(R.string.title_edit_address))
+        } else {
+            llEditBtnLayout.visibility = View.GONE
+            btnAddAddress.visibility = View.VISIBLE
+            txtHeaderAddress.text = getString(R.string.txt_add_address)
+            (activity as RootActivity).supportActionBar?.setTitle(getString(R.string.txt_add_a_new_address))
+        }
+
         initObserver()
 
         initControllers()
@@ -54,6 +77,28 @@ class FragmentAddAddress : BaseFragment<AddAddressViewModel?>() {
         btnAddAddress.setOnClickListener(View.OnClickListener {
             doAddAddress()
         })
+
+        btnEditAddress.setOnClickListener(View.OnClickListener {
+            doUpdateAddress()
+        })
+
+        btnDeleteAddress.setOnClickListener(View.OnClickListener {
+            doDeleteAddress()
+        })
+    }
+
+    private fun doDeleteAddress() {
+
+        var builder = mContext?.let { CommonUtils.showDialog(it,R.string.txt_warning,R.string.txt_delete_address_confirmation) }
+        builder?.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
+            mViewModel?.doDeleteAddress(DeleteAddressRequestModel(mAddressModel?.addressId))
+        })
+        builder?.setNegativeButton("No", DialogInterface.OnClickListener{
+            dialog, which ->
+            dialog.dismiss()
+        })
+        builder?.show()
+
     }
 
     private fun doAddAddress() {
@@ -61,9 +106,17 @@ class FragmentAddAddress : BaseFragment<AddAddressViewModel?>() {
         if(address.isNullOrBlank()) {
             com.tugoapp.mobile.utils.CommonUtils.showToast(mContext,getString(R.string.txt_fill_address))
         }
-
         mViewModel?.doAddAddressOnServer(AddAddressRequestModel(address,cbIsDefault.isChecked))
     }
+
+    private fun doUpdateAddress() {
+        var address = edtLocation.text.toString()
+        if(address.isNullOrBlank()) {
+            com.tugoapp.mobile.utils.CommonUtils.showToast(mContext,getString(R.string.txt_fill_address))
+        }
+        mViewModel?.doUpdateAddressOnServer(UpdateAddressRequestModel(mAddressModel?.addressId,address,cbIsDefault.isChecked))
+    }
+
 
     private fun initObserver() {
 

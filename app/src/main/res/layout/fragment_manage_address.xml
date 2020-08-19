@@ -67,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_edit"
+                    android:visibility="gone"
                     style="@style/HeaderMedium"
                     android:textColor="@color/colorPrimary"
                     android:fontFamily="@font/font_raleway_bold"/>

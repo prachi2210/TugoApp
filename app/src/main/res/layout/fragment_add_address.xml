@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,16 +9,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@drawable/bg_toolbar">
+            android:background="@drawable/bg_add_address">
 
             <TextView
+                android:id="@+id/txtHeaderAddress"
                 style="@style/HeaderMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:gravity="bottom"
-                android:paddingLeft="@dimen/margin_30"
-                android:paddingBottom="@dimen/margin_20"
+                android:gravity="center"
                 android:text="@string/txt_add_address" />
         </RelativeLayout>
 
@@ -27,12 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            android:background="@color/colorWhite"
             android:scrollbars="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:layout_marginTop="@dimen/margin_20"
                 android:padding="@dimen/margin_15">
 
                 <EditText
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10"
                     android:text="@string/txt_set_as_default"
-                    android:textColor="@color/emptyViewColor" />
+                    android:textColor="@color/screenTitleColor" />
 
                 <View
                     android:layout_width="match_parent"
@@ -62,9 +62,34 @@
                     style="@style/StyleButtonNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_30"
                     android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_30"
                     android:text="@string/txt_btn_add_address" />
+
+                <LinearLayout
+                    android:id="@+id/llEditBtnLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnEditAddress"
+                        style="@style/StyleButtonNext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_btn_edit_address" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnDeleteAddress"
+                        style="@style/StyleButtonNext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_marginBottom="@dimen/margin_30"
+                        android:backgroundTint="@color/colorRed"
+                        android:text="@string/txt_btn_delete_address" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

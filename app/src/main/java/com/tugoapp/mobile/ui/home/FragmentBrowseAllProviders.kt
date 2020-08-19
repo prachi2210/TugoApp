@@ -76,6 +76,14 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
         imgCustomize.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentBrowseAllProviders_to_fragmentCustomizePlan)
         })
+
+        if (mViewModel?.mProvidersData?.value == null) {
+            if (mSelectedCategory != null && rvCategoryList.adapter != null) {
+                rvCategoryList.findViewHolderForAdapterPosition(mSelectedCategory!!)?.itemView?.performClick();
+            } else {
+                mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null))
+            }
+        }
     }
 
     private fun initObservers() {
@@ -137,14 +145,6 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                 })
             }
             rvCategoryList.adapter = adapter
-
-            if (mViewModel?.mProvidersData?.value == null) {
-                if (mSelectedCategory != null && rvCategoryList.adapter != null) {
-                    rvCategoryList.findViewHolderForAdapterPosition(mSelectedCategory!!)?.itemView?.performClick();
-                } else {
-                    mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null))
-                }
-            }
         } else {
             CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
         }

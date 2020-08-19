@@ -15,3 +15,6 @@ public data class AddAddressRequestModel( var address: String?,var setDefault: B
 
 public data class UpdateAddressRequestModel(var addressId : String?, var address : String, var setDefault: Boolean? ) {}
 
+public data class DeleteAddressRequestModel(var addressId : String?) {}
+
+

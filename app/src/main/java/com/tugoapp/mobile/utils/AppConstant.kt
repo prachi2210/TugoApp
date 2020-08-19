@@ -13,7 +13,7 @@ object AppConstant {
     const val ALL_CATEGORY_FOR_PROVIDERS = "ALL_CATEGORY_FOR_PROVIDERS"
     const val SAMPLE_MENU_DATA = "SAMPLE_MENU_DATA"
     const val SELECTED_MEAL_PLAN = "SELECTED_MEAL_PLAN"
-
+    const val ADDRESS_TO_EDIT = "ADDRESS_TO_EDIT"
 
 
 }

@@ -42,4 +42,7 @@ interface MerchantApiService { //
 
     @POST("getAddressData")
     fun doGetAddressList(@Header("token") token: String?): Call<GetAddressResponseModel>
+
+    @POST("removeAddress")
+    fun doDeleteAddress(@Header("token") token: String?, @Body data : DeleteAddressRequestModel): Call<BaseResponseModel>
 }

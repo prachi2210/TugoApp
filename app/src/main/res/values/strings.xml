@@ -76,6 +76,8 @@
     <string name="title_payment_methods">Payment Methods</string>
     <string name="title_delivery_address">Delivery Address</string>
     <string name="txt_add_a_new_address">Add a new address</string>
+    <string name="title_edit_address">Edit address</string>
+
     <string name="txt_saved_address">Saved Address</string>
     <string name="txt_edit">Edit</string>
     <string name="txt_saved_cards">Saved Cards</string>
@@ -87,7 +89,9 @@
     <string name="txt_set_as_default">Set as default</string>
     <string name="txt_add_card">Add Card</string>
     <string name="hint_address">Add address</string>
-    <string name="txt_add_address">Enter the address into the form below, or you can use your current location</string>
+    <string name="txt_add_address">Enter the address into the form below</string>
+    <string name="txt_edit_address_header">Edit the address into the form below</string>
+
     <string name="txt_btn_add_address">Add address</string>
     <string name="txt_btn_redeem_plan">Redeem this plan</string>
     <string name="txt_btn_write_comment">Write a comment</string>
@@ -198,4 +202,9 @@
     <string name="txt_fill_address">Please fill the address detail</string>
     <string name="txt_loading_adding_address">Adding address</string>
     <string name="txt_loading_address">Loading address(s)</string>
+    <string name="txt_btn_delete_address">Delete Address</string>
+    <string name="txt_btn_edit_address">Edit Address</string>
+    <string name="txt_loading_updating_address">Updating Address</string>
+    <string name="txt_warning">Warning</string>
+    <string name="txt_delete_address_confirmation">Are you sure you want to delete this address?</string>
 </resources>
