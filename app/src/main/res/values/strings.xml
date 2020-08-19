@@ -187,7 +187,7 @@
     <string name="txt_err_no_sample_menu">Sample menu not found</string>
     <string name="txt_view_sample_menu">View sample menu</string>
     <string name="txt_no_of_reviews">(%s reviews)</string>
-    <string name="whatsapp_not_found">Whats App not found in phone to send message</string>
+    <string name="whatsapp_not_found">Whats App is not installed in phone to send message</string>
     <string name="txt_duration_days">Duration: %s Days</string>
     <string name="txt_end_date_is">End date is \n %s</string>
     <string name="txt_no_provider_available">Sorry! \n\n Provider detail not found with this name.</string>

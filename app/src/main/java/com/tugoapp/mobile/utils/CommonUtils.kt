@@ -3,8 +3,10 @@ package com.tugoapp.mobile.utils
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
@@ -124,5 +126,16 @@ object CommonUtils {
         progressDialog.setCancelable(false)
         progressDialog.setCanceledOnTouchOutside(false)
         return progressDialog
+    }
+
+    fun doSendMessageToWhatsApp(context: Context, view: View?) {
+        try {
+            var toNumber = "919824123970";
+            var sendIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:$toNumber?body="));
+            sendIntent.setPackage("com.whatsapp");
+            context.startActivity(sendIntent);
+        } catch (e : Exception) {
+            showSnakeBar(view,context.getString(R.string.whatsapp_not_found))
+        }
     }
 }

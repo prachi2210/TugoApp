@@ -2,6 +2,7 @@ package com.tugoapp.mobile.ui.home
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -133,21 +134,8 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         })
         
         txtLetusKnow.setOnClickListener(View.OnClickListener {
-            doSendMessageToWhatsApp()
+            CommonUtils.doSendMessageToWhatsApp(mContext,rootView)
         })
-    }
-
-    private fun doSendMessageToWhatsApp() {
-        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("content://com.android.contacts/data/" + FirebaseAuth.getInstance().currentUser?.phoneNumber))
-        intent.type = "text/plain"
-        intent.setPackage("com.whatsapp")
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Tugo App")
-        intent.putExtra(Intent.EXTRA_TEXT, "Please help me with following details")
-        if(intent.resolveActivity(mContext.packageManager) != null)
-            startActivity(intent)
-        else {
-            CommonUtils.showSnakeBar(rootView, getString(R.string.whatsapp_not_found))
-        }
     }
 
     private fun doSetProviderDetails(providerData: GetProviderDetailsData) {

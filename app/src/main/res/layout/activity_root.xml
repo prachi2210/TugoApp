@@ -12,8 +12,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:contentInsetLeft="-10dp"
-            app:contentInsetStartWithNavigation="-20dp"
             app:titleTextAppearance="@style/HeaderToolbar"
             android:background="@color/colorWhite"
             android:theme="@style/HeaderToolbar"/>

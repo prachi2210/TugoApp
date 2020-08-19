@@ -123,9 +123,6 @@
         android:name="com.tugoapp.mobile.ui.profile.FragmentProfile"
         android:label="@string/title_account_settings">
         <action
-            android:id="@+id/action_fragmentProfile_to_fragmentOrders"
-            app:destination="@id/fragmentOrders" />
-        <action
             android:id="@+id/action_fragmentProfile_to_fragmentWelcome"
             app:destination="@id/fragmentWelcome"
             app:enterAnim="@anim/slide_in_right"
@@ -231,13 +228,6 @@
         android:name="com.tugoapp.mobile.ui.login.FragmentAddPhoneNumber"
         android:label="@string/title_create_an_acnt" >
         <action
-            android:id="@+id/action_fragmentAddPhoneNumber_to_fragmentVerifyOTP"
-            app:destination="@id/fragmentVerifyOTP"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
             android:id="@+id/action_fragmentAddPhoneNumber_to_fragmentWalkthrough"
             app:destination="@id/fragmentWalkthrough"
             app:enterAnim="@anim/slide_in_right"
@@ -246,20 +236,6 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/fragmentAddPhoneNumber"
             app:popUpToInclusive="true"/>
-    </fragment>
-    <fragment
-        android:id="@+id/fragmentVerifyOTP"
-        android:name="com.tugoapp.mobile.ui.login.FragmentVerifyOTP"
-        android:label="@string/title_create_an_acnt" >
-        <action
-            android:id="@+id/action_fragmentVerifyOTP_to_fragmentWalkthrough"
-            app:destination="@id/fragmentWalkthrough"
-            app:popUpTo="@id/main_navigation"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -349,12 +325,6 @@
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
-        android:id="@+id/fragmentOrderSummary"
-        android:name="com.tugoapp.mobile.ui.home.FragmentOrderSummary"
-        android:label="FragmentOrderSummary" >
-
-    </fragment>
-    <fragment
         android:id="@+id/fragmentSampleMenu"
         android:name="com.tugoapp.mobile.ui.home.FragmentSampleMenu"
         android:label="@string/title_sample_menu" />
@@ -375,16 +345,14 @@
         android:name="com.tugoapp.mobile.ui.home.FragmentDeliveryDetail"
         android:label="@string/title_delivery" >
         <action
-            android:id="@+id/action_fragmentDeliveryDetail_to_fragmentOrderSummary"
-            app:destination="@id/fragmentOrderSummary"
+            android:id="@+id/action_fragmentDeliveryDetail_to_fragmentThankYou"
+            app:destination="@id/fragmentThankYou"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-
-        <action
-            android:id="@+id/action_fragmentDeliveryDetail_to_fragmentThankYou"
-            app:destination="@id/fragmentThankYou" />
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentHome"
+            app:popUpToInclusive="true"/>
     </fragment>
     <dialog
         android:id="@+id/fragmentSelectPaymentMethod"

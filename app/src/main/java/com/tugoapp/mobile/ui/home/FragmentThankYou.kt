@@ -73,5 +73,9 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
         btnBackToHome.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentThankyou_to_fragmentHome)
         })
+
+        llMessageUs.setOnClickListener(View.OnClickListener {
+            CommonUtils.doSendMessageToWhatsApp(mContext,rootView)
+        })
     }
 }
