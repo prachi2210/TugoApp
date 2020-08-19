@@ -12,7 +12,9 @@
     //Text size
     <dimen name="size_4">8sp</dimen>
     <dimen name="size_8">12sp</dimen>
+    <dimen name="size_11">15sp</dimen>
     <dimen name="size_12">16sp</dimen>
+    <dimen name="size_13">17sp</dimen>
     <dimen name="size_14">18sp</dimen>
     <dimen name="size_16">20sp</dimen>
     <dimen name="size_18">22sp</dimen>

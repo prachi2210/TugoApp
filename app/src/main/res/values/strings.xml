@@ -207,4 +207,5 @@
     <string name="txt_loading_updating_address">Updating Address</string>
     <string name="txt_warning">Warning</string>
     <string name="txt_delete_address_confirmation">Are you sure you want to delete this address?</string>
+    <string name="title_reviews">Reviews</string>
 </resources>

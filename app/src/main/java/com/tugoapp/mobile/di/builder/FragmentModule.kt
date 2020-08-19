@@ -92,4 +92,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun bindForgotPswd(): FragmentForgotPassword?
+
+    @ContributesAndroidInjector
+    abstract fun bindReview(): FragmentReview?
 }

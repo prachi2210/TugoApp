@@ -136,6 +136,10 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         txtLetusKnow.setOnClickListener(View.OnClickListener {
             CommonUtils.doSendMessageToWhatsApp(mContext,rootView)
         })
+
+        txtReadRating.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentReview)
+        })
     }
 
     private fun doSetProviderDetails(providerData: GetProviderDetailsData) {

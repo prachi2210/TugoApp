@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+      android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/margin_10"
+         android:orientation="horizontal">
+
+         <ImageView
+            android:id="@+id/imgUser"
+             android:layout_width="wrap_content"
+             android:src="@drawable/ic_questions"
+             android:layout_gravity="center"
+             android:layout_height="wrap_content"/>
+         <LinearLayout
+             android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="@dimen/margin_10"
+            android:orientation="vertical">
+         <TextView
+            android:id="@+id/txtUserName"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+            style="@style/HeaderMedium"
+             android:text="Username"
+             android:textSize="@dimen/size_13"
+             android:textColor="@color/screenTitleColor"
+            android:fontFamily="@font/font_raleway_bold"/>
+            <TextView
+                android:id="@+id/txtUsermealPlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/HeaderSmall"
+                android:textSize="@dimen/size_11"
+                android:text="meal plan decription"
+                android:textColor="@color/screenTitleColor"/>
+         </LinearLayout>
+
+         <RatingBar
+             android:id="@+id/rateMark"
+             style="@style/Widget.AppCompat.RatingBar.Small"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:backgroundTint="@color/colorF8B64C"
+             android:foregroundTint="@color/colorF8B64C"
+             android:rating="3"
+             android:theme="@style/ThemeRatingBar" />
+      </LinearLayout>
+      <TextView
+          android:id="@+id/txtReview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          style="@style/HeaderMedium"
+          android:textSize="@dimen/size_13"
+          android:layout_marginLeft="@dimen/margin_10"
+          android:text="Review in detail test data"
+          android:textColor="@color/screenTitleColor"/>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginTop="@dimen/margin_10"
+         android:background="@color/grey"/>
+   </LinearLayout>
+</layout>

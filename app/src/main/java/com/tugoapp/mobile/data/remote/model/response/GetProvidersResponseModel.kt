@@ -34,3 +34,9 @@ public data class MealPlanModel(var title : String?, var description : String?, 
 @Parcelize
 public data class SampleMenu(var planId : String?, var title : String?, var imagePath : String? ,var description : String?) : Parcelable{}
 
+
+
+@Parcelize
+public data class ReviewModel(var reviewId : String?, var title : String?, var userImage : String? ,var description : String?,var rating : Float,var review : String?) : Parcelable{}
+
+
