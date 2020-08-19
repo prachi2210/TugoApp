@@ -54,12 +54,11 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/txtTitle"
+                                android:id="@+id/txtTitleOrderDetail"
                                 style="@style/HeaderOrderHistoryTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_20"
-                                android:text="Eat Simple" />
+                                android:layout_marginTop="@dimen/margin_20" />
 
 
                             <TextView
@@ -68,19 +67,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="1dp"
-                                android:text="Ongoing"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorPrimary"
                                 android:textStyle="bold" />
 
 
                             <TextView
-                                android:id="@+id/txtDate"
+                                android:id="@+id/txtDateOrderDetail"
                                 style="@style/HeaderSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_5"
-                                android:text="27/02/2020 23:25"
                                 android:textColor="@color/emptyViewColor" />
 
                             <TextView
@@ -89,7 +86,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="1dp"
-                                android:text="Order Id: 54851 "
                                 android:textColor="@color/emptyViewColor" />
                         </LinearLayout>
 
@@ -124,13 +120,12 @@
                                 android:tint="@color/colorPrimary" />
 
                             <TextView
-                                android:id="@+id/txtAddress"
+                                android:id="@+id/txtAddressOrderDetail"
                                 style="@style/HeaderSemiMedium"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_10"
                                 android:maxLines="2"
-                                android:text="230 Baker road, Chicago, IL, 60315, USA"
                                 android:textColor="@color/screenTitleColor" />
                         </LinearLayout>
 
@@ -150,7 +145,6 @@
                             android:maxLines="1"
                             android:layout_marginTop="@dimen/margin_20"
                             android:fontFamily="@font/font_raleway_bold"
-                            android:text="Life style Meal Plan"
                             android:textColor="@color/colorPrimary" />
 
                         <TextView
@@ -160,7 +154,6 @@
                             android:layout_height="wrap_content"
                             android:maxLines="1"
                             android:layout_marginTop="@dimen/margin_12"
-                            android:text="4 meals per day for 20 days"
                             android:textColor="@color/screenTitleColor" />
 
                         <TextView
@@ -170,7 +163,7 @@
                             android:layout_height="wrap_content"
                             android:maxLines="1"
                             android:layout_marginTop="@dimen/margin_5"
-                            android:text="Delivery Time: 5:00 pm"
+                            android:text="@string/txt_delivery_time_order_summary"
                             android:textColor="@color/screenTitleColor" />
 
                         <TextView
@@ -180,7 +173,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_5"
                             android:maxLines="2"
-                            android:text="Instructions: Please make sure there is no onions in my food"
+                            android:text="@string/txt_order_summary_instructions"
                             android:textColor="@color/screenTitleColor" />
 
                         <LinearLayout
@@ -213,7 +206,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:text="2250 AED"
                                     android:textColor="@color/screenTitleColor" />
 
                             </LinearLayout>
@@ -241,7 +233,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:text="Credit Card"
                                     android:textColor="@color/screenTitleColor" />
                             </LinearLayout>
                         </LinearLayout>
@@ -281,12 +272,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_10"
+                    android:visibility="gone"
                     android:orientation="vertical">
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnReorder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/StyleButtonNext"
+                        android:visibility="gone"
                         android:textColor="@color/colorWhite"
                         android:background="@drawable/rounded_border_colored_yellow"
                         android:text="@string/txt_reorder_this_plan"/>

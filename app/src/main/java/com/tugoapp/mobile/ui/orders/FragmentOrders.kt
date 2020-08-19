@@ -3,6 +3,7 @@ package com.tugoapp.mobile.ui.orders
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -26,6 +27,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.tugoapp.mobile.ui.home.FragmentHome
+import com.tugoapp.mobile.utils.AppConstant
+import kotlinx.android.synthetic.main.fragment_orders.view.*
 
 
 class FragmentOrders : BaseFragment<OrdersViewModel?>() {
@@ -63,10 +66,10 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>() {
 
         class ViewPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!,FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             public override fun getItem(position: Int): Fragment {
-                return when (position) {
-                    0 -> return FragmentOnGoingOrders()
-                    1 -> return FragmentHistoryOrders()
-                    else -> return FragmentOnGoingOrders()
+                return return when (position) {
+                    0 -> FragmentOnGoingOrders()
+                    1 -> FragmentHistoryOrders()
+                    else -> FragmentOnGoingOrders()
                 }
             }
 
@@ -93,8 +96,24 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>() {
     private fun initObservers() {
         activity?.let {
             mViewModel?.mSelectedHistoryOrder?.observe(it, Observer {
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail)
+                var isHistoryTab : Boolean = orderViewPager.tabLayout.selectedTabPosition == 1
+                var bundle = bundleOf(AppConstant.SELECTED_ORDER_FOR_DETAIL to it, AppConstant.SELECTED_ORDER_IS_HISTORY to isHistoryTab)
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentOrderDetail,bundle)
             })
         }
+
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
+
+        mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
+            if(it.first) {
+                if(it.second.isNullOrBlank()) {
+                    showLoading()
+                } else {
+                    showLoading(it.second)
+                }
+            } else {
+                hideLoading()
+            }
+        })
     }
 }

@@ -5,19 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.OrderModel
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 
 class OrderHistoryListAdapter(private val context: Context,
-                              private val list: ArrayList<String>,
+                              private val isHistoryScreen : Boolean,
+                              private val list: ArrayList<OrderModel>,
                               private val cellClickListener: OnListItemClickListener
 ) : RecyclerView.Adapter<OrderHistoryListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-//        val iconIV: ImageView = view.findViewById(R.id.iconIV)
-//        val titleTV: TextView = view.findViewById(R.id.titleTV)
-//        val subtitleTV: TextView = view.findViewById(R.id.subtitleTV)
+        val imgHistoryOrder: ImageView = view.findViewById(R.id.imgHistoryOrder)
+        val txtOrderTitle: TextView = view.findViewById(R.id.txtOrderTitle)
+        val txtOrderSubTitle: TextView = view.findViewById(R.id.txtOrderSubTitle)
+        val txtPrice: TextView = view.findViewById(R.id.txtPrice)
+        val txtPlanDetail: TextView = view.findViewById(R.id.txtPlanDetail)
+        val txtExpiryDate: TextView = view.findViewById(R.id.txtExpiryDate)
+       // val isOngoing: TextView = view.findViewById(R.id.txtExpiryDate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,9 +40,20 @@ class OrderHistoryListAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
-//        holder.iconIV.setImageDrawable(ContextCompat.getDrawable(context, data.icon))
-//        holder.titleTV.text = data.title
-//        holder.subtitleTV.text = data.subtitle
+        holder.txtOrderTitle.text = data.companyName
+        holder.txtOrderSubTitle.text = data.planName
+        holder.txtPrice.text = data.price + " AED"
+      //  holder.txtPlanDetail.text = data.subtitle
+        if(isHistoryScreen) {
+            holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_expired_on),data.expiredOn)
+        } else {
+            holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_started_on),data.startedOn)
+        }
+
+        Glide.with(context)
+                .load(data.companyLogo)
+                .centerCrop()
+                .into(holder.imgHistoryOrder)
 
         holder.itemView.setOnClickListener {
             cellClickListener.onListItemClick(position)

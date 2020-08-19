@@ -45,4 +45,10 @@ interface MerchantApiService { //
 
     @POST("removeAddress")
     fun doDeleteAddress(@Header("token") token: String?, @Body data : DeleteAddressRequestModel): Call<BaseResponseModel>
+
+    @POST("getActiveOrders")
+    fun doGetOngoingOrders(@Header("token") token: String?): Call<OrdersResponseModel>
+
+    @POST("getPastOrders")
+    fun doGetHistoryOrders(@Header("token") token: String?): Call<OrdersResponseModel>
 }

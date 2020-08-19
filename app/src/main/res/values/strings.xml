@@ -208,4 +208,10 @@
     <string name="txt_warning">Warning</string>
     <string name="txt_delete_address_confirmation">Are you sure you want to delete this address?</string>
     <string name="title_reviews">Reviews</string>
+    <string name="txt_order_expired_on">Expired on %s</string>
+    <string name="txt_order_started_on">Started on %s</string>
+    <string name="txt_expired">EXPIRED</string>
+    <string name="txt_order_id">Order ID: %s</string>
+    <string name="txt_delivery_time_order_summary">Delivery Time: %s</string>
+    <string name="txt_order_summary_instructions">Instructions: %s</string>
 </resources>

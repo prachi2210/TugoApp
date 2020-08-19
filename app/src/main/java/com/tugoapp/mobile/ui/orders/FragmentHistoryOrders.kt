@@ -6,34 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.OrderModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.CommonUtils
+import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.fragment_history_orders.*
+import kotlinx.android.synthetic.main.fragment_ongoing_orders.*
+import java.util.ArrayList
 import javax.inject.Inject
 
 
 class FragmentHistoryOrders : Fragment() {
-
-    private lateinit var mOnOrderSelected: OnListItemClickListener
-
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
     private var mViewModel: OrdersViewModel? = null
     var mContext: Context? = null
-
-//    override val layoutId: Int
-//        get() = R.layout.fragment_history_orders
-//
-//    override val viewModel: OrdersViewModel
-//        get() {
-//            mViewModel = activity?.let { ViewModelProviders.of(it, factory).get(OrdersViewModel::class.java) }
-//            return mViewModel!!
-//        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,25 +50,45 @@ class FragmentHistoryOrders : Fragment() {
 
     private fun iniUI() {
         mContext = context
+
+        if(mViewModel?.mHistoryOrderData?.value == null)
+             mViewModel?.doGetHistoryOrders()
+        else {
+            doSetHistoryData(mViewModel?.mHistoryOrderData?.value!!)
+        }
+
+        initObserver()
+        initController()
+    }
+
+    private fun initController() {
+        btnExploreFoodHistory.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView).navigate(R.id.action_fragmentOrders_to_fragmentHome)
+        })
+    }
+
+    private fun initObserver() {
+
+        mViewModel?.mHistoryOrderData?.observe(viewLifecycleOwner, Observer {
+           doSetHistoryData(it)
+        })
+    }
+
+    private fun doSetHistoryData(it: ArrayList<OrderModel>?) {
         historyOrderList.layoutManager = LinearLayoutManager(mContext)
-        val users = ArrayList<String>()
-        users.add("t1")
-        users.add("t1")
-        users.add("t1")
-        users.add("t1")
-        users.add("t1")
-        users.add("t1")
-        users.add("t1")
+        val data = ArrayList<OrderModel>()
+        if(it != null && it.size > 0) {
+            data.addAll(it)
+            llOrdersEmpty.visibility = View.GONE
+            historyOrderList.visibility = View.VISIBLE
+        } else {
+            llOrdersEmpty.visibility = View.VISIBLE
+            historyOrderList.visibility = View.GONE
+        }
         val adapter = mContext?.let {
-            OrderHistoryListAdapter(it, users, object : OnListItemClickListener {
+            OrderHistoryListAdapter(it, true , data, object : OnListItemClickListener {
                 override fun onListItemClick(position: Int) {
-                    mViewModel?.setSelectedHistoryOrder(position)
-//                    /*val fm: FragmentManager? = childFragmentManager
-//                    val fragm: FragmentOrders = fm?.findFragmentById(R.id.main_navigation) as FragmentOrders
-//                    fragm?.sendNavigation()*/
-//
-//                   // FragmentOrders.click()
-//                   // Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHistoryOrders_to_fragmentOrderDetail)
+                    mViewModel?.setSelectedHistoryOrder(data[position])
                 }
             })
         }
