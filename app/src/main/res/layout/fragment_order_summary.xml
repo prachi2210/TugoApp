@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_2"
-                android:text="3 meals * 5 days a week for 20 days" />
+                android:text="" />
 
 
             <View
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_2"
-                android:text="230, Baker Road, Chicago, IL, 369852, USA" />
+                android:text="" />
 
             <View
                 android:layout_width="match_parent"

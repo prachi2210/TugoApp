@@ -25,11 +25,11 @@ interface MerchantApiService { //
     @POST("getProviders")
     fun doGetProviders(@Header("token") token: String?, @Body data : GetProvidersRequestModel): Call<GetProvidersResponseModel>
 
-    @POST("getProviderDetails")
+    @POST("getProviderDetailsAdvace")
     fun doGetProviderDetails(@Header("token") token: String?, @Body data : GetProviderDetailRequestModel): Call<GetProviderDetailsResponseModel>
 
     @POST("placeOrder")
-    fun doGetProviderDetails(@Header("token") token: String?, @Body data : GetPlaceOrderRequestModel): Call<BaseResponseModel>
+    fun doPlaceOrder(@Header("token") token: String?, @Body data : PlaceOrderRequestModel?): Call<BaseResponseModel>
 
     @POST("searchProviders")
     fun doSearchTermForProvider(@Header("token") token: String?, @Body data : GetProvidersRequestModel): Call<GetProvidersResponseModel>
@@ -51,4 +51,10 @@ interface MerchantApiService { //
 
     @POST("getPastOrders")
     fun doGetHistoryOrders(@Header("token") token: String?): Call<OrdersResponseModel>
+
+    @POST("pauseOrder")
+    fun doPauseOrder(@Header("token") token: String?, @Body  model : ResumeOrderRequestModel?): Call<BaseResponseModel>
+
+        @POST("resumeOrder")
+    fun doResumeOrder(@Header("token") token: String?, @Body model : ResumeOrderRequestModel?): Call<BaseResponseModel>
 }

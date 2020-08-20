@@ -3,17 +3,17 @@ package com.tugoapp.mobile.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
-import androidx.core.view.get
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.MealOptionsModel
 import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 import com.tugoapp.mobile.ui.base.BaseFragment
+import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.ui.home.adapters.MealOptionsListAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_select_plan.*
@@ -25,7 +25,9 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     private var mSelectedDay: Int = 0
     private var mSelectedWeek: Int = 0
 
-    private var mSelectedMealPlan: MealPlanModel? = null
+    private var mSelectedPlanObject: MealPlanModel? = null
+    private var mSelectedMealPlan: MealOptionsModel? = null
+
 
     @JvmField
     @Inject
@@ -57,9 +59,9 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     private fun iniUI() {
         mContext = this!!.requireContext()
 
-        mSelectedMealPlan = arguments?.getParcelable(AppConstant.SELECTED_MEAL_PLAN)
+        mSelectedPlanObject = arguments?.getParcelable(AppConstant.SELECTED_MEAL_PLAN)
 
-        if (mSelectedMealPlan == null) {
+        if (mSelectedPlanObject == null) {
             CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
             return
         }
@@ -70,8 +72,17 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
 
     private fun initControls() {
         btnSelectPlan.setOnClickListener(View.OnClickListener {
-            mSelectedMealPlan?.isTrialMeal = false
-            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan)
+            if(mSelectedMealPlan == null || mSelectedMealPlan?.mealId.isNullOrBlank()) {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.err_select_plan))
+                return@OnClickListener
+            }
+            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
+                    AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to false)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
+        })
+
+        btnTryNow.setOnClickListener(View.OnClickListener {
+            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
         })
     }
@@ -79,7 +90,7 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     private fun doSetPlanData() {
         val list = mutableListOf<CarouselItem>()
 
-        for(sample in mSelectedMealPlan?.sampleMenu!!) {
+        for(sample in mSelectedPlanObject?.sampleMenu!!) {
             list.add(
                     CarouselItem(
                             imageUrl = sample.imagePath,
@@ -89,78 +100,29 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         }
         imageCarousel.addData(list)
 
-        txtPlanName.text = mSelectedMealPlan?.title
-        txtPlanAmount.text = mSelectedMealPlan?.startingFrom + " AED "
-        if(mSelectedMealPlan?.isTrialPlanAvailable!!) {
+        txtPlanName.text = mSelectedPlanObject?.title
+        deliveryDaysSelectPlan.text = mSelectedPlanObject?.deliveryDays
+        txtPlanDescSelectPlan.text = mSelectedPlanObject?.description
+        if(mSelectedPlanObject?.isTrialPlanAvailable!!) {
             llTrialMeal.visibility = View.VISIBLE
-            txtTrialPlanData.text = mSelectedMealPlan?.trailPlanMainDescription
+            txtTrialPlanData.text = mSelectedPlanObject?.trailPlanMainDescription
         } else {
             llTrialMeal.visibility = View.GONE
         }
 
-        val adapterMeal = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, mSelectedMealPlan?.mealOptions)
-        adapterMeal.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerSelectDay.adapter = adapterMeal
+        if (mSelectedPlanObject?.mealOptions != null && mSelectedPlanObject?.mealOptions?.size!! > 0) {
+            rvMealOptions.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+            val data = ArrayList<MealOptionsModel>()
+            data.addAll(mSelectedPlanObject?.mealOptions!!)
 
-        val adapterWeek = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, mSelectedMealPlan?.weekOptions)
-        adapterWeek.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerSelectWeek.adapter = adapterWeek
-
-        btnTryNow.setOnClickListener(View.OnClickListener {
-            mSelectedMealPlan?.isTrialMeal = true
-            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan)
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
-        })
-
-        spinnerSelectDay?.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
-                mSelectedDay = Integer.parseInt(mSelectedMealPlan?.mealOptions?.get(position))
-                doCalculateAndShowData()
+            val adapter = mContext?.let {
+                MealOptionsListAdapter(it, data, object : OnListItemClickListener {
+                    override fun onListItemClick(position: Int) {
+                        mSelectedMealPlan = mSelectedPlanObject?.mealOptions!![position]
+                    }
+                })
             }
-
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-
-            }
-        }
-
-        spinnerSelectWeek?.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
-                mSelectedWeek = Integer.parseInt(mSelectedMealPlan?.weekOptions?.get(position))
-                doCalculateAndShowData()
-            }
-
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-
-            }
-        }
-    }
-
-    private fun doCalculateAndShowData() {
-        mSelectedMealPlan?.noOfMeals = mSelectedDay.toString()
-        mSelectedMealPlan?.noOfWeeks = mSelectedWeek.toString()
-
-
-        txtYourPlanDetail.text = mSelectedDay.toString() + " meals * " + (mSelectedWeek*7).toString() + " days"
-
-        when(mSelectedDay) {
-            1 -> {
-                var price = (mSelectedWeek * mSelectedMealPlan?.numbeOfDeliveryDays!! * Integer.parseInt(mSelectedMealPlan?.priceForOneMeal))
-                mSelectedMealPlan?.price = price.toString()
-                txtYourPlanPrice.text = price.toString()
-                txtPlanAmount.text = mSelectedMealPlan?.priceForOneMeal + " AED"
-            }
-            2 -> {
-                var price = (mSelectedWeek * mSelectedMealPlan?.numbeOfDeliveryDays!! * Integer.parseInt(mSelectedMealPlan?.priceForTwoMeals))
-                mSelectedMealPlan?.price = price.toString()
-                txtYourPlanPrice.text = price.toString()
-                txtPlanAmount.text = mSelectedMealPlan?.priceForTwoMeals + " AED"
-            }
-            3 -> {
-                var price = (mSelectedWeek *  mSelectedMealPlan?.numbeOfDeliveryDays!! * Integer.parseInt(mSelectedMealPlan?.priceForThreeMeals))
-                mSelectedMealPlan?.price = price.toString()
-                txtYourPlanPrice.text = price.toString()
-                txtPlanAmount.text = mSelectedMealPlan?.priceForThreeMeals + " AED"
-            }
+            rvMealOptions.adapter = adapter
         }
     }
 }

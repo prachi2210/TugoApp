@@ -61,15 +61,15 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
             return
         }
 
-        txtAmount.text = mSelectedMealPlan?.price  +" AED"
+        //txtAmount.text = mSelectedMealPlan?.price  +" AED"
         txtPlanName.text = mSelectedMealPlan?.title
-        txtPlanDetail.text = mSelectedMealPlan?.noOfMeals + " meals per day for " + Integer.parseInt(mSelectedMealPlan?.noOfWeeks) * 7 + " days"
+      //  txtPlanDetail.text = mSelectedMealPlan?.noOfMeals + " meals per day for " + Integer.parseInt(mSelectedMealPlan?.noOfWeeks) * 7 + " days"
         Glide.with(mContext)
                 .load(mSelectedMealPlan?.featuredImage)
                 .centerCrop()
                 .into(imgPlan)
-        txtTotalPaid.text = mSelectedMealPlan?.price +" AED"
-        txtDate.text = mSelectedMealPlan?.startFrom
+      //  txtTotalPaid.text = mSelectedMealPlan?.price +" AED"
+      //  txtDate.text = mSelectedMealPlan?.startFrom
         btnBackToHome.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentThankyou_to_fragmentHome)
         })

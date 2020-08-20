@@ -214,4 +214,13 @@
     <string name="txt_order_id">Order ID: %s</string>
     <string name="txt_delivery_time_order_summary">Delivery Time: %s</string>
     <string name="txt_order_summary_instructions">Instructions: %s</string>
+    <string name="txt_add">Add</string>
+    <string name="err_fill_address">Please fill delivery address detail</string>
+    <string name="err_fill_date">Please select start date</string>
+    <string name="txt_header_pause_order">Are you sure you want to pause this plan?</string>
+    <string name="txt_never_mind">Never Mind</string>
+    <string name="txt_pause_plan">Pause Plan</string>
+    <string name="txt_loading_place_order">Placing order</string>
+    <string name="err_select_plan">Please select one plan</string>
+    <string name="txt_resume_plan">Resume Plan</string>
 </resources>

@@ -1,12 +1,20 @@
 package com.tugoapp.mobile.ui.orderdetail
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.request.AddAddressRequestModel
+import com.tugoapp.mobile.data.remote.model.request.UpdateAddressRequestModel
 import com.tugoapp.mobile.data.remote.model.response.OrderModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
@@ -67,6 +75,56 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
         llMessageUs.setOnClickListener(View.OnClickListener {
             mContext?.let { it1 -> CommonUtils.doSendMessageToWhatsApp(it1,rootView) }
         })
+
+        btnPause.setOnClickListener(View.OnClickListener {
+            doShowPauseDialog(true)
+        })
+
+        btnCancel.setOnClickListener(View.OnClickListener {
+            doShowPauseDialog(false)
+        })
+    }
+
+    private fun doShowPauseDialog(isPauseDialog: Boolean) {
+        val li = LayoutInflater.from(context)
+        val promptsView: View = li.inflate(R.layout.dialog_pause_plan, null)
+        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
+        alertDialogBuilder.setView(promptsView)
+        alertDialogBuilder.setCancelable(false)
+        var txtHeader = promptsView.findViewById<TextView>(R.id.txtHeaderOrderPause)
+        var btnNevermind = promptsView.findViewById<TextView>(R.id.btnNeverMind)
+        var btnPauseOrResume = promptsView.findViewById<TextView>(R.id.btnPausePlan)
+        var btnClose = promptsView.findViewById<ImageView>(R.id.imgclosePauseDialog)
+        var imgPauseOrResume = promptsView.findViewById<ImageView>(R.id.imagePausePlan)
+
+        if(isPauseDialog) {
+            imgPauseOrResume.setImageResource(R.drawable.ic_pause)
+            btnPauseOrResume.text = getString(R.string.txt_pause_plan)
+        } else {
+            imgPauseOrResume.setImageResource(R.drawable.ic_cancel)
+            btnPauseOrResume.text = getString(R.string.txt_resume_plan)
+        }
+        var dialog = alertDialogBuilder.create()
+
+        btnNevermind.setOnClickListener(View.OnClickListener {
+            dialog.dismiss()
+        })
+
+        btnClose.setOnClickListener(View.OnClickListener {
+            dialog.dismiss()
+        })
+
+        btnPauseOrResume.setOnClickListener(View.OnClickListener {
+            if(isPauseDialog) {
+              //  mViewModel?.doAddAddress(AddAddressRequestModel(addressEditText.text.toString(),true))
+                dialog.dismiss()
+            } else {
+               // mViewModel?.doUpdateAddressOnServer(UpdateAddressRequestModel(mSelectedMealPlan?.addressId,addressEditText.text.toString(),true))
+                dialog.dismiss()
+            }
+        })
+
+        dialog.show()
     }
 
     private fun doSetHistoryData() {

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/llMenuMealOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingRight="@dimen/margin_10"
+        android:paddingTop="@dimen/margin_5"
+        android:paddingBottom="@dimen/margin_5">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/cbMealOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_card"
+            android:elevation="@dimen/margin_2"
+            app:cardElevation="@dimen/margin_2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtMealOptionTitle"
+                        style="@style/HeaderMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_raleway_bold"
+                        android:text="3 meals * 16 days"
+                        android:textColor="@color/screenTitleColor" />
+
+                    <TextView
+                        android:id="@+id/txtMealOptionSubTitle"
+                        style="@style/HeaderMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_5"
+                        android:text="4 Weeks"
+                        android:textColor="@color/screenTitleColor" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/mealOptionPrice"
+                    style="@style/HeaderExtraLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_poppins_bold"
+                    android:text="1000"
+                    android:textColor="@color/colorPrimary" />
+               <TextView
+                   style="@style/HeaderSmall"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="@font/font_poppins_bold"
+                   android:text="AED"
+                   android:layout_marginLeft="@dimen/margin_2"
+                   android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</layout>

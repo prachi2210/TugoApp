@@ -25,8 +25,15 @@ class OrdersViewModel(application: Application?, private val mPpsApiService: Mer
     var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
     var mShowProgress: SingleLiveEvent<Pair<Boolean,String>> = SingleLiveEvent()
 
+    val mExploreFood = SingleLiveEvent<Boolean>()
+
+
     fun setSelectedHistoryOrder(data: OrderModel) {
         mSelectedHistoryOrder.postValue(data)
+    }
+
+    fun doExploreFood() {
+        mExploreFood.postValue(true)
     }
 
     fun doGetHistoryOrders() {

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:padding="@dimen/margin_10"
+      android:orientation="vertical">
+
+      <ImageView
+          android:id="@+id/imgclosePauseDialog"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+         android:src="@drawable/ic_close"
+          android:tint="@color/black"
+         android:layout_gravity="right"
+         android:padding="@dimen/margin_20"/>
+
+      <ImageView
+          android:id="@+id/imagePausePlan"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+         android:src="@drawable/ic_pause"/>
+
+      <TextView
+          android:id="@+id/txtHeaderOrderPause"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:layout_marginTop="@dimen/margin_20"
+          android:text="@string/txt_header_pause_order"
+         style="@style/HeaderMedium"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_30"
+          android:layout_marginLeft="@dimen/margin_10"
+          android:layout_marginRight="@dimen/margin_10"
+         android:orientation="horizontal">
+
+         <TextView
+             android:id="@+id/btnNeverMind"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+            android:layout_weight="1"
+             android:textAllCaps="true"
+             android:padding="@dimen/margin_10"
+             android:gravity="center"
+             style="@style/HeaderMedium"
+             android:textColor="@color/colorPrimary"
+             android:background="@drawable/extra_rounded_border_colored_empty"
+            android:text="@string/txt_never_mind" />
+
+         <TextView
+             android:id="@+id/btnPausePlan"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:padding="@dimen/margin_10"
+             android:gravity="center"
+             style="@style/HeaderMedium"
+             android:layout_marginLeft="@dimen/margin_10"
+             android:text="@string/txt_pause_plan"/>
+      </LinearLayout>
+   </LinearLayout>
+</layout>

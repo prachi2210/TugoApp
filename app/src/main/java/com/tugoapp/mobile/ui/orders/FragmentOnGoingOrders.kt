@@ -56,7 +56,7 @@ class FragmentOnGoingOrders : Fragment() {
 
     private fun initController() {
         btnExploreFood.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView).navigate(R.id.action_fragmentOrders_to_fragmentHome)
+            mViewModel?.doExploreFood()
         })
     }
 
@@ -66,7 +66,7 @@ class FragmentOnGoingOrders : Fragment() {
         })
     }
 
-    private fun doSetOngoingData(it: ArrayList<OrderModel>) {
+    private fun doSetOngoingData(it: ArrayList<OrderModel>?) {
         ongoingOrderList.layoutManager = LinearLayoutManager(mContext)
         val data = ArrayList<OrderModel>()
         if(it != null && it.size > 0) {

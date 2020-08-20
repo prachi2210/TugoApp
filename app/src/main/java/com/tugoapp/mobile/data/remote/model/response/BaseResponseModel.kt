@@ -10,4 +10,8 @@ open class BaseResponseModel {
     @Expose
     @SerializedName("message")
     var message: String? = null
+
+    @Expose
+    @SerializedName("addressId")
+    var addressId: String? = null
 }

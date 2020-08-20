@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:padding="@dimen/margin_20"
+      android:orientation="vertical">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_10"
+          android:padding="@dimen/margin_10"
+          android:gravity="center"
+          android:text="@string/txt_add_address"
+         style="@style/HeaderMedium"/>
+
+      <androidx.appcompat.widget.AppCompatEditText
+          android:id="@+id/dialogAddress"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          style="@style/HeaderMedium"
+          android:layout_marginTop="@dimen/margin_30"
+          android:backgroundTint="@color/colorPrimary"
+         android:hint="@string/txt_add_a_new_address"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_30"
+         android:orientation="horizontal">
+
+         <androidx.appcompat.widget.AppCompatButton
+             android:id="@+id/btnCancelAddressDialog"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/txt_cancel"
+            style="@style/StyleButtonBordered"/>
+
+         <androidx.appcompat.widget.AppCompatButton
+             android:id="@+id/btnAddAddressDialog"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:layout_marginLeft="@dimen/margin_10"
+             android:text="@string/txt_add"
+             style="@style/StyleButtonNext"/>
+      </LinearLayout>
+   </LinearLayout>
+</layout>

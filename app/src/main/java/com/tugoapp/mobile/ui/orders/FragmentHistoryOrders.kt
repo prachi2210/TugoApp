@@ -63,7 +63,7 @@ class FragmentHistoryOrders : Fragment() {
 
     private fun initController() {
         btnExploreFoodHistory.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView).navigate(R.id.action_fragmentOrders_to_fragmentHome)
+            mViewModel?.doExploreFood()
         })
     }
 

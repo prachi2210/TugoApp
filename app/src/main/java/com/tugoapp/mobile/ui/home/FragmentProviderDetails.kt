@@ -154,12 +154,17 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             }
 
             mSelectedMealPlan = providerData.planData!![0]
+            mSelectedMealPlan.addressId = providerData.addressId
+            mSelectedMealPlan.defaultUserAddress = providerData.defaultUserAddress
+
             doSetTabDetails()
 
             tabMainProvidersType.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     if (providerData.planData!!.size > tab.position) {
-                        mSelectedMealPlan = providerData.planData!!.get(tab.position)
+                        mSelectedMealPlan = providerData.planData!![tab.position]
+                        mSelectedMealPlan.addressId = providerData.addressId
+                        mSelectedMealPlan.defaultUserAddress = providerData.defaultUserAddress
                         doSetTabDetails()
                     }
                 }

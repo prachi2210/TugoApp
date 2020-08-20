@@ -115,5 +115,9 @@ class FragmentOrders : BaseFragment<OrdersViewModel?>() {
                 hideLoading()
             }
         })
+
+        mViewModel?.mExploreFood?.observe(viewLifecycleOwner, Observer {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrders_to_fragmentHome)
+        })
     }
 }
