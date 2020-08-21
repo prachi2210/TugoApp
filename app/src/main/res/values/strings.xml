@@ -227,4 +227,6 @@
     <string name="txt_cancel_plan">cancel Plan</string>
     <string name="txt_header_cancel_order">Are you sure you want to cancel thi plan?</string>
     <string name="txt_cancelled">cancelled</string>
+    <string name="txt_min">Min \n%s</string>
+    <string name="txt_max">Max \n%s</string>
 </resources>

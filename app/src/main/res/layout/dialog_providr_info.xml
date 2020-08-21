@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:paddingTop="@dimen/margin_20"
-                android:paddingRight="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_20"
                 android:src="@drawable/ic_close"
                 android:tint="@color/colorBlack" />
 
@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center"
                 android:padding="@dimen/margin_15">
 
                 <ImageView

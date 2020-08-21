@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.MealOptionsModel
 import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
@@ -22,7 +23,8 @@ import kotlinx.android.synthetic.main.fragment_thank_you.*
 import javax.inject.Inject
 
 class FragmentThankYou : BaseFragment<HomeViewModel?>() {
-    private var mSelectedMealPlan: MealPlanModel? = null
+    private var mSelectedMealPlan: MealOptionsModel? = null
+    private var mPlanObject: MealPlanModel? = null
 
     @JvmField
     @Inject
@@ -54,22 +56,6 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
     private fun iniUI() {
         mContext = this!!.requireContext()
 
-        mSelectedMealPlan = arguments?.getParcelable(AppConstant.SELECTED_MEAL_PLAN)
-
-        if (mSelectedMealPlan == null) {
-            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
-            return
-        }
-
-        //txtAmount.text = mSelectedMealPlan?.price  +" AED"
-        txtPlanName.text = mSelectedMealPlan?.title
-      //  txtPlanDetail.text = mSelectedMealPlan?.noOfMeals + " meals per day for " + Integer.parseInt(mSelectedMealPlan?.noOfWeeks) * 7 + " days"
-        Glide.with(mContext)
-                .load(mSelectedMealPlan?.featuredImage)
-                .centerCrop()
-                .into(imgPlan)
-      //  txtTotalPaid.text = mSelectedMealPlan?.price +" AED"
-      //  txtDate.text = mSelectedMealPlan?.startFrom
         btnBackToHome.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentThankyou_to_fragmentHome)
         })
@@ -77,5 +63,22 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
         llMessageUs.setOnClickListener(View.OnClickListener {
             CommonUtils.doSendMessageToWhatsApp(mContext,rootView)
         })
+
+        mSelectedMealPlan = arguments?.getParcelable(AppConstant.SELECTED_MEAL_PLAN)
+        mPlanObject = arguments?.getParcelable(AppConstant.SELECTED_PLAN_OBJECT)
+        txtDate.text  = arguments?.getString(AppConstant.START_DATE_FOR_THANKYOU)
+        if (mSelectedMealPlan == null || mPlanObject == null) {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
+            return
+        }
+
+        txtAmount.text = mSelectedMealPlan?.price  +" AED"
+        txtPlanName.text = mPlanObject?.title
+        txtPlanDetail.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days plan"
+        Glide.with(mContext)
+                .load(mPlanObject?.featuredImage)
+                .circleCrop()
+                .into(imgPlan)
+        txtTotalPaid.text = mSelectedMealPlan?.price +" AED"
     }
 }

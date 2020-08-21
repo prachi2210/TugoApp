@@ -249,7 +249,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             txtProviderLocation.text = mProviderDetails?.address
             Glide.with(mContext)
                     .load(mProviderDetails?.icon)
-                    .centerCrop()
+                    .circleCrop()
                     .into(imgLogo)
         }
 

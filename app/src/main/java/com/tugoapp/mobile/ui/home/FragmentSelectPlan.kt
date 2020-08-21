@@ -82,8 +82,8 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         })
 
         btnTryNow.setOnClickListener(View.OnClickListener {
-            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
+//            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
+//            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
         })
     }
 

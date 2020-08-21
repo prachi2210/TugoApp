@@ -27,6 +27,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
     var mUpdateAddressData: SingleLiveEvent<Pair<Int?,String?>> = SingleLiveEvent()
     var mShowProgress: SingleLiveEvent<Pair<Boolean,String>> = SingleLiveEvent()
     var mPlaceOrderResponse: SingleLiveEvent<Pair<Int?,String?>> = SingleLiveEvent()
+    var mCustomFilterData: SingleLiveEvent<FilterModel> = SingleLiveEvent()
 
 
     fun doLoadCategory() {
@@ -190,6 +191,50 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
             } else {
                 mToastMessage.postValue(task.exception?.localizedMessage)
             }
+        })
+    }
+
+    fun doGetCustomFilterParameters() {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,mApplicationContext.getString(R.string.txt_loading)))
+                mPpsApiService.doGetFilterData(task.result?.token).enqueue(object : Callback<GetFilterDataResponseModel> {
+                    override fun onFailure(call: Call<GetFilterDataResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
+                        mToastMessage.postValue(t.localizedMessage)
+                    }
+
+                    override fun onResponse(call: Call<GetFilterDataResponseModel>, response: Response<GetFilterDataResponseModel>) {
+                        mCustomFilterData.postValue(response?.body()?.data)
+                        mShowProgress.postValue(Pair(false,""))
+                    }
+                })
+            } else {
+                mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+        })
+    }
+
+    fun doGetCustomFilterProviders(model : GetFilterProviderRequestModel) {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,mApplicationContext.getString(R.string.txt_loading_searching_provider_detail)))
+                mPpsApiService.doFilterProviders(task.result?.token, model ).enqueue(object : Callback<GetProvidersResponseModel> {
+                    override fun onFailure(call: Call<GetProvidersResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
+                        mToastMessage.postValue(t.localizedMessage)
+                    }
+
+                    override fun onResponse(call: Call<GetProvidersResponseModel>, response: Response<GetProvidersResponseModel>) {
+                        mProvidersData.postValue(response.body()?.data)
+                        mShowProgress.postValue(Pair(false,""))
+                    }
+
+                })
+            } else {
+                mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+
         })
     }
 

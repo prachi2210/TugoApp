@@ -89,6 +89,7 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
         mViewModel?.mIsPausePlanDone?.observe(viewLifecycleOwner, Observer {
             if (it.first == 1) {
                 CommonUtils.showSnakeBar(rootView, it.second)
+                Navigation.findNavController(rootView!!).popBackStack()
             } else {
                 CommonUtils.showSnakeBar(rootView, it.second)
             }
@@ -96,6 +97,7 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
         mViewModel?.mIsCancelPlanDone?.observe(viewLifecycleOwner, Observer {
             if (it.first == 1) {
                 CommonUtils.showSnakeBar(rootView, it.second)
+                Navigation.findNavController(rootView!!).popBackStack()
             } else {
                 CommonUtils.showSnakeBar(rootView, it.second)
             }
@@ -103,6 +105,8 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
         mViewModel?.mIsResumePlanDone?.observe(viewLifecycleOwner, Observer {
             if (it.first == 1) {
                 CommonUtils.showSnakeBar(rootView, it.second)
+                Navigation.findNavController(rootView!!).popBackStack()
+
             } else {
                 CommonUtils.showSnakeBar(rootView, it.second)
             }

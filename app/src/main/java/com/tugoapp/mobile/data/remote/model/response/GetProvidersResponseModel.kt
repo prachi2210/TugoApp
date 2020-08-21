@@ -23,7 +23,7 @@ public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsD
 public data class MealPlanModel(var title : String?, var description : String?, var planId : Int? ,var startingFrom : String?,
                                 var featuredImage : String?,var trailPlanMainDescription : String?,var deliveryDays : String?,
                                 var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trailPlanDays : String,
-                                var review : String?, var locations : String?, var noOfReviews : String?, var sampleMenu : ArrayList<SampleMenu>?,
+                                var review : String?, var locations : String?, var noOfReviews : String?, var sampleMenu : ArrayList<SampleMenu>?, var deliveryTime: String?,
                                 var mealOptions : ArrayList<MealOptionsModel>?, var startTime : String?,var endTime : String?,
                                 var numbeOfDeliveryDays : Int?,var defaultUserAddress : String?, var addressId : String?): Parcelable {}
 

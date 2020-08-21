@@ -80,7 +80,7 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
                         BrowseByDietListAdapter(it, categoryData, object : OnListItemClickListener {
                             override fun onListItemClick(position: Int) {
                                 var bundle = bundleOf(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS to position,
-                                        AppConstant.ALL_CATEGORY_FOR_PROVIDERS to categoryData as ArrayList<CategoryDetailModel>)
+                                        AppConstant.ALL_CATEGORY_FOR_PROVIDERS to categoryData)
                                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders, bundle)
                             }
                         })
@@ -130,7 +130,9 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
         toolbarBrowseAllProvider?.imgBack?.visibility = View.GONE
 
         llLetsFindMealPlan.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders)
+            var bundle = bundleOf(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS to -1,
+                    AppConstant.ALL_CATEGORY_FOR_PROVIDERS to null)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders,bundle)
         })
     }
 

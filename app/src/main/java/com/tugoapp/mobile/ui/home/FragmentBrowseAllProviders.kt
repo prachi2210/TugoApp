@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
     private var mCategoryList: java.util.ArrayList<CategoryDetailModel>? = null
-    private var mSelectedCategory: Int? = 0
+    private var mSelectedCategory: Int = 0
 
     @JvmField
     @Inject
@@ -39,7 +39,7 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
 
     override val viewModel: HomeViewModel
         get() {
-            mViewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
+            mViewModel = activity?.let { ViewModelProviders.of(it, factory).get(HomeViewModel::class.java) }
             return mViewModel!!
         }
     override val screenTitle: String
@@ -62,28 +62,20 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
             Navigation.findNavController(rootView!!).popBackStack()
         })
 
-        mSelectedCategory = arguments?.getInt(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS)
+        mSelectedCategory = arguments?.getInt(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS)!!
         mCategoryList = arguments?.getParcelableArrayList(AppConstant.ALL_CATEGORY_FOR_PROVIDERS)
 
-      //  if (!(rvCategoryList.adapter != null && rvCategoryList.adapter?.itemCount != null && rvCategoryList.adapter?.itemCount!! > 0)) {
+        if (!(rvCategoryList.adapter != null && rvCategoryList.adapter?.itemCount != null && rvCategoryList.adapter?.itemCount!! > 0)) {
             if (mCategoryList.isNullOrEmpty()) {
                 mViewModel?.doLoadCategory()
             } else {
                 doSetCategoryData(mCategoryList)
             }
-      //  }
+        }
 
         imgCustomize.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentBrowseAllProviders_to_fragmentCustomizePlan)
         })
-
-        if (mViewModel?.mProvidersData?.value == null) {
-            if (mSelectedCategory != null && rvCategoryList.adapter != null) {
-                rvCategoryList.findViewHolderForAdapterPosition(mSelectedCategory!!)?.itemView?.performClick();
-            } else {
-                mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null))
-            }
-        }
     }
 
     private fun initObservers() {
@@ -142,7 +134,7 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                             mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId, null))
                         }
                     }
-                })
+                }, mSelectedCategory + 1 )
             }
             rvCategoryList.adapter = adapter
         } else {

@@ -60,4 +60,10 @@ interface MerchantApiService { //
 
     @POST("cancelOrder")
     fun doCancelPlan(@Header("token") token: String?, @Body model : ResumeOrderRequestModel?): Call<BaseResponseModel>
+
+    @POST("filterProviders")
+    fun doFilterProviders(@Header("token") token: String?, @Body model : GetFilterProviderRequestModel?): Call<GetProvidersResponseModel>
+
+    @POST("getFilterData")
+    fun doGetFilterData(@Header("token") token: String?): Call<GetFilterDataResponseModel>
 }

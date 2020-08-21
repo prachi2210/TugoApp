@@ -12,10 +12,14 @@ import com.tugoapp.mobile.ui.base.OnListItemClickListener
 
 class CategoryListAdapter(private val context: Context,
                           private val list: ArrayList<CategoryDetailModel>,
-                          private val cellClickListener: OnListItemClickListener
+                          private val cellClickListener: OnListItemClickListener,
+                            private var selectedCategoryIndex : Int
 ) : RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
-    var mSelectedCategoryIndex = 0;
+    init {
+        cellClickListener.onListItemClick(selectedCategoryIndex)
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val categoryName: TextView = view.findViewById(R.id.txtCategoryName)
@@ -34,7 +38,7 @@ class CategoryListAdapter(private val context: Context,
         val data = list[position]
         holder.categoryName.text = data.name
 
-        if(position == mSelectedCategoryIndex) {
+        if(position == selectedCategoryIndex) {
             holder.categoryName.setTextColor(context.getColor(R.color.colorPrimary))
         } else {
             holder.categoryName.setTextColor(context.getColor(R.color.color999999))
@@ -42,7 +46,7 @@ class CategoryListAdapter(private val context: Context,
 
         holder.itemView.setOnClickListener {
             cellClickListener.onListItemClick(position)
-            mSelectedCategoryIndex = position;
+            selectedCategoryIndex = position;
             notifyDataSetChanged()
         }
     }

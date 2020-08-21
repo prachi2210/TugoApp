@@ -14,7 +14,7 @@ class CustomizeListAdapter(private val context: Context,
                            private val cellClickListener: OnListItemClickListener
 ) : RecyclerView.Adapter<CustomizeListAdapter.ViewHolder>() {
 
-    var mSelectedCategoryIndex = 0;
+    var mSelectedCategoryIndex = -1;
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.txtName)

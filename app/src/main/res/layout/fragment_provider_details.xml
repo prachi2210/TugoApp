@@ -22,11 +22,10 @@
                     style="@style/HeaderSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_border_colored_empty"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:background="@drawable/rounded_border_primary"
                     android:paddingLeft="@dimen/margin_20"
-                    android:paddingTop="@dimen/margin_2"
                     android:paddingRight="@dimen/margin_20"
+                    android:paddingTop="@dimen/margin_2"
                     android:paddingBottom="@dimen/margin_2"
                     android:text="@string/txt_delivers_on"
                     android:textColor="@color/colorPrimary" />

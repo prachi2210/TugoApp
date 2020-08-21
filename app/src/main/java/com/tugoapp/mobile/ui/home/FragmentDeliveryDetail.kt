@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -87,7 +88,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         mPlaceOrderRequestModel?.isTrialPlan = mIsTrialMeal
         mPlaceOrderRequestModel?.noOfMeals = mSelectedMealPlan?.noOfMeals
         mPlaceOrderRequestModel?.noOfWeeks = mSelectedMealPlan?.weeks
-        mPlaceOrderRequestModel?.deliveryTime =  mPlanObject?.startTime + " - " + mPlanObject?.endTime
+        mPlaceOrderRequestModel?.deliveryTime =  mPlanObject?.deliveryTime
         mPlaceOrderRequestModel?.deliveryLocation = mPlanObject?.locations
         mPlaceOrderRequestModel?.planId = mPlanObject?.planId
         mPlaceOrderRequestModel?.address = mPlanObject?.defaultUserAddress
@@ -145,7 +146,8 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         mViewModel?.mPlaceOrderResponse?.observe(viewLifecycleOwner, Observer {
             if(it.first == 1) {
                 CommonUtils.showSnakeBar(rootView,it.second)
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentThankYou)
+                var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan,AppConstant.SELECTED_PLAN_OBJECT to mPlanObject, AppConstant.START_DATE_FOR_THANKYOU to mPlaceOrderRequestModel?.startFrom)
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentThankYou,bundle)
             } else {
                 CommonUtils.showSnakeBar(rootView,it.second)
             }
@@ -204,7 +206,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
     }
 
     private fun doInitDeliveryDetails() {
-        txtAvailableDeliveryTime.text = mPlanObject?.startTime + " - " + mPlanObject?.endTime
+        txtAvailableDeliveryTime.text = mPlanObject?.deliveryTime
         deliveryDays.text = mPlanObject?.deliveryDays
         txtDuration.text = String.format(getString(R.string.txt_duration_days),Integer.parseInt(mSelectedMealPlan?.noOfDays))
 
@@ -277,7 +279,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         view.txtPlanDetail?.text = mPlanObject?.description
         view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days for " + mSelectedMealPlan?.weeks + " weeks"
         view.txtLocation?.text = mPlanObject?.defaultUserAddress
-        view?.txtDeliveryTime.text = mPlanObject?.startTime + " - " + mPlanObject?.endTime
+        view?.txtDeliveryTime.text = mPlanObject?.deliveryTime
         view?.txtInstructions.text = mPlaceOrderRequestModel?.instructions
         view?.txtPlanTotalAmount.text = mSelectedMealPlan?.price
     }
@@ -286,7 +288,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         Navigation.findNavController(rootView!!).popBackStack()
     }
 
-    var onDateSelectedEvent = OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // TODO Auto-generated method stub
+    var onDateSelectedEvent = OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
         mCalender = Calendar.getInstance()
         mCalender[Calendar.YEAR] = year
         mCalender[Calendar.MONTH] = monthOfYear

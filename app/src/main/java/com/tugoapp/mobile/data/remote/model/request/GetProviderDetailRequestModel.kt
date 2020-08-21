@@ -39,6 +39,10 @@ public object PlaceOrderObject {
     var planObj : MealPlanModel? = null
 }
 
+public data class GetFilterProviderRequestModel(var maximumPrice : String?,var minimumPrice : String?,var numOfMeals : String?,
+                                                var allLocations : String?, var trailMealsAvailable : Boolean)
+
+
 
 
 

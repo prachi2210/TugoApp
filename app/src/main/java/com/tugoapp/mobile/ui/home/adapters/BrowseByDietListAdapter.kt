@@ -36,6 +36,7 @@ class BrowseByDietListAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
         holder.name.text = data.name
+        holder.offer.visibility = View.GONE
         Glide.with(context)
                 .load(data.imagePath)
                 .centerCrop()
