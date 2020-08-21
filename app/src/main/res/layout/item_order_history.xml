@@ -126,6 +126,21 @@
                     android:background="@drawable/bg_one_sided_round_yellow"
                     android:letterSpacing="0.2"
                     android:text="@string/txt_paused"/>
+                <androidx.appcompat.widget.AppCompatCheckedTextView
+                    android:id="@+id/txtCancelled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    style="@style/HeaderSmall"
+                    android:visibility="gone"
+                    android:textColor="@color/colorWhite"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingRight="@dimen/margin_20"
+                    android:background="@drawable/bg_one_sided_round_red"
+                    android:letterSpacing="0.2"
+                    android:text="@string/txt_cancelled"/>
             </LinearLayout>
         </LinearLayout>
 

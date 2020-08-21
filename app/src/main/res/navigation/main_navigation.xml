@@ -288,7 +288,17 @@
     <fragment
         android:id="@+id/fragmentOrderDetails"
         android:name="com.tugoapp.mobile.ui.orderdetail.FragmentOrderDetails"
-        android:label="@string/title_order_detail" />
+        android:label="@string/title_order_detail" >
+        <action
+            android:id="@+id/action_fragmentOrdersDetail_to_fragmentHome"
+            app:destination="@id/fragmentHome"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/fragmentHome"/>
+    </fragment>
     <fragment
         android:id="@+id/fragmentBrowseAllProviders"
         android:name="com.tugoapp.mobile.ui.home.FragmentBrowseAllProviders"

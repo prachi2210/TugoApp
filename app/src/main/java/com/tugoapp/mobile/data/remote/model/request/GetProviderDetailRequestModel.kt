@@ -16,7 +16,7 @@ public data class UpdateAddressRequestModel(var addressId : String?, var address
 
 public data class DeleteAddressRequestModel(var addressId : String?) {}
 
-public data class ResumeOrderRequestModel(var orderId : String?,var startsFrom : String?)
+public data class ResumeOrderRequestModel(var orderId : String?,var startFrom : String?)
 
 public data class PlaceOrderRequestModel(var isTrialPlan : Boolean?,var noOfMeals : String?,var noOfWeeks : String?,var instructions : String?,var planId : Int? ,var mealId : String?,
                                         var deliveryTime : String? ,var deliveryLocation : String? , var address : String?,var startFrom : String?,var endOn : String?,

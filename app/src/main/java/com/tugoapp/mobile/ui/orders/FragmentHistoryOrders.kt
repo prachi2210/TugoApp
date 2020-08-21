@@ -51,11 +51,11 @@ class FragmentHistoryOrders : Fragment() {
     private fun iniUI() {
         mContext = context
 
-        if(mViewModel?.mHistoryOrderData?.value == null)
+       // if(mViewModel?.mHistoryOrderData?.value == null)
              mViewModel?.doGetHistoryOrders()
-        else {
-            doSetHistoryData(mViewModel?.mHistoryOrderData?.value!!)
-        }
+       // else {
+//            doSetHistoryData(mViewModel?.mHistoryOrderData?.value!!)
+//        }
 
         initObserver()
         initController()

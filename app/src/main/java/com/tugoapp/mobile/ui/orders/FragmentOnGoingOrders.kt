@@ -43,11 +43,11 @@ class FragmentOnGoingOrders : Fragment() {
     private fun iniUI() {
         mContext = context
 
-        if(mViewModel?.mOngoingOrderData?.value == null)
+       // if(mViewModel?.mOngoingOrderData?.value == null)
             mViewModel?.doGetOngoingOrders()
-        else {
-            doSetOngoingData(mViewModel?.mOngoingOrderData?.value!!)
-        }
+//        else {
+//            doSetOngoingData(mViewModel?.mOngoingOrderData?.value!!)
+//        }
 
         initObserver()
 

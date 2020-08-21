@@ -71,6 +71,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="1dp"
                                 android:textAllCaps="true"
+                                android:fontFamily="@font/font_raleway_bold"
                                 android:textColor="@color/colorPrimary"
                                 android:textStyle="bold" />
 
@@ -256,6 +257,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/rounded_border_colored_yellow"
                                 android:text="@string/txt_pause"
+                                style="@style/StyleButtonNext"
                                 android:textColor="@color/colorWhite" />
 
                             <androidx.appcompat.widget.AppCompatButton
@@ -264,6 +266,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_10"
                                 android:layout_weight="1"
+                                style="@style/StyleButtonNext"
                                 android:background="@drawable/rounded_border_colored_red"
                                 android:text="@string/txt_cancel"
                                 android:textColor="@color/colorWhite" />
@@ -283,7 +286,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/StyleButtonNext"
-                        android:visibility="gone"
                         android:textColor="@color/colorWhite"
                         android:background="@drawable/rounded_border_colored_yellow"
                         android:text="@string/txt_reorder_this_plan"/>
@@ -294,7 +296,7 @@
                         android:layout_height="wrap_content"
                         style="@style/StyleButtonNext"
                         android:textColor="@color/colorWhite"
-                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_20"
                         android:text="@string/txt_write_comment"/>
 
                 </LinearLayout>

@@ -1,35 +1,34 @@
 package com.tugoapp.mobile.ui.orderdetail
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.tugoapp.mobile.R
-import com.tugoapp.mobile.data.remote.model.request.AddAddressRequestModel
 import com.tugoapp.mobile.data.remote.model.request.ResumeOrderRequestModel
-import com.tugoapp.mobile.data.remote.model.request.UpdateAddressRequestModel
 import com.tugoapp.mobile.data.remote.model.response.OrderModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
-import kotlinx.android.synthetic.main.fragment_browse_all_providers.*
+import kotlinx.android.synthetic.main.fragment_delivery_detail.*
 import kotlinx.android.synthetic.main.fragment_order_detail.*
-import kotlinx.android.synthetic.main.fragment_orders.*
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
     private var mIsHistoryDetail: Boolean = false
     private var mOrderDetailData: OrderModel? = null
+    private var mCalender: Calendar = Calendar.getInstance()
 
     @JvmField
     @Inject
@@ -73,11 +72,11 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
 
     private fun initObserver() {
 
-        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!, it) })
 
         mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
-            if(it.first) {
-                if(it.second.isNullOrBlank()) {
+            if (it.first) {
+                if (it.second.isNullOrBlank()) {
                     showLoading()
                 } else {
                     showLoading(it.second)
@@ -88,24 +87,24 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
         })
 
         mViewModel?.mIsPausePlanDone?.observe(viewLifecycleOwner, Observer {
-            if(it.first == 1) {
-                CommonUtils.showSnakeBar(rootView,it.second)
+            if (it.first == 1) {
+                CommonUtils.showSnakeBar(rootView, it.second)
             } else {
-                CommonUtils.showSnakeBar(rootView,it.second)
+                CommonUtils.showSnakeBar(rootView, it.second)
             }
         })
         mViewModel?.mIsCancelPlanDone?.observe(viewLifecycleOwner, Observer {
-            if(it.first == 1) {
-                CommonUtils.showSnakeBar(rootView,it.second)
+            if (it.first == 1) {
+                CommonUtils.showSnakeBar(rootView, it.second)
             } else {
-                CommonUtils.showSnakeBar(rootView,it.second)
+                CommonUtils.showSnakeBar(rootView, it.second)
             }
         })
         mViewModel?.mIsResumePlanDone?.observe(viewLifecycleOwner, Observer {
-            if(it.first == 1) {
-                CommonUtils.showSnakeBar(rootView,it.second)
+            if (it.first == 1) {
+                CommonUtils.showSnakeBar(rootView, it.second)
             } else {
-                CommonUtils.showSnakeBar(rootView,it.second)
+                CommonUtils.showSnakeBar(rootView, it.second)
             }
         })
     }
@@ -116,12 +115,42 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
         })
 
         btnPause.setOnClickListener(View.OnClickListener {
-            doShowPauseDialog(true)
+            if(!mOrderDetailData?.isCancelled!! && !mOrderDetailData?.isPaused!!) {
+
+                doShowPauseDialog(true)
+            } else {
+                doSelectDateAndResumePlan()
+            }
         })
 
         btnCancel.setOnClickListener(View.OnClickListener {
-            doShowPauseDialog(false)
+                doShowPauseDialog(false)
+
         })
+
+        btnReorder.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrdersDetail_to_fragmentHome)
+        })
+    }
+
+    private fun doSelectDateAndResumePlan() {
+        var dialog = DatePickerDialog(mContext, onDateSelectedEvent, mCalender[Calendar.YEAR], mCalender[Calendar.MONTH], mCalender[Calendar.DAY_OF_MONTH])
+        dialog.datePicker.minDate = System.currentTimeMillis() - 1000
+        dialog.show()
+    }
+
+    var onDateSelectedEvent = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // TODO Auto-generated method stub
+        mCalender = Calendar.getInstance()
+        mCalender[Calendar.YEAR] = year
+        mCalender[Calendar.MONTH] = monthOfYear
+        mCalender[Calendar.DAY_OF_MONTH] = dayOfMonth
+        doResumePlan()
+    }
+
+    private fun doResumePlan() {
+        val apiFormat = "dd/MM/yyyy"
+        val sdfApiFormat = SimpleDateFormat(apiFormat)
+        mViewModel?.doResumePlan(ResumeOrderRequestModel(mOrderDetailData?.orderId,sdfApiFormat.format(mCalender.time)))
     }
 
     private fun doShowPauseDialog(isPauseDialog: Boolean) {
@@ -157,10 +186,10 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
 
         btnPauseOrResume.setOnClickListener(View.OnClickListener {
             if (isPauseDialog) {
-                mViewModel?.doPausePlan(ResumeOrderRequestModel(mOrderDetailData?.orderId,""))
+                mViewModel?.doPausePlan(ResumeOrderRequestModel(mOrderDetailData?.orderId, ""))
                 dialog.dismiss()
             } else {
-                mViewModel?.doCancelPlan(ResumeOrderRequestModel(mOrderDetailData?.orderId,""))
+                mViewModel?.doCancelPlan(ResumeOrderRequestModel(mOrderDetailData?.orderId, ""))
                 dialog.dismiss()
             }
         })
@@ -174,9 +203,25 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
             llPauseCancel.visibility = View.GONE
             llMessageUs.visibility = View.GONE
         } else {
-            llReorderOrWrite.visibility = View.GONE
-            llPauseCancel.visibility = View.VISIBLE
-            llMessageUs.visibility = View.VISIBLE
+            if(mOrderDetailData?.isCancelled!!) {
+                llReorderOrWrite.visibility = View.GONE
+                llPauseCancel.visibility = View.GONE
+                llMessageUs.visibility = View.GONE
+            } else {
+                llReorderOrWrite.visibility = View.GONE
+                llPauseCancel.visibility = View.VISIBLE
+                btnPause.visibility = View.VISIBLE
+                btnPause.setBackgroundResource(R.drawable.bg_rounded_border_colored)
+                if (mOrderDetailData?.isPaused!!) {
+                    btnPause.setText(R.string.txt_resume_plan)
+                    btnCancel.visibility = View.GONE
+                    llMessageUs.visibility = View.GONE
+                } else {
+                    btnPause.setText(R.string.txt_pause_plan)
+                    btnCancel.visibility = View.VISIBLE
+                    llMessageUs.visibility = View.VISIBLE
+                }
+            }
         }
 
         mContext?.let {
@@ -186,7 +231,10 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
                     .into(imgOrder)
 
             txtTitleOrderDetail.text = mOrderDetailData?.companyName
-            if (mIsHistoryDetail) txtStatus.text = getString(R.string.txt_expired)
+            if (mIsHistoryDetail)  {
+                txtStatus.text = getString(R.string.txt_expired)
+                txtStatus.setTextColor(resources.getColor(R.color.colorRed))
+            }
             else {
                 if (mOrderDetailData?.isPaused!!) txtStatus.text = getString(R.string.txt_paused)
                 else txtStatus.text = getString(R.string.txt_ongoing)

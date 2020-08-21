@@ -275,7 +275,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         view.txtPlanName?.text = mPlanObject?.title
         view.txtPlanAmount?.text = mPlanObject?.startingFrom
         view.txtPlanDetail?.text = mPlanObject?.description
-        view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals per day for " + Integer.parseInt(mSelectedMealPlan?.noOfDays) + " days"
+        view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days for " + mSelectedMealPlan?.weeks + " weeks"
         view.txtLocation?.text = mPlanObject?.defaultUserAddress
         view?.txtDeliveryTime.text = mPlanObject?.startTime + " - " + mPlanObject?.endTime
         view?.txtInstructions.text = mPlaceOrderRequestModel?.instructions
@@ -295,18 +295,15 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
     }
 
     private fun updateLabel() {
-        val apiFormat = "yyyy-MM-dd"
         val localFormat = "dd/MM/yyyy"
-
-        val sdfApiFormat = SimpleDateFormat(apiFormat)
         val sdfLocalFormat = SimpleDateFormat(localFormat)
 
         txtStartdate.text = sdfLocalFormat.format(mCalender.time)
-        mPlaceOrderRequestModel?.startFrom = sdfApiFormat.format(mCalender.time)
+        mPlaceOrderRequestModel?.startFrom = sdfLocalFormat.format(mCalender.time)
         var calender : Calendar = mCalender.clone() as Calendar
         calender.add(Calendar.DATE, (Integer.parseInt(mSelectedMealPlan?.noOfDays)))
         txtEnddate.text = String.format(getString(R.string.txt_end_date_is),sdfLocalFormat.format(calender.time))
-        mPlaceOrderRequestModel?.endOn = sdfApiFormat.format(calender.time)
+        mPlaceOrderRequestModel?.endOn = sdfLocalFormat.format(calender.time)
     }
 
     private fun doNavigate() {

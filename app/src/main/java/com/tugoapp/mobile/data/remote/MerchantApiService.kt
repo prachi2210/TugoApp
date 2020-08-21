@@ -55,7 +55,7 @@ interface MerchantApiService { //
     @POST("pauseOrder")
     fun doPauseOrder(@Header("token") token: String?, @Body  model : ResumeOrderRequestModel?): Call<BaseResponseModel>
 
-        @POST("resumeOrder")
+    @POST("resumeOrder")
     fun doResumeOrder(@Header("token") token: String?, @Body model : ResumeOrderRequestModel?): Call<BaseResponseModel>
 
     @POST("cancelOrder")

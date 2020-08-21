@@ -28,6 +28,8 @@ class OrderHistoryListAdapter(private val context: Context,
         val txtExpiryDate: TextView = view.findViewById(R.id.txtExpiryDate)
         val isOngoing: TextView = view.findViewById(R.id.txtIsOngoing)
         val isPaused: TextView = view.findViewById(R.id.txtPaused)
+        val isCancelled: TextView = view.findViewById(R.id.txtCancelled)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -58,6 +60,13 @@ class OrderHistoryListAdapter(private val context: Context,
             holder.isOngoing.visibility = View.GONE
             holder.imgHistoryOrder.setColorFilter(R.color.grey)
         } else {
+            if(data.isCancelled) {
+                holder.isPaused.visibility = View.GONE
+                holder.isOngoing.visibility = View.GONE
+                holder.isCancelled.visibility = View.VISIBLE
+            } else {
+                holder.isCancelled.visibility = View.GONE
+            }
             holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_started_on),data.startedOn)
             if(data.isPaused) {
                 holder.isPaused.visibility = View.VISIBLE

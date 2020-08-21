@@ -65,13 +65,13 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
         mSelectedCategory = arguments?.getInt(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS)
         mCategoryList = arguments?.getParcelableArrayList(AppConstant.ALL_CATEGORY_FOR_PROVIDERS)
 
-        if (!(rvCategoryList.adapter != null && rvCategoryList.adapter?.itemCount != null && rvCategoryList.adapter?.itemCount!! > 0)) {
+      //  if (!(rvCategoryList.adapter != null && rvCategoryList.adapter?.itemCount != null && rvCategoryList.adapter?.itemCount!! > 0)) {
             if (mCategoryList.isNullOrEmpty()) {
                 mViewModel?.doLoadCategory()
             } else {
                 doSetCategoryData(mCategoryList)
             }
-        }
+      //  }
 
         imgCustomize.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentBrowseAllProviders_to_fragmentCustomizePlan)
