@@ -26,7 +26,8 @@ class OrderHistoryListAdapter(private val context: Context,
         val txtPrice: TextView = view.findViewById(R.id.txtPrice)
         val txtPlanDetail: TextView = view.findViewById(R.id.txtPlanDetail)
         val txtExpiryDate: TextView = view.findViewById(R.id.txtExpiryDate)
-       // val isOngoing: TextView = view.findViewById(R.id.txtExpiryDate)
+        val isOngoing: TextView = view.findViewById(R.id.txtIsOngoing)
+        val isPaused: TextView = view.findViewById(R.id.txtPaused)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,18 +44,29 @@ class OrderHistoryListAdapter(private val context: Context,
         holder.txtOrderTitle.text = data.companyName
         holder.txtOrderSubTitle.text = data.planName
         holder.txtPrice.text = data.price + " AED"
-      //  holder.txtPlanDetail.text = data.subtitle
-        if(isHistoryScreen) {
-            holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_expired_on),data.expiredOn)
-        } else {
-            holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_started_on),data.startedOn)
-        }
+        holder.txtPlanDetail.text = data.noOfMeals + " meals X " + data.noOfDays + " days plan"
 
         Glide.with(context)
                 .load(data.companyLogo)
-                .centerCrop()
+                .circleCrop()
                 .into(holder.imgHistoryOrder)
 
+
+        if(isHistoryScreen) {
+            holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_expired_on),data.expiredOn)
+            holder.isPaused.visibility = View.GONE
+            holder.isOngoing.visibility = View.GONE
+            holder.imgHistoryOrder.setColorFilter(R.color.grey)
+        } else {
+            holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_started_on),data.startedOn)
+            if(data.isPaused) {
+                holder.isPaused.visibility = View.VISIBLE
+                holder.isOngoing.visibility = View.GONE
+            } else {
+                holder.isOngoing.visibility = View.VISIBLE
+                holder.isPaused.visibility = View.GONE
+            }
+        }
         holder.itemView.setOnClickListener {
             cellClickListener.onListItemClick(position)
         }

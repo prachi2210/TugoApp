@@ -19,7 +19,7 @@ import retrofit2.Response
 class OrdersViewModel(application: Application?, private val mPpsApiService: MerchantApiService) : BaseViewModel(application) {
 
     private val mApplicationContext: Context = getApplication<Application>().applicationContext
-    val mSelectedHistoryOrder = SingleLiveEvent<OrderModel>()
+    val mSelectedHistoryOrder = SingleLiveEvent<Pair<Boolean,OrderModel>>()
     var mHistoryOrderData: SingleLiveEvent<ArrayList<OrderModel>> = SingleLiveEvent()
     var mOngoingOrderData: SingleLiveEvent<ArrayList<OrderModel>> = SingleLiveEvent()
     var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
@@ -28,8 +28,8 @@ class OrdersViewModel(application: Application?, private val mPpsApiService: Mer
     val mExploreFood = SingleLiveEvent<Boolean>()
 
 
-    fun setSelectedHistoryOrder(data: OrderModel) {
-        mSelectedHistoryOrder.postValue(data)
+    fun setSelectedHistoryOrder(data: OrderModel,isHistoryTab : Boolean) {
+        mSelectedHistoryOrder.postValue(Pair(isHistoryTab,data))
     }
 
     fun doExploreFood() {

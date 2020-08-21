@@ -9,11 +9,13 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.AddAddressRequestModel
+import com.tugoapp.mobile.data.remote.model.request.ResumeOrderRequestModel
 import com.tugoapp.mobile.data.remote.model.request.UpdateAddressRequestModel
 import com.tugoapp.mobile.data.remote.model.response.OrderModel
 import com.tugoapp.mobile.ui.base.BaseFragment
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_order_detail.*
 import kotlinx.android.synthetic.main.fragment_orders.*
 import javax.inject.Inject
 
-class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
+class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
     private var mIsHistoryDetail: Boolean = false
     private var mOrderDetailData: OrderModel? = null
 
@@ -47,10 +49,6 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
             return mViewModel!!
         }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         iniUI()
@@ -69,11 +67,52 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
 
         initControllers()
         doSetHistoryData()
+
+        initObserver()
+    }
+
+    private fun initObserver() {
+
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
+
+        mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
+            if(it.first) {
+                if(it.second.isNullOrBlank()) {
+                    showLoading()
+                } else {
+                    showLoading(it.second)
+                }
+            } else {
+                hideLoading()
+            }
+        })
+
+        mViewModel?.mIsPausePlanDone?.observe(viewLifecycleOwner, Observer {
+            if(it.first == 1) {
+                CommonUtils.showSnakeBar(rootView,it.second)
+            } else {
+                CommonUtils.showSnakeBar(rootView,it.second)
+            }
+        })
+        mViewModel?.mIsCancelPlanDone?.observe(viewLifecycleOwner, Observer {
+            if(it.first == 1) {
+                CommonUtils.showSnakeBar(rootView,it.second)
+            } else {
+                CommonUtils.showSnakeBar(rootView,it.second)
+            }
+        })
+        mViewModel?.mIsResumePlanDone?.observe(viewLifecycleOwner, Observer {
+            if(it.first == 1) {
+                CommonUtils.showSnakeBar(rootView,it.second)
+            } else {
+                CommonUtils.showSnakeBar(rootView,it.second)
+            }
+        })
     }
 
     private fun initControllers() {
         llMessageUs.setOnClickListener(View.OnClickListener {
-            mContext?.let { it1 -> CommonUtils.doSendMessageToWhatsApp(it1,rootView) }
+            mContext?.let { it1 -> CommonUtils.doSendMessageToWhatsApp(it1, rootView) }
         })
 
         btnPause.setOnClickListener(View.OnClickListener {
@@ -97,12 +136,14 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
         var btnClose = promptsView.findViewById<ImageView>(R.id.imgclosePauseDialog)
         var imgPauseOrResume = promptsView.findViewById<ImageView>(R.id.imagePausePlan)
 
-        if(isPauseDialog) {
+        if (isPauseDialog) {
+            txtHeader.text = getString(R.string.txt_header_pause_order)
             imgPauseOrResume.setImageResource(R.drawable.ic_pause)
             btnPauseOrResume.text = getString(R.string.txt_pause_plan)
         } else {
+            txtHeader.text = getString(R.string.txt_header_cancel_order)
             imgPauseOrResume.setImageResource(R.drawable.ic_cancel)
-            btnPauseOrResume.text = getString(R.string.txt_resume_plan)
+            btnPauseOrResume.text = getString(R.string.txt_cancel_plan)
         }
         var dialog = alertDialogBuilder.create()
 
@@ -115,11 +156,11 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
         })
 
         btnPauseOrResume.setOnClickListener(View.OnClickListener {
-            if(isPauseDialog) {
-              //  mViewModel?.doAddAddress(AddAddressRequestModel(addressEditText.text.toString(),true))
+            if (isPauseDialog) {
+                mViewModel?.doPausePlan(ResumeOrderRequestModel(mOrderDetailData?.orderId,""))
                 dialog.dismiss()
             } else {
-               // mViewModel?.doUpdateAddressOnServer(UpdateAddressRequestModel(mSelectedMealPlan?.addressId,addressEditText.text.toString(),true))
+                mViewModel?.doCancelPlan(ResumeOrderRequestModel(mOrderDetailData?.orderId,""))
                 dialog.dismiss()
             }
         })
@@ -128,7 +169,7 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
     }
 
     private fun doSetHistoryData() {
-        if(mIsHistoryDetail) {
+        if (mIsHistoryDetail) {
             llReorderOrWrite.visibility = View.VISIBLE
             llPauseCancel.visibility = View.GONE
             llMessageUs.visibility = View.GONE
@@ -140,19 +181,23 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>()  {
 
         mContext?.let {
             Glide.with(it)
-                .load(mOrderDetailData?.companyLogo)
-                .centerCrop()
-                .into(imgOrder)
+                    .load(mOrderDetailData?.companyLogo)
+                    .circleCrop()
+                    .into(imgOrder)
 
             txtTitleOrderDetail.text = mOrderDetailData?.companyName
-            txtStatus.text = if(mIsHistoryDetail) getString(R.string.txt_expired) else getString(R.string.txt_ongoing)
+            if (mIsHistoryDetail) txtStatus.text = getString(R.string.txt_expired)
+            else {
+                if (mOrderDetailData?.isPaused!!) txtStatus.text = getString(R.string.txt_paused)
+                else txtStatus.text = getString(R.string.txt_ongoing)
+            }
             txtDateOrderDetail.text = mOrderDetailData?.orderPlacedAt
-            txtOrderId.text = String.format(getString(R.string.txt_order_id),mOrderDetailData?.orderId)
+            txtOrderId.text = String.format(getString(R.string.txt_order_id), mOrderDetailData?.orderId)
             txtAddressOrderDetail.text = mOrderDetailData?.address
             txtOrderSummaryTitle.text = mOrderDetailData?.planName
-            txtOrderSummary.text = "In progress in discussion"
-            txtOrderDeliveryTime.text = String.format(getString(R.string.txt_delivery_time_order_summary),mOrderDetailData?.deliveryTime)
-            txtOrderInstructions.text = String.format(getString(R.string.txt_order_summary_instructions),mOrderDetailData?.instructions)
+            txtOrderSummary.text = mOrderDetailData?.noOfMeals + " meals per day for " + mOrderDetailData?.noOfDays + " days"
+            txtOrderDeliveryTime.text = String.format(getString(R.string.txt_delivery_time_order_summary), mOrderDetailData?.deliveryTime)
+            txtOrderInstructions.text = String.format(getString(R.string.txt_order_summary_instructions), mOrderDetailData?.instructions)
             txtTotalPaid.text = mOrderDetailData?.price + "AED"
             txtPaymentType.text = mOrderDetailData?.paymentType
         }

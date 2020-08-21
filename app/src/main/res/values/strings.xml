@@ -148,7 +148,7 @@
     <string name="txt_view_plan"><u>View Plan</u></string>
     <string name="txt_date">Date</string>
     <string name="txt_paid_with">Paid with</string>
-    <string name="txt_ongoing">Ongoing</string>
+    <string name="txt_ongoing">On going</string>
     <string name="txt_history">History</string>
     <string name="txt_trial_meal_subtitle">This pack includes a 1-week portion of your exploration</string>
     <string name="txt_have_some_questions">Have some questions?</string>
@@ -223,4 +223,7 @@
     <string name="txt_loading_place_order">Placing order</string>
     <string name="err_select_plan">Please select one plan</string>
     <string name="txt_resume_plan">Resume Plan</string>
+    <string name="txt_paused">Paused</string>
+    <string name="txt_cancel_plan">cancel Plan</string>
+    <string name="txt_header_cancel_order">Are you sure you want to cancel thi plan?</string>
 </resources>

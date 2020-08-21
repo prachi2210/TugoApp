@@ -88,7 +88,7 @@ class FragmentHistoryOrders : Fragment() {
         val adapter = mContext?.let {
             OrderHistoryListAdapter(it, true , data, object : OnListItemClickListener {
                 override fun onListItemClick(position: Int) {
-                    mViewModel?.setSelectedHistoryOrder(data[position])
+                    mViewModel?.setSelectedHistoryOrder(data[position],true)
                 }
             })
         }

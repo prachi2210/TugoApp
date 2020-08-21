@@ -18,23 +18,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_10"
-                android:paddingLeft="@dimen/margin_10"
+                android:paddingTop="@dimen/margin_15"
+                android:paddingLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imgHistoryOrder"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_cart" />
+                    android:layout_gravity="center" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_20"
                     android:orientation="vertical">
 
                     <TextView
@@ -42,7 +41,6 @@
                         style="@style/HeaderOrderHistoryTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_20"
                         android:text="Eat Simple" />
 
                     <TextView
@@ -76,21 +74,59 @@
                     android:id="@+id/imgNext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
-                    android:layout_marginRight="@dimen/margin_10"
                     android:src="@drawable/ic_forward"
                     android:tint="@color/colorPrimary" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal">
             <TextView
                 android:id="@+id/txtExpiryDate"
                 style="@style/HeaderSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginTop="@dimen/margin_10"
                 android:layout_marginBottom="@dimen/margin_15"
                 android:text="@string/txt_order_expired_on" />
+
+                <androidx.appcompat.widget.AppCompatCheckedTextView
+                    android:id="@+id/txtIsOngoing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    style="@style/HeaderSmall"
+                    android:textColor="@color/colorWhite"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingRight="@dimen/margin_20"
+                    android:background="@drawable/bg_one_sided_round_green"
+                    android:letterSpacing="0.2"
+                    android:textAllCaps="true"
+                    android:visibility="gone"
+                    android:text="@string/txt_ongoing"/>
+                <androidx.appcompat.widget.AppCompatCheckedTextView
+                    android:id="@+id/txtPaused"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    style="@style/HeaderSmall"
+                    android:visibility="gone"
+                    android:textColor="@color/colorWhite"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingRight="@dimen/margin_20"
+                    android:background="@drawable/bg_one_sided_round_yellow"
+                    android:letterSpacing="0.2"
+                    android:text="@string/txt_paused"/>
+            </LinearLayout>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
