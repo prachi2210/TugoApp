@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_thank_you.*
 import javax.inject.Inject
 
 class FragmentThankYou : BaseFragment<HomeViewModel?>() {
+    private var mIsTrialMeal: Boolean = false
     private var mSelectedMealPlan: MealOptionsModel? = null
     private var mPlanObject: MealPlanModel? = null
 
@@ -56,6 +57,41 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
     private fun iniUI() {
         mContext = this!!.requireContext()
 
+        initController()
+
+        mSelectedMealPlan = arguments?.getParcelable(AppConstant.SELECTED_MEAL_PLAN)
+        mPlanObject = arguments?.getParcelable(AppConstant.SELECTED_PLAN_OBJECT)
+        txtDate.text  = arguments?.getString(AppConstant.START_DATE_FOR_THANKYOU)
+        mIsTrialMeal = arguments?.getBoolean(AppConstant.SELECTED_MEAL_PLAN_TRIAL)!!
+
+        if(mIsTrialMeal && (mPlanObject == null)) {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
+            return
+        } else if (!mIsTrialMeal && (mPlanObject == null ||  mSelectedMealPlan == null)) {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
+            return
+        }
+
+        if(mIsTrialMeal) {
+            txtAmount.text = mPlanObject?.trailPlanPricing  +" AED"
+            txtPlanName.text = mPlanObject?.title +" (Trial Meal)"
+            txtPlanDetail.text = mPlanObject?.trailPlanDays + " days "
+            txtTotalPaid.text = mPlanObject?.trailPlanPricing +" AED"
+
+        } else {
+            txtAmount.text = mSelectedMealPlan?.price  +" AED"
+            txtPlanName.text = mPlanObject?.title
+            txtPlanDetail.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days plan"
+            txtTotalPaid.text = mSelectedMealPlan?.price +" AED"
+        }
+
+        Glide.with(mContext)
+                .load(mPlanObject?.featuredImage)
+                .circleCrop()
+                .into(imgPlan)
+    }
+
+    private fun initController() {
         btnBackToHome.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentThankyou_to_fragmentHome)
         })
@@ -64,21 +100,8 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
             CommonUtils.doSendMessageToWhatsApp(mContext,rootView)
         })
 
-        mSelectedMealPlan = arguments?.getParcelable(AppConstant.SELECTED_MEAL_PLAN)
-        mPlanObject = arguments?.getParcelable(AppConstant.SELECTED_PLAN_OBJECT)
-        txtDate.text  = arguments?.getString(AppConstant.START_DATE_FOR_THANKYOU)
-        if (mSelectedMealPlan == null || mPlanObject == null) {
-            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
-            return
-        }
-
-        txtAmount.text = mSelectedMealPlan?.price  +" AED"
-        txtPlanName.text = mPlanObject?.title
-        txtPlanDetail.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days plan"
-        Glide.with(mContext)
-                .load(mPlanObject?.featuredImage)
-                .circleCrop()
-                .into(imgPlan)
-        txtTotalPaid.text = mSelectedMealPlan?.price +" AED"
+        txtViewPlan.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentThankyou_to_fragmentOrders)
+        })
     }
 }

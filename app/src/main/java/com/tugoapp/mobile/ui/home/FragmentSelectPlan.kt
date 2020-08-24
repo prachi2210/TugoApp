@@ -22,9 +22,6 @@ import javax.inject.Inject
 
 
 class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
-    private var mSelectedDay: Int = 0
-    private var mSelectedWeek: Int = 0
-
     private var mSelectedPlanObject: MealPlanModel? = null
     private var mSelectedMealPlan: MealOptionsModel? = null
 
@@ -82,8 +79,9 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         })
 
         btnTryNow.setOnClickListener(View.OnClickListener {
-//            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
-//            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
+            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
+                    AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
         })
     }
 

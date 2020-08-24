@@ -113,7 +113,7 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                 }
                 rvMealProviders.adapter = adapter
             } else {
-                CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_category_data_found))
+                CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_providers_found))
             }
         })
 

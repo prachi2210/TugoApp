@@ -29,7 +29,7 @@ public object PlaceOrderObject {
     var noOfWeeks : String? = null
     var instructions : String? = null
     var planId : Int? = 0
-    var mealId : String = ""
+    var mealId : String? = null
     var deliveryTime : String? = null
     var deliveryLocation : String? = null
     var address : String? = null

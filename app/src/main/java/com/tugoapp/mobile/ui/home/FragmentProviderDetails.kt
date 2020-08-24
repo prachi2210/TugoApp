@@ -140,6 +140,12 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         txtReadRating.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentReview)
         })
+
+        btnTryNow.setOnClickListener(View.OnClickListener {
+            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedMealPlan,
+                    AppConstant.SELECTED_MEAL_PLAN to null, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentDeliveryDetail,bundle)
+        })
     }
 
     private fun doSetProviderDetails(providerData: GetProviderDetailsData) {

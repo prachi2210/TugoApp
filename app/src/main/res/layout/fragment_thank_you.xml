@@ -47,7 +47,7 @@
                 android:layout_marginBottom="@dimen/margin_10"
                 android:fontFamily="@font/font_poppins_regular"
                 android:gravity="center"
-                android:text="2,220 AED"
+                android:text=""
                 android:textSize="@dimen/size_40" />
         </LinearLayout>
 
@@ -94,7 +94,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/font_raleway_bold"
-                                android:text="KCal Extra" />
+                                android:text="" />
 
                             <TextView
                                 android:id="@+id/txtPlanDetail"
@@ -102,7 +102,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_10"
-                                android:text="3 meals * 16 days plan" />
+                                android:text="" />
 
                             <TextView
                                 android:id="@+id/txtViewPlan"
@@ -140,7 +140,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="9/03/2020" />
+                            android:text="" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -166,7 +166,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Credit Card" />
+                            android:text="" />
                     </LinearLayout>
 
                     <LinearLayout

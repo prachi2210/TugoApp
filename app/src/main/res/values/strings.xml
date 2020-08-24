@@ -229,4 +229,5 @@
     <string name="txt_cancelled">cancelled</string>
     <string name="txt_min">Min \n%s</string>
     <string name="txt_max">Max \n%s</string>
+    <string name="txt_err_no_providers_found">"No Providers found with this fiter "</string>
 </resources>

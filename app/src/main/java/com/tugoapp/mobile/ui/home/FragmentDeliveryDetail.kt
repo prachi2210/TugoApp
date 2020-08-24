@@ -77,28 +77,35 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         mSelectedMealPlan = arguments?.getParcelable(AppConstant.SELECTED_MEAL_PLAN)
         mIsTrialMeal = arguments?.getBoolean(AppConstant.SELECTED_MEAL_PLAN_TRIAL)!!
 
-        if (mPlanObject == null || (!mIsTrialMeal && mSelectedMealPlan == null)) {
+        if(mIsTrialMeal && (mPlanObject == null)) {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
+            return
+        } else if (!mIsTrialMeal && (mPlanObject == null ||  mSelectedMealPlan == null)) {
             CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
             return
         }
 
         mPlaceOrderRequestModel = PlaceOrderObject
         mPlaceOrderRequestModel?.planObj = mPlanObject as MealPlanModel
-        mPlaceOrderRequestModel?.mealId = mSelectedMealPlan?.mealId.toString()
         mPlaceOrderRequestModel?.isTrialPlan = mIsTrialMeal
-        mPlaceOrderRequestModel?.noOfMeals = mSelectedMealPlan?.noOfMeals
-        mPlaceOrderRequestModel?.noOfWeeks = mSelectedMealPlan?.weeks
-        mPlaceOrderRequestModel?.deliveryTime =  mPlanObject?.deliveryTime
-        mPlaceOrderRequestModel?.deliveryLocation = mPlanObject?.locations
         mPlaceOrderRequestModel?.planId = mPlanObject?.planId
         mPlaceOrderRequestModel?.address = mPlanObject?.defaultUserAddress
+        mPlaceOrderRequestModel?.deliveryTime = mPlanObject?.deliveryTime
+        mPlaceOrderRequestModel?.deliveryLocation = mPlanObject?.locations
+
+        if(!mIsTrialMeal) {
+            mPlaceOrderRequestModel?.mealId = mSelectedMealPlan?.mealId.toString()
+            mPlaceOrderRequestModel?.noOfMeals = mSelectedMealPlan?.noOfMeals
+            mPlaceOrderRequestModel?.noOfWeeks = mSelectedMealPlan?.weeks
+            mPlaceOrderRequestModel?.price = mSelectedMealPlan?.price
+        } else {
+            mPlaceOrderRequestModel?.mealId = null
+            mPlaceOrderRequestModel?.price = mPlanObject?.trailPlanPricing
+        }
 
         doInitDeliveryDetails()
-
         initController()
-
         initObserver()
-
     }
 
     private fun initObserver() {
@@ -146,7 +153,8 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         mViewModel?.mPlaceOrderResponse?.observe(viewLifecycleOwner, Observer {
             if(it.first == 1) {
                 CommonUtils.showSnakeBar(rootView,it.second)
-                var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan,AppConstant.SELECTED_PLAN_OBJECT to mPlanObject, AppConstant.START_DATE_FOR_THANKYOU to mPlaceOrderRequestModel?.startFrom)
+                var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan,AppConstant.SELECTED_PLAN_OBJECT to mPlanObject,
+                        AppConstant.START_DATE_FOR_THANKYOU to mPlaceOrderRequestModel?.startFrom,AppConstant.SELECTED_MEAL_PLAN_TRIAL to mIsTrialMeal)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentThankYou,bundle)
             } else {
                 CommonUtils.showSnakeBar(rootView,it.second)
@@ -208,7 +216,11 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
     private fun doInitDeliveryDetails() {
         txtAvailableDeliveryTime.text = mPlanObject?.deliveryTime
         deliveryDays.text = mPlanObject?.deliveryDays
-        txtDuration.text = String.format(getString(R.string.txt_duration_days),Integer.parseInt(mSelectedMealPlan?.noOfDays))
+        if(mIsTrialMeal) {
+            txtDuration.text = String.format(getString(R.string.txt_duration_days), Integer.parseInt(mPlanObject?.trailPlanDays))
+        } else {
+            txtDuration.text = String.format(getString(R.string.txt_duration_days), Integer.parseInt(mSelectedMealPlan?.noOfDays))
+        }
 
         mCalender.timeInMillis = System.currentTimeMillis()
         updateLabel()
@@ -274,14 +286,34 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
     }
 
     private fun doSetOrderSummary(view: View) {
-        view.txtPlanName?.text = mPlanObject?.title
-        view.txtPlanAmount?.text = mPlanObject?.startingFrom
-        view.txtPlanDetail?.text = mPlanObject?.description
-        view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days for " + mSelectedMealPlan?.weeks + " weeks"
+        if(mIsTrialMeal) {
+            view.txtPlanName?.text = mPlanObject?.title + " (Trial meal)"
+        } else {
+            view.txtPlanName?.text = mPlanObject?.title
+        }
+        if(mIsTrialMeal) {
+            view.txtPlanAmount?.text = mPlanObject?.trailPlanPricing
+        } else {
+            view.txtPlanAmount?.text = mPlanObject?.startingFrom
+        }
+        if(mIsTrialMeal) {
+            view.txtPlanDetail?.text = mPlanObject?.trialPlanDescription
+        } else {
+            view.txtPlanDetail?.text = mPlanObject?.description
+        }
+        if(mIsTrialMeal) {
+            view.txtPlanSub?.text = mPlanObject?.trailPlanDays + " days "
+        } else {
+            view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days for " + mSelectedMealPlan?.weeks + " weeks"
+        }
         view.txtLocation?.text = mPlanObject?.defaultUserAddress
         view?.txtDeliveryTime.text = mPlanObject?.deliveryTime
         view?.txtInstructions.text = mPlaceOrderRequestModel?.instructions
-        view?.txtPlanTotalAmount.text = mSelectedMealPlan?.price
+        if(mIsTrialMeal) {
+            view?.txtPlanTotalAmount.text = mPlanObject?.trailPlanPricing
+        } else {
+            view?.txtPlanTotalAmount.text = mSelectedMealPlan?.price
+        }
     }
 
     private fun doPopBackStack() {
@@ -303,7 +335,11 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         txtStartdate.text = sdfLocalFormat.format(mCalender.time)
         mPlaceOrderRequestModel?.startFrom = sdfLocalFormat.format(mCalender.time)
         var calender : Calendar = mCalender.clone() as Calendar
-        calender.add(Calendar.DATE, (Integer.parseInt(mSelectedMealPlan?.noOfDays)))
+        if(mIsTrialMeal) {
+            calender.add(Calendar.DATE, (Integer.parseInt(mPlanObject?.trailPlanDays)))
+        } else {
+            calender.add(Calendar.DATE, (Integer.parseInt(mSelectedMealPlan?.noOfDays)))
+        }
         txtEnddate.text = String.format(getString(R.string.txt_end_date_is),sdfLocalFormat.format(calender.time))
         mPlaceOrderRequestModel?.endOn = sdfLocalFormat.format(calender.time)
     }
@@ -312,7 +348,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         mViewModel?.doPlaceOrder(PlaceOrderRequestModel(mPlaceOrderRequestModel?.isTrialPlan,mPlaceOrderRequestModel?.noOfMeals,mPlaceOrderRequestModel?.noOfWeeks,
         mPlaceOrderRequestModel?.instructions,mPlaceOrderRequestModel?.planId,mPlaceOrderRequestModel?.mealId,mPlaceOrderRequestModel?.deliveryTime,
         mPlaceOrderRequestModel?.deliveryLocation, mPlaceOrderRequestModel?.address, mPlaceOrderRequestModel?.startFrom, mPlaceOrderRequestModel?.endOn,
-        mSelectedMealPlan?.price, mPlaceOrderRequestModel?.planObj))
+        mPlaceOrderRequestModel?.price, mPlaceOrderRequestModel?.planObj))
     }
 
     override fun onPayClick(position: Int) {
