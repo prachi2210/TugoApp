@@ -7,8 +7,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.GetFilterProviderRequestModel
+import com.tugoapp.mobile.data.remote.model.response.CustomizeListModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
@@ -30,8 +32,8 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
     private var mIsTrialMeal : Boolean = false
     private var mMinRange :String ? = null
     private var mMaxRange :String ? = null
-    private var mLocation :String ? = null
-    private var mNoOfmeals :String ? = null
+    private var mLocation :ArrayList<String> ? = ArrayList()
+    private var mNoOfmeals :ArrayList<String> ? = ArrayList()
 
     override val layoutId: Int
         get() = R.layout.fragment_customize_plan
@@ -53,20 +55,11 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
     private fun iniUI() {
         mContext = context
 
-        rangeSeekBar.setOnRangeSeekBarChangeListener(object : OnRangeSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: RangeSeekBar, progressStart: Int, progressEnd: Int, fromUser: Boolean) {
-                mMaxRange = progressEnd.toString()
-                mMinRange = progressStart.toString()
-                txtMin.text = String.format(getString(R.string.txt_min), mMinRange)
-                txtMax.text = String.format(getString(R.string.txt_max), mMaxRange)
-            }
-
-            override fun onStartTrackingTouch(seekBar: RangeSeekBar) {
-
-            }
-            override fun onStopTrackingTouch(seekBar: RangeSeekBar) {
-
-            }
+        rangeSeekBar.setOnRangeSeekbarChangeListener(OnRangeSeekbarChangeListener { minValue, maxValue ->
+            mMaxRange = maxValue.toString()
+            mMinRange = minValue.toString()
+            txtMin.text = String.format(getString(R.string.txt_min), mMinRange)
+            txtMax.text = String.format(getString(R.string.txt_max), mMaxRange)
         })
 
         mViewModel?.doGetCustomFilterParameters()
@@ -93,16 +86,27 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
         mViewModel?.mCustomFilterData?.observe(viewLifecycleOwner, Observer {
 
             if (it != null) {
+                it.minimumPrice?.toFloat()?.let { it1 -> rangeSeekBar.setMinValue(it1) }
+                it.maximumPrice?.toFloat()?.let { it1 -> rangeSeekBar.setMaxValue(it1) }
+                txtMin.text = String.format(getString(R.string.txt_min), it.minimumPrice)
+                txtMax.text = String.format(getString(R.string.txt_max), it.maximumPrice)
+
                 if (it.numOfMeals != null && it.numOfMeals?.size!! > 0) {
                     rvMinimalMealsList.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
 
-                    val dataMinMeal = ArrayList<String>()
-                    dataMinMeal.addAll(it.numOfMeals!!)
+                    val dataMinMeal = ArrayList<CustomizeListModel>()
+                    for(data in it.numOfMeals!!) {
+                        dataMinMeal.add(CustomizeListModel(data,false))
+                    }
 
                     val dataMinMealAdapter = mContext?.let {
                         CustomizeListAdapter(it, dataMinMeal, object : OnListItemClickListener {
                             override fun onListItemClick(position: Int) {
-                                mNoOfmeals = dataMinMeal[position]
+                                if(dataMinMeal[position].isSelected) {
+                                    dataMinMeal[position].value?.let { it1 -> mNoOfmeals?.add(it1) }
+                                } else {
+                                    mNoOfmeals?.remove(dataMinMeal[position].value)
+                                }
                             }
                         })
                     }
@@ -111,12 +115,19 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
 
                 if (it.allLocations != null && it.allLocations?.size!! > 0) {
                     rvDeliversTo.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-                    val data = ArrayList<String>()
-                    data.addAll(it.allLocations!!)
+                    val dataModels = ArrayList<CustomizeListModel>()
+                    for(data in it.allLocations!!) {
+                        dataModels.add(CustomizeListModel(data,false))
+                    }
+
                     val adapter = mContext?.let {
-                        CustomizeListAdapter(it, data, object : OnListItemClickListener {
+                        CustomizeListAdapter(it, dataModels, object : OnListItemClickListener {
                             override fun onListItemClick(position: Int) {
-                                mLocation = data[position]
+                                if(dataModels[position].isSelected) {
+                                    dataModels[position].value?.let { it1 -> mLocation?.add(it1) }
+                                } else {
+                                    mLocation?.remove(dataModels[position].value)
+                                }
                             }
                         })
                     }

@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.CustomizeListModel
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 
 class CustomizeListAdapter(private val context: Context,
-                           private val list: ArrayList<String>,
+                           private val list: ArrayList<CustomizeListModel>,
                            private val cellClickListener: OnListItemClickListener
 ) : RecyclerView.Adapter<CustomizeListAdapter.ViewHolder>() {
 
-    var mSelectedCategoryIndex = -1;
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.txtName)
@@ -31,24 +31,18 @@ class CustomizeListAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
-        holder.name.text = data
+        holder.name.text = data.value
 
-        if(position == mSelectedCategoryIndex) {
+        if(data.isSelected) {
             holder.name.setTextColor(context.getColor(R.color.colorPrimary))
         } else {
             holder.name.setTextColor(context.getColor(R.color.color999999))
         }
 
         holder.itemView.setOnClickListener {
+            data.isSelected = !data.isSelected
             cellClickListener.onListItemClick(position)
-            mSelectedCategoryIndex = position;
             notifyDataSetChanged()
         }
-    }
-
-    public fun doClickCategory(position : Int) {
-        cellClickListener.onListItemClick(position)
-        mSelectedCategoryIndex = position;
-        notifyDataSetChanged()
     }
 }

@@ -78,11 +78,11 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
         })
 
-        btnTryNow.setOnClickListener(View.OnClickListener {
-            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
-                    AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
-        })
+//        btnTryNow.setOnClickListener(View.OnClickListener {
+//            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
+//                    AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
+//            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
+//        })
     }
 
     private fun doSetPlanData() {
@@ -101,12 +101,12 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         txtPlanName.text = mSelectedPlanObject?.title
         deliveryDaysSelectPlan.text = mSelectedPlanObject?.deliveryDays
         txtPlanDescSelectPlan.text = mSelectedPlanObject?.description
-        if(mSelectedPlanObject?.isTrialPlanAvailable!!) {
-            llTrialMeal.visibility = View.VISIBLE
-            txtTrialPlanData.text = mSelectedPlanObject?.trailPlanMainDescription
-        } else {
-            llTrialMeal.visibility = View.GONE
-        }
+//        if(mSelectedPlanObject?.isTrialPlanAvailable!!) {
+//            llTrialMeal.visibility = View.VISIBLE
+//            txtTrialPlanData.text = mSelectedPlanObject?.trailPlanMainDescription
+//        } else {
+//            llTrialMeal.visibility = View.GONE
+//        }
 
         if (mSelectedPlanObject?.mealOptions != null && mSelectedPlanObject?.mealOptions?.size!! > 0) {
             rvMealOptions.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)

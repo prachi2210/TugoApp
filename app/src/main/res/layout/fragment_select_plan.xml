@@ -94,59 +94,6 @@
                 android:layout_weight="1"/>
 
             <LinearLayout
-                android:id="@+id/llTrialMeal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:layout_marginRight="@dimen/margin_5"
-                android:layout_marginBottom="@dimen/margin_8"
-                android:background="@drawable/bg_trial_meal"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="left|center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin_10">
-
-                    <TextView
-                        style="@style/HeaderSemiMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_20"
-                        android:fontFamily="@font/font_raleway_bold"
-                        android:gravity="center"
-                        android:text="@string/txt_trial_meal_available"
-                        android:textColor="@color/colorPrimary" />
-
-                    <TextView
-                        android:id="@+id/txtTrialPlanData"
-                        style="@style/HeaderSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_2"
-                        android:text=""
-                        android:textColor="@color/screenTitleColor" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/btnTryNow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="@dimen/margin_20"
-                    android:background="@drawable/rounded_border_colored_empty"
-                    android:gravity="right"
-                    android:padding="@dimen/margin_10"
-                    android:text="@string/txt_try_now"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bgColor"

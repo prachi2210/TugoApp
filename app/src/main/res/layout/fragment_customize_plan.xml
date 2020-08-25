@@ -67,17 +67,31 @@
                         android:text="@string/txt_meal_plan_price"
                         android:textColor="@color/color444444" />
 
-                    <it.sephiroth.android.library.rangeseekbar.RangeSeekBar
+                    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
                         android:id="@+id/rangeSeekBar"
-                        style="@style/Base.Sephiroth.Widget.RangeSeekBar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        app:corner_radius="5"
+                        app:bar_highlight_color="@color/colorPrimary"
+                        android:backgroundTint="@color/colorPrimary"
+                        app:left_thumb_image="@drawable/ic_seekbar_thumb"
+                        app:right_thumb_image="@drawable/ic_seekbar_thumb"
                         android:layout_marginTop="@dimen/margin_10"
-                        android:layout_marginEnd="@dimen/margin_10"
-                        android:max="10000"
-                        android:layout_marginRight="@dimen/margin_10"
-                        app:range_progress_startEnd_minDiff="1"
-                        app:range_progress_startValue="0" />
+                        app:bar_color="@color/colorE1E3E8"
+                        app:left_thumb_color="@color/colorPrimary"
+                        app:right_thumb_color="@color/colorPrimary"
+                        android:layout_height="wrap_content"/>
+
+<!--                    <it.sephiroth.android.library.rangeseekbar.RangeSeekBar-->
+<!--                        android:id="@+id/rangeSeekBar"-->
+<!--                        style="@style/Base.Sephiroth.Widget.RangeSeekBar"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/margin_10"-->
+<!--                        android:layout_marginEnd="@dimen/margin_10"-->
+<!--                        android:max="10000"-->
+<!--                        android:layout_marginRight="@dimen/margin_10"-->
+<!--                        app:range_progress_startEnd_minDiff="1"-->
+<!--                        app:range_progress_startValue="0" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
