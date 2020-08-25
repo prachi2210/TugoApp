@@ -209,7 +209,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         if (mSelectedMealPlan.isTrialPlanAvailable) {
             llTrialMealAvailable.visibility = View.VISIBLE
             cardNoTrialmeal.visibility = View.GONE
-            txtTrialPlanData.text = mSelectedMealPlan.trailPlanMainDescription
+            txtTrialPlanData.text = mSelectedMealPlan.trialPlanDescription
         } else {
             cardNoTrialmeal.visibility = View.VISIBLE
             llTrialMealAvailable.visibility = View.GONE

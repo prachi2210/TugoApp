@@ -41,7 +41,7 @@ class SearchHomeListAdapter(private val context: Context,
         val data = list[position]
         holder.name.text = data.companyName
         holder.price.text = data.startingFrom
-        holder.planDetail.text = String.format(context.getString(R.string.txt_meal_plan_available),data.numberOfPlans)
+        holder.planDetail.text = String.format(context.getString(R.string.txt_meal_plan_available),data.numOfPlans)
 
         Glide.with(context)
                 .load(data.imagePath)

@@ -14,4 +14,6 @@ public data class OrderModel(var orderNo : String?,var address : String?,var del
                              var price : String?,var startedOn : String?,var orderPlacedAt : String?,
                              var instructions : String?,var noOfMeals : String?,var noOfWeeks : String?,var noOfDays : String?,
                              var orderId : String?, var expiredOn : String?, var paymentType : String?,
-                             var isDefault : Boolean, var isPaused : Boolean, var isCancelled : Boolean) : Parcelable {}
+                             var isDefault : Boolean, var isPaused : Boolean, var isCancelled : Boolean,
+                             var trialPlanDescription : String?, var isTrialPlan : Boolean,
+                             var trailPlanPricing : String) : Parcelable {}

@@ -29,7 +29,6 @@ class OrderHistoryListAdapter(private val context: Context,
         val isOngoing: TextView = view.findViewById(R.id.txtIsOngoing)
         val isPaused: TextView = view.findViewById(R.id.txtPaused)
         val isCancelled: TextView = view.findViewById(R.id.txtCancelled)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,7 +45,11 @@ class OrderHistoryListAdapter(private val context: Context,
         holder.txtOrderTitle.text = data.companyName
         holder.txtOrderSubTitle.text = data.planName
         holder.txtPrice.text = data.price + " AED"
-        holder.txtPlanDetail.text = data.noOfMeals + " meals X " + data.noOfDays + " days plan"
+        if(data.isTrialPlan) {
+            holder.txtPlanDetail.text = data.trialPlanDescription
+        } else {
+            holder.txtPlanDetail.text = data.noOfMeals + " meals X " + data.noOfDays + " days plan"
+        }
 
         Glide.with(context)
                 .load(data.companyLogo)

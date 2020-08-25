@@ -72,15 +72,14 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
             return
         }
 
+        txtPlanName.text = mPlanObject?.title
         if(mIsTrialMeal) {
             txtAmount.text = mPlanObject?.trailPlanPricing  +" AED"
-            txtPlanName.text = mPlanObject?.title +" (Trial Meal)"
-            txtPlanDetail.text = mPlanObject?.trailPlanDays + " days "
+            txtPlanDetail.text = mPlanObject?.trialPlanDays + " days "
             txtTotalPaid.text = mPlanObject?.trailPlanPricing +" AED"
 
         } else {
             txtAmount.text = mSelectedMealPlan?.price  +" AED"
-            txtPlanName.text = mPlanObject?.title
             txtPlanDetail.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days plan"
             txtTotalPaid.text = mSelectedMealPlan?.price +" AED"
         }

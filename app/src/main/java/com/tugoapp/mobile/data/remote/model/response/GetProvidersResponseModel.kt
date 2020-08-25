@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 public data class GetProvidersResponseModel(var data : ArrayList<ProviderModel>?) : BaseResponseModel() {}
 
 public data class ProviderModel(var businessId : String?, var companyName : String?, var imagePath : String? ,var description : String?,
-                                var startingFrom : String?, var numberOfPlans : String?, var offer : String?,
+                                var startingFrom : String?, var numOfPlans : String?, var offer : String?,
                                 var isActive : Boolean?) {}
 
 public data class GetProviderDetailsData(var businessId : String?, var companyName : String?, var backgroundImage : String? ,var icon : String?,
@@ -22,7 +22,8 @@ public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsD
 @Parcelize
 public data class MealPlanModel(var title : String?, var description : String?, var planId : Int? ,var startingFrom : String?,
                                 var featuredImage : String?,var trailPlanMainDescription : String?,var deliveryDays : String?,
-                                var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trailPlanDays : String,
+                                var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trialPlanDays : String,
+                                var trialPlanMeals : String,var trialPlanWeeks : String,
                                 var review : String?, var locations : String?, var noOfReviews : String?, var sampleMenu : ArrayList<SampleMenu>?, var deliveryTime: String?,
                                 var mealOptions : ArrayList<MealOptionsModel>?, var startTime : String?,var endTime : String?,
                                 var numbeOfDeliveryDays : Int?,var defaultUserAddress : String?, var addressId : String?): Parcelable {}

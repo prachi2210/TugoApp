@@ -207,23 +207,29 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
             llPauseCancel.visibility = View.GONE
             llMessageUs.visibility = View.GONE
         } else {
-            if(mOrderDetailData?.isCancelled!!) {
-                llReorderOrWrite.visibility = View.GONE
+            if(mOrderDetailData?.isTrialPlan!!) {
+                llReorderOrWrite.visibility = View.VISIBLE
                 llPauseCancel.visibility = View.GONE
                 llMessageUs.visibility = View.GONE
             } else {
-                llReorderOrWrite.visibility = View.GONE
-                llPauseCancel.visibility = View.VISIBLE
-                btnPause.visibility = View.VISIBLE
-                btnPause.setBackgroundResource(R.drawable.bg_rounded_border_colored)
-                if (mOrderDetailData?.isPaused!!) {
-                    btnPause.setText(R.string.txt_resume_plan)
-                    btnCancel.visibility = View.GONE
+                if (mOrderDetailData?.isCancelled!!) {
+                    llReorderOrWrite.visibility = View.GONE
+                    llPauseCancel.visibility = View.GONE
                     llMessageUs.visibility = View.GONE
                 } else {
-                    btnPause.setText(R.string.txt_pause_plan)
-                    btnCancel.visibility = View.VISIBLE
-                    llMessageUs.visibility = View.VISIBLE
+                    llReorderOrWrite.visibility = View.GONE
+                    llPauseCancel.visibility = View.VISIBLE
+                    btnPause.visibility = View.VISIBLE
+                    btnPause.setBackgroundResource(R.drawable.bg_rounded_border_colored)
+                    if (mOrderDetailData?.isPaused!!) {
+                        btnPause.setText(R.string.txt_resume_plan)
+                        btnCancel.visibility = View.GONE
+                        llMessageUs.visibility = View.GONE
+                    } else {
+                        btnPause.setText(R.string.txt_pause_plan)
+                        btnCancel.visibility = View.VISIBLE
+                        llMessageUs.visibility = View.VISIBLE
+                    }
                 }
             }
         }
@@ -247,7 +253,11 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
             txtOrderId.text = String.format(getString(R.string.txt_order_id), mOrderDetailData?.orderId)
             txtAddressOrderDetail.text = mOrderDetailData?.address
             txtOrderSummaryTitle.text = mOrderDetailData?.planName
-            txtOrderSummary.text = mOrderDetailData?.noOfMeals + " meals per day for " + mOrderDetailData?.noOfDays + " days"
+            if(mOrderDetailData?.isTrialPlan!!) {
+                txtOrderSummary.text = mOrderDetailData?.trialPlanDescription
+            } else {
+                txtOrderSummary.text = mOrderDetailData?.noOfMeals + " meals per day for " + mOrderDetailData?.noOfDays + " days"
+            }
             txtOrderDeliveryTime.text = String.format(getString(R.string.txt_delivery_time_order_summary), mOrderDetailData?.deliveryTime)
             txtOrderInstructions.text = String.format(getString(R.string.txt_order_summary_instructions), mOrderDetailData?.instructions)
             txtTotalPaid.text = mOrderDetailData?.price + "AED"

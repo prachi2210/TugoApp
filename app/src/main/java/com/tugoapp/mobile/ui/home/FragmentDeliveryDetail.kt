@@ -100,6 +100,8 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
             mPlaceOrderRequestModel?.price = mSelectedMealPlan?.price
         } else {
             mPlaceOrderRequestModel?.mealId = null
+            mPlaceOrderRequestModel?.noOfMeals = mPlanObject?.trialPlanMeals
+            mPlaceOrderRequestModel?.noOfWeeks = mPlanObject?.trialPlanWeeks
             mPlaceOrderRequestModel?.price = mPlanObject?.trailPlanPricing
         }
 
@@ -179,7 +181,6 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
 
             view?.txtEdit.setOnClickListener(View.OnClickListener {
                 dialog?.hide()
-                doPopBackStack()
             })
 
             dialog?.btnChoosePaymentMethod?.setOnClickListener(View.OnClickListener {
@@ -217,7 +218,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         txtAvailableDeliveryTime.text = mPlanObject?.deliveryTime
         deliveryDays.text = mPlanObject?.deliveryDays
         if(mIsTrialMeal) {
-            txtDuration.text = String.format(getString(R.string.txt_duration_days), Integer.parseInt(mPlanObject?.trailPlanDays))
+            txtDuration.text = String.format(getString(R.string.txt_duration_days), Integer.parseInt(mPlanObject?.trialPlanDays))
         } else {
             txtDuration.text = String.format(getString(R.string.txt_duration_days), Integer.parseInt(mSelectedMealPlan?.noOfDays))
         }
@@ -286,23 +287,17 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
     }
 
     private fun doSetOrderSummary(view: View) {
-        if(mIsTrialMeal) {
-            view.txtPlanName?.text = mPlanObject?.title + " (Trial meal)"
-        } else {
-            view.txtPlanName?.text = mPlanObject?.title
-        }
+        view.txtPlanName?.text = mPlanObject?.title
         if(mIsTrialMeal) {
             view.txtPlanAmount?.text = mPlanObject?.trailPlanPricing
         } else {
             view.txtPlanAmount?.text = mPlanObject?.startingFrom
         }
+
+        view.txtPlanDetail?.text = mPlanObject?.description
+
         if(mIsTrialMeal) {
-            view.txtPlanDetail?.text = mPlanObject?.trialPlanDescription
-        } else {
-            view.txtPlanDetail?.text = mPlanObject?.description
-        }
-        if(mIsTrialMeal) {
-            view.txtPlanSub?.text = mPlanObject?.trailPlanDays + " days "
+            view.txtPlanSub?.text = mPlanObject?.trialPlanDescription
         } else {
             view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days for " + mSelectedMealPlan?.weeks + " weeks"
         }
@@ -336,7 +331,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         mPlaceOrderRequestModel?.startFrom = sdfLocalFormat.format(mCalender.time)
         var calender : Calendar = mCalender.clone() as Calendar
         if(mIsTrialMeal) {
-            calender.add(Calendar.DATE, (Integer.parseInt(mPlanObject?.trailPlanDays)))
+            calender.add(Calendar.DATE, (Integer.parseInt(mPlanObject?.trialPlanDays)))
         } else {
             calender.add(Calendar.DATE, (Integer.parseInt(mSelectedMealPlan?.noOfDays)))
         }

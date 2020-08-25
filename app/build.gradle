@@ -102,9 +102,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
-
-    implementation 'it.sephiroth.android.library.rangeseekbar:rangeseekbar:1.1.0'
-
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
     implementation 'com.github.ImaginativeShohag:Why-Not-Image-Carousel:v1.1.0'

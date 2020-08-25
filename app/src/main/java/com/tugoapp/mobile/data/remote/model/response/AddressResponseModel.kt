@@ -9,3 +9,6 @@ public data class GetAddressResponseModel(var data : ArrayList<AddressModel>?) :
 
 @Parcelize
 public data class AddressModel(var userId : String?,var address : String?,var addressId : String?,var isDefault : Boolean) : Parcelable {}
+
+
+public data class CustomizeListModel(var value : String?, var isSelected : Boolean) {}
