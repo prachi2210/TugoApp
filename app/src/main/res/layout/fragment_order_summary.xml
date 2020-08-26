@@ -64,14 +64,6 @@
                     android:fontFamily="@font/font_raleway_bold"
                     android:text="Meal Plan" />
 
-                <TextView
-                    android:id="@+id/txtPlanAmount"
-                    style="@style/HeaderMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1233 AED"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
@@ -138,15 +130,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/font_raleway_bold"
                     android:text="@string/txt_delivery_time" />
-
-                <TextView
-                    android:id="@+id/txtDeliveryType"
-                    style="@style/HeaderMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="FREE"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <TextView

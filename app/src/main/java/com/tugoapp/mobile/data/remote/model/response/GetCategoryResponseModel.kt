@@ -8,4 +8,5 @@ import kotlinx.android.parcel.Parcelize
 public data class GetCategoryResponseModel(var data : ArrayList<CategoryDetailModel>?) : BaseResponseModel() {}
 
 @Parcelize
-public data class CategoryDetailModel(var categoryId : String?, var name : String? ,var imagePath : String?,var isActive : Boolean?) : Parcelable {}
+public data class CategoryDetailModel(var categoryId : String?, var name : String? ,var imagePath : String?,var offer : String?,
+                                      var isActive : Boolean?) : Parcelable {}

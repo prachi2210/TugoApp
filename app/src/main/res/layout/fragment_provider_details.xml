@@ -33,12 +33,17 @@
                 <TextView
                     android:id="@+id/deliveryDays"
                     style="@style/HeaderSemiMedium"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10"
-                    android:text=""
                     android:textColor="@color/screenTitleColor"
                     android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/imgCompanyLogoDetail"
+                    android:layout_width="100dp"
+                    android:scaleType="centerCrop"
+                    android:layout_height="30dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -60,13 +65,15 @@
                     app:tabIndicatorColor="@color/colorPrimary"
                     app:tabMode="fixed"
                     app:tabSelectedTextColor="@color/colorBlack"
-                    app:tabTextColor="@color/unselectedTabcolor"></com.google.android.material.tabs.TabLayout>
+                    app:tabTextColor="@color/unselectedTabcolor"/>
 
                 <RelativeLayout
                     android:id="@+id/rlSampleMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
+                    android:paddingRight="@dimen/margin_10"
+                    android:paddingLeft="@dimen/margin_10"
                     android:paddingTop="@dimen/margin_15">
 
                     <ImageView
@@ -74,11 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:layout_centerInParent="true"
-                        android:layout_marginLeft="@dimen/margin_10"
-                        android:layout_marginRight="@dimen/margin_10"
-                        android:background="@color/colorWhite"
-                        android:foreground="@drawable/image_overlay"
-                        android:scaleType="fitXY" />
+                        android:foreground="@drawable/image_overlay" />
 
                     <TextView
                         style="@style/HeaderSemiMedium"
@@ -257,6 +260,7 @@
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnCustomize"
                             style="@style/StyleButtonNext"
+                            android:textSize="@dimen/size_11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -285,15 +289,13 @@
                     android:layout_marginRight="@dimen/margin_12"
                     android:layout_marginBottom="@dimen/margin_5"
                     android:background="@drawable/bg_trial_meal"
-                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_20"
                         android:layout_weight="1"
-                        android:gravity="left|center"
                         android:orientation="vertical"
                         android:padding="@dimen/margin_10">
 
@@ -301,8 +303,8 @@
                             style="@style/HeaderSemiMedium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
                             android:fontFamily="@font/font_raleway_bold"
-                            android:gravity="center"
                             android:text="@string/txt_trial_meal_available"
                             android:textColor="@color/colorPrimary" />
 
@@ -311,7 +313,7 @@
                             style="@style/HeaderSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_2"
+                            android:layout_marginTop="@dimen/margin_8"
                             android:text=""
                             android:textColor="@color/screenTitleColor" />
                     </LinearLayout>
@@ -325,6 +327,7 @@
                         android:background="@drawable/rounded_border_colored_empty"
                         android:gravity="right"
                         android:padding="@dimen/margin_10"
+                        android:textSize="10sp"
                         android:text="@string/txt_try_now"
                         android:textAllCaps="true"
                         android:textColor="@color/colorPrimary" />
@@ -380,6 +383,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:gravity="center"
                         android:padding="@dimen/margin_10">
 
                         <ImageView
@@ -401,6 +405,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_5"
                             android:text="@string/txt_let_us_know"
+                            android:textStyle="bold"
                             android:textColor="@color/colorPrimary" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

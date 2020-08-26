@@ -11,6 +11,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.ProviderModel
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
@@ -25,7 +28,8 @@ class SearchHomeListAdapter(private val context: Context,
         val name: TextView = view.findViewById(R.id.name)
         val planDetail: TextView = view.findViewById(R.id.planDetail)
         val price: TextView = view.findViewById(R.id.price)
-        val priceUnit: TextView = view.findViewById(R.id.priceUnit)
+        val imgCompanyLogo: ImageView = view.findViewById(R.id.imgCompanyLogo)
+        val txtOffer: TextView = view.findViewById(R.id.txtOfferProvider)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,12 +47,22 @@ class SearchHomeListAdapter(private val context: Context,
         holder.price.text = data.startingFrom
         holder.planDetail.text = String.format(context.getString(R.string.txt_meal_plan_available),data.numOfPlans)
 
+        if(data.offer.isNullOrBlank()) {
+            holder.txtOffer.visibility = View.GONE
+        } else {
+            holder.txtOffer.visibility = View.VISIBLE
+            holder.txtOffer.text = data.offer
+        }
+
+        Glide.with(context)
+                .load(data.featuredImage)
+                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(15)))
+                .into(holder.image)
+
         Glide.with(context)
                 .load(data.imagePath)
                 .centerCrop()
-                .placeholder(R.drawable.ic_search_image)
-                .error(R.drawable.ic_search_image)
-                .into(holder.image)
+                .into(holder.imgCompanyLogo)
 
         holder.itemView.setOnClickListener {
             cellClickListener.onListItemClick(position)

@@ -7,15 +7,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/imageCarousel"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:foreground="@drawable/image_overlay"
-            app:autoPlay="true"
-            app:carouselType="BLOCK"
-            app:showCaption="false" />
+            android:layout_weight="1">
+
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/imageCarousel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:foreground="@drawable/image_overlay"
+                app:autoPlay="true"
+                app:carouselType="BLOCK"
+                app:showCaption="false" />
+
+            <ImageView
+                android:id="@+id/imgBackSelectPlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:padding="@dimen/margin_10"
+                android:src="@drawable/ic_back"
+                android:tint="@color/colorWhite" />
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignBottom="@id/imageCarousel"
+                android:src="@drawable/rounded_border_white_top"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/margin_10">
+                android:paddingRight="@dimen/margin_10"
+                android:paddingLeft="@dimen/margin_10">
 
                 <TextView
                     android:id="@+id/txtPlanName"
@@ -62,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10"
-                    android:text="SUN"
+                    android:inputType="textCapWords"
                     android:textColor="@color/screenTitleColor"
                     android:textStyle="bold" />
                 </LinearLayout>
@@ -75,7 +98,7 @@
                     android:text="test plan description"
                     android:fontFamily="@font/font_raleway_regular"
                     android:layout_marginTop="@dimen/margin_10"
-                    android:textColor="@color/screenTitleColor"/>
+                    android:textColor="@color/screenTitleColor" />
 
             </LinearLayout>
 
@@ -85,13 +108,22 @@
                 android:layout_height="1dp"
                 android:background="@color/grey" />
 
+            <TextView
+                style="@style/HeaderMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:fontFamily="@font/font_raleway_bold"
+                android:padding="@dimen/margin_5"
+                android:text="@string/txt_select_duration" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMealOptions"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="@dimen/margin_10"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"

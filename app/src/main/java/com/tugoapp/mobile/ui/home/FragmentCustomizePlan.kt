@@ -16,8 +16,6 @@ import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.ui.home.adapters.CustomizeListAdapter
 import com.tugoapp.mobile.utils.CommonUtils
-import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
-import it.sephiroth.android.library.rangeseekbar.RangeSeekBar.OnRangeSeekBarChangeListener
 import kotlinx.android.synthetic.main.fragment_customize_plan.*
 import javax.inject.Inject
 

@@ -288,12 +288,6 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
 
     private fun doSetOrderSummary(view: View) {
         view.txtPlanName?.text = mPlanObject?.title
-        if(mIsTrialMeal) {
-            view.txtPlanAmount?.text = mPlanObject?.trailPlanPricing
-        } else {
-            view.txtPlanAmount?.text = mPlanObject?.startingFrom
-        }
-
         view.txtPlanDetail?.text = mPlanObject?.description
 
         if(mIsTrialMeal) {

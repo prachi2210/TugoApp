@@ -7,14 +7,14 @@ import kotlinx.android.parcel.Parcelize
 
 public data class GetProvidersResponseModel(var data : ArrayList<ProviderModel>?) : BaseResponseModel() {}
 
-public data class ProviderModel(var businessId : String?, var companyName : String?, var imagePath : String? ,var description : String?,
+public data class ProviderModel(var businessId : String?, var companyName : String?, var imagePath : String?,var featuredImage : String?  ,var description : String?,
                                 var startingFrom : String?, var numOfPlans : String?, var offer : String?,
                                 var isActive : Boolean?) {}
 
 public data class GetProviderDetailsData(var businessId : String?, var companyName : String?, var backgroundImage : String? ,var icon : String?,
                                          var address : String?,
                                          var companyLogo : String?, var defaultUserAddress : String?, var addressId : String?,var numbeOfDeliveryDays : Int?,
-                                         var description : String?,var deliveryDays : String?,var planData : ArrayList<MealPlanModel>?) {}
+                                         var description : String?,var planData : ArrayList<MealPlanModel>?) {}
 
 public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsData) : BaseResponseModel() {}
 

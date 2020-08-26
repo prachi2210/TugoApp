@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
+
 
 class BrowseByDietListAdapter(private val context: Context,
                               private val list: ArrayList<CategoryDetailModel>,
@@ -36,10 +39,15 @@ class BrowseByDietListAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
         holder.name.text = data.name
-        holder.offer.visibility = View.GONE
+        if(data.offer.isNullOrBlank()) {
+            holder.offer.visibility = View.GONE
+        } else {
+            holder.offer.visibility = View.VISIBLE
+            holder.offer.text = data.offer
+        }
         Glide.with(context)
                 .load(data.imagePath)
-                .centerCrop()
+                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(30)))
                 .into(holder.image)
 
         holder.itemView.setOnClickListener {

@@ -157,7 +157,7 @@
     <string name="txt_no_trial_meal_subtitle">This provider currently has no trial plans available</string>
     <string name="txt_info">Info</string>
     <string name="txt_delivery_locations">Delivery Locations</string>
-    <string name="txt_readall">Read all></string>
+    <string name="txt_readall">Read all ></string>
     <string name="err_fill_detail">Please fill the details</string>
     <string name="title_warning">Warning</string>
     <string name="txt_confirm_logout">Are you sure you want to logout?</string>
@@ -230,4 +230,5 @@
     <string name="txt_min">Min \n%s</string>
     <string name="txt_max">Max \n%s</string>
     <string name="txt_err_no_providers_found">"No Providers found with this fiter "</string>
+    <string name="txt_select_duration">Select Duration</string>
 </resources>

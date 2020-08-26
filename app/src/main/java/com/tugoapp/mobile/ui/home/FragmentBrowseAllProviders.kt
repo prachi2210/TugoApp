@@ -123,7 +123,7 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
         if (data != null && data.size > 0) {
             rvCategoryList.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             val categoryData = ArrayList<CategoryDetailModel>()
-            categoryData.add(CategoryDetailModel("0", "All", null, true))
+            categoryData.add(CategoryDetailModel("0", "All", null, null,true))
             categoryData.addAll(data)
             val adapter = mContext?.let {
                 CategoryListAdapter(it, categoryData, object : OnListItemClickListener {

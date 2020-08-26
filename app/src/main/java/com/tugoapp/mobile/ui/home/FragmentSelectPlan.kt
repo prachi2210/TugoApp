@@ -78,11 +78,9 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
         })
 
-//        btnTryNow.setOnClickListener(View.OnClickListener {
-//            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
-//                    AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
-//            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
-//        })
+        imgBackSelectPlan.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(rootView!!).popBackStack()
+        })
     }
 
     private fun doSetPlanData() {

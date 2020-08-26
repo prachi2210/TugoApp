@@ -17,6 +17,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
@@ -151,7 +154,6 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private fun doSetProviderDetails(providerData: GetProviderDetailsData) {
         mProviderDetails = providerData
         (activity as RootActivity).supportActionBar?.title = providerData.companyName
-        deliveryDays.text = providerData.deliveryDays
         tabMainProvidersType.removeAllTabs()
         if (providerData.planData != null && providerData.planData!!.size > 0) {
             mMealPlanList = providerData.planData!!
@@ -203,6 +205,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private fun doSetTabDetails() {
         doSetMealPlanData(mSelectedMealPlan)
         doSetInfoOrLocationData(0)
+        deliveryDays.text = mSelectedMealPlan.deliveryDays
         if (mSelectedMealPlan.sampleMenu == null || mSelectedMealPlan.sampleMenu!!.size <= 0) {
             rlSampleMenu.visibility = View.GONE
         }
@@ -234,8 +237,12 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             txtStartingFrom.text = mealPlanData.startingFrom
             Glide.with(mContext)
                     .load(mealPlanData.featuredImage)
-                    .centerCrop()
+                    .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(15)))
                     .into(imgSampleMenu)
+            Glide.with(mContext)
+                    .load(mProviderDetails?.icon)
+                    .centerCrop()
+                    .into(imgCompanyLogoDetail)
         }
     }
 
