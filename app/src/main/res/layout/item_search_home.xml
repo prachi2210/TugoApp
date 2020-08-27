@@ -7,8 +7,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="@dimen/margin_8"
-        android:paddingBottom="@dimen/margin_5"
+        android:paddingBottom="@dimen/margin_10"
         android:paddingTop="@dimen/margin_5">
 
         <RelativeLayout

@@ -232,7 +232,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private fun doSetMealPlanData(mealPlanData: MealPlanModel) {
         if (mealPlanData != null) {
             txtRating.text = mealPlanData.review
-            rateBar.rating = mealPlanData.review?.toFloat()!!
+            if(!mealPlanData.review.isNullOrBlank()) rateBar.rating  = mealPlanData.review?.toFloat()!!
             txtCountReviews.text = String.format(getString(R.string.txt_no_of_reviews), mealPlanData.noOfReviews)
             txtStartingFrom.text = mealPlanData.startingFrom
             Glide.with(mContext)

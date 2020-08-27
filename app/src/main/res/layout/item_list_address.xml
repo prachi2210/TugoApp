@@ -5,11 +5,10 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_10"
-        android:layout_marginRight="@dimen/margin_10"
-        android:layout_marginTop="@dimen/margin_10"
-        android:background="@drawable/bg_card"
-        android:elevation="@dimen/margin_20"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="@dimen/margin_4"
+        android:layout_marginRight="@dimen/margin_5"
+        android:layout_marginLeft="@dimen/margin_5"
         android:padding="@dimen/margin_5">
 
         <LinearLayout
@@ -34,7 +33,7 @@
                 android:padding="@dimen/margin_10"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:text="230, Baker Rd, Chicago, IL, 60315, USA" />
+                android:text="" />
 
             <ImageView
                 android:id="@+id/imgIsChecked"
@@ -42,6 +41,15 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_right"
                 android:padding="@dimen/margin_10"
+                android:layout_gravity="center"
+                android:textColor="@color/emptyViewColor" />
+
+            <ImageView
+                android:id="@+id/imgEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                android:padding="@dimen/margin_15"
                 android:layout_gravity="center"
                 android:textColor="@color/emptyViewColor" />
         </LinearLayout>

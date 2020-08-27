@@ -5,9 +5,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_card"
-        android:elevation="@dimen/margin_2"
-        app:cardElevation="@dimen/margin_2">
+        android:background="@color/colorWhite">
 
         <LinearLayout
             android:layout_width="match_parent"

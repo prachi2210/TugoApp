@@ -48,9 +48,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/llHeader"
                 android:layout_margin="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_10"
                 android:background="@color/colorWhite"
-                android:elevation="@dimen/margin_2"
                 app:cardElevation="@dimen/margin_2">
 
                 <LinearLayout

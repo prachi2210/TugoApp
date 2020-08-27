@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -12,6 +13,7 @@ import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.AddressModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
+import com.tugoapp.mobile.ui.base.OnManageAddressListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.ui.profile.adapter.AddressListAdapter
 import com.tugoapp.mobile.utils.AppConstant
@@ -20,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_manage_address.*
 import javax.inject.Inject
 
 class FragmentManageAddress : BaseFragment<ManageAddressViewModel?>()  {
+
+    private var mIsFromDeliveryScreen: Boolean = false
 
     @JvmField
     @Inject
@@ -51,6 +55,13 @@ class FragmentManageAddress : BaseFragment<ManageAddressViewModel?>()  {
 
     private fun iniUI() {
         mContext = context
+
+        mIsFromDeliveryScreen = arguments?.getBoolean(AppConstant.IS_FROM_DELIVERY_SCREEN)!!
+        if(mIsFromDeliveryScreen) {
+            selectAddressHeader.visibility = View.VISIBLE
+        } else {
+            selectAddressHeader.visibility = View.GONE
+        }
 
         initControls()
 
@@ -86,8 +97,15 @@ class FragmentManageAddress : BaseFragment<ManageAddressViewModel?>()  {
                 txtEmptyViewAddress.visibility = View.VISIBLE
             }
             val adapter = mContext?.let {
-                AddressListAdapter(it, data, object : OnListItemClickListener {
+                AddressListAdapter(it, data, object : OnManageAddressListItemClickListener {
                     override fun onListItemClick(position: Int) {
+                        if(mIsFromDeliveryScreen) {
+                            Navigation.findNavController(rootView!!).previousBackStackEntry?.savedStateHandle?.set("deliveryAddress", data[position])
+                            Navigation.findNavController(rootView!!).popBackStack()
+                        }
+                    }
+
+                    override fun onItemEditClick(position: Int) {
                         var bundle = bundleOf(AppConstant.ADDRESS_TO_EDIT to data[position])
                         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentManageAddress_to_fragmentAddAddress,bundle)
                     }

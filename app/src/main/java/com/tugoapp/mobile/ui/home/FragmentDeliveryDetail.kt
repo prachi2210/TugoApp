@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -32,6 +34,7 @@ import javax.inject.Inject
 import androidx.lifecycle.Observer
 import com.tugoapp.mobile.data.remote.model.request.PlaceOrderObject
 import com.tugoapp.mobile.data.remote.model.request.PlaceOrderRequestModel
+import com.tugoapp.mobile.data.remote.model.response.AddressModel
 import com.tugoapp.mobile.data.remote.model.response.MealOptionsModel
 
 
@@ -125,31 +128,12 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
             }
         })
 
-        mViewModel?.mAddAddressData?.observe(viewLifecycleOwner, Observer {
-            if(it.first == 1) {
-                CommonUtils.showSnakeBar(rootView,"Address added successfully")
-                mPlanObject?.addressId = it.second.first
-                mPlanObject?.defaultUserAddress = it.second.second
-                txtAddress.text = it.second.second
-                btnEditAddress.visibility = View.VISIBLE
-                btnAddAddressDeliveryScreen.visibility = View.GONE
-                txtAddress.visibility = View.VISIBLE
-            } else {
-                CommonUtils.showSnakeBar(rootView,it.second.first)
-            }
-        })
-
-        mViewModel?.mUpdateAddressData?.observe(viewLifecycleOwner, Observer {
-            if(it.first == 1) {
-                CommonUtils.showSnakeBar(rootView,"Address updated successfully")
-                mPlanObject?.defaultUserAddress = it.second
-                txtAddress.text = it.second
-                btnEditAddress.visibility = View.VISIBLE
-                btnAddAddressDeliveryScreen.visibility = View.GONE
-                txtAddress.visibility = View.VISIBLE
-            } else {
-                CommonUtils.showSnakeBar(rootView,it.second)
-            }
+        Navigation.findNavController(rootView!!).currentBackStackEntry?.savedStateHandle?.getLiveData<AddressModel>("deliveryAddress")?.observe(viewLifecycleOwner, Observer {
+            mPlaceOrderRequestModel?.planObj?.addressId = it.addressId
+            mPlaceOrderRequestModel?.planObj?.defaultUserAddress = it.address
+            mPlaceOrderRequestModel?.address = it.address
+            txtAddress.text = it.address
+            Navigation.findNavController(rootView!!).previousBackStackEntry?.savedStateHandle?.remove<AddressModel>("deliveryAddress")
         })
 
         mViewModel?.mPlaceOrderResponse?.observe(viewLifecycleOwner, Observer {
@@ -166,39 +150,30 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
 
     private fun initController() {
         btnOrderSummary.setOnClickListener(View.OnClickListener {
-
             if(!doValidateDeliveryScreenData()) {
                 return@OnClickListener;
             }
-
             val view: View = layoutInflater.inflate(R.layout.fragment_order_summary, null)
             mPlaceOrderRequestModel?.instructions = txtDeliveryInstructions?.text.toString()
             doSetOrderSummary(view)
-
             val dialog = mContext?.let { it1 -> BottomSheetDialog(it1) }
             dialog?.setContentView(view)
             dialog?.show()
-
             view?.txtEdit.setOnClickListener(View.OnClickListener {
                 dialog?.hide()
             })
 
             dialog?.btnChoosePaymentMethod?.setOnClickListener(View.OnClickListener {
-
                 dialog?.hide()
                 val view1: View = layoutInflater.inflate(R.layout.fragment_select_payment_method, null)
-
                 val dialog1 = mContext?.let { it1 -> BottomSheetDialog(it1) }
                 dialog1?.setContentView(view1)
                 dialog1?.show()
-
                 view1.btnPay.setOnClickListener(View.OnClickListener {
                     dialog1?.hide()
                     doNavigate();
                 })
-
             })
-
         })
     }
 
@@ -233,57 +208,58 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
 
         if(!mPlanObject?.defaultUserAddress.isNullOrBlank()) {
             txtAddress.text = mPlanObject?.defaultUserAddress
-            btnEditAddress.visibility = View.VISIBLE
-            btnAddAddressDeliveryScreen.visibility = View.GONE
+            btnEditAddress.text = getString(R.string.txt_edit_address)
             txtAddress.visibility = View.VISIBLE
         } else {
-            btnAddAddressDeliveryScreen.visibility = View.VISIBLE
             txtAddress.visibility = View.GONE
-            btnEditAddress.visibility = View.GONE
+            btnEditAddress.text = getString(R.string.txt_add_address_with_bracket)
         }
 
-        btnAddAddressDeliveryScreen.setOnClickListener(View.OnClickListener {
-           doShowAddressDialog(true, "", "")
-        })
-
         btnEditAddress.setOnClickListener(View.OnClickListener {
-            doShowAddressDialog(false, mPlanObject?.defaultUserAddress, mPlanObject?.addressId)
+            if(mPlanObject?.defaultUserAddress.isNullOrBlank()) {
+                doShowAddressDialog(true, "", "")
+            } else {
+                doShowAddressDialog(false, mPlanObject?.defaultUserAddress, mPlanObject?.addressId)
+            }
         })
     }
 
     private fun doShowAddressDialog(isAddAddress: Boolean, address: String?, addressId: String?) {
 
-        val li = LayoutInflater.from(context)
-        val promptsView: View = li.inflate(R.layout.dialog_address, null)
-        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-        alertDialogBuilder.setView(promptsView)
-        alertDialogBuilder.setCancelable(false)
-        var addressEditText = promptsView.findViewById<EditText>(R.id.dialogAddress)
-        var btnCancel = promptsView.findViewById<AppCompatButton>(R.id.btnCancelAddressDialog)
-        var btnAdd = promptsView.findViewById<AppCompatButton>(R.id.btnAddAddressDialog)
-        if(isAddAddress) {
-            btnAdd.text = getString(R.string.txt_add)
-        } else {
-            btnAdd.text = getString(R.string.txt_edit)
-            addressEditText.setText(mPlanObject?.defaultUserAddress)
-        }
-        var dialog = alertDialogBuilder.create()
+        var bundle = bundleOf(AppConstant.IS_FROM_DELIVERY_SCREEN to true)
+        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentManageAddress,bundle)
 
-        btnCancel.setOnClickListener(View.OnClickListener {
-            dialog.dismiss()
-        })
-
-        btnAdd.setOnClickListener(View.OnClickListener {
-            if(isAddAddress) {
-                mViewModel?.doAddAddress(AddAddressRequestModel(addressEditText.text.toString(),true))
-                dialog.dismiss()
-            } else {
-                mViewModel?.doUpdateAddressOnServer(UpdateAddressRequestModel(mPlanObject?.addressId,addressEditText.text.toString(),true))
-                dialog.dismiss()
-            }
-        })
-
-        dialog.show()
+//        val li = LayoutInflater.from(context)
+//        val promptsView: View = li.inflate(R.layout.dialog_address, null)
+//        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
+//        alertDialogBuilder.setView(promptsView)
+//        alertDialogBuilder.setCancelable(false)
+//        var addressEditText = promptsView.findViewById<EditText>(R.id.dialogAddress)
+//        var btnCancel = promptsView.findViewById<AppCompatButton>(R.id.btnCancelAddressDialog)
+//        var btnAdd = promptsView.findViewById<AppCompatButton>(R.id.btnAddAddressDialog)
+//        if(isAddAddress) {
+//            btnAdd.text = getString(R.string.txt_add)
+//        } else {
+//            btnAdd.text = getString(R.string.txt_edit)
+//            addressEditText.setText(mPlanObject?.defaultUserAddress)
+//        }
+//        var dialog = alertDialogBuilder.create()
+//
+//        btnCancel.setOnClickListener(View.OnClickListener {
+//            dialog.dismiss()
+//        })
+//
+//        btnAdd.setOnClickListener(View.OnClickListener {
+//            if(isAddAddress) {
+//                mViewModel?.doAddAddress(AddAddressRequestModel(addressEditText.text.toString(),true))
+//                dialog.dismiss()
+//            } else {
+//                mViewModel?.doUpdateAddressOnServer(UpdateAddressRequestModel(mPlanObject?.addressId,addressEditText.text.toString(),true))
+//                dialog.dismiss()
+//            }
+//        })
+//
+//        dialog.show()
     }
 
     private fun doSetOrderSummary(view: View) {

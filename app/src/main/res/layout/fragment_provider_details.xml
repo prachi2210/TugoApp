@@ -22,9 +22,9 @@
                     style="@style/HeaderSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_border_primary"
-                    android:paddingLeft="@dimen/margin_20"
-                    android:paddingRight="@dimen/margin_20"
+                    android:background="@drawable/rounded_border_spinner"
+                    android:paddingLeft="@dimen/margin_8"
+                    android:paddingRight="@dimen/margin_8"
                     android:paddingTop="@dimen/margin_2"
                     android:paddingBottom="@dimen/margin_2"
                     android:text="@string/txt_delivers_on"
@@ -285,16 +285,15 @@
                     android:id="@+id/llTrialMealAvailable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_12"
-                    android:layout_marginRight="@dimen/margin_12"
-                    android:layout_marginBottom="@dimen/margin_5"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
                     android:background="@drawable/bg_trial_meal"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_marginLeft="@dimen/margin_15"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/margin_10">
@@ -337,12 +336,13 @@
                     android:id="@+id/cardNoTrialmeal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_20"
-                    android:layout_marginRight="@dimen/margin_20"
-                    android:layout_marginBottom="@dimen/margin_10"
-                    android:background="@drawable/bg_card"
-                    android:elevation="@dimen/margin_2"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:padding="@dimen/margin_5"
                     android:visibility="gone"
+                    android:background="@drawable/bg_card"
+                    app:cardCornerRadius="@dimen/margin_8"
+                    app:cardUseCompatPadding="true"
                     app:cardElevation="@dimen/margin_2">
 
                     <LinearLayout
@@ -372,11 +372,12 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_20"
-                    android:layout_marginRight="@dimen/margin_20"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_15"
                     android:layout_marginBottom="@dimen/margin_20"
+                    app:cardCornerRadius="@dimen/margin_6"
+                    app:cardUseCompatPadding="true"
                     android:background="@drawable/bg_card"
-                    android:elevation="@dimen/margin_2"
                     app:cardElevation="@dimen/margin_2">
 
                     <LinearLayout

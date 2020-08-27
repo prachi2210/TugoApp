@@ -10,7 +10,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:background="@drawable/bg_toolbar"
             android:orientation="horizontal">
 
@@ -18,13 +18,12 @@
                 style="@style/HeaderSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginTop="@dimen/margin_10"
-                android:background="@drawable/bg_rounded_border_colored"
-                android:backgroundTint="@color/colorPrimary"
-                android:paddingLeft="@dimen/margin_15"
+                android:background="@drawable/rounded_border_primary_delivers_on"
+                android:paddingLeft="@dimen/margin_8"
                 android:paddingTop="@dimen/margin_2"
-                android:paddingRight="@dimen/margin_15"
+                android:paddingRight="@dimen/margin_8"
                 android:paddingBottom="@dimen/margin_4"
                 android:text="@string/txt_delivers_on"
                 android:textColor="@color/colorWhite" />
@@ -43,7 +42,6 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_10"
             android:fillViewport="true">
 
             <LinearLayout
@@ -54,9 +52,13 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
-                    android:elevation="@dimen/margin_2"
-                    app:cardElevation="@dimen/margin_2">
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@drawable/bg_card"
+                    app:cardCornerRadius="@dimen/margin_5"
+                    app:cardElevation="@dimen/margin_5">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -95,42 +97,28 @@
                             android:layout_marginTop="@dimen/margin_15"
                             android:background="@color/grey" />
 
-                        <RelativeLayout
+                        <TextView
+                            android:id="@+id/txtAddress"
+                            style="@style/HeaderSemiMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/txtAddress"
-                                style="@style/HeaderSemiMedium"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@null"
-                                android:maxLines="2"
-                                android:layout_centerInParent="true"
-                                android:layout_marginTop="@dimen/margin_10"
-                                android:layout_marginBottom="@dimen/margin_10"/>
-                            <androidx.appcompat.widget.AppCompatButton
-                                android:id="@+id/btnAddAddressDeliveryScreen"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/StyleButtonNext"
-                                android:paddingLeft="@dimen/margin_10"
-                                android:paddingRight="@dimen/margin_10"
-                                android:layout_margin="@dimen/margin_10"
-                                android:layout_centerInParent="true"
-                                android:visibility="gone"
-                                android:text="@string/txt_add_a_new_address"/>
-                        </RelativeLayout>
+                            android:background="@null"
+                            android:maxLines="2"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:layout_marginBottom="@dimen/margin_10"/>
                       </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:background="@color/colorWhite"
-                    android:elevation="@dimen/margin_2"
-                    app:cardElevation="@dimen/margin_2">
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@drawable/bg_card"
+                    app:cardCornerRadius="@dimen/margin_5"
+                    app:cardElevation="@dimen/margin_5">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -215,11 +203,13 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:background="@color/colorWhite"
-                    android:elevation="@dimen/margin_2"
                     android:layout_gravity="center"
-                    app:cardElevation="@dimen/margin_2">
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@drawable/bg_card"
+                    app:cardCornerRadius="@dimen/margin_5"
+                    app:cardElevation="@dimen/margin_5">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -255,10 +245,12 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:background="@color/colorWhite"
-                    android:elevation="@dimen/margin_2"
-                    app:cardElevation="@dimen/margin_2">
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@drawable/bg_card"
+                    app:cardCornerRadius="@dimen/margin_5"
+                    app:cardElevation="@dimen/margin_5">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -303,7 +295,8 @@
                             android:layout_marginTop="@dimen/margin_10"
                             android:layout_marginBottom="@dimen/margin_10"
                             android:background="@null"
-                            android:maxLines="2"
+                            android:maxLines="3"
+                            android:minLines="3"
                             android:hint="@string/hint_add_instructions" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -313,6 +306,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_order_summary"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_20"
                     style="@style/StyleButtonNext"/>
             </LinearLayout>

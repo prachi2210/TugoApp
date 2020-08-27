@@ -65,18 +65,13 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
                     || destination.id == R.id.fragmentForgotPassword) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.GONE
-            } else if (destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile || destination.id == R.id.fragmentOnGoingOrders
+            } else if (destination.id == R.id.fragmentOnGoingOrders
                     || destination.id == R.id.fragmentHistoryOrders || destination.id == R.id.fragmentProviderDetails) {
-                if(destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
-                    supportActionBar?.setHomeButtonEnabled(false)
-                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
-                } else {
-                    supportActionBar?.setHomeButtonEnabled(true)
-                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                }
                 toolbar.visibility = View.VISIBLE
                 navigationView.visibility = View.VISIBLE
-            } else if (destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders) {
+                supportActionBar?.setHomeButtonEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            } else if (destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders || destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.VISIBLE
             } else {

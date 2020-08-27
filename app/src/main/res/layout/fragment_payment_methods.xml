@@ -12,13 +12,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/bgColor"
-            android:padding="@dimen/margin_12">
+            android:background="@color/bgColor">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/margin_20"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/margin_4"
                 android:backgroundTint="@color/colorWhite"
                 android:background="@drawable/bg_card">
                 <LinearLayout
@@ -47,7 +51,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_10"
+                android:padding="@dimen/margin_12"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
@@ -69,7 +74,6 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSavedPaymentMethods"
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/margin_10"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>

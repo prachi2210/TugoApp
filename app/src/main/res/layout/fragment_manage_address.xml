@@ -12,15 +12,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/bgColor"
-            android:padding="@dimen/margin_12">
+            android:background="@color/bgColor">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/margin_20"
-                android:backgroundTint="@color/colorWhite"
-                android:background="@drawable/bg_card">
+                app:cardUseCompatPadding="true"
+                app:cardElevation="@dimen/margin_4"
+                app:cardCornerRadius="@dimen/margin_4"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:backgroundTint="@color/colorWhite">
                 <LinearLayout
                     android:id="@+id/llAddAddress"
                     android:layout_width="match_parent"
@@ -39,6 +42,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         style="@style/HeaderMedium"
+                        android:textStyle="bold"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_gravity="center"
                         android:text="@string/txt_add_a_new_address"/>
@@ -48,12 +52,13 @@
             <LinearLayout
                 android:id="@+id/llAddressList"
                 android:layout_width="match_parent"
+                android:padding="@dimen/margin_10"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_10"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
@@ -72,6 +77,16 @@
                     android:textColor="@color/colorPrimary"
                     android:fontFamily="@font/font_raleway_bold"/>
             </LinearLayout>
+
+                <TextView
+                    android:id="@+id/selectAddressHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:text="@string/txt_select_address_header"
+                    style="@style/HeaderSmall"
+                    android:textColor="@color/walkthrough_subtitle"
+                    android:fontFamily="@font/font_raleway_bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSavedAddress"

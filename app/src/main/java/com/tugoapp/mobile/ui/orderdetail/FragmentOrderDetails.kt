@@ -205,17 +205,17 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
         if (mIsHistoryDetail) {
             llReorderOrWrite.visibility = View.VISIBLE
             llPauseCancel.visibility = View.GONE
-            llMessageUs.visibility = View.VISIBLE
+            llMessageUs.visibility = View.GONE
         } else {
             if(mOrderDetailData?.isTrialPlan!!) {
                 llReorderOrWrite.visibility = View.GONE
                 llPauseCancel.visibility = View.GONE
                 llMessageUs.visibility = View.GONE
             } else {
-                llMessageUs.visibility = View.GONE
                 if (mOrderDetailData?.isCancelled!!) {
                     llReorderOrWrite.visibility = View.GONE
                     llPauseCancel.visibility = View.GONE
+                    llMessageUs.visibility = View.GONE
                 } else {
                     llReorderOrWrite.visibility = View.GONE
                     llPauseCancel.visibility = View.VISIBLE
@@ -224,9 +224,11 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
                     if (mOrderDetailData?.isPaused!!) {
                         btnPause.setText(R.string.txt_resume_plan)
                         btnCancel.visibility = View.GONE
+                        llMessageUs.visibility = View.GONE
                     } else {
                         btnPause.setText(R.string.txt_pause_plan)
                         btnCancel.visibility = View.VISIBLE
+                        llMessageUs.visibility = View.VISIBLE
                     }
                 }
             }

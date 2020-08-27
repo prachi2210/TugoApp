@@ -9,10 +9,22 @@
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
+        <TextView
+            style="@style/HeaderExtraLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginTop="@dimen/margin_10"
+            android:textColor="@color/screenTitleColor"
+            android:fontFamily="@font/font_raleway_bold"
+            android:paddingLeft="@dimen/margin_30"
+            android:text="@string/title_orders" />
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
             android:background="@color/colorWhite"
             android:outlineSpotShadowColor="@color/grey"
             app:tabGravity="fill"

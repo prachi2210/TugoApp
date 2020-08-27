@@ -296,7 +296,7 @@
                         android:layout_height="wrap_content"
                         style="@style/StyleButtonNext"
                         android:textColor="@color/colorWhite"
-                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_marginTop="@dimen/margin_15"
                         android:text="@string/txt_write_comment"/>
 
                 </LinearLayout>
