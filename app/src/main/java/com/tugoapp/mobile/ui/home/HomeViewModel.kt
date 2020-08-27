@@ -21,6 +21,8 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
     var mProvidersData: SingleLiveEvent<ArrayList<ProviderModel>> = SingleLiveEvent()
     var mSearchedProvidersData: SingleLiveEvent<ArrayList<ProviderModel>> = SingleLiveEvent()
     var mProvidersDetailData: SingleLiveEvent<GetProviderDetailsData> = SingleLiveEvent()
+    var mReviewModel: SingleLiveEvent<ReviewMainModel> = SingleLiveEvent()
+
 
     var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
     var mShowProgress: SingleLiveEvent<Pair<Boolean,String>> = SingleLiveEvent()
@@ -174,6 +176,29 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
                     override fun onResponse(call: Call<GetProvidersResponseModel>, response: Response<GetProvidersResponseModel>) {
                         mProvidersData.postValue(response.body()?.data)
+                        mShowProgress.postValue(Pair(false,""))
+                    }
+
+                })
+            } else {
+                mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+
+        })
+    }
+
+    fun doGetReviews(id: GetReviewRequestModel?) {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,""))
+                mPpsApiService.doGetReview(task.result?.token, id).enqueue(object : Callback<GetReviewResponseModel> {
+                    override fun onFailure(call: Call<GetReviewResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
+                        mToastMessage.postValue(t.localizedMessage)
+                    }
+
+                    override fun onResponse(call: Call<GetReviewResponseModel>, response: Response<GetReviewResponseModel>) {
+                        mReviewModel.postValue(response.body()?.data)
                         mShowProgress.postValue(Pair(false,""))
                     }
 

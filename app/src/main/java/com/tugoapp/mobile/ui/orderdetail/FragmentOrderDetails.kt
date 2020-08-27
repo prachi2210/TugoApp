@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -135,6 +136,11 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
         btnReorder.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrdersDetail_to_fragmentHome)
         })
+
+        btnWriteComment.setOnClickListener(View.OnClickListener {
+            var bundle = bundleOf(AppConstant.ORDER_DETAIL_ORDER_ID to mOrderDetailData?.orderId)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrdersDetail_to_fragmentWriteAComment,bundle)
+        })
     }
 
     private fun doSelectDateAndResumePlan() {
@@ -249,7 +255,13 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
                 if (mOrderDetailData?.isPaused!!) txtStatus.text = getString(R.string.txt_paused)
                 else txtStatus.text = getString(R.string.txt_ongoing)
             }
-            txtDateOrderDetail.text = mOrderDetailData?.orderPlacedAt
+
+            val localFormat = "dd/MM/yyyy HH:mm"
+            val sdfLocalFormat = SimpleDateFormat(localFormat)
+            var calender = Calendar.getInstance()
+            calender.timeInMillis = mOrderDetailData?.orderPlacedAt?.toLong()!!
+            txtDateOrderDetail.text = sdfLocalFormat.format(calender.time)
+
             txtOrderId.text = String.format(getString(R.string.txt_order_id), mOrderDetailData?.orderId)
             txtAddressOrderDetail.text = mOrderDetailData?.address
             txtOrderSummaryTitle.text = mOrderDetailData?.planName
@@ -258,7 +270,7 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
             } else {
                 txtOrderSummary.text = mOrderDetailData?.noOfMeals + " meals per day for " + mOrderDetailData?.noOfDays + " days"
             }
-            txtOrderDeliveryTime.text = String.format(getString(R.string.txt_delivery_time_order_summary), mOrderDetailData?.deliveryTime)
+            txtOrderDeliveryTime.text = String.format(getString(R.string.txt_delivery_time_order_summary),  mOrderDetailData?.deliveryTime)
             txtOrderInstructions.text = String.format(getString(R.string.txt_order_summary_instructions), mOrderDetailData?.instructions)
             txtTotalPaid.text = mOrderDetailData?.price + "AED"
             txtPaymentType.text = mOrderDetailData?.paymentType

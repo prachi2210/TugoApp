@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:padding="@dimen/margin_30"
+       android:gravity="center"
+      android:orientation="vertical">
+
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:src="@drawable/ic_correct_comment" />
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_30"
+          android:gravity="center"
+          android:textColor="@color/colorPrimary"
+          android:text="@string/txt_thank_you"
+          style="@style/StyleWalkthroughTitle"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/margin_10"
+          android:gravity="center"
+          android:textColor="@color/colorLabel"
+          android:text="@string/txt_your_comment_submitted"
+         style="@style/StyleWalkthroughSubTitle"/>
+
+      <androidx.appcompat.widget.AppCompatButton
+          android:id="@+id/btnBackToHomeComment"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_30"
+          android:text="@string/txt_back_to_home"
+          style="@style/StyleButtonNext"/>
+   </LinearLayout>
+</layout>

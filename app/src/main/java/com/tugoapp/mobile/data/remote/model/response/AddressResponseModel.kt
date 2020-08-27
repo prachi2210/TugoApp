@@ -12,3 +12,14 @@ public data class AddressModel(var userId : String?,var address : String?,var ad
 
 
 public data class CustomizeListModel(var value : String?, var isSelected : Boolean) {}
+
+public data class GetCountryCodesResponseModel(var data : ArrayList<CountryCodeModel>?) : BaseResponseModel() {}
+
+public data class CountryCodeModel(var name : String?, var flag : String?,var code : String?,var dial_code : String?) {}
+
+public data class GetUserDetailResponseModel(var data : UserDetailModel?) : BaseResponseModel() {}
+
+public data class UserDetailModel(var userEmail : String?, var userName : String?,var userPhone : String?,
+                                  var sendPushNotification : Boolean?,var sendSMSNotification : Boolean?,var sendPromotionalNotification : Boolean?) {}
+
+

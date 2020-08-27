@@ -17,3 +17,18 @@ public data class OrderModel(var orderNo : String?,var address : String?,var del
                              var isDefault : Boolean, var isPaused : Boolean, var isCancelled : Boolean,
                              var trialPlanDescription : String?, var isTrialPlan : Boolean,
                              var trailPlanPricing : String) : Parcelable {}
+
+public data class GetReviewResponseModel(var data : ReviewMainModel?) : BaseResponseModel() {}
+
+
+@Parcelize
+public data class ReviewMainModel(var planTitle : String?, var description : String?, var featuredImage : String?,
+                                  var reviews  : ArrayList<ReviewModel>?) : Parcelable{}
+
+@Parcelize
+public data class ReviewModel(var starRating : String?, var reviewText : String?, var meals : String? ,var noOfDays : String?,
+                              var userName : String) : Parcelable{}
+
+
+
+

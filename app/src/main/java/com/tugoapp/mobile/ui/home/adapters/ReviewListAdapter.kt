@@ -39,15 +39,15 @@ class ReviewListAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
-        holder.txtUserName.text = data.title
-        holder.txtUserMealPlan.text = data.description
-        holder.txtReview.text = data.review
-        holder.txtRateMark.rating = data.rating
+        holder.txtUserName.text = data.userName
+        holder.txtUserMealPlan.text = data.meals  + " meals per day for "  +  data.noOfDays +" days"
+        holder.txtReview.text = data.reviewText
+        holder.txtRateMark.rating = data.starRating?.toFloat()!!
 
-        Glide.with(context)
-                .load(data.userImage)
-                .centerCrop()
-                .into(holder.userImage)
+//        Glide.with(context)
+//                .load(data.userImage)
+//                .centerCrop()
+//                .into(holder.userImage)
 
         holder.itemView.setOnClickListener {
             cellClickListener.onListItemClick(position)

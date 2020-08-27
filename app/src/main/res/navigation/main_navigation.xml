@@ -298,6 +298,13 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false"
             app:popUpTo="@id/fragmentHome"/>
+        <action
+            android:id="@+id/action_fragmentOrdersDetail_to_fragmentWriteAComment"
+            app:destination="@id/fragmentWriteAComment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/fragmentBrowseAllProviders"
@@ -427,4 +434,19 @@
         android:id="@+id/fragmentReview"
         android:name="com.tugoapp.mobile.ui.home.FragmentReview"
         android:label="FragmentReview" />
+    <fragment
+        android:id="@+id/fragmentWriteAComment"
+        android:name="com.tugoapp.mobile.ui.orderdetail.FragmentWriteAComment"
+        android:label="FragmentWriteAComment">
+
+        <action
+            android:id="@+id/action_fragmentWriteAComment_to_fragmentHome"
+            app:destination="@id/fragmentHome"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/fragmentHome"/>
+    </fragment>
 </navigation>

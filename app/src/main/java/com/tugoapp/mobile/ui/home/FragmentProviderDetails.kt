@@ -141,7 +141,8 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         })
 
         txtReadRating.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentReview)
+            var bundle = bundleOf(AppConstant.BUSINESS_ID to mSelectedMealPlan?.planId)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentReview, bundle)
         })
 
         btnTryNow.setOnClickListener(View.OnClickListener {

@@ -233,4 +233,13 @@
     <string name="txt_select_duration">Select Duration</string>
     <string name="txt_add_address_with_bracket">( Add Address )</string>
     <string name="txt_select_address_header">Click on any address to select that address</string>
+    <string name="txt_whats_your_rate">What\'s your rate?</string>
+    <string name="txt_write_comment_header">What do you think about this plan?</string>
+    <string name="txt_type_your_comment">Type your comment here</string>
+    <string name="title_write_a_comment">Write a comment</string>
+    <string name="txt_submit">Submit</string>
+    <string name="err_fill_comment">Please fill the review comment</string>
+    <string name="txt_write_comment_fail">Failed to post this comment</string>
+    <string name="txt_your_comment_submitted">Your comment has been submitted</string>
+    <string name="txt_emptyview_review">No reviews found</string>
 </resources>

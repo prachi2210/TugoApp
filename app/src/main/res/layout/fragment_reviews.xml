@@ -4,6 +4,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/emptyviewReviews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            style="@style/StyleWalkthroughSubTitle"
+            android:text="@string/txt_emptyview_review"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvReviews"
             android:layout_width="match_parent"

@@ -4,12 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.request.AddReviewRequestModel
+import com.tugoapp.mobile.data.remote.model.request.GetReviewRequestModel
 import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
 import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 import com.tugoapp.mobile.data.remote.model.response.ReviewModel
@@ -32,6 +35,8 @@ import javax.inject.Inject
 
 
 class FragmentReview : BaseFragment<HomeViewModel?>() {
+
+    private var mBusinessId: String? = null
 
     @JvmField
     @Inject
@@ -63,30 +68,58 @@ class FragmentReview : BaseFragment<HomeViewModel?>() {
     private fun iniUI() {
         mContext = context
 
+        mBusinessId = arguments?.getString(AppConstant.BUSINESS_ID).toString()
+
+        if (mBusinessId.isNullOrEmpty()) {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
+            return
+        }
+
+
         initControllers()
 
         initObserver()
     }
 
     private fun initObserver() {
-        rvReviews.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
-        val data = ArrayList<ReviewModel>()
-        data.add(ReviewModel("1","Review User 1","","Review meal plan detail",1.0f, "This is a detail review"))
-        data.add(ReviewModel("2","Review User 2","","Review meal plan detail",2.0f, "This is a detail review"))
-        data.add(ReviewModel("3","Review User 3","","Review meal plan detail",3.0f, "This is a detail review"))
-        data.add(ReviewModel("4","Review User 4","","Review meal plan detail",4.0f, "This is a detail review"))
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!, it) })
 
-
-        val adapter = mContext?.let {
-            ReviewListAdapter(it, data, object : OnListItemClickListener {
-                override fun onListItemClick(position: Int) {
+        mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
+            if(it.first) {
+                if(it.second.isNullOrBlank()) {
+                    showLoading()
+                } else {
+                    showLoading(it.second)
                 }
-            })
-        }
-        rvReviews.adapter = adapter
+            } else {
+                hideLoading()
+            }
+        })
+
+        mViewModel?.mReviewModel?.observe(viewLifecycleOwner, Observer {
+            if(it?.reviews != null && it.reviews?.size!! > 0) {
+                emptyviewReviews.visibility = View.GONE
+                rvReviews.visibility = View.VISIBLE
+                rvReviews.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+                val data = ArrayList<ReviewModel>()
+                data.addAll(it.reviews!!)
+                val adapter = mContext?.let {
+                    ReviewListAdapter(it, data, object : OnListItemClickListener {
+                        override fun onListItemClick(position: Int) {
+                        }
+                    })
+                }
+                rvReviews.adapter = adapter
+            }  else {
+                emptyviewReviews.visibility = View.VISIBLE
+                rvReviews.visibility = View.GONE
+            }
+        })
     }
 
     private fun initControllers() {
+
+        mViewModel?.doGetReviews(GetReviewRequestModel(mBusinessId))
     }
 }
 

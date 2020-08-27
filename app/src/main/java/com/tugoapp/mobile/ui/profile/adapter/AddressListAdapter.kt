@@ -10,15 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.AddressModel
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
+import com.tugoapp.mobile.ui.base.OnManageAddressListItemClickListener
 
 class AddressListAdapter(private val context: Context,
                          private val list: ArrayList<AddressModel>,
-                         private val cellClickListener: OnListItemClickListener
+                         private val cellClickListener: OnManageAddressListItemClickListener
 ) : RecyclerView.Adapter<AddressListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val titleAddress: TextView = view.findViewById(R.id.txtAddress)
         val imgChecked: ImageView = view.findViewById(R.id.imgIsChecked)
+        val imgEdit: ImageView = view.findViewById(R.id.imgEdit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,6 +42,10 @@ class AddressListAdapter(private val context: Context,
         } else {
             holder.imgChecked.visibility = View.GONE
         }
+
+        holder.imgEdit.setOnClickListener(View.OnClickListener {
+            cellClickListener.onItemEditClick(position)
+        })
 
         holder.itemView.setOnClickListener {
             cellClickListener.onListItemClick(position)

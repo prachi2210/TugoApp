@@ -20,7 +20,7 @@ public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsD
 
 
 @Parcelize
-public data class MealPlanModel(var title : String?, var description : String?, var planId : Int? ,var startingFrom : String?,
+public data class MealPlanModel(var title : String?, var description : String?, var planId : String? ,var startingFrom : String?,
                                 var featuredImage : String?,var trailPlanMainDescription : String?,var deliveryDays : String?,
                                 var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trialPlanDays : String,
                                 var trialPlanMeals : String,var trialPlanWeeks : String,
@@ -33,10 +33,4 @@ public data class SampleMenu(var planId : String?, var title : String?, var imag
 
 @Parcelize
 public data class MealOptionsModel(var planId : String?, var weeks : String?, var noOfDays : String? ,var noOfMeals : String?,var price : String?,var mealId : String?) : Parcelable{}
-
-
-
-@Parcelize
-public data class ReviewModel(var reviewId : String?, var title : String?, var userImage : String? ,var description : String?,var rating : Float,var review : String?) : Parcelable{}
-
 

@@ -18,6 +18,7 @@ import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_add_phone_number.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -115,8 +116,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener {
             task ->
             if (task.isSuccessful) {
-                mViewModel?.doSaveUserDetailOnServer(task.result?.token,SaveUserDetailRequestModel(mEmailAddress,mPhoneNumber,"test",FirebaseAuth.getInstance().currentUser?.uid))
-            } else {
+                mViewModel?.doSaveUserDetailOnServer(task.result?.token,SaveUserDetailRequestModel(mEmailAddress,mPhoneNumber,SharedPrefsUtils.getStringPreference(mContext,AppConstant.FULL_NAME),FirebaseAuth.getInstance().currentUser?.uid,null,null,null,null))           } else {
         }
         }
     }

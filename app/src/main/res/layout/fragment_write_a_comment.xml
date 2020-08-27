@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_20"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_whats_your_rate"
+            style="@style/HeaderSemiMedium"
+            android:layout_marginTop="@dimen/margin_20"
+            android:fontFamily="@font/font_raleway_bold"/>
+
+        <RatingBar
+            android:id="@+id/txtRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorF8B64C"
+            android:foregroundTint="@color/colorF8B64C"
+            android:layout_marginTop="@dimen/margin_20"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_write_comment_header"
+            style="@style/HeaderSemiMedium"
+            android:layout_marginTop="@dimen/margin_20"
+            android:fontFamily="@font/font_raleway_bold"/>
+
+        <EditText
+            android:id="@+id/txtComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_comment"
+            android:minLines="10"
+            android:maxLines="12"
+            android:gravity="top"
+            android:padding="@dimen/margin_10"
+            android:hint="@string/txt_type_your_comment"
+            android:layout_marginTop="@dimen/margin_15"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_submit"
+            style="@style/StyleButtonNext"/>
+
+    </LinearLayout>
+    </ScrollView>
+</layout>

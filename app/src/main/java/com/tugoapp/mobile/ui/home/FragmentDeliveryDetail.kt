@@ -228,38 +228,6 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
 
         var bundle = bundleOf(AppConstant.IS_FROM_DELIVERY_SCREEN to true)
         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentManageAddress,bundle)
-
-//        val li = LayoutInflater.from(context)
-//        val promptsView: View = li.inflate(R.layout.dialog_address, null)
-//        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-//        alertDialogBuilder.setView(promptsView)
-//        alertDialogBuilder.setCancelable(false)
-//        var addressEditText = promptsView.findViewById<EditText>(R.id.dialogAddress)
-//        var btnCancel = promptsView.findViewById<AppCompatButton>(R.id.btnCancelAddressDialog)
-//        var btnAdd = promptsView.findViewById<AppCompatButton>(R.id.btnAddAddressDialog)
-//        if(isAddAddress) {
-//            btnAdd.text = getString(R.string.txt_add)
-//        } else {
-//            btnAdd.text = getString(R.string.txt_edit)
-//            addressEditText.setText(mPlanObject?.defaultUserAddress)
-//        }
-//        var dialog = alertDialogBuilder.create()
-//
-//        btnCancel.setOnClickListener(View.OnClickListener {
-//            dialog.dismiss()
-//        })
-//
-//        btnAdd.setOnClickListener(View.OnClickListener {
-//            if(isAddAddress) {
-//                mViewModel?.doAddAddress(AddAddressRequestModel(addressEditText.text.toString(),true))
-//                dialog.dismiss()
-//            } else {
-//                mViewModel?.doUpdateAddressOnServer(UpdateAddressRequestModel(mPlanObject?.addressId,addressEditText.text.toString(),true))
-//                dialog.dismiss()
-//            }
-//        })
-//
-//        dialog.show()
     }
 
     private fun doSetOrderSummary(view: View) {

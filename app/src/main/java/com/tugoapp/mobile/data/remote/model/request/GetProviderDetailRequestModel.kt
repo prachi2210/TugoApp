@@ -8,7 +8,8 @@ public data class GetProvidersRequestModel(var limit : String?,var offset : Stri
 
 public data class GetProviderDetailRequestModel(var businessId: String?) {}
 
-public data class SaveUserDetailRequestModel(var email : String?, var phone : String, var name: String?,var firebaseUserId: String? ) {}
+public data class SaveUserDetailRequestModel(var email : String?, var phone : String, var name: String?,var firebaseUserId: String?,
+                                             var deviceId: String?,var pushToken: String?,var os: String?, var timezone: String?) {}
 
 public data class AddAddressRequestModel( var address: String?,var setDefault: Boolean? ) {}
 
@@ -18,7 +19,7 @@ public data class DeleteAddressRequestModel(var addressId : String?) {}
 
 public data class ResumeOrderRequestModel(var orderId : String?,var startFrom : String?)
 
-public data class PlaceOrderRequestModel(var isTrialPlan : Boolean?,var noOfMeals : String?,var noOfWeeks : String?,var instructions : String?,var planId : Int? ,var mealId : String?,
+public data class PlaceOrderRequestModel(var isTrialPlan : Boolean?,var noOfMeals : String?,var noOfWeeks : String?,var instructions : String?,var planId : String? ,var mealId : String?,
                                         var deliveryTime : String? ,var deliveryLocation : String? , var address : String?,var startFrom : String?,var endOn : String?,
                                          var price : String?, var planObj : MealPlanModel?) {}
 
@@ -28,7 +29,7 @@ public object PlaceOrderObject {
     var noOfMeals : String? = null
     var noOfWeeks : String? = null
     var instructions : String? = null
-    var planId : Int? = 0
+    var planId : String? = null
     var mealId : String? = null
     var deliveryTime : String? = null
     var deliveryLocation : String? = null
@@ -42,6 +43,15 @@ public object PlaceOrderObject {
 public data class GetFilterProviderRequestModel(var maximumPrice : String?,var minimumPrice : String?,var numOfMeals : ArrayList<String>?,
                                                 var allLocations : ArrayList<String>?, var trailMealsAvailable : Boolean)
 
+public data class AddReviewRequestModel(var orderId : String?,var starRating : String?,var reviewText : String?)
+
+public data class GetReviewRequestModel(var planId : String?)
+
+public data class UpdateNotiRequestModel(var sendPushNotification : Boolean?,var sendSMSNotification : Boolean?,
+                                         var sendPromotionalNotification : Boolean?)
+
+
+public data class SaveDeviceTokenRequestModel(var deviceId : String?,var pushToken : String?,var os : String?, var timezone : String?)
 
 
 

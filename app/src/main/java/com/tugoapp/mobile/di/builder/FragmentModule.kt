@@ -3,6 +3,7 @@ package com.tugoapp.mobile.di.builder
 import com.tugoapp.mobile.ui.home.*
 import com.tugoapp.mobile.ui.login.*
 import com.tugoapp.mobile.ui.orderdetail.FragmentOrderDetails
+import com.tugoapp.mobile.ui.orderdetail.FragmentWriteAComment
 import com.tugoapp.mobile.ui.orders.FragmentHistoryOrders
 import com.tugoapp.mobile.ui.orders.FragmentOnGoingOrders
 import com.tugoapp.mobile.ui.orders.FragmentOrders
@@ -95,4 +96,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun bindReview(): FragmentReview?
+
+    @ContributesAndroidInjector
+    abstract fun bindWritecomment(): FragmentWriteAComment?
 }

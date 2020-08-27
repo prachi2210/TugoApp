@@ -15,6 +15,7 @@
              android:layout_width="wrap_content"
              android:src="@drawable/ic_questions"
              android:layout_gravity="center"
+             android:visibility="gone"
              android:layout_height="wrap_content"/>
          <LinearLayout
              android:layout_width="0dp"
@@ -57,7 +58,7 @@
           android:layout_height="wrap_content"
           style="@style/HeaderMedium"
           android:textSize="@dimen/size_13"
-          android:layout_marginLeft="@dimen/margin_10"
+          android:layout_marginLeft="@dimen/margin_20"
           android:text="Review in detail test data"
           android:textColor="@color/screenTitleColor"/>
 

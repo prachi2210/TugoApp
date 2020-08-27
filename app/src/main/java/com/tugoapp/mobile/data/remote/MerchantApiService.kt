@@ -66,4 +66,32 @@ interface MerchantApiService { //
 
     @POST("getFilterData")
     fun doGetFilterData(@Header("token") token: String?): Call<GetFilterDataResponseModel>
+
+    @POST("addReview")
+    fun doAddReview(@Header("token") token: String?,  @Body model : AddReviewRequestModel?): Call<BaseResponseModel>
+
+    @POST("getReviews")
+    fun doGetReview(@Header("token") token: String?,  @Body model : GetReviewRequestModel?): Call<GetReviewResponseModel>
+
+    @POST("countryCodes")
+    fun doGetCountryCodes(): Call<GetCountryCodesResponseModel>
+
+    @POST("getUserDetails")
+    fun doGetUserDetails(@Header("token") token: String?): Call<GetUserDetailResponseModel>
+
+    @POST("updateNotificationSetting")
+    fun doUpdateNotificationSetting(@Header("token") token: String?, @Body model : UpdateNotiRequestModel?): Call<BaseResponseModel>
+
+    @POST("addToFavourite")
+    fun doAddToFavourite(@Header("token") token: String?, @Body businessId : String?): Call<BaseResponseModel>
+
+    @POST("saveDeviceToken")
+    fun doSaveDeviceToken(@Header("token") token: String?, @Body model : SaveDeviceTokenRequestModel?): Call<BaseResponseModel>
+
+    @POST("logout")
+    fun doServerLogout(@Header("token") token: String?, @Body deviceId : String?): Call<BaseResponseModel>
+
 }
+
+
+
