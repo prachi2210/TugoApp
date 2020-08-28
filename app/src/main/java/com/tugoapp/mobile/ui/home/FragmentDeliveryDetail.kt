@@ -163,17 +163,17 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
             dialog?.setContentView(view)
             dialog?.show()
             view?.txtEdit.setOnClickListener(View.OnClickListener {
-                dialog?.hide()
+                dialog?.dismiss()
             })
 
             dialog?.btnChoosePaymentMethod?.setOnClickListener(View.OnClickListener {
-                dialog?.hide()
+                dialog?.dismiss()
                 val view1: View = layoutInflater.inflate(R.layout.fragment_select_payment_method, null)
                 val dialog1 = mContext?.let { it1 -> BottomSheetDialog(it1) }
                 dialog1?.setContentView(view1)
                 dialog1?.show()
                 view1.btnPay.setOnClickListener(View.OnClickListener {
-                    dialog1?.hide()
+                    dialog1?.dismiss()
                     doNavigate();
                 })
             })
