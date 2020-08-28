@@ -18,6 +18,7 @@ import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_welcome.*
 import javax.inject.Inject
 
@@ -106,6 +107,7 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
                         if (email != null) {
                             auth.currentUser?.updateEmail(email)
                         }
+                        SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
                         if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
                             var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentAddPhoneNumber,bundle)

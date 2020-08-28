@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
@@ -12,6 +13,7 @@ import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils.getAppVersion
+import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_splash.*
 import javax.inject.Inject
 
@@ -61,7 +63,9 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
             var email = auth.currentUser?.email
             var phoneNumber = auth.currentUser?.phoneNumber
             if(!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentAddPhoneNumber)
+                SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
+                var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentAddPhoneNumber,bundle)
             } else if(!email.isNullOrBlank() && !phoneNumber.isNullOrBlank()) {
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
             }

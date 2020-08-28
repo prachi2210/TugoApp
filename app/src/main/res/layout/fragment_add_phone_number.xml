@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -43,36 +42,60 @@
                     android:layout_marginTop="@dimen/margin_15"
                     android:layout_marginRight="@dimen/margin_50"
                     android:gravity="center"
-                    android:lines="2"
+                    android:lines="3"
                     android:text="@string/txt_add_phone_header_message"
                     android:textColor="@color/walkthrough_subtitle" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/phoneInputLayout"
-                    style="@style/MyTextInputLayout"
+                <TextView
+                    style="@style/HeaderSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_50"
-                    app:hintTextAppearance="@style/MyAppearance">
+                    android:text="@string/txt_phone_number"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textColor="@color/hintColor" />
 
-                    <com.google.android.material.textfield.TextInputEditText
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerCountry"
+                        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtPhone"
                         style="@style/MyTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_phone_number"
                         android:inputType="phone"
+                        android:text="mNSDfmADv"
+                        android:gravity="top"
+                        android:layout_marginLeft="@dimen/margin_5"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:layout_gravity="top"
+                        android:background="@null"
                         android:maxLength="50" />
+                </LinearLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@color/grey" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnAddPhoneSignUp"
                     style="@style/StyleButtonNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40"
+                    android:layout_marginTop="@dimen/margin_50"
                     android:text="@string/txt_signup" />
             </LinearLayout>
             <LinearLayout

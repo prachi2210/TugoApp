@@ -22,11 +22,11 @@
             <TextView
                 android:id="@+id/btnSkip"
                 style="@style/HeaderMedium"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_marginRight="@dimen/margin_15"
-                android:layout_marginTop="@dimen/margin_15"
+                android:padding="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_alignParentRight="true"
                 android:text="@string/txt_skip" />
         </RelativeLayout>
 

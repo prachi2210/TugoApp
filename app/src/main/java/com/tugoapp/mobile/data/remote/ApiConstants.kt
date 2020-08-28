@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConstants {
-    const val URL_PRODUCTION = "http://ec2-15-185-232-239.me-south-1.compute.amazonaws.com/tugoapp-web-backend/api/"
+    const val URL_PRODUCTION = "http://ec2-3-250-78-117.eu-west-1.compute.amazonaws.com/tugoapp-web-backend/api/"
     var BASE_URL = URL_PRODUCTION
     const val CONNECT_TIMEOUT: Long = 120000
     const val READ_TIMEOUT: Long = 120000

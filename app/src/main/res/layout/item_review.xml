@@ -29,7 +29,6 @@
              android:layout_height="wrap_content"
             style="@style/HeaderMedium"
              android:text="Username"
-             android:textSize="@dimen/size_13"
              android:textColor="@color/screenTitleColor"
             android:fontFamily="@font/font_raleway_bold"/>
             <TextView
@@ -37,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/HeaderSmall"
-                android:textSize="@dimen/size_11"
                 android:text="meal plan decription"
                 android:textColor="@color/screenTitleColor"/>
          </LinearLayout>
@@ -49,7 +47,6 @@
              android:layout_height="wrap_content"
              android:backgroundTint="@color/colorF8B64C"
              android:foregroundTint="@color/colorF8B64C"
-             android:rating="3"
              android:theme="@style/ThemeRatingBar" />
       </LinearLayout>
       <TextView
@@ -57,7 +54,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           style="@style/HeaderMedium"
-          android:textSize="@dimen/size_13"
           android:layout_marginLeft="@dimen/margin_20"
           android:text="Review in detail test data"
           android:textColor="@color/screenTitleColor"/>

@@ -3,6 +3,8 @@ package com.tugoapp.mobile.ui.login
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -15,7 +17,9 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
 import com.tugoapp.mobile.ui.base.BaseFragment
+import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.ui.login.adapter.CountryListAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import com.tugoapp.mobile.utils.SharedPrefsUtils
@@ -85,7 +89,22 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
         })
 
         mViewModel?.mCountryData?.observe(viewLifecycleOwner, Observer {
+            if(it != null) {
+                val adapter = mContext?.let { it1 ->
+                    CountryListAdapter(it1, it)
+                }
+                spinnerCountry.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
 
+                    }
+
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        edtPhone.setText(it[position].dial_code)
+                    }
+
+                }
+                spinnerCountry.adapter = adapter
+            }
         })
     }
 

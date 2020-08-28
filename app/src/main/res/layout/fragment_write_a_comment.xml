@@ -22,6 +22,8 @@
             android:id="@+id/txtRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:outlineSpotShadowColor="@color/colorF8B64C"
+            android:outlineAmbientShadowColor="@color/colorF8B64C"
             android:backgroundTint="@color/colorF8B64C"
             android:foregroundTint="@color/colorF8B64C"
             android:layout_marginTop="@dimen/margin_20"/>

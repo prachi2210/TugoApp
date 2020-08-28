@@ -169,7 +169,6 @@
                                 android:layout_gravity="center"
                                 android:backgroundTint="@color/colorF8B64C"
                                 android:foregroundTint="@color/colorF8B64C"
-                                android:rating="0"
                                 android:theme="@style/ThemeRatingBar" />
 
                             <TextView
