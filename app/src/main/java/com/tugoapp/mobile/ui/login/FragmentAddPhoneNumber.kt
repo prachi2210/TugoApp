@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.iid.FirebaseInstanceId
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
 import com.tugoapp.mobile.ui.base.BaseFragment
@@ -24,6 +25,7 @@ import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_add_phone_number.*
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -159,8 +161,14 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener {
             task ->
             if (task.isSuccessful) {
-                mViewModel?.doSaveUserDetailOnServer(task.result?.token,SaveUserDetailRequestModel(mEmailAddress,mPhoneNumber,SharedPrefsUtils.getStringPreference(mContext,AppConstant.FULL_NAME),FirebaseAuth.getInstance().currentUser?.uid,null,null,null,null))           } else {
-        }
+                val newToken = FirebaseInstanceId.getInstance().getToken(AppConstant.FIREBASE_SENDER_ID, "FCM")
+                mViewModel?.doSaveUserDetailOnServer(task.result?.token,SaveUserDetailRequestModel(mEmailAddress,mPhoneNumber,
+                        SharedPrefsUtils.getStringPreference(mContext,AppConstant.FULL_NAME),
+                        FirebaseAuth.getInstance().currentUser?.uid,
+                        mContext?.let { CommonUtils.getDeviceId(it) },newToken,"android",TimeZone.getDefault()?.getDisplayName()))
+            } else {
+                //CommonUtils.showSnakeBar(rootView,getString(R.string.txt_fail_save_user_server))
+            }
         }
     }
 
@@ -188,11 +196,13 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
+                hideLoading()
                  otp.setText( credential.smsCode)
                  signInWithPhoneAuthCredential(credential)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
+                hideLoading()
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_phone_number))
                 } else if (e is FirebaseTooManyRequestsException) {

@@ -86,6 +86,15 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
                 doSetSwitchCallbacks(true)
             }
         })
+
+        mViewModel?.mIsUserLogout?.observe(viewLifecycleOwner, Observer {
+            if(it == 1) {
+                FirebaseAuth.getInstance().signOut()
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProfile_to_fragmentWelcome)
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_logout_fail))
+            }
+        })
     }
 
     private fun initController() {
@@ -110,8 +119,7 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
             var builder = CommonUtils.showDialog(mContext, R.string.title_warning, R.string.txt_confirm_logout)
             builder.setOnCancelListener(DialogInterface.OnCancelListener { dialog -> dialog.dismiss() })
             builder.setPositiveButton(R.string.btn_yes){dialogInterface, which ->
-                FirebaseAuth.getInstance().signOut()
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProfile_to_fragmentWelcome)
+                mViewModel?.doUserLogout()
             }
             builder.setNegativeButton(R.string.btn_no){dialogInterface, which ->
                 dialogInterface.dismiss()

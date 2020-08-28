@@ -1,6 +1,9 @@
 package com.tugoapp.mobile.utils
 
 object AppConstant {
+
+    const val FIREBASE_SENDER_ID = "908606240987"
+
     val RC_SIGN_IN: Int = 9001
     const val SPLASH_TIME: Long = 3000
     const val TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss"

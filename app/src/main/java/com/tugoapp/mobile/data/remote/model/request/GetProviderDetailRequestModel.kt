@@ -56,6 +56,7 @@ public data class SaveDeviceTokenRequestModel(var deviceId : String?,var pushTok
 public data class SetFavirouteProviderRequestModel(var businessId : String?)
 
 
+public data class LogoutRequestModel(var deviceId : String?)
 
 
 

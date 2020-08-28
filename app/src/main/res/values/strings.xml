@@ -253,4 +253,9 @@
     <string name="txt_loading_profile">Loading profile</string>
     <string name="txt_err_cant_change_gplus_pswd">Sorry! We can not change social login password</string>
     <string name="txt_phone_number">PHONE NUMBER</string>
+    <string name="txt_loading_logout">Logging out</string>
+    <string name="txt_logout_fail">User logged out failed.</string>
+    <string name="channel_id">Tugo</string>
+    <string name="channel_name">Tugo</string>
+    <string name="txt_fail_save_user_server">Failed to store user detail on server</string>
 </resources>

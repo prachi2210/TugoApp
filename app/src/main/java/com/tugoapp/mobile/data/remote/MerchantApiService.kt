@@ -89,7 +89,7 @@ interface MerchantApiService { //
     fun doSaveDeviceToken(@Header("token") token: String?, @Body model : SaveDeviceTokenRequestModel?): Call<BaseResponseModel>
 
     @POST("logout")
-    fun doServerLogout(@Header("token") token: String?, @Body deviceId : String?): Call<BaseResponseModel>
+    fun doServerLogout(@Header("token") token: String?, @Body deviceId : LogoutRequestModel?): Call<BaseResponseModel>
 
 }
 

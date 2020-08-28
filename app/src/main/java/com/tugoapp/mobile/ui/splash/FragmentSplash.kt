@@ -8,13 +8,18 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.request.SaveDeviceTokenRequestModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
+import com.tugoapp.mobile.utils.CommonUtils
 import com.tugoapp.mobile.utils.CommonUtils.getAppVersion
 import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_splash.*
+import java.io.IOException
+import java.util.*
 import javax.inject.Inject
 
 class FragmentSplash : BaseFragment<SplashViewModel?>() {
@@ -67,6 +72,15 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
                 var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentAddPhoneNumber,bundle)
             } else if(!email.isNullOrBlank() && !phoneNumber.isNullOrBlank()) {
+                Thread(Runnable {
+                    try {
+                        val newToken = FirebaseInstanceId.getInstance().getToken(AppConstant.FIREBASE_SENDER_ID, "FCM")
+                        mSplashViewModel?.doUpdateToken(SaveDeviceTokenRequestModel(mContext?.let { CommonUtils.getDeviceId(it) }, newToken,
+                                "android", TimeZone.getDefault().displayName))
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }).start()
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
             }
         } else {
