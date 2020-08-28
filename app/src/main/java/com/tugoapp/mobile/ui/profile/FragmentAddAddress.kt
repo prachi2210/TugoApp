@@ -61,6 +61,7 @@ class FragmentAddAddress : BaseFragment<AddAddressViewModel?>() {
             btnAddAddress.visibility = View.GONE
             txtHeaderAddress.text = getString(R.string.txt_edit_address_header)
             (activity as RootActivity).supportActionBar?.setTitle(getString(R.string.title_edit_address))
+            cbIsDefault.isChecked = mAddressModel?.isDefault!!
         } else {
             llEditBtnLayout.visibility = View.GONE
             btnAddAddress.visibility = View.VISIBLE

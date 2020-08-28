@@ -129,12 +129,14 @@ object CommonUtils {
         return progressDialog
     }
 
-    fun doSendMessageToWhatsApp(context: Context, view: View?) {
+    fun doSendMessageToWhatsApp(context: Context, view: View?,toNumber: String?) {
+        var number = toNumber;
         try {
-            var toNumber = "919824123970";
-            var sendIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:$toNumber?body="));
-            sendIntent.setPackage("com.whatsapp");
-            context.startActivity(sendIntent);
+            if(!number.isNullOrBlank()) {
+                var sendIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:$number?body="));
+                sendIntent.setPackage("com.whatsapp");
+                context.startActivity(sendIntent);
+            }
         } catch (e : Exception) {
             showSnakeBar(view,context.getString(R.string.whatsapp_not_found))
         }

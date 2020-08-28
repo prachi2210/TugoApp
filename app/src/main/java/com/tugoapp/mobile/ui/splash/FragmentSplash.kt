@@ -78,7 +78,6 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
                         mSplashViewModel?.doUpdateToken(SaveDeviceTokenRequestModel(mContext?.let { CommonUtils.getDeviceId(it) }, newToken,
                                 "android", TimeZone.getDefault().displayName))
                     } catch (e: IOException) {
-                        e.printStackTrace()
                     }
                 }).start()
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)

@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -18,13 +17,13 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
 import com.tugoapp.mobile.ui.base.BaseFragment
-import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.ui.login.adapter.CountryListAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_add_phone_number.*
+import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -161,11 +160,16 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener {
             task ->
             if (task.isSuccessful) {
-                val newToken = FirebaseInstanceId.getInstance().getToken(AppConstant.FIREBASE_SENDER_ID, "FCM")
-                mViewModel?.doSaveUserDetailOnServer(task.result?.token,SaveUserDetailRequestModel(mEmailAddress,mPhoneNumber,
-                        SharedPrefsUtils.getStringPreference(mContext,AppConstant.FULL_NAME),
-                        FirebaseAuth.getInstance().currentUser?.uid,
-                        mContext?.let { CommonUtils.getDeviceId(it) },newToken,"android",TimeZone.getDefault()?.getDisplayName()))
+                Thread(Runnable {
+                    try {
+                        val newToken = FirebaseInstanceId.getInstance().getToken(AppConstant.FIREBASE_SENDER_ID, "FCM")
+                        mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mEmailAddress, mPhoneNumber,
+                                SharedPrefsUtils.getStringPreference(mContext, AppConstant.FULL_NAME),
+                                FirebaseAuth.getInstance().currentUser?.uid,
+                                mContext?.let { CommonUtils.getDeviceId(it) }, newToken, "android", TimeZone.getDefault()?.displayName))
+                    } catch (e: IOException) {
+                    }
+                }).start()
             } else {
                 //CommonUtils.showSnakeBar(rootView,getString(R.string.txt_fail_save_user_server))
             }

@@ -12,7 +12,7 @@ public data class ProviderModel(var businessId : String?, var companyName : Stri
                                 var isActive : Boolean?) {}
 
 public data class GetProviderDetailsData(var businessId : String?, var companyName : String?, var backgroundImage : String? ,var icon : String?,
-                                         var address : String?, var isFavourite : Boolean?,
+                                         var address : String?, var isFavourite : Boolean?,var phoneNumber : String?,
                                          var companyLogo : String?, var defaultUserAddress : String?, var addressId : String?,var numbeOfDeliveryDays : Int?,
                                          var description : String?,var planData : ArrayList<MealPlanModel>?) {}
 
@@ -23,7 +23,7 @@ public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsD
 public data class MealPlanModel(var title : String?, var description : String?, var planId : String? ,var startingFrom : String?,
                                 var featuredImage : String?,var trailPlanMainDescription : String?,var deliveryDays : String?,
                                 var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trialPlanDays : String,
-                                var trialPlanMeals : String,var trialPlanWeeks : String,
+                                var trialPlanMeals : String,var trialPlanWeeks : String,var phoneNumber : String?,
                                 var review : String?, var locations : String?, var noOfReviews : String?, var sampleMenu : ArrayList<SampleMenu>?, var deliveryTime: String?,
                                 var mealOptions : ArrayList<MealOptionsModel>?, var startTime : String?,var endTime : String?,
                                 var numbeOfDeliveryDays : Int?,var defaultUserAddress : String?, var addressId : String?): Parcelable {}

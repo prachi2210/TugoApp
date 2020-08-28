@@ -16,6 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center"
                 android:padding="@dimen/margin_10">
 
                 <TextView
@@ -39,19 +40,24 @@
                     android:layout_marginLeft="@dimen/margin_10"
                     android:textColor="@color/screenTitleColor"
                     android:textStyle="bold" />
+                <RelativeLayout
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:background="@color/colorWhite"
+                    android:layout_gravity="center">
                 <ImageView
                     android:id="@+id/imgCompanyLogoDetail"
-                    android:layout_width="100dp"
-                    android:scaleType="centerCrop"
-                    android:layout_height="30dp"/>
+                    android:layout_width="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content"/>
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bgColor"
-                android:orientation="vertical"
-                android:paddingBottom="-10dp">
+                android:orientation="vertical">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabMainProvidersType"

@@ -116,7 +116,11 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
 
     private fun initControllers() {
         llMessageUs.setOnClickListener(View.OnClickListener {
-            mContext?.let { it1 -> CommonUtils.doSendMessageToWhatsApp(it1, rootView) }
+            if(!mOrderDetailData?.phoneNumber.isNullOrBlank()) {
+                mContext?.let { it1 -> CommonUtils.doSendMessageToWhatsApp(it1, rootView,mOrderDetailData?.phoneNumber) }
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.err_provider_contact_notfound))
+            }
         })
 
         btnPause.setOnClickListener(View.OnClickListener {

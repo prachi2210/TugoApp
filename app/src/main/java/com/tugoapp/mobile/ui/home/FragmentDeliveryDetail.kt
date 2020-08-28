@@ -129,10 +129,14 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         })
 
         Navigation.findNavController(rootView!!).currentBackStackEntry?.savedStateHandle?.getLiveData<AddressModel>("deliveryAddress")?.observe(viewLifecycleOwner, Observer {
-            mPlaceOrderRequestModel?.planObj?.addressId = it.addressId
-            mPlaceOrderRequestModel?.planObj?.defaultUserAddress = it.address
-            mPlaceOrderRequestModel?.address = it.address
-            txtAddress.text = it.address
+            if(it != null) {
+                mPlaceOrderRequestModel?.planObj?.addressId = it.addressId
+                mPlaceOrderRequestModel?.planObj?.defaultUserAddress = it.address
+                mPlaceOrderRequestModel?.address = it.address
+                txtAddress.text = it.address
+                btnEditAddress.text = getString(R.string.txt_edit_address)
+                txtAddress.visibility = View.VISIBLE
+            }
             Navigation.findNavController(rootView!!).previousBackStackEntry?.savedStateHandle?.remove<AddressModel>("deliveryAddress")
         })
 
@@ -246,10 +250,6 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         } else {
             view?.txtPlanTotalAmount.text = mSelectedMealPlan?.price
         }
-    }
-
-    private fun doPopBackStack() {
-        Navigation.findNavController(rootView!!).popBackStack()
     }
 
     var onDateSelectedEvent = OnDateSetListener { view, year, monthOfYear, dayOfMonth ->

@@ -148,7 +148,11 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         })
         
         txtLetusKnow.setOnClickListener(View.OnClickListener {
-            CommonUtils.doSendMessageToWhatsApp(mContext,rootView)
+            if(!mProviderDetails?.phoneNumber.isNullOrBlank()) {
+                CommonUtils.doSendMessageToWhatsApp(mContext, rootView,mProviderDetails?.phoneNumber)
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.err_provider_contact_notfound))
+            }
         })
 
         txtReadRating.setOnClickListener(View.OnClickListener {
@@ -176,6 +180,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             mSelectedMealPlan = providerData.planData!![0]
             mSelectedMealPlan.addressId = providerData.addressId
             mSelectedMealPlan.defaultUserAddress = providerData.defaultUserAddress
+            mSelectedMealPlan.phoneNumber = providerData?.phoneNumber
 
             doSetTabDetails()
 
@@ -184,6 +189,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
                     if (providerData.planData!!.size > tab.position) {
                         mSelectedMealPlan = providerData.planData!![tab.position]
                         mSelectedMealPlan.addressId = providerData.addressId
+                        mSelectedMealPlan.phoneNumber = providerData?.phoneNumber
                         mSelectedMealPlan.defaultUserAddress = providerData.defaultUserAddress
                         doSetTabDetails()
                     }
@@ -257,7 +263,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
                     .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(15)))
                     .into(imgSampleMenu)
             Glide.with(mContext)
-                    .load(mProviderDetails?.icon)
+                    .load(mProviderDetails?.companyLogo)
                     .centerCrop()
                     .into(imgCompanyLogoDetail)
         }

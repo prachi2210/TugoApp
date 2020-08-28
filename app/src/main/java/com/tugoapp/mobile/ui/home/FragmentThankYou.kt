@@ -75,7 +75,7 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
         txtPlanName.text = mPlanObject?.title
         if(mIsTrialMeal) {
             txtAmount.text = mPlanObject?.trailPlanPricing  +" AED"
-            txtPlanDetail.text = mPlanObject?.trialPlanDays + " days "
+            txtPlanDetail.text = mPlanObject?.trialPlanDescription
             txtTotalPaid.text = mPlanObject?.trailPlanPricing +" AED"
 
         } else {
@@ -96,7 +96,7 @@ class FragmentThankYou : BaseFragment<HomeViewModel?>() {
         })
 
         llMessageUs.setOnClickListener(View.OnClickListener {
-            CommonUtils.doSendMessageToWhatsApp(mContext,rootView)
+            CommonUtils.doSendMessageToWhatsApp(mContext,rootView,mPlanObject?.phoneNumber)
         })
 
         txtViewPlan.setOnClickListener(View.OnClickListener {
