@@ -242,4 +242,14 @@
     <string name="txt_write_comment_fail">Failed to post this comment</string>
     <string name="txt_your_comment_submitted">Your comment has been submitted</string>
     <string name="txt_emptyview_review">No reviews found</string>
+    <string name="err_enter_pswd">Please enter correct password</string>
+    <string name="err_enter_new_pswd">Please enter correct new password</string>
+    <string name="err_enter_confirm_pswd">Please enter correct confirm password</string>
+    <string name="err_wrong_pswd">Please enter correct password</string>
+    <string name="txt_change_pswd_success">Password changed successfully</string>
+    <string name="txt_change_pswd_fail">Failed to change password</string>
+    <string name="txt_adding_comment">Adding comment</string>
+    <string name="txt_changing_pswd">Changing password</string>
+    <string name="txt_loading_profile">Loading profile</string>
+    <string name="txt_err_cant_change_gplus_pswd">Sorry! We can not change social login password</string>
 </resources>

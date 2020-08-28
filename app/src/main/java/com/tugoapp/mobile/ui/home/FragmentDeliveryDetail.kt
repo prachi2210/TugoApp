@@ -138,7 +138,6 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
 
         mViewModel?.mPlaceOrderResponse?.observe(viewLifecycleOwner, Observer {
             if(it.first == 1) {
-                CommonUtils.showSnakeBar(rootView,it.second)
                 var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan,AppConstant.SELECTED_PLAN_OBJECT to mPlanObject,
                         AppConstant.START_DATE_FOR_THANKYOU to mPlaceOrderRequestModel?.startFrom,AppConstant.SELECTED_MEAL_PLAN_TRIAL to mIsTrialMeal)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentThankYou,bundle)
@@ -269,9 +268,9 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
         mPlaceOrderRequestModel?.startFrom = sdfLocalFormat.format(mCalender.time)
         var calender : Calendar = mCalender.clone() as Calendar
         if(mIsTrialMeal) {
-            calender.add(Calendar.DATE, (Integer.parseInt(mPlanObject?.trialPlanDays)))
+            calender.add(Calendar.DATE, (Integer.parseInt(mPlanObject?.trialPlanWeeks) * 7))
         } else {
-            calender.add(Calendar.DATE, (Integer.parseInt(mSelectedMealPlan?.noOfDays)))
+            calender.add(Calendar.DATE, (Integer.parseInt(mSelectedMealPlan?.weeks) * 7))
         }
         txtEnddate.text = String.format(getString(R.string.txt_end_date_is),sdfLocalFormat.format(calender.time))
         mPlaceOrderRequestModel?.endOn = sdfLocalFormat.format(calender.time)

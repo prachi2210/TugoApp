@@ -5,6 +5,7 @@ import android.content.Context
 import bolts.Bolts
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.data.remote.model.request.AddReviewRequestModel
 import com.tugoapp.mobile.data.remote.model.request.ResumeOrderRequestModel
@@ -93,7 +94,7 @@ class OrderDetailsViewModel(application: Application?, private val mPpsApiServic
     fun doSubmitReview(model: AddReviewRequestModel) {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
             if (task.isSuccessful) {
-                mShowProgress.postValue(Pair(true,""))
+                mShowProgress.postValue(Pair(true,mApplicationContext.getString(R.string.txt_adding_comment)))
                 mPpsApiService.doAddReview(task.result?.token,model).enqueue(object : Callback<BaseResponseModel> {
                     override fun onFailure(call: Call<BaseResponseModel>, t: Throwable) {
                         mShowProgress.postValue(Pair(false,""))

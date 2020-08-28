@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 class FragmentManageAddress : BaseFragment<ManageAddressViewModel?>()  {
 
-    private var mIsFromDeliveryScreen: Boolean = false
+    private var mIsFromDeliveryScreen: Boolean? = false
 
     @JvmField
     @Inject
@@ -56,8 +56,8 @@ class FragmentManageAddress : BaseFragment<ManageAddressViewModel?>()  {
     private fun iniUI() {
         mContext = context
 
-        mIsFromDeliveryScreen = arguments?.getBoolean(AppConstant.IS_FROM_DELIVERY_SCREEN)!!
-        if(mIsFromDeliveryScreen) {
+        mIsFromDeliveryScreen = arguments?.getBoolean(AppConstant.IS_FROM_DELIVERY_SCREEN)
+        if(mIsFromDeliveryScreen != null && mIsFromDeliveryScreen as Boolean) {
             selectAddressHeader.visibility = View.VISIBLE
         } else {
             selectAddressHeader.visibility = View.GONE
@@ -99,7 +99,7 @@ class FragmentManageAddress : BaseFragment<ManageAddressViewModel?>()  {
             val adapter = mContext?.let {
                 AddressListAdapter(it, data, object : OnManageAddressListItemClickListener {
                     override fun onListItemClick(position: Int) {
-                        if(mIsFromDeliveryScreen) {
+                        if(mIsFromDeliveryScreen != null && mIsFromDeliveryScreen as Boolean) {
                             Navigation.findNavController(rootView!!).previousBackStackEntry?.savedStateHandle?.set("deliveryAddress", data[position])
                             Navigation.findNavController(rootView!!).popBackStack()
                         }

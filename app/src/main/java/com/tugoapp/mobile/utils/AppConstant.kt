@@ -23,6 +23,8 @@ object AppConstant {
     const val ORDER_DETAIL_ORDER_ID = "ORDER_DETAIL_ORDER_ID"
     const val BUSINESS_ID = "BUSINESS_ID"
     const val FULL_NAME = "FULL_NAME"
+    const val USER_DETAIL_DATA = "USER_DETAIL_DATA"
+
 
 
 }

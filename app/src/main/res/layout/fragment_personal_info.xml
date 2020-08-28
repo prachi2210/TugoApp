@@ -48,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_email_address"
                     android:inputType="text"
+                    android:enabled="false"
                     android:maxLength="50" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,6 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_phone_number"
+                    android:enabled="false"
                     android:inputType="text"
                     android:maxLength="50" />
 

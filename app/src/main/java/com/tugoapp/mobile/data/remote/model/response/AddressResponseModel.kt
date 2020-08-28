@@ -19,7 +19,9 @@ public data class CountryCodeModel(var name : String?, var flag : String?,var co
 
 public data class GetUserDetailResponseModel(var data : UserDetailModel?) : BaseResponseModel() {}
 
+@Parcelize
 public data class UserDetailModel(var userEmail : String?, var userName : String?,var userPhone : String?,
-                                  var sendPushNotification : Boolean?,var sendSMSNotification : Boolean?,var sendPromotionalNotification : Boolean?) {}
+                                  var sendPushNotification : Boolean?,var sendSMSNotification : Boolean?,
+                                  var sendPromotionalNotification : Boolean?) :Parcelable {}
 
 

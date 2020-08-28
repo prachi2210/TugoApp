@@ -7,12 +7,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.response.OrderModel
+import com.tugoapp.mobile.data.remote.model.response.UserDetailModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.utils.AppConstant
+import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_personal_info.*
 import javax.inject.Inject
 
 class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>() {
+    private var mPersonalInfo: UserDetailModel? = null
+
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -43,7 +49,15 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
     private fun iniUI() {
         mContext = context
 
-        edtEmail.setText(FirebaseAuth.getInstance().currentUser?.email)
-        edtPhone.setText(FirebaseAuth.getInstance().currentUser?.phoneNumber)
+        mPersonalInfo = arguments?.getParcelable<UserDetailModel>(AppConstant.USER_DETAIL_DATA)
+
+        if (mPersonalInfo == null) {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
+            return
+        }
+
+        edtEmail.setText(mPersonalInfo?.userEmail)
+        edtPhone.setText(mPersonalInfo?.userPhone)
+        edtName.setText(mPersonalInfo?.userName)
     }
 }
