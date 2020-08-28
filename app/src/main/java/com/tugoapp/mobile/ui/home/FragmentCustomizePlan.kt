@@ -15,6 +15,7 @@ import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.ui.home.adapters.CustomizeListAdapter
+import com.tugoapp.mobile.ui.home.adapters.CustomizeMealListAdapter
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_customize_plan.*
 import javax.inject.Inject
@@ -31,7 +32,7 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
     private var mMinRange :String ? = null
     private var mMaxRange :String ? = null
     private var mLocation :ArrayList<String> ? = ArrayList()
-    private var mNoOfmeals :ArrayList<String> ? = ArrayList()
+    private var mNoOfmeals :String ? = null
 
     override val layoutId: Int
         get() = R.layout.fragment_customize_plan
@@ -92,19 +93,13 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
                 if (it.numOfMeals != null && it.numOfMeals?.size!! > 0) {
                     rvMinimalMealsList.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
 
-                    val dataMinMeal = ArrayList<CustomizeListModel>()
-                    for(data in it.numOfMeals!!) {
-                        dataMinMeal.add(CustomizeListModel(data,false))
-                    }
+                    val dataMinMeal = ArrayList<String>()
+                    dataMinMeal.addAll(it.numOfMeals!!)
 
                     val dataMinMealAdapter = mContext?.let {
-                        CustomizeListAdapter(it, dataMinMeal, object : OnListItemClickListener {
+                        CustomizeMealListAdapter(it, dataMinMeal, object : OnListItemClickListener {
                             override fun onListItemClick(position: Int) {
-                                if(dataMinMeal[position].isSelected) {
-                                    dataMinMeal[position].value?.let { it1 -> mNoOfmeals?.add(it1) }
-                                } else {
-                                    mNoOfmeals?.remove(dataMinMeal[position].value)
-                                }
+                                mNoOfmeals = dataMinMeal[position]
                             }
                         })
                     }
