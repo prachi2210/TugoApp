@@ -99,12 +99,6 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         txtPlanName.text = mSelectedPlanObject?.title
         deliveryDaysSelectPlan.text = mSelectedPlanObject?.deliveryDays
         txtPlanDescSelectPlan.text = mSelectedPlanObject?.description
-//        if(mSelectedPlanObject?.isTrialPlanAvailable!!) {
-//            llTrialMeal.visibility = View.VISIBLE
-//            txtTrialPlanData.text = mSelectedPlanObject?.trailPlanMainDescription
-//        } else {
-//            llTrialMeal.visibility = View.GONE
-//        }
 
         if (mSelectedPlanObject?.mealOptions != null && mSelectedPlanObject?.mealOptions?.size!! > 0) {
             rvMealOptions.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)

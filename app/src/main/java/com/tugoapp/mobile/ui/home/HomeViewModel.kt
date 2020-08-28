@@ -210,6 +210,29 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
         })
     }
 
+    fun doSetProviderFaviroute(businessId: String) {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+              //  mShowProgress.postValue(Pair(true,""))
+                mPpsApiService.doAddToFavourite(task.result?.token, SetFavirouteProviderRequestModel(businessId)).enqueue(object : Callback<BaseResponseModel> {
+                    override fun onFailure(call: Call<BaseResponseModel>, t: Throwable) {
+                    //    mShowProgress.postValue(Pair(false,""))
+                        mToastMessage.postValue("Network Issue: Failed to add this provider to favorite")
+                    }
+
+                    override fun onResponse(call: Call<BaseResponseModel>, response: Response<BaseResponseModel>) {
+                     //   mReviewModel.postValue(response.body()?.data)
+                    //    mShowProgress.postValue(Pair(false,""))
+                    }
+
+                })
+            } else {
+               // mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+
+        })
+    }
+
 
     private val mApplicationContext: Context = getApplication<Application>().applicationContext
 }

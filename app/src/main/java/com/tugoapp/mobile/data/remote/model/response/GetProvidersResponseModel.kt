@@ -12,7 +12,7 @@ public data class ProviderModel(var businessId : String?, var companyName : Stri
                                 var isActive : Boolean?) {}
 
 public data class GetProviderDetailsData(var businessId : String?, var companyName : String?, var backgroundImage : String? ,var icon : String?,
-                                         var address : String?,
+                                         var address : String?, var isFavourite : Boolean?,
                                          var companyLogo : String?, var defaultUserAddress : String?, var addressId : String?,var numbeOfDeliveryDays : Int?,
                                          var description : String?,var planData : ArrayList<MealPlanModel>?) {}
 

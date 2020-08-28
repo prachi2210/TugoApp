@@ -61,8 +61,32 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
             CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_pref_value))
             return
         }
+
+        mViewModel?.doLoadCountry()
+
         initControls()
+        initObserver()
         initCallbacks()
+    }
+
+    private fun initObserver() {
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
+
+        mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
+            if(it.first) {
+                if(it.second.isNullOrBlank()) {
+                    showLoading()
+                } else {
+                    showLoading(it.second)
+                }
+            } else {
+                hideLoading()
+            }
+        })
+
+        mViewModel?.mCountryData?.observe(viewLifecycleOwner, Observer {
+
+        })
     }
 
     private fun initControls() {

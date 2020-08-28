@@ -52,6 +52,7 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
         (activity as RootActivity).supportActionBar?.setHomeButtonEnabled(false)
         (activity as RootActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
+        if(mProfileData == null)
         mViewModel?.doLodUserDetail();
 
         initController()

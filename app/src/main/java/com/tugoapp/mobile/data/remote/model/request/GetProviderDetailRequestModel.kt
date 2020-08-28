@@ -53,6 +53,9 @@ public data class UpdateNotiRequestModel(var sendPushNotification : Boolean?,var
 
 public data class SaveDeviceTokenRequestModel(var deviceId : String?,var pushToken : String?,var os : String?, var timezone : String?)
 
+public data class SetFavirouteProviderRequestModel(var businessId : String?)
+
+
 
 
 

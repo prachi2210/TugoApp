@@ -35,6 +35,7 @@ import javax.inject.Inject
 
 
 class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
+    private var mMenu: Menu? = null
     private lateinit var mSelectedMealPlan: MealPlanModel
     private lateinit var mMealPlanList: ArrayList<MealPlanModel>
     private var mProviderDetails: GetProviderDetailsData? = null
@@ -69,9 +70,19 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        mMenu = menu
+        super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_fav) {
-
+            mViewModel?.doSetProviderFaviroute(mBusinessId)
+            if(mProviderDetails?.isFavourite != null && mProviderDetails?.isFavourite!!) {
+                item.setIcon(R.drawable.ic_heart)
+            } else {
+                item.setIcon(R.drawable.ic_fav_selected)
+            }
         } else if (item.itemId == R.id.menu_info) {
             showProviderDetailDialog()
             return true
@@ -207,6 +218,11 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         doSetMealPlanData(mSelectedMealPlan)
         doSetInfoOrLocationData(0)
         deliveryDays.text = mSelectedMealPlan.deliveryDays
+        if(mMenu != null) {
+            if(mProviderDetails?.isFavourite != null && mProviderDetails?.isFavourite!!) {
+                mMenu?.findItem(R.id.menu_fav)?.setIcon(R.drawable.ic_fav_selected)
+            }
+        }
         if (mSelectedMealPlan.sampleMenu == null || mSelectedMealPlan.sampleMenu!!.size <= 0) {
             rlSampleMenu.visibility = View.GONE
         }

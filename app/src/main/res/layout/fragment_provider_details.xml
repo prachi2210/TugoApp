@@ -150,6 +150,7 @@
                         android:layout_marginLeft="@dimen/margin_20"
                         android:layout_marginTop="@dimen/margin_10"
                         android:layout_marginRight="@dimen/margin_20"
+                        android:layout_marginBottom="@dimen/margin_5"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="@dimen/margin_5">
@@ -195,8 +196,7 @@
                             style="@style/HeaderSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_2"
-                            android:layout_marginRight="@dimen/margin_5"
+                            android:padding="@dimen/margin_5"
                             android:text="@string/txt_readall"
                             android:textColor="@color/colorPrimary" />
                     </LinearLayout>

@@ -83,7 +83,7 @@ interface MerchantApiService { //
     fun doUpdateNotificationSetting(@Header("token") token: String?, @Body model : UpdateNotiRequestModel?): Call<BaseResponseModel>
 
     @POST("addToFavourite")
-    fun doAddToFavourite(@Header("token") token: String?, @Body businessId : String?): Call<BaseResponseModel>
+    fun doAddToFavourite(@Header("token") token: String?, @Body model : SetFavirouteProviderRequestModel?): Call<BaseResponseModel>
 
     @POST("saveDeviceToken")
     fun doSaveDeviceToken(@Header("token") token: String?, @Body model : SaveDeviceTokenRequestModel?): Call<BaseResponseModel>
