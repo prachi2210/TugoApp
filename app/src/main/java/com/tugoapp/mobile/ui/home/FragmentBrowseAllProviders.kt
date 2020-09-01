@@ -100,6 +100,8 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
 
         mViewModel?.mProvidersData?.observe(viewLifecycleOwner, Observer { it ->
             if (it != null && it.size > 0) {
+                emptyviewProvider.visibility = View.GONE
+                rvMealProviders.visibility = View.VISIBLE
                 rvMealProviders.layoutManager = LinearLayoutManager(mContext)
                 val data = ArrayList<ProviderModel>()
                 data.addAll(it)
@@ -113,7 +115,8 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                 }
                 rvMealProviders.adapter = adapter
             } else {
-                CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_no_providers_found))
+                emptyviewProvider.visibility = View.VISIBLE
+                rvMealProviders.visibility = View.GONE
             }
         })
 
@@ -131,6 +134,7 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                         if (position == 0) {
                             mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null))
                         } else {
+                            rvCategoryList.scrollToPosition(position)
                             mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId, null))
                         }
                     }

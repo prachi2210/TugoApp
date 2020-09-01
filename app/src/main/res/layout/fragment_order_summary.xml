@@ -160,8 +160,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
+                android:maxLines="6"
                 android:layout_marginTop="@dimen/margin_5"
-                android:text="Do not use onions in the food. Leave food outside" />
+                android:text="" />
 
             <View
                 android:layout_width="match_parent"

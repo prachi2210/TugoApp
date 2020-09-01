@@ -19,8 +19,9 @@
           android:id="@+id/txtCategoryName"
            android:layout_width="wrap_content"
            android:gravity="center"
-           android:text="helllo"
-           android:textAllCaps="true"
+           android:inputType="textCapWords"
+           android:textSize="@dimen/size_16"
+           android:fontFamily="@font/font_raleway_regular"
            android:textColor="@color/color999999"
            android:layout_height="wrap_content"
           style="@style/HeaderSemiMedium"/>

@@ -136,7 +136,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private fun initControls() {
         imgSampleMenu.setOnClickListener(View.OnClickListener {
             if (mSelectedMealPlan != null && mSelectedMealPlan.sampleMenu?.size!! > 0) {
-                var bundle = bundleOf(AppConstant.SAMPLE_MENU_DATA to mMealPlanList)
+                var bundle = bundleOf(AppConstant.SAMPLE_MENU_DATA to mMealPlanList, AppConstant.SAMPLE_MENU_COMPANYLOGO to mProviderDetails?.companyLogo)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSampleMenu, bundle)
             } else {
                 CommonUtils.showToast(mContext, getString(R.string.txt_err_no_sample_menu))

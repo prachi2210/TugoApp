@@ -148,7 +148,7 @@
     <string name="txt_view_plan"><u>View Plan</u></string>
     <string name="txt_date">Date</string>
     <string name="txt_paid_with">Paid with</string>
-    <string name="txt_ongoing">On going</string>
+    <string name="txt_ongoing">Ongoing</string>
     <string name="txt_history">History</string>
     <string name="txt_trial_meal_subtitle">This pack includes a 1-week portion of your exploration</string>
     <string name="txt_have_some_questions">Have some questions?</string>
@@ -195,6 +195,8 @@
     <string name="txt_duration_days">Duration: %s Days</string>
     <string name="txt_end_date_is">End date is \n %s</string>
     <string name="txt_no_provider_available">Sorry! \n\n Provider detail not found with this name.</string>
+    <string name="txt_no_provider_available_for_category">Sorry! \n\n Provider detail not found.</string>
+
     <string name="txt_loading_searching_provider">Searching Provider</string>
     <string name="txt_loading_provider">Loading Providers</string>
     <string name="txt_loading_searching_provider_detail">Loading Provider Details</string>
@@ -229,7 +231,6 @@
     <string name="txt_cancelled">cancelled</string>
     <string name="txt_min">Min\n%s AED</string>
     <string name="txt_max">Max\n%s AED</string>
-    <string name="txt_err_no_providers_found">"No Providers found with this fiter "</string>
     <string name="txt_select_duration">Select Duration</string>
     <string name="txt_add_address_with_bracket">( Add Address )</string>
     <string name="txt_select_address_header">Click on any address to select that address</string>

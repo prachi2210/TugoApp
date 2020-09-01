@@ -7,18 +7,35 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_15"
+            android:layout_marginTop="@dimen/margin_15"
+            android:background="@color/colorWhite"
+            android:layout_gravity="right">
+            <ImageView
+                android:id="@+id/imgCompanyLogoSampleMenu"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabSampleMenu"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_20"
             android:background="@color/colorWhite"
             android:outlineSpotShadowColor="@color/grey"
-            android:paddingLeft="@dimen/margin_10"
-            android:paddingRight="@dimen/margin_10"
-            app:tabGravity="fill"
+            app:tabTextAppearance="@style/StyleTab"
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabMode="fixed"
+            app:tabGravity="center"
             app:tabSelectedTextColor="@color/colorBlack"
             app:tabTextColor="@color/unselectedTabcolor" />
 

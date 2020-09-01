@@ -64,8 +64,18 @@
                     android:id="@+id/rvMealProviders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_20"
                     android:orientation="vertical" />
+                
+                <TextView
+                    android:id="@+id/emptyviewProvider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/HeaderExtraLarge"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:textColor="@color/hintColor"
+                    android:text="@string/txt_no_provider_available_for_category"/>
 
             </LinearLayout>
         </ScrollView>

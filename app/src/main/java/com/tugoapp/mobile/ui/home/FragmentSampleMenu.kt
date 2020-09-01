@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
@@ -23,6 +24,7 @@ import javax.inject.Inject
 
 
 class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
+    private var mCompanyLogo: String? = null
     private var mSelectedMealPlan: Int = 0
     private var mSampleMenuList : ArrayList<MealPlanModel>? = null
 
@@ -56,7 +58,8 @@ class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
     private fun iniUI() {
         mContext = context
         mSampleMenuList = arguments?.getParcelableArrayList(AppConstant.SAMPLE_MENU_DATA)
-        if(mSampleMenuList == null) {
+        mCompanyLogo = arguments?.getString(AppConstant.SAMPLE_MENU_COMPANYLOGO)
+        if(mSampleMenuList == null ) {
             CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_pref_value))
             return
         }
@@ -65,6 +68,13 @@ class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
     }
 
     private fun initControllers() {
+        if(mCompanyLogo != null)
+        mContext?.let {
+            Glide.with(it)
+                .load(mCompanyLogo)
+                .centerCrop()
+                .into(imgCompanyLogoSampleMenu)
+        }
 
         if(mSampleMenuList != null ) {
             for (planDetail in mSampleMenuList!!) {

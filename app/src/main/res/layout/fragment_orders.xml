@@ -28,6 +28,7 @@
             android:background="@color/colorWhite"
             android:outlineSpotShadowColor="@color/grey"
             app:tabGravity="fill"
+            app:tabTextAppearance="@style/StyleTab"
             app:tabIndicatorColor="@android:color/black"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@android:color/black"

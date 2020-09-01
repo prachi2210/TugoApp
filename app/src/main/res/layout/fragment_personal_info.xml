@@ -67,7 +67,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_phone_number"
-                    android:enabled="false"
                     android:inputType="text"
                     android:maxLength="50" />
 

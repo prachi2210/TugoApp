@@ -56,20 +56,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/bgColor"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabMainProvidersType"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
                     android:outlineSpotShadowColor="@color/grey"
-                    android:paddingLeft="@dimen/margin_10"
-                    android:paddingRight="@dimen/margin_10"
-                    app:tabGravity="fill"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
                     app:tabIndicatorColor="@color/colorPrimary"
                     app:tabMode="fixed"
+                    app:tabGravity="center"
+                    app:tabTextAppearance="@style/StyleTab"
                     app:tabSelectedTextColor="@color/colorBlack"
                     app:tabTextColor="@color/unselectedTabcolor"/>
 
@@ -106,12 +107,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
+                    app:tabTextAppearance="@style/StyleTabSmall"
                     android:outlineSpotShadowColor="@color/grey"
                     android:paddingLeft="@dimen/margin_15"
                     android:paddingRight="@dimen/margin_15"
-                    app:tabGravity="fill"
                     app:tabIndicatorColor="@color/colorPrimary"
                     app:tabMode="fixed"
+                    app:tabGravity="fill"
                     app:tabSelectedTextColor="@color/colorPrimary"
                     app:tabTextColor="@color/unselectedTabcolor">
 

@@ -193,7 +193,6 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
     }
 
     private fun doInitDeliveryDetails() {
-        txtAvailableDeliveryTime.text = mPlanObject?.deliveryTime
         deliveryDays.text = mPlanObject?.deliveryDays
         if(mIsTrialMeal) {
             txtDuration.text = String.format(getString(R.string.txt_duration_days), Integer.parseInt(mPlanObject?.trialPlanDays))

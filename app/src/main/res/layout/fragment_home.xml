@@ -83,7 +83,8 @@
                         app:cardUseCompatPadding="true"
                         android:background="@drawable/bg_card"
                         app:cardCornerRadius="@dimen/margin_15"
-                        app:cardElevation="@dimen/margin_8">
+                        android:padding="@dimen/margin_2"
+                        app:cardElevation="@dimen/margin_6">
 
                         <LinearLayout
                             android:id="@+id/llLetsFindMealPlan"
@@ -102,7 +103,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="0dp"
                                     android:layout_weight="1"
-                                    android:fontFamily="@font/font_raleway_regular"
+                                    android:fontFamily="@font/font_raleway_semibold"
                                     android:text="@string/txt_lets_find_you_meal_plan"
                                     android:textColor="@color/screenTitleColor"
                                     android:textSize="@dimen/size_24" />
