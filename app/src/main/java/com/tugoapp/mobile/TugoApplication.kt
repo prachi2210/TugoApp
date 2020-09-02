@@ -3,6 +3,8 @@ package com.tugoapp.mobile
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.tugoapp.mobile.di.component.DaggerAppComponent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -23,6 +25,8 @@ class TugoApplication : Application(), HasActivityInjector {
                 .build()
                 ?.inject(this)
         appContext = applicationContext
+        FacebookSdk.sdkInitialize(this)
+        AppEventsLogger.activateApp(this);
     }
 
     companion object {

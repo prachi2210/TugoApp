@@ -88,7 +88,8 @@
     <string name="hint_card_cvc">CVC</string>
     <string name="txt_set_as_default">Set as default</string>
     <string name="txt_add_card">Add Card</string>
-    <string name="hint_address">Add address</string>
+    <string name="hint_address">Enter full delivery address \n\nExample: Apartment 1405,
+        Burj Al Arab Tower, The villa community, Dubailand, Dubai</string>
     <string name="txt_add_address">Enter the address into the form below</string>
     <string name="txt_edit_address_header">Edit the address into the form below</string>
 
@@ -127,7 +128,6 @@
     <string name="txt_your_plan">Your Plan</string>
     <string name="txt_select_plan">Select Plan</string>
     <string name="txt_delivery_location">Delivery Location</string>
-    <string name="txt_edit_address">(Edit address)</string>
     <string name="txt_delivery_time">Delivery Time</string>
     <string name="txt_available_timing">Available Timings</string>
     <string name="txt_instructions_or_allergies">Instructions/allergies</string>
@@ -177,8 +177,8 @@
     <string name="txt_err_fail_firebase_acnt_link">Failed to link email address with phone number</string>
     <string name="title_sample_menu">Sample Menu</string>
 
-    <string name="facebook_app_id">[APP_ID]</string>
-    <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
+    <string name="facebook_app_id">331776408181861</string>
+    <string name="fb_login_protocol_scheme">fb[331776408181861]</string>
     <string name="txt_sending_code">Sending code</string>
     <string name="txt_otp_autodetected">Authenticating user</string>
     <string name="txt_resending_otp">Resending Code</string>
@@ -194,8 +194,9 @@
     <string name="whatsapp_not_found">Whats App is not installed in phone to send message</string>
     <string name="txt_duration_days">Duration: %s Days</string>
     <string name="txt_end_date_is">End date is \n %s</string>
-    <string name="txt_no_provider_available">Sorry! \n\n Provider detail not found with this name.</string>
-    <string name="txt_no_provider_available_for_category">Sorry! \n\n Provider detail not found.</string>
+    <string name="txt_no_provider_available">Sorry!\nProvider detail not found with this name.</string>
+    <string name="txt_no_provider_available_for_category">Sorry!\nNo Providers are available
+        for this category</string>
 
     <string name="txt_loading_searching_provider">Searching Provider</string>
     <string name="txt_loading_provider">Loading Providers</string>
@@ -260,4 +261,8 @@
     <string name="channel_name">Tugo</string>
     <string name="txt_fail_save_user_server">Failed to store user detail on server</string>
     <string name="err_provider_contact_notfound">Provider\'s contact number not found</string>
+    <string name="txt_btn_add_this_address">Add this address</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="txt_change_address">(Change Address)</string>
+    <string name="txt_available_meal_plans">Available meal plans</string>
 </resources>

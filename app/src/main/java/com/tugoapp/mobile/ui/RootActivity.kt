@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.ui.base.BaseActivity
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.ui.home.FragmentFavorites
 import com.tugoapp.mobile.ui.home.FragmentHome
 import com.tugoapp.mobile.ui.orders.FragmentOrders
 import com.tugoapp.mobile.ui.profile.FragmentProfile
@@ -71,7 +72,7 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
                 navigationView.visibility = View.VISIBLE
                 supportActionBar?.setHomeButtonEnabled(true)
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            } else if (destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders || destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentProfile) {
+            } else if (destination.id == R.id.fragmentHome || destination.id == R.id.fragmentBrowseAllProviders || destination.id == R.id.fragmentOrders || destination.id == R.id.fragmentFavorites || destination.id == R.id.fragmentProfile) {
                 toolbar.visibility = View.GONE
                 navigationView.visibility = View.VISIBLE
             } else {
@@ -114,7 +115,7 @@ class RootActivity : BaseActivity<RootViewModel?>(), HasSupportFragmentInjector 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentNavHost)
         Navigation.findNavController(this,R.id.fragmentNavHost)
         var visibleFragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
-        if(visibleFragment != null && ( visibleFragment is FragmentProfile ||  visibleFragment is FragmentHome ||  visibleFragment is FragmentOrders)) {
+        if(visibleFragment != null && ( visibleFragment is FragmentProfile ||  visibleFragment is FragmentHome ||  visibleFragment is FragmentOrders ||  visibleFragment is FragmentFavorites)) {
             return true
         }
         return false

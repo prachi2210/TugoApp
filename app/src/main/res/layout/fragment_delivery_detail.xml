@@ -52,13 +52,13 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_8"
+                    android:layout_marginTop="@dimen/margin_20"
                     app:cardUseCompatPadding="true"
                     android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:background="@drawable/bg_card"
                     app:cardCornerRadius="@dimen/margin_5"
-                    app:cardElevation="@dimen/margin_5">
+                    app:cardElevation="@dimen/margin_2">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/font_raleway_bold"
-                                android:text="@string/txt_edit_address"
+                                android:text="@string/txt_change_address"
                                 android:textColor="@color/colorPrimary" />
                         </LinearLayout>
 
@@ -116,9 +116,10 @@
                     app:cardUseCompatPadding="true"
                     android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:background="@drawable/bg_card"
                     app:cardCornerRadius="@dimen/margin_5"
-                    app:cardElevation="@dimen/margin_5">
+                    app:cardElevation="@dimen/margin_2">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -206,9 +207,10 @@
                     app:cardUseCompatPadding="true"
                     android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:background="@drawable/bg_card"
                     app:cardCornerRadius="@dimen/margin_5"
-                    app:cardElevation="@dimen/margin_5">
+                    app:cardElevation="@dimen/margin_2">
 
                     <LinearLayout
                         android:layout_width="match_parent"

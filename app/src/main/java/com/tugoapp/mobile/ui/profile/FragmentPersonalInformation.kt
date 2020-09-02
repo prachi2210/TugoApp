@@ -59,5 +59,9 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
         edtEmail.setText(mPersonalInfo?.userEmail)
         edtPhone.setText(mPersonalInfo?.userPhone)
         edtName.setText(mPersonalInfo?.userName)
+
+        btnProfileUpdate.setOnClickListener(View.OnClickListener {
+
+        })
     }
 }

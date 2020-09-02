@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="@dimen/margin_10"
-            android:visibility="gone"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/margin_10"
             android:src="@drawable/ic_back"/>
         <ImageView
@@ -20,6 +20,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:src="@drawable/logo"
+            android:layout_marginLeft="-30dp"
             android:layout_gravity="center"
             android:padding="@dimen/margin_10"/>
     </LinearLayout>

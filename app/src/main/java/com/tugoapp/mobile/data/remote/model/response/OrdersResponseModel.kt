@@ -27,7 +27,7 @@ public data class ReviewMainModel(var planTitle : String?, var description : Str
 
 @Parcelize
 public data class ReviewModel(var starRating : String?, var reviewText : String?, var meals : String? ,var noOfDays : String?,
-                              var userName : String) : Parcelable{}
+                              var userName : String, var addedOn : String?) : Parcelable{}
 
 
 

@@ -14,6 +14,9 @@ import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
 import com.tugoapp.mobile.data.remote.model.response.ReviewModel
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ReviewListAdapter(private val context: Context,
                         private val list: ArrayList<ReviewModel>,
@@ -21,7 +24,7 @@ class ReviewListAdapter(private val context: Context,
 ) : RecyclerView.Adapter<ReviewListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val userImage: ImageView = view.findViewById(R.id.imgUser)
+        val txtDate: TextView = view.findViewById(R.id.txtDate)
         val txtUserName: TextView = view.findViewById(R.id.txtUserName)
         val txtUserMealPlan: TextView = view.findViewById(R.id.txtUsermealPlan)
         val txtReview: TextView = view.findViewById(R.id.txtReview)
@@ -43,12 +46,13 @@ class ReviewListAdapter(private val context: Context,
         holder.txtUserMealPlan.text = data.meals  + " meals per day for "  +  data.noOfDays +" days"
         holder.txtReview.text = data.reviewText
         holder.txtRateMark.rating = data.starRating?.toFloat()!!
-
-//        Glide.with(context)
-//                .load(data.userImage)
-//                .centerCrop()
-//                .into(holder.userImage)
-
+        if(!data.addedOn.isNullOrBlank()) {
+            val apiFormat = "dd/MM/yyyy"
+            val sdfApiFormat = SimpleDateFormat(apiFormat)
+            var calender = Calendar.getInstance()
+            calender.timeInMillis = data?.addedOn?.toLong()!!
+            holder.txtDate.text = sdfApiFormat.format(calender.time)
+        }
         holder.itemView.setOnClickListener {
             cellClickListener.onListItemClick(position)
         }

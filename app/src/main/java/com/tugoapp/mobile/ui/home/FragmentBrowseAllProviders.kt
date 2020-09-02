@@ -134,7 +134,7 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                         if (position == 0) {
                             mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null))
                         } else {
-                            rvCategoryList.scrollToPosition(position)
+                            //rvCategoryList.scrollToPosition(position)
                             mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId, null))
                         }
                     }

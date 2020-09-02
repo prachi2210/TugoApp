@@ -149,9 +149,9 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         
         txtLetusKnow.setOnClickListener(View.OnClickListener {
             if(!mProviderDetails?.phoneNumber.isNullOrBlank()) {
-                CommonUtils.doSendMessageToWhatsApp(mContext, rootView,mProviderDetails?.phoneNumber)
+               // CommonUtils.doSendMessageToWhatsApp(mContext, rootView,mProviderDetails?.phoneNumber)
             } else {
-                CommonUtils.showSnakeBar(rootView,getString(R.string.err_provider_contact_notfound))
+               // CommonUtils.showSnakeBar(rootView,getString(R.string.err_provider_contact_notfound))
             }
         })
 

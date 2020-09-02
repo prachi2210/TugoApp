@@ -5,7 +5,7 @@ object AppConstant {
     const val FIREBASE_SENDER_ID = "908606240987"
 
     val RC_SIGN_IN: Int = 9001
-    const val SPLASH_TIME: Long = 3000
+    const val SPLASH_TIME: Long = 2800
     const val TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss"
     const val FIREBASE_VERIFICATION_ID = "FIREBASE_VERIFICATION_ID"
     const val FIREBASE_RESEND_TOKEN = "FIREBASE_RESEND_TOKEN"
@@ -27,6 +27,7 @@ object AppConstant {
     const val BUSINESS_ID = "BUSINESS_ID"
     const val FULL_NAME = "FULL_NAME"
     const val USER_DETAIL_DATA = "USER_DETAIL_DATA"
+    const val SAMPLE_MENU_COMPANYLOGO = "SAMPLE_MENU_COMPANYLOGO"
 
 
 

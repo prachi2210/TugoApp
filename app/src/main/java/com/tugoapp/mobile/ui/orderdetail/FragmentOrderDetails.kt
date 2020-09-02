@@ -138,7 +138,8 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
         })
 
         btnReorder.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrdersDetail_to_fragmentHome)
+            var bundle = bundleOf(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL to mOrderDetailData?.businessId)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentOrdersDetail_to_fragmentProviderDetail,bundle)
         })
 
         btnWriteComment.setOnClickListener(View.OnClickListener {
@@ -253,7 +254,11 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
 
             txtTitleOrderDetail.text = mOrderDetailData?.companyName
             if (mIsHistoryDetail)  {
-                txtStatus.text = getString(R.string.txt_expired)
+                if(mOrderDetailData?.isCancelled!!) {
+                    txtStatus.text = getString(R.string.txt_cancelled)
+                } else {
+                    txtStatus.text = getString(R.string.txt_expired)
+                }
                 txtStatus.setTextColor(resources.getColor(R.color.colorRed))
             }
             else {

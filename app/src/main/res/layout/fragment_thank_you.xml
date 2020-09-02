@@ -210,7 +210,7 @@
             android:background="@drawable/rounded_border_primary"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="@dimen/margin_15"
+            android:padding="@dimen/margin_10"
             android:text="@string/txt_message_us">
 
             <ImageView

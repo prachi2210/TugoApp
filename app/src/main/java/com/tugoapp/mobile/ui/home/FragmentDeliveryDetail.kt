@@ -134,7 +134,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
                 mPlaceOrderRequestModel?.planObj?.defaultUserAddress = it.address
                 mPlaceOrderRequestModel?.address = it.address
                 txtAddress.text = it.address
-                btnEditAddress.text = getString(R.string.txt_edit_address)
+                btnEditAddress.text = getString(R.string.txt_change_address)
                 txtAddress.visibility = View.VISIBLE
             }
             Navigation.findNavController(rootView!!).previousBackStackEntry?.savedStateHandle?.remove<AddressModel>("deliveryAddress")
@@ -210,7 +210,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnPayButtonClick 
 
         if(!mPlanObject?.defaultUserAddress.isNullOrBlank()) {
             txtAddress.text = mPlanObject?.defaultUserAddress
-            btnEditAddress.text = getString(R.string.txt_edit_address)
+            btnEditAddress.text = getString(R.string.txt_change_address)
             txtAddress.visibility = View.VISIBLE
         } else {
             txtAddress.visibility = View.GONE

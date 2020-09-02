@@ -99,4 +99,8 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun bindWritecomment(): FragmentWriteAComment?
+
+
+    @ContributesAndroidInjector
+    abstract fun bindFavorites(): FragmentFavorites?
 }

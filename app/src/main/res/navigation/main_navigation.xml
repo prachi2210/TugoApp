@@ -74,6 +74,10 @@
     </fragment>
 
     <fragment
+        android:id="@+id/fragmentFavorites"
+        android:name="com.tugoapp.mobile.ui.home.FragmentFavorites"
+        android:label="@string/title_favorites"/>
+    <fragment
         android:id="@+id/fragmentHome"
         android:name="com.tugoapp.mobile.ui.home.FragmentHome"
         android:label="@string/title_home">
@@ -290,14 +294,14 @@
         android:name="com.tugoapp.mobile.ui.orderdetail.FragmentOrderDetails"
         android:label="@string/title_order_detail" >
         <action
-            android:id="@+id/action_fragmentOrdersDetail_to_fragmentHome"
-            app:destination="@id/fragmentHome"
+            android:id="@+id/action_fragmentOrdersDetail_to_fragmentProviderDetail"
+            app:destination="@id/fragmentProviderDetails"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="false"
-            app:popUpTo="@id/fragmentHome"/>
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragmentOrderDetails"/>
         <action
             android:id="@+id/action_fragmentOrdersDetail_to_fragmentWriteAComment"
             app:destination="@id/fragmentWriteAComment"

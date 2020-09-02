@@ -56,8 +56,16 @@
         <item name="android:background">@drawable/bg_rounded_border_colored</item>
         <item name="android:textSize">@dimen/size_14</item>
         <item name="android:letterSpacing">0.1</item>
-        <item name="android:paddingTop">@dimen/margin_5</item>
-        <item name="android:paddingBottom">@dimen/margin_5</item>
+        <item name="android:paddingTop">@dimen/margin_4</item>
+        <item name="android:paddingBottom">@dimen/margin_4</item>
+        <item name="android:fontFamily">@font/font_sf_pro_text_bold</item>
+    </style>
+
+    <style name="StyleButtonNextHalf" parent="android:Widget.Material.Button.Colored">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/bg_rounded_border_colored</item>
+        <item name="android:textSize">@dimen/size_13</item>
+        <item name="android:letterSpacing">0.1</item>
         <item name="android:fontFamily">@font/font_sf_pro_text_bold</item>
     </style>
 

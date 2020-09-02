@@ -106,7 +106,7 @@
                                     android:fontFamily="@font/font_raleway_semibold"
                                     android:text="@string/txt_lets_find_you_meal_plan"
                                     android:textColor="@color/screenTitleColor"
-                                    android:textSize="@dimen/size_24" />
+                                    android:textSize="@dimen/size_22" />
 
                                 <TextView
                                     style="@style/HeaderSemiMedium"

@@ -253,20 +253,23 @@
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btnPause"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="42dp"
                                 android:layout_weight="1"
                                 android:background="@drawable/rounded_border_colored_yellow"
                                 android:text="@string/txt_pause"
-                                style="@style/StyleButtonNext"
+                                android:layout_marginLeft="@dimen/margin_10"
+                                android:layout_marginRight="@dimen/margin_5"
+                                style="@style/StyleButtonNextHalf"
                                 android:textColor="@color/colorWhite" />
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btnCancel"
+                                android:layout_marginRight="@dimen/margin_10"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="42dp"
                                 android:layout_marginLeft="@dimen/margin_10"
                                 android:layout_weight="1"
-                                style="@style/StyleButtonNext"
+                                style="@style/StyleButtonNextHalf"
                                 android:background="@drawable/rounded_border_colored_red"
                                 android:text="@string/txt_cancel"
                                 android:textColor="@color/colorWhite" />
@@ -310,13 +313,13 @@
                     android:layout_marginBottom="@dimen/margin_15"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:padding="@dimen/margin_15">
+                    android:padding="@dimen/margin_12">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_border_primary"
-                        android:padding="@dimen/margin_15"
+                        android:padding="@dimen/margin_12"
                         android:gravity="center"
                         android:text="@string/txt_message_us"
                         android:orientation="horizontal">

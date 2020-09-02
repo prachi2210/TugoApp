@@ -85,6 +85,19 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/llSignUp" />
 
+                <FrameLayout
+                    android:id="@+id/FrameLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/btnDummyFbLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_15"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_10" />
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnWelcomeSignInFb"
                     style="@style/StyleButtonFb"
@@ -97,6 +110,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtOr" />
+                </FrameLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnWelcomeSignInGPlus"

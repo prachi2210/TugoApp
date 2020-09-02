@@ -37,7 +37,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_12"
                     android:textColor="@color/screenTitleColor"
                     android:textStyle="bold" />
                 <RelativeLayout
@@ -59,6 +59,13 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/HeaderMedium"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:fontFamily="@font/font_raleway_semibold"
+                    android:text="@string/txt_available_meal_plans"/>
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabMainProvidersType"
                     android:layout_width="wrap_content"
@@ -266,16 +273,16 @@
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnCustomize"
-                            style="@style/StyleButtonNext"
+                            style="@style/StyleButtonNextHalf"
                             android:textSize="@dimen/size_11"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="@dimen/margin_20"
                             android:layout_marginRight="@dimen/margin_20"
                             android:gravity="center"
-                            android:paddingLeft="@dimen/margin_15"
-                            android:paddingRight="@dimen/margin_15"
+                            android:paddingLeft="@dimen/margin_20"
+                            android:paddingRight="@dimen/margin_20"
                             android:text="@string/txt_customize" />
                     </LinearLayout>
                 </LinearLayout>

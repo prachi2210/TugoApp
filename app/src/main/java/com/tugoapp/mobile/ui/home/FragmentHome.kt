@@ -127,7 +127,7 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
 
         searchHome.clearFocus()
 
-        toolbarBrowseAllProvider?.imgBack?.visibility = View.GONE
+        toolbarBrowseAllProvider?.imgBack?.visibility = View.INVISIBLE
 
         llLetsFindMealPlan.setOnClickListener(View.OnClickListener {
             var bundle = bundleOf(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS to -1,

@@ -1,3 +1,57 @@
+<!--<resources>-->
+<!--    <dimen name="fab_margin">16dp</dimen>-->
+<!--    <dimen name="border_width">6px</dimen>-->
+<!--    <dimen name="circle_height">40dp</dimen>-->
+<!--    <dimen name="circle_width">120dp</dimen>-->
+<!--    <dimen name="menuoptions_width">185dp</dimen>-->
+<!--    <dimen name="circle_height_large">100dp</dimen>-->
+<!--    <dimen name="circle_width_large">100dp</dimen>-->
+
+<!--    <dimen name="test">20sp</dimen>-->
+
+<!--    //Text size-->
+<!--    <dimen name="size_4">6sp</dimen>-->
+<!--    <dimen name="size_8">10sp</dimen>-->
+<!--    <dimen name="size_11">13sp</dimen>-->
+<!--    <dimen name="size_12">14sp</dimen>-->
+<!--    <dimen name="size_13">15sp</dimen>-->
+<!--    <dimen name="size_14">16sp</dimen>-->
+<!--    <dimen name="size_16">18sp</dimen>-->
+<!--    <dimen name="size_18">20sp</dimen>-->
+<!--    <dimen name="size_20">22sp</dimen>-->
+<!--    <dimen name="size_22">24sp</dimen>-->
+<!--    <dimen name="size_24">26sp</dimen>-->
+<!--    <dimen name="size_26">28sp</dimen>-->
+<!--    <dimen name="size_28">30sp</dimen>-->
+<!--    <dimen name="size_30">32sp</dimen>-->
+<!--    <dimen name="size_32">34sp</dimen>-->
+<!--    <dimen name="size_40">42sp</dimen>-->
+
+
+<!--    //Margin-->
+<!--    <dimen name="margin_2">4dp</dimen>-->
+<!--    <dimen name="margin_4">6dp</dimen>-->
+<!--    <dimen name="margin_6">8dp</dimen>-->
+<!--    <dimen name="margin_8">10dp</dimen>-->
+<!--    <dimen name="margin_10">12dp</dimen>-->
+<!--    <dimen name="margin_12">14dp</dimen>-->
+<!--    <dimen name="margin_14">16dp</dimen>-->
+<!--    <dimen name="margin_16">18dp</dimen>-->
+<!--    <dimen name="margin_18">20dp</dimen>-->
+<!--    <dimen name="margin_20">22dp</dimen>-->
+<!--    <dimen name="margin_22">24dp</dimen>-->
+<!--    <dimen name="margin_24">26dp</dimen>-->
+<!--    <dimen name="margin_26">28dp</dimen>-->
+<!--    <dimen name="margin_28">30dp</dimen>-->
+<!--    <dimen name="margin_30">32dp</dimen>-->
+<!--    <dimen name="margin_32">34dp</dimen>-->
+<!--    <dimen name="margin_36">38dp</dimen>-->
+<!--    <dimen name="margin_40">42dp</dimen>-->
+
+<!--    //Image size-->
+<!--    <dimen name="image_50">60dp</dimen>-->
+
+<!--</resources>-->
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="border_width">6px</dimen>
@@ -7,48 +61,47 @@
     <dimen name="circle_height_large">100dp</dimen>
     <dimen name="circle_width_large">100dp</dimen>
 
-    <dimen name="test">20sp</dimen>
+    <dimen name="test">18sp</dimen>
 
     //Text size
-    <dimen name="size_4">6sp</dimen>
-    <dimen name="size_8">10sp</dimen>
-    <dimen name="size_11">13sp</dimen>
-    <dimen name="size_12">14sp</dimen>
-    <dimen name="size_13">15sp</dimen>
-    <dimen name="size_14">16sp</dimen>
-    <dimen name="size_16">18sp</dimen>
-    <dimen name="size_18">20sp</dimen>
-    <dimen name="size_20">22sp</dimen>
-    <dimen name="size_22">24sp</dimen>
-    <dimen name="size_24">26sp</dimen>
-    <dimen name="size_26">28sp</dimen>
-    <dimen name="size_28">30sp</dimen>
-    <dimen name="size_30">32sp</dimen>
-    <dimen name="size_32">34sp</dimen>
-    <dimen name="size_40">42sp</dimen>
+    <dimen name="size_4">4sp</dimen>
+    <dimen name="size_8">8sp</dimen>
+    <dimen name="size_11">11sp</dimen>
+    <dimen name="size_12">12sp</dimen>
+    <dimen name="size_13">13sp</dimen>
+    <dimen name="size_14">14sp</dimen>
+    <dimen name="size_16">16sp</dimen>
+    <dimen name="size_18">18sp</dimen>
+    <dimen name="size_20">20sp</dimen>
+    <dimen name="size_22">22sp</dimen>
+    <dimen name="size_24">24sp</dimen>
+    <dimen name="size_26">26sp</dimen>
+    <dimen name="size_28">28sp</dimen>
+    <dimen name="size_30">30sp</dimen>
+    <dimen name="size_32">32sp</dimen>
+    <dimen name="size_40">40sp</dimen>
 
 
     //Margin
-    <dimen name="margin_2">4dp</dimen>
-    <dimen name="margin_4">6dp</dimen>
-    <dimen name="margin_6">8dp</dimen>
-    <dimen name="margin_8">10dp</dimen>
-    <dimen name="margin_10">12dp</dimen>
-    <dimen name="margin_12">14dp</dimen>
-    <dimen name="margin_14">16dp</dimen>
-    <dimen name="margin_16">18dp</dimen>
-    <dimen name="margin_18">20dp</dimen>
-    <dimen name="margin_20">22dp</dimen>
-    <dimen name="margin_22">24dp</dimen>
-    <dimen name="margin_24">26dp</dimen>
-    <dimen name="margin_26">28dp</dimen>
-    <dimen name="margin_28">30dp</dimen>
-    <dimen name="margin_30">32dp</dimen>
-    <dimen name="margin_32">34dp</dimen>
-    <dimen name="margin_36">38dp</dimen>
-    <dimen name="margin_40">42dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_18">18dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_22">22dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_26">26dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_36">36dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
 
     //Image size
-    <dimen name="image_50">60dp</dimen>
-
+    <dimen name="image_50">50dp</dimen>
 </resources>

@@ -41,7 +41,10 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/margin_10"
                     android:hint="@string/hint_address"
-                    android:paddingLeft="@dimen/margin_10" />
+                    android:maxLines="6"
+                    android:gravity="top"
+                    android:background="@drawable/bg_card"
+                    android:padding="@dimen/margin_10" />
 
                 <CheckBox
                     android:id="@+id/cbIsDefault"
@@ -64,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10"
                     android:layout_marginBottom="@dimen/margin_30"
-                    android:text="@string/txt_btn_add_address" />
+                    android:text="@string/txt_btn_add_this_address" />
 
                 <LinearLayout
                     android:id="@+id/llEditBtnLayout"

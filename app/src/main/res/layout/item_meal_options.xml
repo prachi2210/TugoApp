@@ -25,7 +25,7 @@
             android:layout_marginRight="@dimen/margin_10"
             android:background="@drawable/bg_card"
             app:cardCornerRadius="@dimen/margin_8"
-            app:cardElevation="@dimen/margin_5">
+            app:cardElevation="@dimen/margin_2">
 
             <LinearLayout
                 android:layout_width="match_parent"
