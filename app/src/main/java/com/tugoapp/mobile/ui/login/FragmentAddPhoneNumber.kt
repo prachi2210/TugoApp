@@ -72,7 +72,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
             return
         }
 
-        if(mPhoneNumber != null) {
+        if(mIsFromEditProfile) {
             spinnerCountry.visibility = View.GONE
             edtPhone.setText(mPhoneNumber)
         } else {
@@ -161,17 +161,27 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
     }
 
     private fun doLinkAccount(credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().currentUser?.unlink("phone")?.addOnCompleteListener(OnCompleteListener {
-            FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener{
-                task ->
-                if(task.isSuccessful) {
+        if(mIsFromEditProfile) {
+            FirebaseAuth.getInstance().currentUser?.unlink("phone")?.addOnCompleteListener(OnCompleteListener {
+                FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        doUpdateServerForUserDetail()
+                    } else {
+                        CommonUtils.showSnakeBar(rootView, task.exception?.localizedMessage)
+                    }
+                    hideLoading()
+                }
+            })
+        } else {
+            FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
                     doUpdateServerForUserDetail()
                 } else {
-                    CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
+                    CommonUtils.showSnakeBar(rootView, task.exception?.localizedMessage)
                 }
                 hideLoading()
             }
-        })
+        }
     }
 
     private fun doUpdateServerForUserDetail() {
