@@ -28,7 +28,6 @@ object AppConstant {
     const val FULL_NAME = "FULL_NAME"
     const val USER_DETAIL_DATA = "USER_DETAIL_DATA"
     const val SAMPLE_MENU_COMPANYLOGO = "SAMPLE_MENU_COMPANYLOGO"
-
-
+    const val IS_FROM_EDIT_PROFILE = "IS_FROM_EDIT_PROFILE"
 
 }

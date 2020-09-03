@@ -255,6 +255,15 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/fragmentAddPhoneNumber"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_fragmentAddPhoneNumber_to_fragmentProfile"
+            app:destination="@id/fragmentProfile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentProfile"
+            app:popUpToInclusive="false"/>
     </fragment>
 
     <fragment
@@ -264,7 +273,15 @@
     <fragment
         android:id="@+id/fragmentPersonalInformation"
         android:name="com.tugoapp.mobile.ui.profile.FragmentPersonalInformation"
-        android:label="@string/txt_personal_info" />
+        android:label="@string/txt_personal_info" >
+        <action
+            android:id="@+id/action_fragmentPersonalInformation_to_fragmentAddPhoneNumber"
+            app:destination="@id/fragmentAddPhoneNumber"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/fragmentPaymentMethods"
         android:name="com.tugoapp.mobile.ui.profile.FragmentPaymentMethods"

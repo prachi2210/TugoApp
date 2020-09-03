@@ -73,7 +73,7 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
             var phoneNumber = auth.currentUser?.phoneNumber
             if(!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
                 SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
-                var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentAddPhoneNumber,bundle)
             } else if(!email.isNullOrBlank() && !phoneNumber.isNullOrBlank()) {
                 Thread(Runnable {

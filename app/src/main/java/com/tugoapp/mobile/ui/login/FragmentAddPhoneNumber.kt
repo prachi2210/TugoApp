@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -39,8 +40,9 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
     var mContext: Context? = null
     private var mResendToken : PhoneAuthProvider.ForceResendingToken? = null
     private lateinit var mVerificationId : String
-    private lateinit var mPhoneNumber : String
+    private var mPhoneNumber : String? = null
     private var mIsResend : Boolean = false
+    private var mIsFromEditProfile = false
 
     override val layoutId: Int
         get() = R.layout.fragment_add_phone_number
@@ -62,12 +64,21 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
     private fun iniUI() {
         mContext = context
         mEmailAddress = arguments?.getString(AppConstant.FIREBASE_EMAIL_ADDRESS).toString()
+        mPhoneNumber = arguments?.getString(AppConstant.FIREBASE_PHONE_NUMBER).toString()
+        mIsFromEditProfile = arguments?.getBoolean(AppConstant.IS_FROM_EDIT_PROFILE)!!
+
         if(mEmailAddress.isNullOrBlank()) {
             CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_pref_value))
             return
         }
 
-        mViewModel?.doLoadCountry()
+        if(mPhoneNumber != null) {
+            spinnerCountry.visibility = View.GONE
+            edtPhone.setText(mPhoneNumber)
+        } else {
+            spinnerCountry.visibility = View.VISIBLE
+            mViewModel?.doLoadCountry()
+        }
 
         initControls()
         initObserver()
@@ -126,7 +137,12 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
 
         mViewModel?.mIsUserDetailSubmitted?.observe(viewLifecycleOwner, Observer {
             if(it == 1) {
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentWalkthrough)
+                if(mIsFromEditProfile) {
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentProfile)
+                    CommonUtils.showSnakeBar(rootView,"User details update successfully")
+                } else {
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentWalkthrough)
+                }
             } else {
                 CommonUtils.showSnakeBar(rootView!!,getString(R.string.txt_err_fail_user_detail))
             }
@@ -145,15 +161,17 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
     }
 
     private fun doLinkAccount(credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener{
-            task ->
-            if(task.isSuccessful) {
-                doUpdateServerForUserDetail()
-            } else {
-                CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
+        FirebaseAuth.getInstance().currentUser?.unlink("phone")?.addOnCompleteListener(OnCompleteListener {
+            FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener{
+                task ->
+                if(task.isSuccessful) {
+                    doUpdateServerForUserDetail()
+                } else {
+                    CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
+                }
+                hideLoading()
             }
-            hideLoading()
-        }
+        })
     }
 
     private fun doUpdateServerForUserDetail() {
@@ -163,7 +181,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
                 Thread(Runnable {
                     try {
                         val newToken = FirebaseInstanceId.getInstance().getToken(AppConstant.FIREBASE_SENDER_ID, "FCM")
-                        mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mEmailAddress, mPhoneNumber,
+                        mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mEmailAddress, this!!.mPhoneNumber!!,
                                 SharedPrefsUtils.getStringPreference(mContext, AppConstant.FULL_NAME),
                                 FirebaseAuth.getInstance().currentUser?.uid,
                                 mContext?.let { CommonUtils.getDeviceId(it) }, newToken, "android", TimeZone.getDefault()?.displayName))
@@ -177,16 +195,20 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
     }
 
     private fun doResendToken() {
-        mIsResend = true
-        showLoading(getString(R.string.txt_resending_otp))
-        activity?.let {
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    mPhoneNumber,
-                    60,
-                    TimeUnit.SECONDS,
-                    it,
-                    mCallbacks,
-                    mResendToken)
+        if(mPhoneNumber != null) {
+            mIsResend = true
+            showLoading(getString(R.string.txt_resending_otp))
+            activity?.let {
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                        mPhoneNumber!!,
+                        60,
+                        TimeUnit.SECONDS,
+                        it,
+                        mCallbacks,
+                        mResendToken)
+            }
+        } else {
+            CommonUtils.showSnakeBar(rootView,getString(R.string.txt_err_no_phonenumber))
         }
     }
 

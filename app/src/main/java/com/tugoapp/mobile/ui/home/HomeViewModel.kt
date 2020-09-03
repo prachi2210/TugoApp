@@ -30,6 +30,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
     var mPlaceOrderResponse: SingleLiveEvent<Pair<Int?,String?>> = SingleLiveEvent()
     var mCustomFilterData: SingleLiveEvent<FilterModel> = SingleLiveEvent()
 
+    var mSubmitQueryResponse: SingleLiveEvent<Pair<Int?,String?>> = SingleLiveEvent()
 
     fun doLoadCategory() {
         FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
@@ -246,6 +247,29 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
                     override fun onResponse(call: Call<FavoriteResponseModel>, response: Response<FavoriteResponseModel>) {
                         mFavoriteData.postValue(response.body()?.data)
+                        mShowProgress.postValue(Pair(false,""))
+                    }
+
+                })
+            } else {
+                mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+
+        })
+    }
+
+    fun doSubmitQuery(submitQueryRequestModel: SubmitQueryRequestModel) {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,""))
+                mPpsApiService.doSubmitQuery(task.result?.token,submitQueryRequestModel).enqueue(object : Callback<BaseResponseModel> {
+                    override fun onFailure(call: Call<BaseResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
+                        mToastMessage.postValue(t.localizedMessage)
+                    }
+
+                    override fun onResponse(call: Call<BaseResponseModel>, response: Response<BaseResponseModel>) {
+                        mSubmitQueryResponse.postValue(Pair(response?.body()?.isSuccess,response?.body()?.message))
                         mShowProgress.postValue(Pair(false,""))
                     }
 

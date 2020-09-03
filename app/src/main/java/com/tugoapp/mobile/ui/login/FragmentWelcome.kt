@@ -101,7 +101,7 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
                     val user = auth.currentUser
                     SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
                     if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
-                        var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to user?.email)
+                        var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to user?.email)
                         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentAddPhoneNumber,bundle)
                     } else {
                         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentWalkthrough)
@@ -158,7 +158,7 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
                         }
                         SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
                         if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
-                            var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                            var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentAddPhoneNumber,bundle)
                         } else {
                             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentWalkthrough)

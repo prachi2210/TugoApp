@@ -1,17 +1,13 @@
 package com.tugoapp.mobile.ui.home
 
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -21,8 +17,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.request.SubmitQueryRequestModel
 import com.tugoapp.mobile.data.remote.model.response.GetProviderDetailsData
 import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 import com.tugoapp.mobile.ui.RootActivity
@@ -131,8 +127,35 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
                     CommonUtils.showSnakeBar(rootView!!, getString(R.string.txt_err_provider_detail_failed))
                 }
             })
+
+        mViewModel?.mSubmitQueryResponse?.observe(viewLifecycleOwner, Observer {
+            if(it.first == 1) {
+                doShowSuccessDialog(it.second)
+            } else {
+                CommonUtils.showSnakeBar(rootView,it.second)
+            }
+        })
     }
 
+    private fun doShowSuccessDialog(message: String?) {
+        val li = LayoutInflater.from(context)
+        val promptsView: View = li.inflate(R.layout.dialog_thankyou, null)
+        val alertDialogBuilder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(context)
+        alertDialogBuilder.setView(promptsView)
+        alertDialogBuilder.setCancelable(false)
+        var btnBack = promptsView.findViewById<AppCompatButton>(R.id.btnBackToHomeComment)
+        var txtMessage = promptsView.findViewById<TextView>(R.id.txtMessage)
+        btnBack.setText(R.string.done)
+        if(message != null) {
+            txtMessage.setText(message)
+        }
+        var dialog = alertDialogBuilder.create()
+
+        btnBack.setOnClickListener(View.OnClickListener {
+            dialog.dismiss()
+        })
+        dialog.show()
+    }
     private fun initControls() {
         imgSampleMenu.setOnClickListener(View.OnClickListener {
             if (mSelectedMealPlan != null && mSelectedMealPlan.sampleMenu?.size!! > 0) {
@@ -148,11 +171,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         })
         
         txtLetusKnow.setOnClickListener(View.OnClickListener {
-            if(!mProviderDetails?.phoneNumber.isNullOrBlank()) {
-               // CommonUtils.doSendMessageToWhatsApp(mContext, rootView,mProviderDetails?.phoneNumber)
-            } else {
-               // CommonUtils.showSnakeBar(rootView,getString(R.string.err_provider_contact_notfound))
-            }
+           doShowLetUsKnowDialog()
         })
 
         txtReadRating.setOnClickListener(View.OnClickListener {
@@ -165,6 +184,34 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
                     AppConstant.SELECTED_MEAL_PLAN to null, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentDeliveryDetail,bundle)
         })
+    }
+
+    private fun doShowLetUsKnowDialog() {
+        val li = LayoutInflater.from(context)
+        val promptsView: View = li.inflate(R.layout.dialog_letusknow, null)
+        val alertDialogBuilder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(context)
+        alertDialogBuilder.setView(promptsView)
+        alertDialogBuilder.setCancelable(false)
+        var txtQuery = promptsView.findViewById<EditText>(R.id.txtQuery)
+        var btnClose = promptsView.findViewById<ImageView>(R.id.imgCloseLetUsKnowDialog)
+        var btnSend = promptsView.findViewById<AppCompatButton>(R.id.btnSend)
+
+        var dialog = alertDialogBuilder.create()
+
+        btnClose.setOnClickListener(View.OnClickListener {
+            dialog.dismiss()
+        })
+
+        btnSend.setOnClickListener(View.OnClickListener {
+            if(txtQuery.text.isNullOrBlank()) {
+                txtQuery.error = "Please enter question"
+            } else {
+                mViewModel?.doSubmitQuery(SubmitQueryRequestModel(txtQuery.text.toString(),mBusinessId))
+                dialog.dismiss()
+            }
+        })
+
+        dialog.show()
     }
 
     private fun doSetProviderDetails(providerData: GetProviderDetailsData) {

@@ -266,4 +266,8 @@
     <string name="txt_change_address">(Change Address)</string>
     <string name="txt_available_meal_plans">Available meal plans</string>
     <string name="txt_no_favorites">Sorry\n No favorite provider found</string>
+    <string name="txt_send">Send</string>
+    <string name="hint_submit_query">type your quenstion here..</string>
+    <string name="txt_err_no_phonenumber">Please add valid phone number</string>
+    <string name="done">Done</string>
 </resources>

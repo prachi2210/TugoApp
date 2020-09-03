@@ -139,9 +139,9 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
         showLoading(getString(R.string.txt_please_wait))
         auth.createUserWithEmailAndPassword(email, pswd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
-                SharedPrefsUtils.setStringPreference(mContext,email,pswd)
+                //SharedPrefsUtils.setStringPreference(mContext,email,pswd)
                 SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,fullName)
-                var bundle = bundleOf(AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSignUp_to_fragmentAddPhoneNumber,bundle)
             } else {
                 com.tugoapp.mobile.utils.CommonUtils.showSnakeBar(rootView,"Authentication failed"+task.exception?.localizedMessage)

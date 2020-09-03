@@ -41,7 +41,7 @@ class FavoritesListAdapter(private val context: Context,
         holder.name.text = data.companyName
         Glide.with(context)
                 .load(data.imagePath)
-                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(30)))
+                .circleCrop()
                 .into(holder.image)
 
         holder.itemView.setOnClickListener {
