@@ -24,7 +24,17 @@
             android:id="@+id/rvFavorites"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_20"
             android:padding="@dimen/margin_10"/>
+
+        <TextView
+            android:id="@+id/emptyviewFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/HeaderMedium"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/hintColor"
+            android:text="@string/txt_no_favorites"/>
     </LinearLayout>
 </layout>

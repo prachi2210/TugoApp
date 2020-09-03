@@ -265,4 +265,5 @@
     <string name="title_favorites">Favorites</string>
     <string name="txt_change_address">(Change Address)</string>
     <string name="txt_available_meal_plans">Available meal plans</string>
+    <string name="txt_no_favorites">Sorry\n No favorite provider found</string>
 </resources>

@@ -58,5 +58,8 @@ public data class SetFavirouteProviderRequestModel(var businessId : String?)
 
 public data class LogoutRequestModel(var deviceId : String?)
 
+public data class SubmitQueryRequestModel(var queryDescription : String?,var businessId : String?)
+
+
 
 

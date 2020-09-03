@@ -12,15 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
 import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
+import com.tugoapp.mobile.data.remote.model.response.FavoriteModel
 import com.tugoapp.mobile.data.remote.model.response.ProviderModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.ui.home.adapters.BrowseByDietListAdapter
+import com.tugoapp.mobile.ui.home.adapters.FavoritesListAdapter
 import com.tugoapp.mobile.ui.home.adapters.SearchHomeListAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_browse_all_providers.*
+import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar1.view.*
 import javax.inject.Inject
@@ -70,11 +73,34 @@ class FragmentFavorites : BaseFragment<HomeViewModel?>(){
             }
         })
 
+        mViewModel?.mFavoriteData?.observe(viewLifecycleOwner, Observer {
+            if(it != null && it.size > 0) {
+                rvFavorites.visibility = View.VISIBLE
+                rvFavorites.layoutManager = LinearLayoutManager(mContext)
 
+                emptyviewFavorites.visibility = View.GONE
+                val data = ArrayList<FavoriteModel>()
+                data.addAll(it)
+                val adapter = mContext?.let {
+                    FavoritesListAdapter(it, data, object : OnListItemClickListener {
+                        override fun onListItemClick(position: Int) {
+                            var bundle = bundleOf(AppConstant.SELECTED_PROVIDER_FOR_PROVIDER_DETAIL to data[position].businessId)
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentFavorites_to_fragmentProviderDetails, bundle)
+                        }
+                    })
+                }
+                rvFavorites.adapter = adapter
+            } else {
+                rvFavorites.visibility = View.GONE
+                emptyviewFavorites.visibility = View.VISIBLE
+            }
+        })
     }
 
     private fun iniUI() {
         mContext = context
+
+        mViewModel?.doLoadFavorites()
     }
 }
 

@@ -30,5 +30,14 @@ public data class ReviewModel(var starRating : String?, var reviewText : String?
                               var userName : String, var addedOn : String?) : Parcelable{}
 
 
+public data class FavoriteResponseModel(var data : ArrayList<FavoriteModel>?) : BaseResponseModel(){}
+
+
+
+@Parcelize
+public data class FavoriteModel(var imagePath : String?, var companyName : String?, var businessId : String?) : Parcelable{}
+
+
+
 
 

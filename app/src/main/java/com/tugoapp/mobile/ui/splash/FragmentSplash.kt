@@ -56,6 +56,10 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
         auth = FirebaseAuth.getInstance()
         txtAppVersion.text = "App Version: " + getAppVersion(mContext!!)
         navigateToStartPage()
+
+        mSplashViewModel?.mIsTokenUpdate?.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
+        })
     }
 
     private fun navigateToStartPage() {
@@ -80,7 +84,6 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
                     } catch (e: IOException) {
                     }
                 }).start()
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
             }
         } else {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentWelcome)

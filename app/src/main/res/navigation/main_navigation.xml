@@ -76,7 +76,15 @@
     <fragment
         android:id="@+id/fragmentFavorites"
         android:name="com.tugoapp.mobile.ui.home.FragmentFavorites"
-        android:label="@string/title_favorites"/>
+        android:label="@string/title_favorites">
+        <action
+            android:id="@+id/action_fragmentFavorites_to_fragmentProviderDetails"
+            app:destination="@id/fragmentProviderDetails"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/fragmentHome"
         android:name="com.tugoapp.mobile.ui.home.FragmentHome"

@@ -10,12 +10,7 @@ import java.util.*
 import javax.security.auth.callback.Callback
 
 interface MerchantApiService { //
-    //    @POST("RegisterItems/GetInventoryList")
-    //    Call<GetSkuListResponseModel> doGetSKUList(@Body GetSkuListRequestModel model);
-//
-//    @POST("getCategories")
-//    Call<Get> doGetCategories(@Header String token);
-
+ 
     @POST("getCategories")
     fun doGetCategories(@Header("token") token: String?): Call<GetCategoryResponseModel>
 
@@ -90,6 +85,12 @@ interface MerchantApiService { //
 
     @POST("logout")
     fun doServerLogout(@Header("token") token: String?, @Body deviceId : LogoutRequestModel?): Call<BaseResponseModel>
+
+    @POST("getFavourites")
+    fun doGetFavorites(@Header("token") token: String?): Call<FavoriteResponseModel>
+
+    @POST("submitQuery")
+    fun doSubmitQuery(@Header("token") token: String?, @Body model : SubmitQueryRequestModel?): Call<BaseResponseModel>
 
 }
 

@@ -22,6 +22,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
     var mSearchedProvidersData: SingleLiveEvent<ArrayList<ProviderModel>> = SingleLiveEvent()
     var mProvidersDetailData: SingleLiveEvent<GetProviderDetailsData> = SingleLiveEvent()
     var mReviewModel: SingleLiveEvent<ReviewMainModel> = SingleLiveEvent()
+    var mFavoriteData: SingleLiveEvent<ArrayList<FavoriteModel>> = SingleLiveEvent()
 
 
     var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
@@ -228,6 +229,29 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
                 })
             } else {
                // mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+
+        })
+    }
+
+    fun doLoadFavorites() {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,""))
+                mPpsApiService.doGetFavorites(task.result?.token).enqueue(object : Callback<FavoriteResponseModel> {
+                    override fun onFailure(call: Call<FavoriteResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
+                        mToastMessage.postValue(t.localizedMessage)
+                    }
+
+                    override fun onResponse(call: Call<FavoriteResponseModel>, response: Response<FavoriteResponseModel>) {
+                        mFavoriteData.postValue(response.body()?.data)
+                        mShowProgress.postValue(Pair(false,""))
+                    }
+
+                })
+            } else {
+                mToastMessage.postValue(task.exception?.localizedMessage)
             }
 
         })
