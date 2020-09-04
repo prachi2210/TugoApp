@@ -37,6 +37,16 @@ object SharedPrefsUtils {
         return value
     }
 
+    fun getStringPreference(context: Context?, key: String?, defvalue : String?): String? {
+        var value: String? = null
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        if (preferences != null) {
+            value = preferences.getString(key, defvalue)
+        }
+        return value
+    }
+
+
     /**
      * Helper method to write a String value to [SharedPreferences].
      *

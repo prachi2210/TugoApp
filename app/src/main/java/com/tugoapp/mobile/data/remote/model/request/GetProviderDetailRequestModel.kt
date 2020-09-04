@@ -8,7 +8,7 @@ public data class GetProvidersRequestModel(var limit : String?,var offset : Stri
 
 public data class GetProviderDetailRequestModel(var businessId: String?) {}
 
-public data class SaveUserDetailRequestModel(var email : String?, var phone : String, var name: String?,var firebaseUserId: String?,
+public data class SaveUserDetailRequestModel(var email : String?, var phone : String?, var name: String?,var firebaseUserId: String?,
                                              var deviceId: String?,var pushToken: String?,var os: String?, var timezone: String?) {}
 
 public data class AddAddressRequestModel( var address: String?,var setDefault: Boolean? ) {}

@@ -130,7 +130,14 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
 
         auth.signInWithEmailAndPassword(email,pswd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
-                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                var phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber
+                if(!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
+                    SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
+                    var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber,bundle)
+                } else {
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                }
             } else {
                 CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
             }

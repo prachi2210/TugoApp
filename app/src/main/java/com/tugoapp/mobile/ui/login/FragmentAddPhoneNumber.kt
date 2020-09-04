@@ -191,8 +191,8 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
                 Thread(Runnable {
                     try {
                         val newToken = FirebaseInstanceId.getInstance().getToken(AppConstant.FIREBASE_SENDER_ID, "FCM")
-                        mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mEmailAddress, this!!.mPhoneNumber!!,
-                                SharedPrefsUtils.getStringPreference(mContext, AppConstant.FULL_NAME),
+                        mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mEmailAddress, mPhoneNumber,
+                                SharedPrefsUtils.getStringPreference(mContext, AppConstant.FULL_NAME, "NO-NAME"),
                                 FirebaseAuth.getInstance().currentUser?.uid,
                                 mContext?.let { CommonUtils.getDeviceId(it) }, newToken, "android", TimeZone.getDefault()?.displayName))
                     } catch (e: IOException) {
