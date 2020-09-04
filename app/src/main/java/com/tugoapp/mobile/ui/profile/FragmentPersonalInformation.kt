@@ -76,7 +76,11 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
                 if(mPersonalInfo?.userName?.equals(edtName.text.toString())!!) {
                     CommonUtils.showSnakeBar(rootView,"No information is changed!")
                 } else {
-                    doUpdateServerForUserDetail()
+                    if(!edtName.text.toString().isNullOrBlank()) {
+                        doUpdateServerForUserDetail()
+                    } else {
+                        CommonUtils.showSnakeBar(rootView,"Please fill name")
+                    }
                 }
             } else {
                 SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,name)
@@ -107,7 +111,7 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
                     try {
                         val newToken = FirebaseInstanceId.getInstance().getToken(AppConstant.FIREBASE_SENDER_ID, "FCM")
                         mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(edtEmail.text.toString(), edtPhone.text.toString(),
-                                SharedPrefsUtils.getStringPreference(mContext, AppConstant.FULL_NAME),
+                                edtName.text.toString(),
                                 FirebaseAuth.getInstance().currentUser?.uid,
                                 mContext?.let { CommonUtils.getDeviceId(it) }, newToken, "android", TimeZone.getDefault()?.displayName))
                     } catch (e: IOException) {

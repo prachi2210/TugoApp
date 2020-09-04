@@ -311,7 +311,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:padding="@dimen/margin_10">
+                        android:padding="@dimen/margin_8">
 
                         <TextView
                             style="@style/HeaderSemiMedium"

@@ -16,6 +16,7 @@ import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import com.tugoapp.mobile.utils.NetworkUtils
 import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
@@ -116,15 +117,19 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
         })
 
         llLogout.setOnClickListener(View.OnClickListener {
-            var builder = CommonUtils.showDialog(mContext, R.string.title_warning, R.string.txt_confirm_logout)
-            builder.setOnCancelListener(DialogInterface.OnCancelListener { dialog -> dialog.dismiss() })
-            builder.setPositiveButton(R.string.btn_yes){dialogInterface, which ->
-                mViewModel?.doUserLogout()
+            if (NetworkUtils.isNetworkConnected(mContext)) {
+                var builder = CommonUtils.showDialog(mContext, R.string.title_warning, R.string.txt_confirm_logout)
+                builder.setOnCancelListener(DialogInterface.OnCancelListener { dialog -> dialog.dismiss() })
+                builder.setPositiveButton(R.string.btn_yes) { dialogInterface, which ->
+                    mViewModel?.doUserLogout()
+                }
+                builder.setNegativeButton(R.string.btn_no) { dialogInterface, which ->
+                    dialogInterface.dismiss()
+                }
+                builder.create().show()
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_no_internet))
             }
-            builder.setNegativeButton(R.string.btn_no){dialogInterface, which ->
-                dialogInterface.dismiss()
-            }
-            builder.create().show()
         })
 
         doSetSwitchCallbacks(true)
