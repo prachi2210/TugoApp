@@ -73,7 +73,7 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
         googleSignInClient = GoogleSignIn.getClient(mContext!!, gso)
         mFacebookCallbackManager = CallbackManager.Factory.create()
         btnWelcomeSignInFb.setOnClickListener(View.OnClickListener {
-            btnDummyFbLogin.performClick()
+           // btnDummyFbLogin.performClick()
         })
         btnDummyFbLogin.setReadPermissions(listOf("email"))
         btnDummyFbLogin.registerCallback(mFacebookCallbackManager, object : FacebookCallback<LoginResult> {

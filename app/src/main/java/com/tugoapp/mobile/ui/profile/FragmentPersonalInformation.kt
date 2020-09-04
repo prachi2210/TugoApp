@@ -96,7 +96,7 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
 
         mViewModel?.mIsUserDetailSubmitted?.observe(viewLifecycleOwner, Observer {
             if(it == 1) {
-               Navigation.findNavController(rootView!!).popBackStack()
+               Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentPersonalInformation_to_fragmentProfile)
             } else {
                 CommonUtils.showSnakeBar(rootView!!,getString(R.string.txt_err_fail_user_detail))
             }

@@ -132,6 +132,24 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
             }
         })
 
+        llTermsAndConditionInfo.setOnClickListener(View.OnClickListener {
+            if(NetworkUtils.isNetworkConnected(mContext)) {
+                var bundle = bundleOf(AppConstant.IS_FROM_TERMS_COND to true)
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProfile_to_fragmentWebview,bundle)
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_no_internet))
+            }
+        })
+
+        llPrivacyPolicyInfo.setOnClickListener(View.OnClickListener {
+            if(NetworkUtils.isNetworkConnected(mContext)) {
+                var bundle = bundleOf(AppConstant.IS_FROM_TERMS_COND to false)
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProfile_to_fragmentWebview,bundle)
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_no_internet))
+            }
+        })
+
         doSetSwitchCallbacks(true)
     }
 

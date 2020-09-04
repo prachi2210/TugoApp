@@ -381,12 +381,85 @@
                 android:layout_marginLeft="@dimen/margin_25"
                 android:background="@color/grey"/>
 
+
+            <LinearLayout
+                android:id="@+id/llPrivacyPolicyInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_15"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_privacy" />
+
+                <TextView
+                    style="@style/ProfileHeaderStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="@string/txt_privacy_policy" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:src="@drawable/ic_forward" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginLeft="@dimen/margin_25"
+                android:background="@color/grey"/>
+
+            <LinearLayout
+                android:id="@+id/llTermsAndConditionInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_15"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_tc" />
+
+                <TextView
+                    style="@style/ProfileHeaderStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="@string/txt_terms_condition" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:src="@drawable/ic_forward" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_25"
+                android:background="@color/grey"/>
+
             <LinearLayout
                 android:id="@+id/llLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_25"
                 android:layout_marginBottom="@dimen/margin_30"
                 android:layout_marginRight="@dimen/margin_10"
                 android:orientation="horizontal">

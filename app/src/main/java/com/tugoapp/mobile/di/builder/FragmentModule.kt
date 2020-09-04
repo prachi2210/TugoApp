@@ -103,4 +103,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun bindFavorites(): FragmentFavorites?
+
+    @ContributesAndroidInjector
+    abstract fun bindwebview(): FragmentWebview?
 }

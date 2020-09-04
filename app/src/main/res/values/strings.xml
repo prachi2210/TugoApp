@@ -271,4 +271,6 @@
     <string name="txt_err_no_phonenumber">Please add valid phone number</string>
     <string name="done">Done</string>
     <string name="txt_no_internet">Please check your internet connection</string>
+    <string name="txt_privacy_policy">Privacy Policy</string>
+    <string name="txt_terms_condition">Terms &amp; Conditions</string>
 </resources>

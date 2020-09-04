@@ -178,6 +178,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentWebview"
+            app:destination="@id/fragmentWebview"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentWalkthrough"
@@ -277,6 +284,13 @@
         <action
             android:id="@+id/action_fragmentPersonalInformation_to_fragmentAddPhoneNumber"
             app:destination="@id/fragmentAddPhoneNumber"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentPersonalInformation_to_fragmentProfile"
+            app:destination="@id/fragmentProfile"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -478,4 +492,8 @@
             app:popUpToInclusive="false"
             app:popUpTo="@id/fragmentHome"/>
     </fragment>
+    <fragment
+        android:id="@+id/fragmentWebview"
+        android:name="com.tugoapp.mobile.ui.profile.FragmentWebview"
+        android:label="FragmentWebview" />
 </navigation>
