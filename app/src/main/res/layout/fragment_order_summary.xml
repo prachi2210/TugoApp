@@ -2,11 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWhite">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -15,10 +10,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="@dimen/margin_10">
+                android:padding="@dimen/margin_20">
 
                 <TextView
                     style="@style/HeaderLarge"
@@ -220,5 +214,4 @@
                 android:layout_marginBottom="@dimen/margin_15"
                 android:text="@string/txt_choose_payment_method" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 </layout>

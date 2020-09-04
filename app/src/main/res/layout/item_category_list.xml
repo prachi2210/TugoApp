@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:id="@+id/imgBrowseByDiet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_rounded_border_colored"
-        android:backgroundTint="@color/grey"
-        android:paddingLeft="@dimen/margin_30"
-        android:paddingRight="@dimen/margin_30"
-        android:paddingTop="@dimen/margin_5"
-        android:paddingBottom="@dimen/margin_5"
-        android:layout_marginLeft="@dimen/margin_10">
        <TextView
           android:id="@+id/txtCategoryName"
            android:layout_width="wrap_content"
@@ -24,6 +10,12 @@
            android:fontFamily="@font/font_raleway_regular"
            android:textColor="@color/color999999"
            android:layout_height="wrap_content"
-          style="@style/HeaderSemiMedium"/>
-    </LinearLayout>
+           android:layout_marginLeft="@dimen/margin_10"
+           android:paddingLeft="@dimen/margin_25"
+           android:paddingRight="@dimen/margin_25"
+           android:paddingTop="@dimen/margin_6"
+           android:backgroundTint="@color/grey"
+           android:paddingBottom="@dimen/margin_6"
+           android:background="@drawable/rounded_border_primary_delivers_on"
+           style="@style/HeaderSemiMedium"/>
 </layout>

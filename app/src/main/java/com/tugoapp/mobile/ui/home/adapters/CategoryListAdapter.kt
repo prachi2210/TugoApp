@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tugoapp.mobile.R
@@ -44,7 +45,7 @@ class CategoryListAdapter(private val context: Context,
             holder.categoryName.setTextColor(context.getColor(R.color.color999999))
         }
 
-        holder.itemView.setOnClickListener {
+        holder.categoryName.setOnClickListener {
             cellClickListener.onListItemClick(position)
             selectedCategoryIndex = position;
             notifyDataSetChanged()

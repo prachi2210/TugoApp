@@ -39,12 +39,12 @@
                     android:id="@+id/edtLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="@dimen/margin_10"
                     android:hint="@string/hint_address"
                     android:maxLines="6"
                     android:gravity="top"
+                    android:backgroundTint="@color/bgColor"
                     android:background="@drawable/bg_card"
-                    android:padding="@dimen/margin_10" />
+                    android:padding="@dimen/margin_15" />
 
                 <CheckBox
                     android:id="@+id/cbIsDefault"

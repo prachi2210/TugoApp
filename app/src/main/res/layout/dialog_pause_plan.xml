@@ -48,7 +48,7 @@
              android:textAllCaps="true"
              android:padding="@dimen/margin_10"
              android:gravity="center"
-             style="@style/HeaderMedium"
+             style="@style/HeaderSmall"
              android:textColor="@color/colorPrimary"
              android:background="@drawable/rounded_border_colored_empty"
             android:text="@string/txt_never_mind" />
@@ -60,7 +60,7 @@
              android:layout_weight="1"
              android:padding="@dimen/margin_10"
              android:gravity="center"
-             style="@style/HeaderMedium"
+             style="@style/HeaderSmall"
              android:layout_marginLeft="@dimen/margin_10"
              android:text="@string/txt_pause_plan"/>
       </LinearLayout>

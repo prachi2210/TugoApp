@@ -194,14 +194,13 @@
                     style="@style/StyleButtonGPlus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_20"
                     android:layout_marginTop="@dimen/margin_12"
-                    android:layout_marginBottom="@dimen/margin_10"
                     android:drawableLeft="@drawable/ic_gplus"
                     android:paddingLeft="@dimen/margin_10"
-                    android:text="@string/txt_connect_with_google"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnWelcomeSignInFb" />
+                    android:paddingTop="@dimen/margin_4"
+                    android:paddingBottom="@dimen/margin_4"
+                    android:text="@string/txt_connect_with_google" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -14,6 +14,8 @@ import com.tugoapp.mobile.data.remote.model.response.GetCountryCodesResponseMode
 import com.tugoapp.mobile.data.remote.model.response.GetProvidersResponseModel
 import com.tugoapp.mobile.ui.base.BaseViewModel
 import com.tugoapp.mobile.ui.base.SingleLiveEvent
+import com.tugoapp.mobile.utils.CommonUtils
+import com.tugoapp.mobile.utils.NetworkUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,38 +31,46 @@ class AddPhoneNumberViewModel(application: Application?, private val mPpsApiServ
 
 
     fun doSaveUserDetailOnServer(token: String?, saveUserDetailRequestModel: SaveUserDetailRequestModel) {
-        mPpsApiService.doSaveUserDetail(token,saveUserDetailRequestModel).enqueue(object : Callback<BaseResponseModel> {
-            override fun onFailure(call: Call<BaseResponseModel>?, t: Throwable?) {
-                mToastMessage.postValue(t?.localizedMessage)
-            }
+        if(NetworkUtils.isNetworkConnected(mApplicationContext)) {
+            mPpsApiService.doSaveUserDetail(token, saveUserDetailRequestModel).enqueue(object : Callback<BaseResponseModel> {
+                override fun onFailure(call: Call<BaseResponseModel>?, t: Throwable?) {
+                    mToastMessage.postValue(t?.localizedMessage)
+                }
 
-            override fun onResponse(call: Call<BaseResponseModel>?, response: Response<BaseResponseModel>?) {
-                mIsUserDetailSubmitted.postValue(response?.body()?.isSuccess)
-            }
+                override fun onResponse(call: Call<BaseResponseModel>?, response: Response<BaseResponseModel>?) {
+                    mIsUserDetailSubmitted.postValue(response?.body()?.isSuccess)
+                }
 
-        })
+            })
+        } else {
+            mToastMessage.postValue(mApplicationContext.getString(R.string.txt_no_internet))
+        }
     }
 
     fun doLoadCountry() {
-        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
-            if (task.isSuccessful) {
-                mShowProgress.postValue(Pair(true,""))
-                mPpsApiService.doGetCountryCodes().enqueue(object : Callback<GetCountryCodesResponseModel> {
-                    override fun onFailure(call: Call<GetCountryCodesResponseModel>, t: Throwable) {
-                        mShowProgress.postValue(Pair(false,""))
-                        mToastMessage.postValue(t.localizedMessage)
-                    }
+        if (NetworkUtils.isNetworkConnected(mApplicationContext)) {
+            FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    mShowProgress.postValue(Pair(true, ""))
+                    mPpsApiService.doGetCountryCodes().enqueue(object : Callback<GetCountryCodesResponseModel> {
+                        override fun onFailure(call: Call<GetCountryCodesResponseModel>, t: Throwable) {
+                            mShowProgress.postValue(Pair(false, ""))
+                            mToastMessage.postValue(t.localizedMessage)
+                        }
 
-                    override fun onResponse(call: Call<GetCountryCodesResponseModel>, response: Response<GetCountryCodesResponseModel>) {
-                        mCountryData.postValue(response.body()?.data)
-                        mShowProgress.postValue(Pair(false,""))
-                    }
+                        override fun onResponse(call: Call<GetCountryCodesResponseModel>, response: Response<GetCountryCodesResponseModel>) {
+                            mCountryData.postValue(response.body()?.data)
+                            mShowProgress.postValue(Pair(false, ""))
+                        }
 
-                })
-            } else {
-                mToastMessage.postValue(task.exception?.localizedMessage)
-            }
-        })
+                    })
+                } else {
+                    mToastMessage.postValue(task.exception?.localizedMessage)
+                }
+            })
+        } else {
+            mToastMessage.postValue(mApplicationContext.getString(R.string.txt_no_internet))
+        }
     }
 
 }

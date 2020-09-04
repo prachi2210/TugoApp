@@ -227,7 +227,7 @@
     <string name="err_select_plan">Please select one plan</string>
     <string name="txt_resume_plan">Resume Plan</string>
     <string name="txt_paused">Paused</string>
-    <string name="txt_cancel_plan">cancel Plan</string>
+    <string name="txt_cancel_plan">Cancel Plan</string>
     <string name="txt_header_cancel_order">Are you sure you want to cancel thi plan?</string>
     <string name="txt_cancelled">cancelled</string>
     <string name="txt_min">Min\n%s AED</string>
@@ -270,4 +270,5 @@
     <string name="hint_submit_query">type your quenstion here..</string>
     <string name="txt_err_no_phonenumber">Please add valid phone number</string>
     <string name="done">Done</string>
+    <string name="txt_no_internet">Please check your internet connection</string>
 </resources>
