@@ -8,7 +8,8 @@ import java.util.concurrent.TimeUnit
 
 object ApiConstants {
     const val URL_PRODUCTION = "http://ec2-3-250-78-117.eu-west-1.compute.amazonaws.com/tugoapp-web-backend/api/"
-    var BASE_URL = URL_PRODUCTION
+    const val URL_STAGING = "https://staging-admin.tugo.ae/api/"
+    var BASE_URL = URL_STAGING
     const val CONNECT_TIMEOUT: Long = 120000
     const val READ_TIMEOUT: Long = 120000
     const val WRITE_TIMEOUT: Long = 120000
