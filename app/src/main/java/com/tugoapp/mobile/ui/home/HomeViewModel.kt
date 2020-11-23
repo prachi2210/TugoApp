@@ -10,7 +10,9 @@ import com.tugoapp.mobile.data.remote.model.request.*
 import com.tugoapp.mobile.data.remote.model.response.*
 import com.tugoapp.mobile.ui.base.BaseViewModel
 import com.tugoapp.mobile.ui.base.SingleLiveEvent
+import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.NetworkUtils
+import com.tugoapp.mobile.utils.SharedPrefsUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,10 +29,14 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
     var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
     var mShowProgress: SingleLiveEvent<Pair<Boolean,String>> = SingleLiveEvent()
-    var mPlaceOrderResponse: SingleLiveEvent<Pair<Int?,String?>> = SingleLiveEvent()
+    var mPlaceOrderResponse: SingleLiveEvent<Pair<Int?,BaseResponseModel?>> = SingleLiveEvent()
     var mCustomFilterData: SingleLiveEvent<FilterModel> = SingleLiveEvent()
 
+    var mIsPaymentConfigInfoUpdated: SingleLiveEvent<Boolean> = SingleLiveEvent()
+
+
     var mSubmitQueryResponse: SingleLiveEvent<Pair<Int?,String?>> = SingleLiveEvent()
+
 
     fun doLoadCategory() {
         if (NetworkUtils.isNetworkConnected(mApplicationContext)) {
@@ -152,7 +158,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
                         }
 
                         override fun onResponse(call: Call<BaseResponseModel>, response: Response<BaseResponseModel>) {
-                            mPlaceOrderResponse.postValue(Pair(response.body()?.isSuccess, response.body()?.message))
+                            mPlaceOrderResponse.postValue(Pair(response.body()?.isSuccess, response.body()))
                             mShowProgress.postValue(Pair(false, ""))
                         }
                     })
@@ -323,6 +329,33 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
         } else {
             mToastMessage.postValue(mApplicationContext.getString(R.string.txt_no_internet))
         }
+    }
+
+    fun doGetPaymentConfigs() {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mShowProgress.postValue(Pair(true,""))
+                mPpsApiService.doGetPaymentConfig(task.result?.token).enqueue(object : Callback<PaymentConfigResponseModel> {
+                    override fun onFailure(call: Call<PaymentConfigResponseModel>, t: Throwable) {
+                        mShowProgress.postValue(Pair(false,""))
+                    }
+
+                    override fun onResponse(call: Call<PaymentConfigResponseModel>, response: Response<PaymentConfigResponseModel>) {
+                        if(response?.body() != null && response.isSuccessful) {
+                            SharedPrefsUtils.setStringPreference(mApplicationContext, AppConstant.PAYMENT_CONFIG_INFO,response.body()?.data.toString())
+                            mIsPaymentConfigInfoUpdated.postValue(true)
+                        } else {
+                            mIsPaymentConfigInfoUpdated.postValue(false)
+                        }
+                        mShowProgress.postValue(Pair(false,""))
+                    }
+                })
+            } else {
+                mShowProgress.postValue(Pair(false,""))
+                mToastMessage.postValue(task.exception?.localizedMessage)
+            }
+
+        })
     }
 
 

@@ -1,7 +1,6 @@
 package com.tugoapp.mobile.utils
 
 object AppConstant {
-
     const val FIREBASE_SENDER_ID = "908606240987"
 
     val RC_SIGN_IN: Int = 9001
@@ -30,5 +29,7 @@ object AppConstant {
     const val SAMPLE_MENU_COMPANYLOGO = "SAMPLE_MENU_COMPANYLOGO"
     const val IS_FROM_EDIT_PROFILE = "IS_FROM_EDIT_PROFILE"
     const val IS_FROM_TERMS_COND = "IS_FROM_TERMS_COND"
+    const val PAYMENT_CONFIG_INFO = "PAYMENT_CONFIG_INFO"
+
 
 }

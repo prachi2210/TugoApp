@@ -4,10 +4,9 @@ import com.tugoapp.mobile.data.remote.model.request.*
 import com.tugoapp.mobile.data.remote.model.response.*
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
-import java.util.*
-import javax.security.auth.callback.Callback
 
 interface MerchantApiService { //
  
@@ -91,6 +90,9 @@ interface MerchantApiService { //
 
     @POST("submitQuery")
     fun doSubmitQuery(@Header("token") token: String?, @Body model : SubmitQueryRequestModel?): Call<BaseResponseModel>
+
+    @GET("getPaymentConfig")
+    fun doGetPaymentConfig(@Header("token") token: String?): Call<PaymentConfigResponseModel>
 
 }
 

@@ -134,6 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/margin_10"
                 android:orientation="horizontal">
 
@@ -174,6 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin_10"
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/margin_25"
                 android:background="@color/grey"/>
             <LinearLayout

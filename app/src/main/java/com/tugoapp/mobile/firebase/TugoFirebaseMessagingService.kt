@@ -20,6 +20,7 @@ class TugoFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+
         println("$tag token --> $token")
     }
 

@@ -204,7 +204,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChoosePaymentMethod"
+                android:id="@+id/btnPay"
                 style="@style/StyleButtonNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,6 +212,6 @@
                 android:layout_marginTop="@dimen/margin_25"
                 android:layout_marginRight="@dimen/margin_10"
                 android:layout_marginBottom="@dimen/margin_15"
-                android:text="@string/txt_choose_payment_method" />
+                android:text="@string/txt_pay" />
         </LinearLayout>
 </layout>
