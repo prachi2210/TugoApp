@@ -168,7 +168,7 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             llMainView.visibility = View.GONE
             rvBrowseAllProviders.visibility = View.VISIBLE
             llEmptyViewProvider.visibility = View.GONE
-            mViewModel?.doSearchTerm(GetProvidersRequestModel(null,null,null,newText))
+            mViewModel?.doSearchTerm(GetProvidersRequestModel(null,null,null,newText,CommonUtils.doGetLocation(mContext)))
         }
         return false;
     }

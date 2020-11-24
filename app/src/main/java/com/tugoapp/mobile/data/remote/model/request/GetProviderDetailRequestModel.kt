@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 
-public data class GetProvidersRequestModel(var limit : String?,var offset : String?,var categoryIds: String?, var searchTerm : String?) {}
+public data class GetProvidersRequestModel(var limit : String?,var offset : String?,var categoryIds: String?, var searchTerm : String?,var location : String?) {}
 
 public data class GetProviderDetailRequestModel(var businessId: String?) {}
 

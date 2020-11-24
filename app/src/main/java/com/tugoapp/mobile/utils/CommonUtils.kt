@@ -141,4 +141,14 @@ object CommonUtils {
             showSnakeBar(view,context.getString(R.string.whatsapp_not_found))
         }
     }
+
+    fun doGetLocation(mContext: Context?): String? {
+        val location = SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_SELECTED_LOCATION)
+        if(location.isNullOrEmpty()) {
+            val locations = mContext?.getResources()?.getStringArray(R.array.locations);
+            return locations?.get(0)
+        } else {
+            return location
+        }
+    }
 }

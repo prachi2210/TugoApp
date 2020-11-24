@@ -293,6 +293,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
     private fun doSetOrderSummary(view: View) {
         view.txtPlanName?.text = mPlanObject?.title
         view.txtPlanDetail?.text = mPlanObject?.description
+        view.deliveryDaysSummary?.text = mPlanObject?.deliveryDays
 
         if (mIsTrialMeal) {
             view.txtPlanSub?.text = mPlanObject?.trialPlanDescription
@@ -359,11 +360,8 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         super.onResume()
         if(isNavigationRequired) {
             isNavigationRequired = false
-
             var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan,AppConstant.SELECTED_PLAN_OBJECT to mPlanObject,
                     AppConstant.START_DATE_FOR_THANKYOU to mPlaceOrderRequestModel?.startFrom,AppConstant.SELECTED_MEAL_PLAN_TRIAL to mIsTrialMeal)
-
-
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentThankYou,bundle)
         }
     }

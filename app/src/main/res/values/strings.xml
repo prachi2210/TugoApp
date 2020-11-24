@@ -278,7 +278,7 @@
     <string name="txt_kcal">Kcal</string>
 
 
-    <array name="locations">
+    <string-array name="locations">
         <item>Abu dhabi</item>
         <item>Ajman</item>
         <item>Al Fujayrah</item>
@@ -286,5 +286,5 @@
         <item>Ra\'s al Khaymah</item>
         <item>Sharjah</item>
         <item>Umm al Qaywayn</item>
-    </array>
+    </string-array>
 </resources>

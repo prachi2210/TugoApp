@@ -132,10 +132,10 @@ class FragmentBrowseAllProviders : BaseFragment<HomeViewModel?>() {
                 CategoryListAdapter(it, categoryData, object : OnListItemClickListener {
                     override fun onListItemClick(position: Int) {
                         if (position == 0) {
-                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null))
+                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, null, null,CommonUtils.doGetLocation(mContext)))
                         } else {
                             rvCategoryList.scrollToPosition(position)
-                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId, null))
+                            mViewModel?.doLoadProviders(GetProvidersRequestModel(null, null, categoryData.get(position).categoryId, null,CommonUtils.doGetLocation(mContext)))
                         }
                     }
                 }, mSelectedCategory + 1 )
