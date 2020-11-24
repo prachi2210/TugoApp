@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,12 +22,13 @@ import com.tugoapp.mobile.ui.home.adapters.BrowseByDietListAdapter
 import com.tugoapp.mobile.ui.home.adapters.SearchHomeListAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_browse_all_providers.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar1.view.*
 import javax.inject.Inject
 
-class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.SearchView.OnQueryTextListener{
+class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.SearchView.OnQueryTextListener, AdapterView.OnItemSelectedListener {
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
@@ -134,6 +137,22 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
                     AppConstant.ALL_CATEGORY_FOR_PROVIDERS to null)
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders,bundle)
         })
+
+        val adapter = ArrayAdapter.createFromResource(
+                mContext,
+                R.array.locations,
+                android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(R.layout.item_location)
+        locationSpinner.adapter = adapter
+        locationSpinner.onItemSelectedListener = this
+
+        var currentSelectedLocation = SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_SELECTED_LOCATION)
+        if(!currentSelectedLocation.isNullOrEmpty()) {
+            locationSpinner.setSelection(adapter.getPosition(currentSelectedLocation))
+        } else {
+            locationSpinner.setSelection(0)
+        }
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -152,6 +171,14 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             mViewModel?.doSearchTerm(GetProvidersRequestModel(null,null,null,newText))
         }
         return false;
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        SharedPrefsUtils.setStringPreference(mContext,AppConstant.PREF_KEY_SELECTED_LOCATION,locationSpinner.selectedItem.toString())
     }
 }
 

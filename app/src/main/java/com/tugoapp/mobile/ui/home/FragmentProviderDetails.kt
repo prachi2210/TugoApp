@@ -12,20 +12,27 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.request.GetProvidersRequestModel
 import com.tugoapp.mobile.data.remote.model.request.SubmitQueryRequestModel
+import com.tugoapp.mobile.data.remote.model.response.CategoryDetailModel
 import com.tugoapp.mobile.data.remote.model.response.GetProviderDetailsData
 import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 import com.tugoapp.mobile.ui.RootActivity
 import com.tugoapp.mobile.ui.base.BaseFragment
+import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.ui.home.adapters.CategoryListAdapter
+import com.tugoapp.mobile.ui.home.adapters.PlanListAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import kotlinx.android.synthetic.main.fragment_browse_all_providers.*
 import kotlinx.android.synthetic.main.fragment_provider_details.*
 import javax.inject.Inject
 
@@ -216,12 +223,13 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
 
     private fun doSetProviderDetails(providerData: GetProviderDetailsData) {
         mProviderDetails = providerData
+        val planList = ArrayList<String>()
         (activity as RootActivity).supportActionBar?.title = providerData.companyName
-        tabMainProvidersType.removeAllTabs()
+        rvPlanList.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         if (providerData.planData != null && providerData.planData!!.size > 0) {
             mMealPlanList = providerData.planData!!
             for (planDetail in providerData.planData!!) {
-                tabMainProvidersType.addTab(tabMainProvidersType.newTab().setText(planDetail.title))
+                planDetail.title?.let { planList.add(it) }
             }
 
             mSelectedMealPlan = providerData.planData!![0]
@@ -229,28 +237,22 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             mSelectedMealPlan.defaultUserAddress = providerData.defaultUserAddress
             mSelectedMealPlan.phoneNumber = providerData?.phoneNumber
 
-            doSetTabDetails()
-
-            tabMainProvidersType.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    if (providerData.planData!!.size > tab.position) {
-                        mSelectedMealPlan = providerData.planData!![tab.position]
-                        mSelectedMealPlan.addressId = providerData.addressId
-                        mSelectedMealPlan.phoneNumber = providerData?.phoneNumber
-                        mSelectedMealPlan.defaultUserAddress = providerData.defaultUserAddress
-                        doSetTabDetails()
+            val adapter = mContext?.let {
+                PlanListAdapter(it, planList, object : OnListItemClickListener {
+                    override fun onListItemClick(position: Int) {
+                        if (providerData.planData!!.size > position) {
+                            mSelectedMealPlan = providerData.planData!![position]
+                            mSelectedMealPlan.addressId = providerData.addressId
+                            mSelectedMealPlan.phoneNumber = providerData?.phoneNumber
+                            mSelectedMealPlan.defaultUserAddress = providerData.defaultUserAddress
+                            doSetTabDetails()
+                        }
                     }
-                }
+                }, 0)
+            }
+            rvPlanList.adapter = adapter
 
-                override fun onTabUnselected(tab: TabLayout.Tab) {
-
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab) {
-
-                }
-            })
-
+            doSetTabDetails()
             tabInfoLocation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     doSetInfoOrLocationData(tab.position)
@@ -292,9 +294,14 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
     private fun doSetInfoOrLocationData(position: Int) {
         if (mSelectedMealPlan != null) {
             if (position == 0) {
+                txtInfoDeliveryLocation.visibility = View.VISIBLE
+                llNutriInfo.visibility = View.GONE
                 txtInfoDeliveryLocation.text = mSelectedMealPlan.description
             } else {
-                txtInfoDeliveryLocation.text = mSelectedMealPlan.locations
+                llNutriInfo.visibility = View.VISIBLE
+                txtInfoDeliveryLocation.visibility = View.GONE
+                txtPerMealNutri.text = mSelectedMealPlan.avgMeal
+                txtPerDayNutri.text = mSelectedMealPlan.avgDay
             }
         }
     }

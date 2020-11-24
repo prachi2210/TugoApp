@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.data.remote.model.request.*
@@ -342,7 +343,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
                     override fun onResponse(call: Call<PaymentConfigResponseModel>, response: Response<PaymentConfigResponseModel>) {
                         if(response?.body() != null && response.isSuccessful) {
-                            SharedPrefsUtils.setStringPreference(mApplicationContext, AppConstant.PAYMENT_CONFIG_INFO,response.body()?.data.toString())
+                            SharedPrefsUtils.setStringPreference(mApplicationContext, AppConstant.PAYMENT_CONFIG_INFO, Gson().toJson(response.body()?.data))
                             mIsPaymentConfigInfoUpdated.postValue(true)
                         } else {
                             mIsPaymentConfigInfoUpdated.postValue(false)

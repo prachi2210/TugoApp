@@ -90,42 +90,42 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
                 txtMin.text = String.format(getString(R.string.txt_min), it.minimumPrice)
                 txtMax.text = String.format(getString(R.string.txt_max), it.maximumPrice)
 
-                if (it.numOfMeals != null && it.numOfMeals?.size!! > 0) {
-                    rvMinimalMealsList.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+//                if (it.numOfMeals != null && it.numOfMeals?.size!! > 0) {
+//                    rvMinimalMealsList.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+//
+//                    val dataMinMeal = ArrayList<String>()
+//                    dataMinMeal.addAll(it.numOfMeals!!)
+//
+//                    val dataMinMealAdapter = mContext?.let {
+//                        CustomizeMealListAdapter(it, dataMinMeal, object : OnListItemClickListener {
+//                            override fun onListItemClick(position: Int) {
+//                                mNoOfmeals = dataMinMeal[position]
+//                            }
+//                        })
+//                    }
+//                    rvMinimalMealsList.adapter = dataMinMealAdapter
+//                }
 
-                    val dataMinMeal = ArrayList<String>()
-                    dataMinMeal.addAll(it.numOfMeals!!)
-
-                    val dataMinMealAdapter = mContext?.let {
-                        CustomizeMealListAdapter(it, dataMinMeal, object : OnListItemClickListener {
-                            override fun onListItemClick(position: Int) {
-                                mNoOfmeals = dataMinMeal[position]
-                            }
-                        })
-                    }
-                    rvMinimalMealsList.adapter = dataMinMealAdapter
-                }
-
-                if (it.allLocations != null && it.allLocations?.size!! > 0) {
-                    rvDeliversTo.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-                    val dataModels = ArrayList<CustomizeListModel>()
-                    for(data in it.allLocations!!) {
-                        dataModels.add(CustomizeListModel(data,false))
-                    }
-
-                    val adapter = mContext?.let {
-                        CustomizeListAdapter(it, dataModels, object : OnListItemClickListener {
-                            override fun onListItemClick(position: Int) {
-                                if(dataModels[position].isSelected) {
-                                    dataModels[position].value?.let { it1 -> mLocation?.add(it1) }
-                                } else {
-                                    mLocation?.remove(dataModels[position].value)
-                                }
-                            }
-                        })
-                    }
-                    rvDeliversTo.adapter = adapter
-                }
+//                if (it.allLocations != null && it.allLocations?.size!! > 0) {
+//                    rvDeliversTo.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+//                    val dataModels = ArrayList<CustomizeListModel>()
+//                    for(data in it.allLocations!!) {
+//                        dataModels.add(CustomizeListModel(data,false))
+//                    }
+//
+//                    val adapter = mContext?.let {
+//                        CustomizeListAdapter(it, dataModels, object : OnListItemClickListener {
+//                            override fun onListItemClick(position: Int) {
+//                                if(dataModels[position].isSelected) {
+//                                    dataModels[position].value?.let { it1 -> mLocation?.add(it1) }
+//                                } else {
+//                                    mLocation?.remove(dataModels[position].value)
+//                                }
+//                            }
+//                        })
+//                    }
+//                    rvDeliversTo.adapter = adapter
+//                }
             }
         })
     }
@@ -134,7 +134,7 @@ class FragmentCustomizePlan : BaseFragment<HomeViewModel?>() {
         imgClose.setOnClickListener(View.OnClickListener { Navigation.findNavController(rootView!!).popBackStack() })
 
         btnUpdate.setOnClickListener(View.OnClickListener {
-            mViewModel?.doGetCustomFilterProviders(GetFilterProviderRequestModel(mMinRange,mMaxRange, mNoOfmeals, mLocation , mIsTrialMeal))
+            mViewModel?.doGetCustomFilterProviders(GetFilterProviderRequestModel(mMaxRange,mMinRange,mNoOfmeals, mLocation , mIsTrialMeal))
             Navigation.findNavController(rootView!!).popBackStack()
         })
 

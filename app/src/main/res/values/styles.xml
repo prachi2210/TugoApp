@@ -283,5 +283,9 @@
         <item name="android:textSize">@dimen/size_14</item>
     </style>
 
+    <style name="StyleLocationSpinner"  parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/bg_spinner</item>
+    </style>
+
     <color name="colorD8D8D8">#D8D8D8</color>
 </resources>

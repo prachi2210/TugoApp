@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:singleLine="true"
+    android:fontFamily="@font/font_raleway_regular"
+    android:layout_width="match_parent"
+    android:textSize="@dimen/size_16"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_10"
+    android:ellipsize="marquee"/>

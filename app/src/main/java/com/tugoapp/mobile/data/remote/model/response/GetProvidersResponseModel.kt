@@ -25,7 +25,7 @@ public data class MealPlanModel(var title : String?, var description : String?, 
                                 var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trialPlanDays : String,
                                 var trialPlanMeals : String,var trialPlanWeeks : String,var phoneNumber : String?,
                                 var review : String?, var locations : String?, var noOfReviews : String?, var sampleMenu : ArrayList<SampleMenu>?, var deliveryTime: String?,
-                                var mealOptions : ArrayList<MealOptionsModel>?, var startTime : String?,var endTime : String?,
+                                var mealOptions : ArrayList<MealOptionsModel>?, var startTime : String?,var endTime : String?, var avgMeal : String?, var avgDay : String?,
                                 var numbeOfDeliveryDays : Int?,var defaultUserAddress : String?, var addressId : String?): Parcelable {}
 
 @Parcelize

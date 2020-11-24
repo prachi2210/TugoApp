@@ -66,20 +66,29 @@
                     android:layout_marginLeft="@dimen/margin_10"
                     android:fontFamily="@font/font_raleway_semibold"
                     android:text="@string/txt_available_meal_plans"/>
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabMainProvidersType"
-                    android:layout_width="wrap_content"
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPlanList"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
-                    android:outlineSpotShadowColor="@color/grey"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    app:tabIndicatorColor="@color/colorPrimary"
-                    app:tabMode="fixed"
-                    app:tabGravity="center"
-                    app:tabTextAppearance="@style/StyleTab"
-                    app:tabSelectedTextColor="@color/colorBlack"
-                    app:tabTextColor="@color/unselectedTabcolor"/>
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_5"
+                    android:orientation="horizontal" />
+
+<!--                <com.google.android.material.tabs.TabLayout-->
+<!--                    android:id="@+id/tabMainProvidersType"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/colorWhite"-->
+<!--                    android:outlineSpotShadowColor="@color/grey"-->
+<!--                    android:layout_marginRight="@dimen/margin_10"-->
+<!--                    android:layout_marginLeft="@dimen/margin_10"-->
+<!--                    app:tabIndicatorColor="@color/colorPrimary"-->
+<!--                    app:tabMode="fixed"-->
+<!--                    app:tabGravity="center"-->
+<!--                    app:tabTextAppearance="@style/StyleTab"-->
+<!--                    app:tabSelectedTextColor="@color/colorBlack"-->
+<!--                    app:tabTextColor="@color/unselectedTabcolor"/>-->
 
                 <RelativeLayout
                     android:id="@+id/rlSampleMenu"
@@ -134,16 +143,14 @@
                         style="@style/HeaderSemiMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_delivery_locations" />
+                        android:text="@string/txt_nutrition_info" />
                 </com.google.android.material.tabs.TabLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_toolbar"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/margin_10"
-                    android:paddingTop="@dimen/margin_10">
+                    android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txtInfoDeliveryLocation"
@@ -158,6 +165,112 @@
                     android:paddingRight="@dimen/margin_20"
                     android:text=""
                     android:textColor="@color/screenTitleColor" />
+
+                    <LinearLayout
+                        android:id="@+id/llNutriInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_15"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.6"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/size_12"
+                            android:gravity="center|left"
+                            android:layout_marginRight="@dimen/margin_8"
+                            android:layout_marginLeft="@dimen/margin_30"
+                            android:textColor="@color/color3D3D3D"
+                            android:text="@string/txt_per_meal_nutri_avg"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_marginRight="@dimen/margin_30"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_circle_green"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                            <TextView
+                                android:id="@+id/txtPerMealNutri"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/font_sf_pro_text_regular"
+                                android:textColor="@color/black"
+                                android:layout_marginTop="@dimen/margin_15"
+                                android:src="@drawable/ic_circle_green"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txt_kcal"
+                                android:textColor="@color/colorPrimary"
+                                app:layout_constraintTop_toBottomOf="@id/txtPerMealNutri"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.6"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/size_12"
+                            android:layout_marginLeft="@dimen/margin_30"
+                            android:layout_marginRight="@dimen/margin_8"
+                            android:gravity="left"
+                            android:textColor="@color/color3D3D3D"
+                            android:fontFamily="@font/font_sf_pro_text_regular"
+                            android:text="@string/txt_per_day_nutri_avg"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_circle_yellow"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                            <TextView
+                                android:id="@+id/txtPerDayNutri"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:fontFamily="@font/font_sf_pro_text_regular"
+                                android:textColor="@color/black"
+                                android:layout_marginTop="@dimen/margin_15"
+                                android:src="@drawable/ic_circle_green"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txt_kcal"
+                                android:textColor="@color/colorPrimary"
+                                app:layout_constraintTop_toBottomOf="@id/txtPerDayNutri"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

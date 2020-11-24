@@ -118,37 +118,37 @@
                             style="@style/HeaderSmall"/>
                     </LinearLayout>
 
-                    <TextView
-                        style="@style/HeaderSemiMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_25"
-                        android:fontFamily="@font/font_raleway_regular"
-                        android:text="@string/txt_delivers_to"
-                        android:textColor="@color/color444444" />
+<!--                    <TextView-->
+<!--                        style="@style/HeaderSemiMedium"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/margin_25"-->
+<!--                        android:fontFamily="@font/font_raleway_regular"-->
+<!--                        android:text="@string/txt_delivers_to"-->
+<!--                        android:textColor="@color/color444444" />-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvDeliversTo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_20"
-                        android:orientation="horizontal" />
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rvDeliversTo"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/margin_20"-->
+<!--                        android:orientation="horizontal" />-->
 
-                    <TextView
-                        style="@style/HeaderSemiMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_25"
-                        android:fontFamily="@font/font_raleway_regular"
-                        android:text="@string/txt_minimum_meals_available"
-                        android:textColor="@color/color444444" />
+<!--                    <TextView-->
+<!--                        style="@style/HeaderSemiMedium"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/margin_25"-->
+<!--                        android:fontFamily="@font/font_raleway_regular"-->
+<!--                        android:text="@string/txt_minimum_meals_available"-->
+<!--                        android:textColor="@color/color444444" />-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvMinimalMealsList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_20"
-                        android:orientation="horizontal" />
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rvMinimalMealsList"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/margin_20"-->
+<!--                        android:orientation="horizontal" />-->
 
                     <TextView
                         style="@style/HeaderSemiMedium"
