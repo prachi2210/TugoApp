@@ -37,6 +37,8 @@ public data class FavoriteResponseModel(var data : ArrayList<FavoriteModel>?) : 
 @Parcelize
 public data class FavoriteModel(var imagePath : String?, var companyName : String?, var businessId : String?) : Parcelable{}
 
+public data class PlaceOrderResponseModel(var name : String?, var email : String?, var orderNo : String?, var orderId : String?, var number: String?) : BaseResponseModel(){}
+
 
 
 

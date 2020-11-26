@@ -16,10 +16,7 @@ import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.ApiConstants
 import com.tugoapp.mobile.data.remote.model.request.PlaceOrderObject
 import com.tugoapp.mobile.data.remote.model.request.PlaceOrderRequestModel
-import com.tugoapp.mobile.data.remote.model.response.AddressModel
-import com.tugoapp.mobile.data.remote.model.response.MealOptionsModel
-import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
-import com.tugoapp.mobile.data.remote.model.response.PaymentConfigModel
+import com.tugoapp.mobile.data.remote.model.response.*
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
@@ -144,14 +141,18 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
 
         mViewModel?.mPlaceOrderResponse?.observe(viewLifecycleOwner, Observer {
             if (it.first == 1) {
-                doOpenPaymentGateway(it.second?.orderId)
+                if(it.second == null || it.second?.orderId.isNullOrEmpty()) {
+                    CommonUtils.showSnakeBar(rootView, "OrderId shoild not be null from server")
+                } else {
+                    doOpenPaymentGateway(it.second!!)
+                }
             } else {
                 CommonUtils.showSnakeBar(rootView, it.second?.message)
             }
         })
     }
 
-    private fun doOpenPaymentGateway(orderId: Int?) {
+    private fun doOpenPaymentGateway(placeOrderModel: PlaceOrderResponseModel) {
         var paymentConfigs = SharedPrefsUtils.getStringPreference(mContext, AppConstant.PAYMENT_CONFIG_INFO)
         if (!paymentConfigs.isNullOrEmpty()) {
             var model = Gson().fromJson(paymentConfigs, PaymentConfigModel::class.java)
@@ -165,7 +166,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.redirect_url = ApiConstants.BASE_URL.trim() +model.redirectUrl?.trim()
                 merchantDetail.cancel_url = ApiConstants.BASE_URL.trim() + model.cancelUrl?.trim()
                 merchantDetail.rsa_url = ApiConstants.BASE_URL.trim() + model.getRSA?.trim()
-                merchantDetail.order_id = orderId.toString().trim()
+                merchantDetail.order_id = placeOrderModel?.orderId.toString().trim()
                 merchantDetail.customer_id = "Test".trim()
                 merchantDetail.promo_code = "".trim()
                 merchantDetail.add1 = "test1"
@@ -177,22 +178,22 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.isCCAvenue_promo = false
 
                 val billingAddress = BillingAddress()
-                billingAddress.name = "Tugo".trim()
+                billingAddress.name = placeOrderModel?.name?.trim()?:"Tugo".trim()
                 billingAddress.address = mPlaceOrderRequestModel?.address?.trim()
-                billingAddress.country = mPlaceOrderRequestModel?.address?.trim()
+                billingAddress.country = "UAE".trim()
                 billingAddress.state = mPlaceOrderRequestModel?.address?.trim()
                 billingAddress.city = mPlaceOrderRequestModel?.address?.trim()
-                billingAddress.telephone = "999999999".trim()
-                billingAddress.email = "paras.gangwal@avenues.info".trim()
+                billingAddress.telephone = placeOrderModel?.number?.trim()?:"999999999".trim()
+                billingAddress.email = placeOrderModel?.email?.trim()?:"paras.gangwal@avenues.info".trim()
 
 
                 val shippingAddress = ShippingAddress()
-                shippingAddress.name = "Tugo".trim()
+                shippingAddress.name = placeOrderModel?.name?.trim()?:"Tugo".trim()
                 shippingAddress.address = mPlaceOrderRequestModel?.address?.trim()
-                shippingAddress.country = mPlaceOrderRequestModel?.address?.trim()
+                shippingAddress.country = "UAE".trim()
                 shippingAddress.state = mPlaceOrderRequestModel?.address?.trim()
                 shippingAddress.city = mPlaceOrderRequestModel?.address?.trim()
-                shippingAddress.telephone = "999999999".trim()
+                shippingAddress.telephone = placeOrderModel?.number?.trim()?:"999999999".trim()
 
 
                 val sdkIntent = Intent(context, PaymentOptions::class.java)
@@ -238,7 +239,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         })
     }
 
-    private fun doValidateDeliveryScreenData(): Boolean {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        private fun doValidateDeliveryScreenData(): Boolean {
         if (txtAddress.text.toString().isNullOrBlank()) {
             CommonUtils.showSnakeBar(rootView, getString(R.string.err_fill_address))
             return false
@@ -353,7 +354,20 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
 
     override fun stateChanged() {
         val modelState = CustomModel.getInstance().state
-        isNavigationRequired = true
+        if (!modelState.isNullOrEmpty()) {
+            val model = Gson().fromJson(modelState, PaymentGatewayResponseModel::class.java)
+            if (model != null) {
+                if(model.success) {
+                    isNavigationRequired = true
+                } else {
+                    CommonUtils.showSnakeBar(rootView!!, model.status_message)
+                }
+            } else {
+                CommonUtils.showSnakeBar(rootView!!, "Payment status not found. Can not procceed without it")
+            }
+        } else {
+            CommonUtils.showSnakeBar(rootView!!, "Payment status not found. Can not procceed without it")
+        }
     }
 
     override fun onResume() {

@@ -1,8 +1,6 @@
 package com.tugoapp.mobile.data.remote.model.response
 
 import android.os.Parcelable
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 public data class PaymentConfigResponseModel(var data : PaymentConfigModel?) : BaseResponseModel() {}

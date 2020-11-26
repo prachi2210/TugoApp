@@ -14,12 +14,4 @@ open class BaseResponseModel {
     @Expose
     @SerializedName("addressId")
     var addressId: String? = null
-
-    @Expose
-    @SerializedName("orderNo")
-    var orderNo: String? = null
-
-    @Expose
-    @SerializedName("orderId")
-    var orderId: Int? = 0
 }

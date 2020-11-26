@@ -30,7 +30,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
 
     var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
     var mShowProgress: SingleLiveEvent<Pair<Boolean,String>> = SingleLiveEvent()
-    var mPlaceOrderResponse: SingleLiveEvent<Pair<Int?,BaseResponseModel?>> = SingleLiveEvent()
+    var mPlaceOrderResponse: SingleLiveEvent<Pair<Int?,PlaceOrderResponseModel?>> = SingleLiveEvent()
     var mCustomFilterData: SingleLiveEvent<FilterModel> = SingleLiveEvent()
 
     var mIsPaymentConfigInfoUpdated: SingleLiveEvent<Boolean> = SingleLiveEvent()
@@ -152,13 +152,13 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
             FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
                 if (task.isSuccessful) {
                     mShowProgress.postValue(Pair(true, mApplicationContext.getString(R.string.txt_loading_place_order)))
-                    mPpsApiService.doPlaceOrder(task.result?.token, model).enqueue(object : Callback<BaseResponseModel> {
-                        override fun onFailure(call: Call<BaseResponseModel>, t: Throwable) {
+                    mPpsApiService.doPlaceOrder(task.result?.token, model).enqueue(object : Callback<PlaceOrderResponseModel> {
+                        override fun onFailure(call: Call<PlaceOrderResponseModel>, t: Throwable) {
                             mShowProgress.postValue(Pair(false, ""))
                             mToastMessage.postValue(t.localizedMessage)
                         }
 
-                        override fun onResponse(call: Call<BaseResponseModel>, response: Response<BaseResponseModel>) {
+                        override fun onResponse(call: Call<PlaceOrderResponseModel>, response: Response<PlaceOrderResponseModel>) {
                             mPlaceOrderResponse.postValue(Pair(response.body()?.isSuccess, response.body()))
                             mShowProgress.postValue(Pair(false, ""))
                         }
