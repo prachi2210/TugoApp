@@ -354,19 +354,23 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
 
     override fun stateChanged() {
         val modelState = CustomModel.getInstance().state
-        if (!modelState.isNullOrEmpty()) {
-            val model = Gson().fromJson(modelState, PaymentGatewayResponseModel::class.java)
-            if (model != null) {
-                if(model.success) {
-                    isNavigationRequired = true
+        try {
+            if (!modelState.isNullOrEmpty()) {
+                val model = Gson().fromJson(modelState, PaymentGatewayResponseModel::class.java)
+                if (model != null) {
+                    if (model.success) {
+                        isNavigationRequired = true
+                    } else {
+                        CommonUtils.showSnakeBar(rootView!!, model.status_message)
+                    }
                 } else {
-                    CommonUtils.showSnakeBar(rootView!!, model.status_message)
+                    CommonUtils.showSnakeBar(rootView!!, "Payment status not found. Can not procceed without it")
                 }
             } else {
                 CommonUtils.showSnakeBar(rootView!!, "Payment status not found. Can not procceed without it")
             }
-        } else {
-            CommonUtils.showSnakeBar(rootView!!, "Payment status not found. Can not procceed without it")
+        } catch (e:Exception) {
+
         }
     }
 

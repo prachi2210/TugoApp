@@ -15,7 +15,7 @@ public data class OrderModel(var orderNo : String?,var address : String?,var del
                              var instructions : String?,var noOfMeals : String?,var noOfWeeks : String?,var noOfDays : String?,
                              var orderId : String?, var expiredOn : String?, var paymentType : String?,
                              var isDefault : Boolean, var isPaused : Boolean, var isCancelled : Boolean,
-                             var trialPlanDescription : String?, var isTrialPlan : Boolean,
+                             var trialPlanDescription : String?, var isTrialPlan : Boolean,var orderState : String?,
                              var trailPlanPricing : String) : Parcelable {}
 
 public data class GetReviewResponseModel(var data : ReviewMainModel?) : BaseResponseModel() {}

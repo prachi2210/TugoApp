@@ -231,16 +231,24 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
                     llReorderOrWrite.visibility = View.GONE
                     llPauseCancel.visibility = View.VISIBLE
                     btnPause.visibility = View.VISIBLE
-                    if (mOrderDetailData?.isPaused!!) {
-                        btnPause.setText(R.string.txt_resume_plan)
-                        btnCancel.visibility = View.GONE
-                        llMessageUs.visibility = View.GONE
-                        btnPause.setBackgroundResource(R.drawable.bg_rounded_border_colored)
+                        if (mOrderDetailData?.isPaused!!) {
+                            btnPause.setText(R.string.txt_resume_plan)
+                            btnCancel.visibility = View.GONE
+                            llMessageUs.visibility = View.GONE
+                            btnPause.setBackgroundResource(R.drawable.bg_rounded_border_colored)
+                        } else {
+                            btnPause.setText(R.string.txt_pause_plan)
+                            btnCancel.visibility = View.VISIBLE
+                            llMessageUs.visibility = View.VISIBLE
+                            btnPause.setBackgroundResource(R.drawable.rounded_border_colored_yellow)
+                        }
+
+                    if(mOrderDetailData?.orderState.equals("1")) {
+                        btnPause.isEnabled = true
+                        btnCancel.isEnabled = true
                     } else {
-                        btnPause.setText(R.string.txt_pause_plan)
-                        btnCancel.visibility = View.VISIBLE
-                        llMessageUs.visibility = View.VISIBLE
-                        btnPause.setBackgroundResource(R.drawable.rounded_border_colored_yellow)
+                        btnPause.isEnabled = false
+                        btnCancel.isEnabled = false
                     }
                 }
             }

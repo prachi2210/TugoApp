@@ -63,20 +63,38 @@ class OrderHistoryListAdapter(private val context: Context,
             holder.isOngoing.visibility = View.GONE
             holder.imgHistoryOrder.setColorFilter(R.color.grey)
         } else {
-            if(data.isCancelled) {
-                holder.isPaused.visibility = View.GONE
-                holder.isOngoing.visibility = View.GONE
-                holder.isCancelled.visibility = View.VISIBLE
+            if(data.orderState.equals("1")) {
+                if (data.isCancelled) {
+                    holder.isPaused.visibility = View.GONE
+                    holder.isOngoing.visibility = View.GONE
+                    holder.isCancelled.visibility = View.VISIBLE
+                } else {
+                    holder.isCancelled.visibility = View.GONE
+                }
+                holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_started_on), data.startedOn)
+                if (data.isPaused) {
+                    holder.isPaused.visibility = View.VISIBLE
+                    holder.isPaused.text = "PAUSED"
+                    holder.isOngoing.visibility = View.GONE
+                    holder.isCancelled.visibility = View.GONE
+                } else {
+                    holder.isOngoing.visibility = View.VISIBLE
+                    holder.isOngoing.text = "ONGOING"
+                    holder.isPaused.visibility = View.GONE
+                    holder.isCancelled.visibility = View.GONE
+                }
             } else {
-                holder.isCancelled.visibility = View.GONE
-            }
-            holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_started_on),data.startedOn)
-            if(data.isPaused) {
-                holder.isPaused.visibility = View.VISIBLE
-                holder.isOngoing.visibility = View.GONE
-            } else {
-                holder.isOngoing.visibility = View.VISIBLE
-                holder.isPaused.visibility = View.GONE
+                if(data.orderState.equals("0")) {
+                    holder.isPaused.visibility = View.VISIBLE
+                    holder.isPaused.text = "PENDING"
+                    holder.isOngoing.visibility = View.GONE
+                    holder.isCancelled.visibility = View.GONE
+                } else {
+                    holder.isCancelled.visibility = View.VISIBLE
+                    holder.isCancelled.text = "REJECTED"
+                    holder.isPaused.visibility = View.GONE
+                    holder.isOngoing.visibility = View.GONE
+                }
             }
         }
         holder.itemView.setOnClickListener {
