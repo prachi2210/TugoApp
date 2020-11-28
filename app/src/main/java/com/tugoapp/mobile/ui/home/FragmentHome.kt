@@ -138,18 +138,20 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders,bundle)
         })
 
-        val adapter = ArrayAdapter.createFromResource(
-                mContext,
+        val adapter = mContext?.let {
+            ArrayAdapter.createFromResource(
+                    it,
                 R.array.locations,
                 android.R.layout.simple_spinner_item
         )
-        adapter.setDropDownViewResource(R.layout.item_location)
+        }
+        adapter?.setDropDownViewResource(R.layout.item_location)
         locationSpinner.adapter = adapter
         locationSpinner.onItemSelectedListener = this
 
         var currentSelectedLocation = SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_SELECTED_LOCATION)
         if(!currentSelectedLocation.isNullOrEmpty()) {
-            locationSpinner.setSelection(adapter.getPosition(currentSelectedLocation))
+            adapter?.getPosition(currentSelectedLocation)?.let { locationSpinner.setSelection(it) }
         } else {
             locationSpinner.setSelection(0)
         }

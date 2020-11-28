@@ -254,17 +254,17 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
     private fun doInitDeliveryDetails() {
         deliveryDays.text = mPlanObject?.deliveryDays
         if (mIsTrialMeal) {
-            txtDuration.text = String.format(getString(R.string.txt_duration_days), Integer.parseInt(mPlanObject?.trialPlanDays))
+            txtDuration.text = String.format(getString(R.string.txt_duration_days), mPlanObject?.trialPlanDays?.let { Integer.parseInt(it) })
         } else {
-            txtDuration.text = String.format(getString(R.string.txt_duration_days), Integer.parseInt(mSelectedMealPlan?.noOfDays))
+            txtDuration.text = String.format(getString(R.string.txt_duration_days), mSelectedMealPlan?.noOfDays?.let { Integer.parseInt(it) })
         }
 
         mCalender.timeInMillis = System.currentTimeMillis()
         updateLabel()
         llDeliveryStartDate.setOnClickListener(View.OnClickListener {
-            var dialog = DatePickerDialog(mContext, onDateSelectedEvent, mCalender[Calendar.YEAR], mCalender[Calendar.MONTH], mCalender[Calendar.DAY_OF_MONTH])
-            dialog.datePicker.minDate = System.currentTimeMillis() - 1000
-            dialog.show()
+            var dialog = mContext?.let { it1 -> DatePickerDialog(it1, onDateSelectedEvent, mCalender[Calendar.YEAR], mCalender[Calendar.MONTH], mCalender[Calendar.DAY_OF_MONTH]) }
+            dialog?.datePicker?.minDate = System.currentTimeMillis() - 1000
+            dialog?.show()
         })
 
         if (!mPlanObject?.defaultUserAddress.isNullOrBlank()) {
@@ -327,9 +327,9 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         mPlaceOrderRequestModel?.startFrom = sdfLocalFormat.format(mCalender.time)
         var calender: Calendar = mCalender.clone() as Calendar
         if (mIsTrialMeal) {
-            calender.add(Calendar.DATE, (Integer.parseInt(mPlanObject?.trialPlanWeeks) * 7))
+            calender.add(Calendar.DATE, (mPlanObject?.trialPlanWeeks?.let { Integer.parseInt(it) }?.times(7)!!))
         } else {
-            calender.add(Calendar.DATE, (Integer.parseInt(mSelectedMealPlan?.weeks) * 7))
+            calender.add(Calendar.DATE, (mSelectedMealPlan?.weeks?.let { Integer.parseInt(it) }?.times(7)!!))
         }
         txtEnddate.text = String.format(getString(R.string.txt_end_date_is), sdfLocalFormat.format(calender.time))
         mPlaceOrderRequestModel?.endOn = sdfLocalFormat.format(calender.time)

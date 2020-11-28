@@ -149,9 +149,9 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
     }
 
     private fun doSelectDateAndResumePlan() {
-        var dialog = DatePickerDialog(mContext, onDateSelectedEvent, mCalender[Calendar.YEAR], mCalender[Calendar.MONTH], mCalender[Calendar.DAY_OF_MONTH])
-        dialog.datePicker.minDate = System.currentTimeMillis() - 1000
-        dialog.show()
+        var dialog = mContext?.let { DatePickerDialog(it, onDateSelectedEvent, mCalender[Calendar.YEAR], mCalender[Calendar.MONTH], mCalender[Calendar.DAY_OF_MONTH]) }
+        dialog?.datePicker?.minDate = System.currentTimeMillis() - 1000
+        dialog?.show()
     }
 
     var onDateSelectedEvent = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // TODO Auto-generated method stub
