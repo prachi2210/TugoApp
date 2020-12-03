@@ -245,6 +245,6 @@
             android:layout_marginTop="@dimen/margin_25"
             android:layout_marginRight="@dimen/margin_10"
             android:layout_marginBottom="@dimen/margin_15"
-            android:text="@string/txt_pay" />
+            android:text="@string/txt_proceed_to_pay" />
     </LinearLayout>
 </layout>

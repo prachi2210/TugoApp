@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             style="@style/StyleButtonNext"
             android:layout_margin="@dimen/margin_20"
-            android:text="@string/txt_pay"/>
+            android:text="@string/txt_proceed_to_pay"/>
 
     </LinearLayout>
 </layout>

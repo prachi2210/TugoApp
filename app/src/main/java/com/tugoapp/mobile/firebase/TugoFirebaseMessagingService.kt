@@ -13,6 +13,8 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.utils.AppConstant
+import com.tugoapp.mobile.utils.SharedPrefsUtils
 
 class TugoFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -22,6 +24,7 @@ class TugoFirebaseMessagingService : FirebaseMessagingService() {
         super.onNewToken(token)
 
         println("$tag token --> $token")
+        SharedPrefsUtils.setStringPreference(applicationContext,AppConstant.PREF_KEY_PUSH_TOKEN,token)
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {

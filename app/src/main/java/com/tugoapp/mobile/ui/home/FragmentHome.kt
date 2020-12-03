@@ -142,7 +142,7 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
             ArrayAdapter.createFromResource(
                     it,
                 R.array.locations,
-                android.R.layout.simple_spinner_item
+                    R.layout.item_location
         )
         }
         adapter?.setDropDownViewResource(R.layout.item_location)

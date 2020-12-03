@@ -91,7 +91,8 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
             try {
                 FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        mSplashViewModel?.doUpdateToken(SaveDeviceTokenRequestModel(mContext?.let { CommonUtils.getDeviceId(it) }, task.result?.token, "android", TimeZone.getDefault().displayName))
+                        var token = SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN)
+                        mSplashViewModel?.doUpdateToken(SaveDeviceTokenRequestModel(mContext?.let { CommonUtils.getDeviceId(it) }, token , "android", TimeZone.getDefault().displayName))
 
                         mSplashViewModel?.doGetPaymentGatewayConfigs(task.result?.token)
                     }
