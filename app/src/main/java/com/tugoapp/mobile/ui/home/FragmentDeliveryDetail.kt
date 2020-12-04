@@ -252,6 +252,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
     }
 
     private fun doInitDeliveryDetails() {
+        txtAvailableDeliveryTime.text = mPlanObject?.deliveryTime
         deliveryDays.text = mPlanObject?.deliveryDays
         if (mIsTrialMeal) {
             txtDuration.text = String.format(getString(R.string.txt_duration_days), mPlanObject?.trialPlanDays?.let { Integer.parseInt(it) })

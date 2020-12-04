@@ -47,7 +47,7 @@
     <string name="txt_didnt_receive_code">Didn\'t receive code?</string>
     <string name="txt_resend_again">Resend Again.</string>
     <string name="txt_get_started_with_tugo">Get started with Tugo</string>
-    <string name="txt_add_phone_header_message">Enter your phone number to use foodly and enjoy your food :)</string>
+    <string name="txt_add_phone_header_message">Enter your phone number to use tugo and enjoy your food :)</string>
     <string name="hint_phone_number">PHONE NUMBER</string>
     <string name="txt_skip">Skip</string>
     <string name="title_create_an_acnt">Create an account</string>
