@@ -7,8 +7,10 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.facebook.*
-import com.facebook.common.Common
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -95,14 +97,18 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
         if (credential != null) {
             auth.signInWithCredential(credential).addOnCompleteListener(OnCompleteListener {
                 if (it.isSuccessful) {
-                    val user = it.result?.user
-                   // it.result?.user?.let { it1 -> FirebaseAuth.getInstance().updateCurrentUser(it1) }
+                    val user = auth.currentUser
                     SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
                     if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
                         var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to user?.email)
                         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentAddPhoneNumber,bundle)
                     } else {
-                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentWalkthrough)
+                        if(SharedPrefsUtils.didUserSeenWalkthrough(mContext!!,auth.currentUser?.uid)) {
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentHome)
+                        } else {
+                            SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentWalkthrough)
+                        }
                     }
                 } else {
                     CommonUtils.showSnakeBar(rootView, "Facebook authentication failed.")
@@ -135,7 +141,7 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!,account.email)
             } catch (e: ApiException) {
-                CommonUtils.showSnakeBar(rootView!!,e?.localizedMessage)
+                CommonUtils.showSnakeBar(rootView!!,e.localizedMessage)
                 hideLoading()
             }
         } else {
@@ -159,7 +165,12 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
                             var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentAddPhoneNumber,bundle)
                         } else {
-                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentWalkthrough)
+                            if(SharedPrefsUtils.didUserSeenWalkthrough(mContext!!,auth.currentUser?.uid)) {
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentHome)
+                            } else {
+                                SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentWelcome_to_fragmentWalkthrough)
+                            }
                         }
                     } else {
                         hideLoading()

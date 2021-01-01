@@ -110,8 +110,12 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
                         var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to user?.email)
                         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber,bundle)
                     } else {
-                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
-                    }
+                        if(SharedPrefsUtils.didUserSeenWalkthrough(mContext!!,auth.currentUser?.uid)) {
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
+                        } else {
+                            SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                        }                    }
                 } else {
                     CommonUtils.showSnakeBar(rootView, "Facebook authentication failed.")
                 }
@@ -184,7 +188,12 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
                     var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                     Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber,bundle)
                 } else {
-                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                    if(SharedPrefsUtils.didUserSeenWalkthrough(mContext!!,auth.currentUser?.uid)) {
+                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
+                    } else {
+                        SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
+                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                    }
                 }
             } else {
                 CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
@@ -225,7 +234,12 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
                             var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to  email)
                             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber,bundle)
                         } else {
-                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                            if(SharedPrefsUtils.didUserSeenWalkthrough(mContext!!,auth.currentUser?.uid)) {
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
+                            } else {
+                                SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                            }
                         }
                     } else {
                         hideLoading()

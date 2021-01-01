@@ -205,4 +205,19 @@ object SharedPrefsUtils {
         }
         return false
     }
+
+    fun setWalkthroughForUser(context: Context, key: String?): Boolean {
+        val preferences = context.getSharedPreferences(AppConstant.WALKTHROUGH_PREFS_NAME, Context.MODE_PRIVATE)
+        if (preferences != null) {
+            val editor = preferences.edit()
+            editor.putBoolean(key, true)
+            return editor.commit()
+        }
+        return false
+    }
+
+    fun didUserSeenWalkthrough(context: Context, key: String?): Boolean {
+        val preferences = context.getSharedPreferences(AppConstant.WALKTHROUGH_PREFS_NAME, Context.MODE_PRIVATE)
+        return preferences?.contains(key) ?: false
+    }
 }

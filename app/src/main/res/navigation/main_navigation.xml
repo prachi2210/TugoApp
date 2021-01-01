@@ -57,6 +57,15 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/fragmentWelcome"/>
         <action
+            android:id="@+id/action_fragmentLogin_to_fragmentHome"
+            app:destination="@id/fragmentHome"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragmentWelcome"/>
+        <action
             android:id="@+id/action_fragmentLogin_to_fragmentForgotPswd"
             app:destination="@id/fragmentForgotPassword"
             app:enterAnim="@anim/slide_in_right"
@@ -228,6 +237,15 @@
         <action
             android:id="@+id/action_fragmentWelcome_to_fragmentWalkthrough"
             app:destination="@id/fragmentWalkthrough"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/main_navigation"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentHome"
+            app:destination="@id/fragmentHome"
             app:popUpToInclusive="true"
             app:popUpTo="@id/main_navigation"
             app:enterAnim="@anim/slide_in_right"

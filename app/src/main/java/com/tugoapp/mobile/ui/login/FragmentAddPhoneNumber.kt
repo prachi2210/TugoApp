@@ -141,6 +141,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
                     Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentProfile)
                     CommonUtils.showSnakeBar(rootView,"User details update successfully")
                 } else {
+                    SharedPrefsUtils.setWalkthroughForUser(mContext!!, FirebaseAuth.getInstance().currentUser?.uid)
                     Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentWalkthrough)
                 }
             } else {

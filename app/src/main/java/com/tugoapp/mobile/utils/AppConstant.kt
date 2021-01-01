@@ -1,6 +1,7 @@
 package com.tugoapp.mobile.utils
 
 object AppConstant {
+    const val WALKTHROUGH_PREFS_NAME = "Walkthrough_Pref_File"
     const val FIREBASE_SENDER_ID = "908606240987"
 
     val RC_SIGN_IN: Int = 9001
