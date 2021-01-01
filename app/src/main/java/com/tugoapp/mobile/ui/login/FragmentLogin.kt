@@ -80,7 +80,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             btnDummyFbLoginPage.performClick()
         })
         btnDummyFbLoginPage.fragment = this
-        btnDummyFbLoginPage.setReadPermissions("email","public_profile")
+        btnDummyFbLoginPage.setPermissions(listOf("email","public_profile"))
         btnDummyFbLoginPage.registerCallback(mFacebookCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 handleFacebookAccessToken(loginResult.accessToken)
