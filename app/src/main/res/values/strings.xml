@@ -176,9 +176,10 @@
     <string name="txt_msg_code_resend">Code resend. Please verify again</string>
     <string name="txt_err_fail_firebase_acnt_link">Failed to link email address with phone number</string>
     <string name="title_sample_menu">Sample Menu</string>
-
+    
     <string name="facebook_app_id">331776408181861</string>
-    <string name="fb_login_protocol_scheme">fb[331776408181861]</string>
+    <string name="fb_login_protocol_scheme">fb331776408181861</string>
+
     <string name="txt_sending_code">Sending code</string>
     <string name="txt_otp_autodetected">Authenticating user</string>
     <string name="txt_resending_otp">Resending Code</string>

@@ -48,18 +48,22 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
         get() = ""
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+    }
+
     override fun onResume() {
         super.onResume()
-        iniUI()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        iniUI()
     }
 
     private fun iniUI() {
         mContext = context
-        auth = FirebaseAuth.getInstance()
         txtAppVersion.text = "App Version: " + getAppVersion(mContext!!)
         navigateToStartPage()
     }

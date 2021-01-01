@@ -5,6 +5,8 @@ import android.app.Application
 import android.content.Context
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.di.component.DaggerAppComponent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -25,6 +27,7 @@ class TugoApplication : Application(), HasActivityInjector {
                 .build()
                 ?.inject(this)
         appContext = applicationContext
+        FirebaseApp.initializeApp(applicationContext)
         FacebookSdk.sdkInitialize(this)
         AppEventsLogger.activateApp(this);
     }

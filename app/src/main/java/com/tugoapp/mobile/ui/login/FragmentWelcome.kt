@@ -7,10 +7,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.common.Common
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -52,9 +49,9 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
     override val screenTitle: String
         get() = ""
 
-
-    override fun onResume() {
-        super.onResume()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,18 +61,19 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
 
     private fun iniUI() {
         mContext = context
-        auth = FirebaseAuth.getInstance()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .requestProfile()
                 .build()
         googleSignInClient = GoogleSignIn.getClient(mContext!!, gso)
+
         mFacebookCallbackManager = CallbackManager.Factory.create()
         btnWelcomeSignInFb.setOnClickListener(View.OnClickListener {
-           // btnDummyFbLogin.performClick()
+            btnDummyFbLogin.performClick()
         })
-        btnDummyFbLogin.setReadPermissions(listOf("email"))
+        btnDummyFbLogin.fragment = this
+        btnDummyFbLogin.setReadPermissions("email","public_profile")
         btnDummyFbLogin.registerCallback(mFacebookCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 handleFacebookAccessToken(loginResult.accessToken)
@@ -89,16 +87,16 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
                CommonUtils.showSnakeBar(rootView,"Facebook login failed "+ error.localizedMessage)
             }
         })
-
         initControls()
     }
 
-    private fun handleFacebookAccessToken(accessToken: AccessToken?) {
-        val credential = accessToken?.token?.let { FacebookAuthProvider.getCredential(it) }
+    private fun handleFacebookAccessToken(accessToken: AccessToken) {
+        val credential = FacebookAuthProvider.getCredential(accessToken.token)
         if (credential != null) {
             auth.signInWithCredential(credential).addOnCompleteListener(OnCompleteListener {
                 if (it.isSuccessful) {
-                    val user = auth.currentUser
+                    val user = it.result?.user
+                   // it.result?.user?.let { it1 -> FirebaseAuth.getInstance().updateCurrentUser(it1) }
                     SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
                     if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
                         var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to user?.email)
@@ -131,7 +129,6 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
 
     // G+ login
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppConstant.RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -145,6 +142,7 @@ class FragmentWelcome : BaseFragment<WelcomeViewModel?>() {
             mFacebookCallbackManager?.onActivityResult(requestCode, resultCode, data)
             hideLoading()
         }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun firebaseAuthWithGoogle(idToken: String, email: String?) {

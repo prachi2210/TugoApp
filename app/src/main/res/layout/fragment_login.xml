@@ -176,18 +176,30 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/llSignUp" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnLoginSignInFb"
-                    style="@style/StyleButtonFb"
+                <FrameLayout
+                    android:id="@+id/FrameLayout1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
-                    android:drawableLeft="@drawable/ic_fb"
-                    android:paddingLeft="@dimen/margin_10"
-                    android:text="@string/txt_connect_with_fb"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtOr" />
+                    android:layout_height="wrap_content" >
+
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/btnDummyFbLoginPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin_15"
+                        android:visibility="gone"
+                        android:paddingBottom="@dimen/margin_15"
+                        android:layout_marginTop="@dimen/margin_10" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnLoginSignInFb"
+                        style="@style/StyleButtonFb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:drawableLeft="@drawable/ic_fb"
+                        android:paddingLeft="@dimen/margin_10"
+                        android:text="@string/txt_connect_with_fb" />
+                </FrameLayout>
+
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnLoginSignInGPlus"
