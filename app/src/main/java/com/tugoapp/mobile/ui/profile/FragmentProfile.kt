@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.UserDetailModel
@@ -17,6 +18,7 @@ import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import com.tugoapp.mobile.utils.NetworkUtils
+import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
@@ -90,6 +92,8 @@ class FragmentProfile : BaseFragment<ProfileViewModel?>() {
 
         mViewModel?.mIsUserLogout?.observe(viewLifecycleOwner, Observer {
             if(it == 1) {
+                SharedPrefsUtils.clearAllsharedPrefData(mContext)
+                LoginManager.getInstance().logOut()
                 FirebaseAuth.getInstance().signOut()
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProfile_to_fragmentWelcome)
             } else {
