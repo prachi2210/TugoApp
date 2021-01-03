@@ -34,6 +34,8 @@ object AppConstant {
     const val PREF_KEY_SELECTED_LOCATION = "PREF_KEY_SELECTED_LOCATION"
     const val PREF_KEY_PUSH_TOKEN = "PREF_KEY_PUSH_TOKEN"
 
-
+    const val IS_LOGGED_IN = "IS_LOGGED_IN"
+    const val LOGGED_IN_EMAIL = "LOGGED_IN_EMAIL"
+    const val LOGGED_IN_PHONE = "LOGGED_IN_PHONE"
 
 }

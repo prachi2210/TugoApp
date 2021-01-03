@@ -9,10 +9,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -31,6 +28,7 @@ import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.json.JSONObject
 import javax.inject.Inject
 
 class FragmentLogin : BaseFragment<LoginViewModel?>() {
@@ -80,18 +78,18 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             btnDummyFbLoginPage.performClick()
         })
         btnDummyFbLoginPage.fragment = this
-        btnDummyFbLoginPage.setPermissions(listOf("email","public_profile"))
+        btnDummyFbLoginPage.setPermissions(listOf("email"))
         btnDummyFbLoginPage.registerCallback(mFacebookCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 handleFacebookAccessToken(loginResult.accessToken)
             }
 
             override fun onCancel() {
-                CommonUtils.showSnakeBar(rootView,"Facebook login cancelled ")
+                CommonUtils.showSnakeBar(rootView, "Facebook login cancelled ")
             }
 
             override fun onError(error: FacebookException) {
-                CommonUtils.showSnakeBar(rootView,"Facebook login failed "+ error.localizedMessage)
+                CommonUtils.showSnakeBar(rootView, "Facebook login failed " + error.localizedMessage)
             }
         })
 
@@ -104,18 +102,35 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
         if (credential != null) {
             auth.signInWithCredential(credential).addOnCompleteListener(OnCompleteListener {
                 if (it.isSuccessful) {
-                    val user = auth.currentUser
-                    SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
-                    if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
-                        var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to user?.email)
-                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber,bundle)
-                    } else {
-                        if(SharedPrefsUtils.didUserSeenWalkthrough(mContext!!,auth.currentUser?.uid)) {
-                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
+                    var email = ""
+                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, auth.currentUser?.displayName)
+                    SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
+
+                    var request = GraphRequest.newMeRequest(accessToken) { jsonData, response ->
+                        if (response?.error != null) {
+                            CommonUtils.showSnakeBar(rootView, "Failed to retrieve email id from facebook")
                         } else {
-                            SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
-                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
-                        }                    }
+                            email = jsonData?.optString("email").toString()
+                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
+                        }
+
+                        if (auth.currentUser?.phoneNumber.isNullOrBlank()) {
+                            var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false, AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber, bundle)
+                        } else {
+                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_PHONE, auth.currentUser?.phoneNumber)
+                            if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, auth.currentUser?.uid)) {
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
+                            } else {
+                                SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                            }
+                        }
+                    }
+                    val parameters = Bundle()
+                    parameters.putString("fields", "id,name,email")
+                    request.parameters = parameters
+                    request.executeAsync()
                 } else {
                     CommonUtils.showSnakeBar(rootView, "Facebook authentication failed.")
                 }
@@ -129,7 +144,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var data = s.toString()
-                if(!data.isNullOrBlank() && com.tugoapp.mobile.utils.CommonUtils.isEmailValid(data)) {
+                if (!data.isNullOrBlank() && com.tugoapp.mobile.utils.CommonUtils.isEmailValid(data)) {
                     imgSigninEmailRight.visibility = View.VISIBLE
                 } else {
                     imgSigninEmailRight.visibility = View.GONE
@@ -142,7 +157,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var data = s.toString()
-                if(!data.isNullOrBlank() && data.length >=6 ) {
+                if (!data.isNullOrBlank() && data.length >= 6) {
                     imgSigninPswdRight.visibility = View.VISIBLE
                 } else {
                     imgSigninPswdRight.visibility = View.GONE
@@ -167,7 +182,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             showLoading(getString(R.string.txt_please_wait))
         })
 
-        btnLoginSignIn.setOnClickListener(View.OnClickListener {doValidateAndLogin()  })
+        btnLoginSignIn.setOnClickListener(View.OnClickListener { doValidateAndLogin() })
     }
 
     private fun doValidateAndLogin() {
@@ -175,20 +190,24 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
         var email = edtEmail.text.toString()
         var pswd = edtPswd.text.toString()
 
-        if(email.isNullOrBlank() || pswd.isNullOrBlank()) {
-            CommonUtils.showSnakeBar(rootView,getString(R.string.err_fill_detail))
+        if (email.isNullOrBlank() || pswd.isNullOrBlank()) {
+            CommonUtils.showSnakeBar(rootView, getString(R.string.err_fill_detail))
             return
         }
 
-        auth.signInWithEmailAndPassword(email,pswd).addOnCompleteListener { task: Task<AuthResult> ->
+        auth.signInWithEmailAndPassword(email, pswd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
-                var phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber
-                if(!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
-                    SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
-                    var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
-                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber,bundle)
+                SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
+                val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber
+                if (!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
+                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, auth.currentUser?.displayName)
+                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
+                    val bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false, AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber, bundle)
                 } else {
-                    if(SharedPrefsUtils.didUserSeenWalkthrough(mContext!!,auth.currentUser?.uid)) {
+                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
+                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_PHONE, phoneNumber)
+                    if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, auth.currentUser?.uid)) {
                         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
                     } else {
                         SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
@@ -196,7 +215,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
                     }
                 }
             } else {
-                CommonUtils.showSnakeBar(rootView,task.exception?.localizedMessage)
+                CommonUtils.showSnakeBar(rootView, task.exception?.localizedMessage)
             }
         }
     }
@@ -208,12 +227,12 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account.idToken!!,account.email)
+                firebaseAuthWithGoogle(account.idToken!!, account.email)
             } catch (e: ApiException) {
-                CommonUtils.showSnakeBar(rootView!!,e?.localizedMessage)
+                CommonUtils.showSnakeBar(rootView!!, e.localizedMessage)
                 hideLoading()
             }
-        }  else {
+        } else {
             mFacebookCallbackManager?.onActivityResult(requestCode, resultCode, data)
             hideLoading()
         }
@@ -228,22 +247,27 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
                         hideLoading()
                         if (email != null) {
                             auth.currentUser?.updateEmail(email)
-                        }
-                        SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
-                        if(auth.currentUser?.phoneNumber.isNullOrBlank()) {
-                            var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to  email)
-                            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber,bundle)
-                        } else {
-                            if(SharedPrefsUtils.didUserSeenWalkthrough(mContext!!,auth.currentUser?.uid)) {
-                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
+                            SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
+                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
+                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, auth.currentUser?.displayName)
+                            if (auth.currentUser?.phoneNumber.isNullOrBlank()) {
+                                var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false, AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber, bundle)
                             } else {
-                                SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
-                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                                SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_PHONE, auth.currentUser?.phoneNumber)
+                                if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, auth.currentUser?.uid)) {
+                                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
+                                } else {
+                                    SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
+                                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                                }
                             }
+                        } else {
+                            CommonUtils.showSnakeBar(rootView!!, "Google login succeed, but email address not found with account")
                         }
                     } else {
                         hideLoading()
-                        CommonUtils.showSnakeBar(rootView!!,task.exception?.localizedMessage)
+                        CommonUtils.showSnakeBar(rootView!!, task.exception?.localizedMessage)
                     }
                 }
     }

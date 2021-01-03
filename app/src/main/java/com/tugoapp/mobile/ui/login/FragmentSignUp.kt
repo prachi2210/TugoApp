@@ -140,6 +140,8 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
         auth.createUserWithEmailAndPassword(email, pswd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
                 //SharedPrefsUtils.setStringPreference(mContext,email,pswd)
+                SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN,true)
+                SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL,email)
                 SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,fullName)
                 var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSignUp_to_fragmentAddPhoneNumber,bundle)

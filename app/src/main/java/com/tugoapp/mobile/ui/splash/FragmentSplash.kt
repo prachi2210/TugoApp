@@ -71,14 +71,29 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
     }
 
     private fun navigate() {
-        if(auth.currentUser != null && !auth.currentUser?.email.isNullOrBlank()) {
-            var email = auth.currentUser?.email
-            var phoneNumber = auth.currentUser?.phoneNumber
-            if(!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
+//        if(auth.currentUser != null && !auth.currentUser?.email.isNullOrBlank()) {
+//            var email = auth.currentUser?.email
+//            var phoneNumber = auth.currentUser?.phoneNumber
+//            if(!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
+//                SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
+//                var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+//                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentAddPhoneNumber,bundle)
+//            } else if(!email.isNullOrBlank() && !phoneNumber.isNullOrBlank()) {
+//                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
+//                updatePushToken()
+//            }
+//        } else {
+//            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentWelcome)
+//        }
+        val isLoggedIn = SharedPrefsUtils.getBooleanPreference(mContext,AppConstant.IS_LOGGED_IN,false)
+        val email = SharedPrefsUtils.getStringPreference(mContext,AppConstant.LOGGED_IN_EMAIL)
+        if(isLoggedIn && !email.isNullOrBlank()) {
+            val phoneNumber = SharedPrefsUtils.getStringPreference(mContext,AppConstant.LOGGED_IN_PHONE)
+            if(phoneNumber.isNullOrBlank()) {
                 SharedPrefsUtils.setStringPreference(mContext,AppConstant.FULL_NAME,auth?.currentUser?.displayName)
-                var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
+                val bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false,AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentAddPhoneNumber,bundle)
-            } else if(!email.isNullOrBlank() && !phoneNumber.isNullOrBlank()) {
+            } else {
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSplash_to_fragmentHome)
                 updatePushToken()
             }

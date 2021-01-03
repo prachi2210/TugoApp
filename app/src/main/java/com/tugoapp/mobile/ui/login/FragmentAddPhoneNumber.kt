@@ -137,6 +137,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
 
         mViewModel?.mIsUserDetailSubmitted?.observe(viewLifecycleOwner, Observer {
             if(it == 1) {
+                SharedPrefsUtils.setStringPreference(mContext,AppConstant.LOGGED_IN_PHONE,mPhoneNumber)
                 if(mIsFromEditProfile) {
                     Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentAddPhoneNumber_to_fragmentProfile)
                     CommonUtils.showSnakeBar(rootView,"User details update successfully")
