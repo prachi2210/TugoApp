@@ -30,8 +30,8 @@
     <string name="btn_next">Next</string>
     <string name="btn_get_started">Get Started</string>
     <string name="txt_or">OR</string>
-    <string name="txt_connect_with_fb">Connect with facebook</string>
-    <string name="txt_connect_with_google">Connect with google</string>
+    <string name="txt_connect_with_fb">SignIn with facebook</string>
+    <string name="txt_connect_with_google">SignIn with google</string>
     <string name="txt_signup">Sign Up</string>
     <string name="txt_tc_header">By Signing up you agree to our</string>
     <string name="txt_tc">Terms Conditions</string>
@@ -277,6 +277,10 @@
     <string name="txt_per_meal_nutri_avg">Per Meal Average</string>
     <string name="txt_per_day_nutri_avg">Per Day Average (3 meals)</string>
     <string name="txt_kcal">Kcal</string>
+    <string name="txt_about_your_delivery">About your delivery</string>
+    <string name="txt_about_your_delivery_detail">Your delivery will be assigned to the next available delivery date from the date of your selection</string>
+    <string name="txt_got_it">Got it</string>
+    <string name="txt_dont_show_again">Don\'t show again</string>
 
 
     <string-array name="locations">

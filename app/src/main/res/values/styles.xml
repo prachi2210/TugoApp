@@ -288,6 +288,5 @@
         <item name="fontFamily">@font/font_raleway_regular</item>
         <item name="android:textSize">@dimen/size_14</item>
     </style>
-
     <color name="colorD8D8D8">#D8D8D8</color>
 </resources>

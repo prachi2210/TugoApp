@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_30"
+                android:src="@drawable/ic_message" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_20"
+                android:fontFamily="@font/font_raleway_bold"
+                android:text="@string/txt_about_your_delivery"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_26" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_20"
+                android:fontFamily="@font/font_raleway_regular"
+                android:gravity="center"
+                android:letterSpacing="0.05"
+                android:text="@string/txt_about_your_delivery_detail"
+                android:textColor="@color/walkthrough_subtitle"
+                android:textSize="@dimen/size_16" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGotIt"
+                style="@style/StyleButtonNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_20"
+                android:text="@string/txt_got_it" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/rbDontShowAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:clickable="true"
+                android:fontFamily="@font/font_raleway_bold"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/margin_30"
+                android:layout_gravity="center"
+                android:padding="@dimen/size_8"
+                android:text="@string/txt_dont_show_again"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_16" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

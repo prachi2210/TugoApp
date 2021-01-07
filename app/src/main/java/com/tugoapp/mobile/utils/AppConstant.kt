@@ -1,6 +1,7 @@
 package com.tugoapp.mobile.utils
 
 object AppConstant {
+
     const val WALKTHROUGH_PREFS_NAME = "Walkthrough_Pref_File"
     const val FIREBASE_SENDER_ID = "908606240987"
 
@@ -37,5 +38,5 @@ object AppConstant {
     const val IS_LOGGED_IN = "IS_LOGGED_IN"
     const val LOGGED_IN_EMAIL = "LOGGED_IN_EMAIL"
     const val LOGGED_IN_PHONE = "LOGGED_IN_PHONE"
-
+    const val PREF_KEY_SHOW_DATE_DIALOG = "PREF_KEY_SHOW_DATE_DIALOG"
 }

@@ -52,13 +52,13 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
-                    app:cardUseCompatPadding="true"
-                    android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_10"
                     android:background="@drawable/bg_card"
                     app:cardCornerRadius="@dimen/margin_5"
-                    app:cardElevation="@dimen/margin_2">
+                    app:cardElevation="@dimen/margin_2"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -102,24 +102,24 @@
                             style="@style/HeaderSemiMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:maxLines="2"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="@dimen/margin_10"
-                            android:layout_marginBottom="@dimen/margin_10"/>
-                      </LinearLayout>
+                            android:layout_marginBottom="@dimen/margin_10"
+                            android:background="@null"
+                            android:maxLines="2" />
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
                     android:background="@drawable/bg_card"
                     app:cardCornerRadius="@dimen/margin_5"
-                    app:cardElevation="@dimen/margin_2">
+                    app:cardElevation="@dimen/margin_2"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -145,11 +145,11 @@
                             <TextView
                                 android:id="@+id/txtDuration"
                                 style="@style/HeaderSmall"
-                                android:textSize="@dimen/size_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/font_raleway_bold"
-                                android:text="@string/txt_duration_days" />
+                                android:text="@string/txt_duration_days"
+                                android:textSize="@dimen/size_14" />
                         </LinearLayout>
 
                         <View
@@ -206,23 +206,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    app:cardUseCompatPadding="true"
-                    android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
                     android:background="@drawable/bg_card"
                     app:cardCornerRadius="@dimen/margin_5"
-                    app:cardElevation="@dimen/margin_5">
+                    app:cardElevation="@dimen/margin_2"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/margin_10"
-                        android:paddingTop="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_12"
                         android:paddingRight="@dimen/margin_10"
-                        android:paddingBottom="@dimen/margin_10"
-                        android:gravity="center">
+                        android:paddingBottom="@dimen/margin_12">
 
                         <TextView
                             style="@style/HeaderMedium"
@@ -231,20 +231,22 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/font_raleway_bold"
                             android:text="@string/txt_delivery_time" />
+
                         <TextView
                             android:id="@+id/txtAvailableDeliveryTime"
                             style="@style/HeaderSemiMedium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:layout_marginRight="@dimen/margin_5"
                             android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_marginRight="@dimen/margin_5"
+                            android:singleLine="true"
                             android:text="" />
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_5"
-                            android:src="@drawable/ic_clock"/>
+                            android:src="@drawable/ic_clock" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -252,13 +254,13 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
                     android:background="@drawable/bg_card"
                     app:cardCornerRadius="@dimen/margin_5"
-                    app:cardElevation="@dimen/margin_2">
+                    app:cardElevation="@dimen/margin_2"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -299,33 +301,33 @@
                             style="@style/HeaderSemiMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/screenTitleColor"
                             android:layout_marginTop="@dimen/margin_10"
                             android:layout_marginBottom="@dimen/margin_10"
                             android:background="@null"
-                            android:maxLines="6"
                             android:gravity="top"
-                            android:minLines="6"
+                            android:hint="@string/hint_add_instructions"
                             android:maxLength="200"
-                            android:hint="@string/hint_add_instructions" />
+                            android:maxLines="6"
+                            android:minLines="6"
+                            android:textColor="@color/screenTitleColor" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnOrderSummary"
+                    style="@style/StyleButtonNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_order_summary"
-                    android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_10"
                     android:layout_marginBottom="@dimen/margin_20"
-                    style="@style/StyleButtonNext"/>
+                    android:text="@string/txt_order_summary" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

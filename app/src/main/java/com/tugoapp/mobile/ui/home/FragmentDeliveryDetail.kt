@@ -5,6 +5,7 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import com.tugoapp.mobile.utils.SharedPrefsUtils
+import kotlinx.android.synthetic.main.dialog_for_startdate.view.*
 import kotlinx.android.synthetic.main.fragment_delivery_detail.*
 import kotlinx.android.synthetic.main.fragment_order_summary.*
 import kotlinx.android.synthetic.main.fragment_order_summary.view.*
@@ -32,7 +34,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateListener{
+class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateListener {
     private var isNavigationRequired: Boolean = false
     private var mIsTrialMeal: Boolean = false
     private var mPlanObject: MealPlanModel? = null
@@ -141,7 +143,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
 
         mViewModel?.mPlaceOrderResponse?.observe(viewLifecycleOwner, Observer {
             if (it.first == 1) {
-                if(it.second == null || it.second?.orderId.isNullOrEmpty()) {
+                if (it.second == null || it.second?.orderId.isNullOrEmpty()) {
                     CommonUtils.showSnakeBar(rootView, "OrderId shoild not be null from server")
                 } else {
                     doOpenPaymentGateway(it.second!!)
@@ -163,10 +165,10 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.merchant_id = model.merchant_id?.trim()
                 merchantDetail.currency = "AED".trim()
                 merchantDetail.amount = mPlaceOrderRequestModel?.price?.trim()
-                merchantDetail.redirect_url = ApiConstants.BASE_URL.trim() +model.redirectUrl?.trim()
+                merchantDetail.redirect_url = ApiConstants.BASE_URL.trim() + model.redirectUrl?.trim()
                 merchantDetail.cancel_url = ApiConstants.BASE_URL.trim() + model.cancelUrl?.trim()
                 merchantDetail.rsa_url = ApiConstants.BASE_URL.trim() + model.getRSA?.trim()
-                merchantDetail.order_id = placeOrderModel?.orderId.toString().trim()
+                merchantDetail.order_id = placeOrderModel.orderId.toString().trim()
                 merchantDetail.customer_id = "Test".trim()
                 merchantDetail.promo_code = "".trim()
                 merchantDetail.add1 = "test1"
@@ -178,22 +180,23 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.isCCAvenue_promo = false
 
                 val billingAddress = BillingAddress()
-                billingAddress.name = placeOrderModel?.name?.trim()?:"Tugo".trim()
+                billingAddress.name = placeOrderModel.name?.trim() ?: "Tugo".trim()
                 billingAddress.address = mPlaceOrderRequestModel?.address?.trim()
                 billingAddress.country = "UAE".trim()
                 billingAddress.state = mPlaceOrderRequestModel?.address?.trim()
                 billingAddress.city = mPlaceOrderRequestModel?.address?.trim()
-                billingAddress.telephone = placeOrderModel?.number?.trim()?:"999999999".trim()
-                billingAddress.email = placeOrderModel?.email?.trim()?:"paras.gangwal@avenues.info".trim()
+                billingAddress.telephone = placeOrderModel.number?.trim() ?: "999999999".trim()
+                billingAddress.email = placeOrderModel.email?.trim()
+                        ?: "paras.gangwal@avenues.info".trim()
 
 
                 val shippingAddress = ShippingAddress()
-                shippingAddress.name = placeOrderModel?.name?.trim()?:"Tugo".trim()
+                shippingAddress.name = placeOrderModel.name?.trim() ?: "Tugo".trim()
                 shippingAddress.address = mPlaceOrderRequestModel?.address?.trim()
                 shippingAddress.country = "UAE".trim()
                 shippingAddress.state = mPlaceOrderRequestModel?.address?.trim()
                 shippingAddress.city = mPlaceOrderRequestModel?.address?.trim()
-                shippingAddress.telephone = placeOrderModel?.number?.trim()?:"999999999".trim()
+                shippingAddress.telephone = placeOrderModel.number?.trim() ?: "999999999".trim()
 
 
                 val sdkIntent = Intent(context, PaymentOptions::class.java)
@@ -239,7 +242,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         })
     }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        private fun doValidateDeliveryScreenData(): Boolean {
+    private fun doValidateDeliveryScreenData(): Boolean {
         if (txtAddress.text.toString().isNullOrBlank()) {
             CommonUtils.showSnakeBar(rootView, getString(R.string.err_fill_address))
             return false
@@ -263,9 +266,39 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         mCalender.timeInMillis = System.currentTimeMillis()
         updateLabel()
         llDeliveryStartDate.setOnClickListener(View.OnClickListener {
-            var dialog = mContext?.let { it1 -> DatePickerDialog(it1, onDateSelectedEvent, mCalender[Calendar.YEAR], mCalender[Calendar.MONTH], mCalender[Calendar.DAY_OF_MONTH]) }
-            dialog?.datePicker?.minDate = System.currentTimeMillis() - 1000
-            dialog?.show()
+            var canShowDateInfoDialog = SharedPrefsUtils.getBooleanPreference(mContext, AppConstant.PREF_KEY_SHOW_DATE_DIALOG, true)
+            if (canShowDateInfoDialog) {
+                val li = LayoutInflater.from(context)
+                var dateDialogView = li.inflate(R.layout.dialog_for_startdate, null)
+                val alertDialogBuilder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(context)
+                alertDialogBuilder.setView(dateDialogView)
+                alertDialogBuilder.setCancelable(false)
+
+                var dateDialog = alertDialogBuilder.create()
+
+                dateDialogView.btnGotIt.setOnClickListener {
+                    if (dateDialogView.rbDontShowAgain.isSelected) {
+                        SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.PREF_KEY_SHOW_DATE_DIALOG, false)
+                    } else {
+                        SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.PREF_KEY_SHOW_DATE_DIALOG, true)
+                    }
+                    dateDialog.dismiss()
+                    showDateDialog()
+                }
+
+                dateDialogView.rbDontShowAgain.setOnClickListener {
+                    if (dateDialogView.rbDontShowAgain.isSelected) {
+                        dateDialogView.rbDontShowAgain.isChecked = false
+                        dateDialogView.rbDontShowAgain.isSelected = false
+                    } else {
+                        dateDialogView.rbDontShowAgain.isChecked = true
+                        dateDialogView.rbDontShowAgain.isSelected = true
+                    }
+                }
+                dateDialog.show()
+            } else {
+                showDateDialog()
+            }
         })
 
         if (!mPlanObject?.defaultUserAddress.isNullOrBlank()) {
@@ -284,6 +317,12 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 doShowAddressDialog(false, mPlanObject?.defaultUserAddress, mPlanObject?.addressId)
             }
         })
+    }
+
+    private fun showDateDialog() {
+        var dialog = mContext?.let { it1 -> DatePickerDialog(it1, onDateSelectedEvent, mCalender[Calendar.YEAR], mCalender[Calendar.MONTH], mCalender[Calendar.DAY_OF_MONTH]) }
+        dialog?.datePicker?.minDate = System.currentTimeMillis() - 1000
+        dialog?.show()
     }
 
     private fun doShowAddressDialog(isAddAddress: Boolean, address: String?, addressId: String?) {
@@ -370,18 +409,18 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
             } else {
                 CommonUtils.showSnakeBar(rootView!!, "Payment status not found. Can not procceed without it")
             }
-        } catch (e:Exception) {
+        } catch (e: Exception) {
 
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if(isNavigationRequired) {
+        if (isNavigationRequired) {
             isNavigationRequired = false
-            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan,AppConstant.SELECTED_PLAN_OBJECT to mPlanObject,
-                    AppConstant.START_DATE_FOR_THANKYOU to mPlaceOrderRequestModel?.startFrom,AppConstant.SELECTED_MEAL_PLAN_TRIAL to mIsTrialMeal)
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentThankYou,bundle)
+            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_PLAN_OBJECT to mPlanObject,
+                    AppConstant.START_DATE_FOR_THANKYOU to mPlaceOrderRequestModel?.startFrom, AppConstant.SELECTED_MEAL_PLAN_TRIAL to mIsTrialMeal)
+            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentDeliveryDetail_to_fragmentThankYou, bundle)
         }
     }
 }
