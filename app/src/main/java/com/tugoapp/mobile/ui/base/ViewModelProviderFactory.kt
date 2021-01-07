@@ -38,14 +38,6 @@ class ViewModelProviderFactory @Inject constructor(private val application: Appl
                 ProfileViewModel(application, apiservice) as T
             }
 
-            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                LoginViewModel(application, apiservice) as T
-            }
-
-            modelClass.isAssignableFrom(WelcomeViewModel::class.java) -> {
-                WelcomeViewModel(application, apiservice) as T
-            }
-
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                 SignUpViewModel(application, apiservice) as T
             }

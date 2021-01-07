@@ -7,9 +7,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.facebook.*
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -21,33 +23,43 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.iid.FirebaseInstanceId
 import com.tugoapp.mobile.R
+import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import com.tugoapp.mobile.utils.NetworkUtils
 import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.json.JSONObject
+import java.io.IOException
+import java.util.*
 import javax.inject.Inject
 
-class FragmentLogin : BaseFragment<LoginViewModel?>() {
+class FragmentLogin : BaseFragment<AddPhoneNumberViewModel?>() {
     private var mFacebookCallbackManager: CallbackManager? = null
     private var googleSignInClient: GoogleSignInClient? = null
 
     @JvmField
     @Inject
     var factory: ViewModelProviderFactory? = null
-    private var mViewModel: LoginViewModel? = null
+    private var mViewModel: AddPhoneNumberViewModel? = null
     var mContext: Context? = null
     private lateinit var auth: FirebaseAuth
+
+    private var mUserEmailToStore : String? = null
+    private var mUserPhoneToStore : String? = null
+    private var mUserDisplayNameToStore : String? = null
+
 
     override val layoutId: Int
         get() = R.layout.fragment_login
 
-    override val viewModel: LoginViewModel
+    override val viewModel: AddPhoneNumberViewModel
         get() {
-            mViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
+            mViewModel = ViewModelProviders.of(this, factory).get(AddPhoneNumberViewModel::class.java)
             return mViewModel!!
         }
 
@@ -74,9 +86,6 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
         googleSignInClient = GoogleSignIn.getClient(mContext!!, gso)
 
         mFacebookCallbackManager = CallbackManager.Factory.create()
-        btnLoginSignInFb.setOnClickListener(View.OnClickListener {
-            btnDummyFbLoginPage.performClick()
-        })
         btnDummyFbLoginPage.fragment = this
         btnDummyFbLoginPage.setPermissions(listOf("email"))
         btnDummyFbLoginPage.registerCallback(mFacebookCallbackManager, object : FacebookCallback<LoginResult> {
@@ -94,6 +103,7 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
         })
 
         initControls()
+        initObserver()
         initTextChange()
     }
 
@@ -103,27 +113,37 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
             auth.signInWithCredential(credential).addOnCompleteListener(OnCompleteListener {
                 if (it.isSuccessful) {
                     var email = ""
-                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, auth.currentUser?.displayName)
-                    SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
-
                     var request = GraphRequest.newMeRequest(accessToken) { jsonData, response ->
                         if (response?.error != null) {
                             CommonUtils.showSnakeBar(rootView, "Failed to retrieve email id from facebook")
                         } else {
                             email = jsonData?.optString("email").toString()
-                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
+                            //SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
                         }
 
                         if (auth.currentUser?.phoneNumber.isNullOrBlank()) {
+                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, auth.currentUser?.displayName)
+                            SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
+                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
                             var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false, AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber, bundle)
                         } else {
-                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_PHONE, auth.currentUser?.phoneNumber)
-                            if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, auth.currentUser?.uid)) {
-                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
-                            } else {
-                                SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
-                                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                            mUserEmailToStore = email
+                            mUserPhoneToStore = auth.currentUser?.phoneNumber
+                            mUserDisplayNameToStore = auth.currentUser?.displayName
+                            FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    try {
+                                        mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
+                                                mUserDisplayNameToStore,
+                                                FirebaseAuth.getInstance().currentUser?.uid,
+                                                mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
+                                                "android", TimeZone.getDefault()?.displayName))
+                                    } catch (e: IOException) {
+                                    }
+                                } else {
+                                    //CommonUtils.showSnakeBar(rootView,getString(R.string.txt_fail_save_user_server))
+                                }
                             }
                         }
                     }
@@ -167,22 +187,77 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
 
     }
 
+    private fun initObserver() {
+        mViewModel?.mToastMessage?.observe(viewLifecycleOwner, Observer { CommonUtils.showSnakeBar(rootView!!,it)})
+
+        mViewModel?.mShowProgress?.observe(viewLifecycleOwner, Observer {
+            if(it.first) {
+                if(it.second.isNullOrBlank()) {
+                    showLoading()
+                } else {
+                    showLoading(it.second)
+                }
+            } else {
+                hideLoading()
+            }
+        })
+
+        mViewModel?.mIsUserDetailSubmitted?.observe(viewLifecycleOwner, Observer {
+            if(it == 1) {
+                SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
+                SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, mUserDisplayNameToStore)
+                SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, mUserEmailToStore)
+                SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_PHONE, mUserPhoneToStore)
+                if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, auth.currentUser?.uid)) {
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
+                } else {
+                    SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                }
+            } else {
+                CommonUtils.showSnakeBar(rootView!!,getString(R.string.txt_err_fail_user_detail))
+            }
+        })
+    }
+
     private fun initControls() {
+        btnLoginSignInFb.setOnClickListener(View.OnClickListener {
+            if(NetworkUtils.isNetworkConnected(requireContext())) {
+                btnDummyFbLoginPage.performClick()
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_no_internet))
+            }
+        })
+
         txtLoginSignUp.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentSignUp)
         })
 
         txtForgotPswd.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentForgotPswd)
+            if(NetworkUtils.isNetworkConnected(requireContext())) {
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentForgotPswd)
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_no_internet))
+            }
         })
 
         btnLoginSignInGPlus.setOnClickListener(View.OnClickListener {
-            val signInIntent = googleSignInClient?.signInIntent
-            startActivityForResult(signInIntent, AppConstant.RC_SIGN_IN)
-            showLoading(getString(R.string.txt_please_wait))
+            if(NetworkUtils.isNetworkConnected(requireContext())) {
+                val signInIntent = googleSignInClient?.signInIntent
+                startActivityForResult(signInIntent, AppConstant.RC_SIGN_IN)
+                showLoading(getString(R.string.txt_please_wait))
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_no_internet))
+            }
         })
 
-        btnLoginSignIn.setOnClickListener(View.OnClickListener { doValidateAndLogin() })
+        btnLoginSignIn.setOnClickListener(View.OnClickListener {
+            if(NetworkUtils.isNetworkConnected(requireContext())) {
+                doValidateAndLogin()
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_no_internet))
+            }
+        })
     }
 
     private fun doValidateAndLogin() {
@@ -197,21 +272,30 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
 
         auth.signInWithEmailAndPassword(email, pswd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
-                SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
                 val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber
                 if (!email.isNullOrBlank() && phoneNumber.isNullOrBlank()) {
+                    SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
                     SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, auth.currentUser?.displayName)
                     SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
                     val bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false, AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                     Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber, bundle)
                 } else {
-                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
-                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_PHONE, phoneNumber)
-                    if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, auth.currentUser?.uid)) {
-                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
-                    } else {
-                        SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
-                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                    mUserEmailToStore = email
+                    mUserPhoneToStore = phoneNumber
+                    mUserDisplayNameToStore = auth.currentUser?.displayName
+                    FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                                try {
+                                    mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
+                                            mUserDisplayNameToStore,
+                                            FirebaseAuth.getInstance().currentUser?.uid,
+                                            mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
+                                            "android", TimeZone.getDefault()?.displayName))
+                                } catch (e: IOException) {
+                                }
+                        } else {
+                            //CommonUtils.showSnakeBar(rootView,getString(R.string.txt_fail_save_user_server))
+                        }
                     }
                 }
             } else {
@@ -247,19 +331,29 @@ class FragmentLogin : BaseFragment<LoginViewModel?>() {
                         hideLoading()
                         if (email != null) {
                             auth.currentUser?.updateEmail(email)
-                            SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
-                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
-                            SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, auth.currentUser?.displayName)
                             if (auth.currentUser?.phoneNumber.isNullOrBlank()) {
+                                SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
+                                SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, email)
+                                SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, auth.currentUser?.displayName)
                                 var bundle = bundleOf(AppConstant.IS_FROM_EDIT_PROFILE to false, AppConstant.FIREBASE_EMAIL_ADDRESS to email)
                                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentAddPhoneNumber, bundle)
                             } else {
-                                SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_PHONE, auth.currentUser?.phoneNumber)
-                                if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, auth.currentUser?.uid)) {
-                                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentHome)
-                                } else {
-                                    SharedPrefsUtils.setWalkthroughForUser(mContext!!, auth.currentUser?.uid)
-                                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
+                                mUserEmailToStore = email
+                                mUserPhoneToStore = auth.currentUser?.phoneNumber
+                                mUserDisplayNameToStore = auth.currentUser?.displayName
+                                FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        try {
+                                            mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
+                                                    mUserDisplayNameToStore,
+                                                    FirebaseAuth.getInstance().currentUser?.uid,
+                                                    mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
+                                                    "android", TimeZone.getDefault()?.displayName))
+                                        } catch (e: IOException) {
+                                        }
+                                    } else {
+                                        //CommonUtils.showSnakeBar(rootView,getString(R.string.txt_fail_save_user_server))
+                                    }
                                 }
                             }
                         } else {

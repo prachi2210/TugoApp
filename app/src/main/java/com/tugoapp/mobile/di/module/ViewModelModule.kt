@@ -114,7 +114,4 @@ class ViewModelModule {
     fun orderDetailsViewModel(application: TugoApplication?, service: MerchantApiService?): OrderDetailsViewModel {
         return OrderDetailsViewModel(application,service!!)
     }
-
-
-
 }

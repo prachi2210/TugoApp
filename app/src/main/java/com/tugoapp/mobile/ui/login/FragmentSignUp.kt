@@ -19,6 +19,7 @@ import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import com.tugoapp.mobile.utils.NetworkUtils
 import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_add_phone_number.*
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -121,7 +122,11 @@ class FragmentSignUp : BaseFragment<SignUpViewModel?>() {
 
     private fun initControls() {
         btnSignUp.setOnClickListener(View.OnClickListener {
-            doValidateAndSignUp()
+            if(NetworkUtils.isNetworkConnected(requireContext())) {
+                doValidateAndSignUp()
+            } else {
+                CommonUtils.showSnakeBar(rootView,getString(R.string.txt_no_internet))
+            }
         })
     }
 
