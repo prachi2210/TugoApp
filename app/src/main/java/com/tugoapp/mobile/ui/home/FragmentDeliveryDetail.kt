@@ -180,24 +180,50 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.isCCAvenue_promo = false
 
                 val billingAddress = BillingAddress()
-                billingAddress.name = placeOrderModel.name?.trim() ?: "Tugo".trim()
-                billingAddress.address = mPlaceOrderRequestModel?.address?.trim()
-                billingAddress.country = "UAE".trim()
-                billingAddress.state = mPlaceOrderRequestModel?.address?.trim()
-                billingAddress.city = mPlaceOrderRequestModel?.address?.trim()
-                billingAddress.telephone = placeOrderModel.number?.trim() ?: "999999999".trim()
-                billingAddress.email = placeOrderModel.email?.trim()
-                        ?: "paras.gangwal@avenues.info".trim()
-
-
                 val shippingAddress = ShippingAddress()
-                shippingAddress.name = placeOrderModel.name?.trim() ?: "Tugo".trim()
-                shippingAddress.address = mPlaceOrderRequestModel?.address?.trim()
-                shippingAddress.country = "UAE".trim()
-                shippingAddress.state = mPlaceOrderRequestModel?.address?.trim()
-                shippingAddress.city = mPlaceOrderRequestModel?.address?.trim()
-                shippingAddress.telephone = placeOrderModel.number?.trim() ?: "999999999".trim()
 
+                if(!placeOrderModel.name?.trim().isNullOrBlank()) {
+                    billingAddress.name = placeOrderModel.name?.trim()
+                    shippingAddress.name = placeOrderModel.name?.trim()
+                } else {
+                    billingAddress.name = "Tugo".trim()
+                    shippingAddress.name = "Tugo".trim()
+                }
+
+                if(!mPlaceOrderRequestModel?.address?.trim().isNullOrBlank()) {
+                    billingAddress.address = mPlaceOrderRequestModel?.address?.trim()
+                    billingAddress.state = mPlaceOrderRequestModel?.address?.trim()
+                    billingAddress.city = mPlaceOrderRequestModel?.address?.trim()
+
+                    shippingAddress.address = mPlaceOrderRequestModel?.address?.trim()
+                    shippingAddress.state = mPlaceOrderRequestModel?.address?.trim()
+                    shippingAddress.city = mPlaceOrderRequestModel?.address?.trim()
+                } else {
+                    billingAddress.address = "Tugo".trim()
+                    billingAddress.state = "Tugo".trim()
+                    billingAddress.city = "Tugo".trim()
+
+                    shippingAddress.address = "Tugo".trim()
+                    shippingAddress.state = "Tugo".trim()
+                    shippingAddress.city = "Tugo".trim()
+                }
+
+                if(!placeOrderModel.number?.trim().isNullOrBlank()) {
+                    billingAddress.telephone = placeOrderModel.number?.trim()
+                    shippingAddress.telephone = placeOrderModel.number?.trim()
+                } else {
+                    billingAddress.telephone = "999999999".trim()
+                    shippingAddress.telephone = "999999999".trim()
+                }
+
+                if(!placeOrderModel.email?.trim().isNullOrBlank()) {
+                    billingAddress.email = placeOrderModel.email?.trim()
+                } else {
+                    billingAddress.email = "paras.gangwal@avenues.info".trim()
+                }
+
+                billingAddress.country = "UAE".trim()
+                shippingAddress.country = "UAE".trim()
 
                 val sdkIntent = Intent(context, PaymentOptions::class.java)
                 sdkIntent.putExtra("merchant", merchantDetail)
