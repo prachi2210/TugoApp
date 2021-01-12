@@ -86,13 +86,22 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     private fun doSetPlanData() {
         val list = mutableListOf<CarouselItem>()
 
-        for(sample in mSelectedPlanObject?.sampleMenu!!) {
+        if (mSelectedPlanObject?.sampleMenu == null || mSelectedPlanObject?.sampleMenu!!.size <= 0) {
             list.add(
                     CarouselItem(
-                            imageUrl = sample.imagePath,
-                            caption = sample.title
+                            imageUrl = mSelectedPlanObject?.featuredImage,
+                            caption = mSelectedPlanObject?.title
                     )
             )
+        } else {
+            for (sample in mSelectedPlanObject?.sampleMenu!!) {
+                list.add(
+                        CarouselItem(
+                                imageUrl = sample.imagePath,
+                                caption = sample.title
+                        )
+                )
+            }
         }
         imageCarousel.addData(list)
 

@@ -81,9 +81,6 @@ class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
                 tabSampleMenu.addTab(tabSampleMenu.newTab().setText(planDetail.title))
                 doSetMenuImages(0)
                 mSelectedMealPlan = 0
-                if (planDetail.sampleMenu == null || planDetail.sampleMenu!!.size <= 0) {
-                    llMenu.visibility = View.GONE
-                }
             }
         }
         tabSampleMenu.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -105,6 +102,12 @@ class FragmentSampleMenu : BaseFragment<HomeViewModel?>() {
 
     private fun doSetMenuImages(position: Int) {
         val list = mutableListOf<CarouselItem>()
+
+        if (mSampleMenuList?.get(position)?.sampleMenu == null || mSampleMenuList?.get(position)?.sampleMenu!!.size <= 0) {
+            llMenu.visibility = View.GONE
+        } else {
+            llMenu.visibility = View.VISIBLE
+        }
 
         for(sample in mSampleMenuList?.get(position)?.sampleMenu!!) {
             list.add(

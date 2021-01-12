@@ -278,6 +278,8 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
         }
         if (mSelectedMealPlan.sampleMenu == null || mSelectedMealPlan.sampleMenu!!.size <= 0) {
             imgViewSampleMenu.visibility = View.GONE
+        } else {
+            imgViewSampleMenu.visibility = View.VISIBLE
         }
         if (mSelectedMealPlan.isTrialPlanAvailable) {
             llTrialMealAvailable.visibility = View.VISIBLE
