@@ -24,6 +24,7 @@ class CategoryListAdapter(private val context: Context,
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val categoryName: TextView = view.findViewById(R.id.txtCategoryName)
+        val llCategoryName: LinearLayout = view.findViewById(R.id.llCategoryName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,8 +42,11 @@ class CategoryListAdapter(private val context: Context,
 
         if(position == selectedCategoryIndex) {
             holder.categoryName.setTextColor(context.getColor(R.color.colorPrimary))
+            holder.llCategoryName.background = context.getDrawable(R.drawable.rounded_border_category_selected)
+
         } else {
             holder.categoryName.setTextColor(context.getColor(R.color.color999999))
+            holder.llCategoryName.background = context.getDrawable(R.drawable.rounded_border_category_unselected)
         }
 
         holder.categoryName.setOnClickListener {

@@ -365,7 +365,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         if (mIsTrialMeal) {
             view.txtPlanSub?.text = mPlanObject?.trialPlanDescription
         } else {
-            view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals X " + mSelectedMealPlan?.noOfDays + " days for " + mSelectedMealPlan?.weeks + " weeks"
+            view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals for " + mSelectedMealPlan?.noOfDays + " days "
         }
         view.txtLocation?.text = mPlanObject?.defaultUserAddress
         view.txtDeliveryTime.text = mPlanObject?.deliveryTime

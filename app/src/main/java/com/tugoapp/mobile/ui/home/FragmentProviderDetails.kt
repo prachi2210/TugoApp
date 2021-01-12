@@ -168,8 +168,6 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             if (mSelectedMealPlan != null && mSelectedMealPlan.sampleMenu?.size!! > 0) {
                 var bundle = bundleOf(AppConstant.SAMPLE_MENU_DATA to mMealPlanList, AppConstant.SAMPLE_MENU_COMPANYLOGO to mProviderDetails?.companyLogo)
                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSampleMenu, bundle)
-            } else {
-                CommonUtils.showToast(mContext, getString(R.string.txt_err_no_sample_menu))
             }
         })
         btnCustomize.setOnClickListener(View.OnClickListener {
@@ -279,7 +277,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             }
         }
         if (mSelectedMealPlan.sampleMenu == null || mSelectedMealPlan.sampleMenu!!.size <= 0) {
-            rlSampleMenu.visibility = View.GONE
+            imgViewSampleMenu.visibility = View.GONE
         }
         if (mSelectedMealPlan.isTrialPlanAvailable) {
             llTrialMealAvailable.visibility = View.VISIBLE
@@ -312,6 +310,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             if(!mealPlanData.review.isNullOrBlank()) rateBar.rating  = mealPlanData.review?.toFloat()!!
             txtCountReviews.text = String.format(getString(R.string.txt_no_of_reviews), mealPlanData.noOfReviews)
             txtStartingFrom.text = mealPlanData.startingFrom
+
             Glide.with(mContext)
                     .load(mealPlanData.featuredImage)
                     .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(15)))

@@ -93,7 +93,7 @@
                 <RelativeLayout
                     android:id="@+id/rlSampleMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/colorWhite"
                     android:paddingRight="@dimen/margin_10"
                     android:paddingLeft="@dimen/margin_10"
@@ -103,10 +103,11 @@
                         android:id="@+id/imgSampleMenu"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:layout_centerInParent="true"
-                        android:foreground="@drawable/image_overlay" />
-
+                        android:scaleType="centerCrop"
+                        android:foreground="@drawable/image_overlay"
+                        android:layout_centerInParent="true" />
                     <TextView
+                        android:id="@+id/imgViewSampleMenu"
                         style="@style/HeaderSemiMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -130,17 +131,17 @@
                     app:tabIndicatorColor="@color/colorPrimary"
                     app:tabMode="fixed"
                     app:tabGravity="fill"
-                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabSelectedTextColor="@color/colorLabel"
                     app:tabTextColor="@color/unselectedTabcolor">
 
                     <com.google.android.material.tabs.TabItem
-                        style="@style/HeaderSemiMedium"
+                        style="@style/HeaderSemiMediumTab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_info" />
 
                     <com.google.android.material.tabs.TabItem
-                        style="@style/HeaderSemiMedium"
+                        style="@style/HeaderSemiMediumTab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_nutrition_info" />
@@ -150,6 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_toolbar"
+                    android:paddingBottom="@dimen/margin_10"
                     android:orientation="vertical">
 
                 <TextView
@@ -184,7 +186,8 @@
                             android:textSize="@dimen/size_12"
                             android:gravity="center|left"
                             android:layout_marginRight="@dimen/margin_8"
-                            android:layout_marginLeft="@dimen/margin_30"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="@dimen/margin_20"
                             android:textColor="@color/color3D3D3D"
                             android:text="@string/txt_per_meal_nutri_avg"/>
 
@@ -193,13 +196,22 @@
                             android:layout_marginRight="@dimen/margin_30"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@drawable/ic_circle_green"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent">
                             <TextView
                                 android:id="@+id/txtPerMealNutri"
                                 android:layout_width="wrap_content"
@@ -208,19 +220,13 @@
                                 android:textStyle="bold"
                                 android:fontFamily="@font/font_sf_pro_text_regular"
                                 android:textColor="@color/black"
-                                android:layout_marginTop="@dimen/margin_15"
-                                android:src="@drawable/ic_circle_green"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                                android:src="@drawable/ic_circle_green" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/txt_kcal"
-                                android:textColor="@color/colorPrimary"
-                                app:layout_constraintTop_toBottomOf="@id/txtPerMealNutri"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"/>
+                                android:textColor="@color/colorPrimary" />
+                            </LinearLayout>
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
@@ -228,9 +234,9 @@
                             android:layout_weight="0.6"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/size_12"
-                            android:layout_marginLeft="@dimen/margin_10"
                             android:layout_marginRight="@dimen/margin_8"
                             android:gravity="left"
+                            android:textStyle="bold"
                             android:textColor="@color/color3D3D3D"
                             android:fontFamily="@font/font_sf_pro_text_regular"
                             android:text="@string/txt_per_day_nutri_avg"/>
@@ -239,13 +245,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@drawable/ic_circle_yellow"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent">
                             <TextView
                                 android:id="@+id/txtPerDayNutri"
                                 android:layout_width="wrap_content"
@@ -255,12 +270,7 @@
                                 android:singleLine="true"
                                 android:fontFamily="@font/font_sf_pro_text_regular"
                                 android:textColor="@color/black"
-                                android:layout_marginTop="@dimen/margin_15"
-                                android:src="@drawable/ic_circle_green"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
-
+                                android:src="@drawable/ic_circle_green" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -269,6 +279,7 @@
                                 app:layout_constraintTop_toBottomOf="@id/txtPerDayNutri"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"/>
+                            </LinearLayout>
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </LinearLayout>

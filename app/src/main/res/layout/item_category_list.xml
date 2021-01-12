@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-       <TextView
-          android:id="@+id/txtCategoryName"
-           android:layout_width="wrap_content"
-           android:gravity="center"
-           android:inputType="textCapWords"
-           android:textSize="@dimen/size_16"
-           android:fontFamily="@font/font_raleway_regular"
-           android:textColor="@color/color999999"
-           android:layout_height="wrap_content"
-           android:layout_marginLeft="@dimen/margin_10"
-           android:paddingLeft="@dimen/margin_25"
-           android:paddingRight="@dimen/margin_25"
-           android:paddingTop="@dimen/margin_6"
-           android:backgroundTint="@color/grey"
-           android:paddingBottom="@dimen/margin_6"
-           android:background="@drawable/rounded_border_primary_delivers_on"
-           style="@style/HeaderSemiMedium"/>
+    <LinearLayout
+        android:id="@+id/llCategoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_5"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtCategoryName"
+            style="@style/HeaderSemiMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:fontFamily="@font/font_raleway_regular"
+            android:gravity="center"
+            android:inputType="textCapWords"
+            android:paddingLeft="@dimen/margin_25"
+            android:paddingTop="@dimen/margin_6"
+            android:paddingRight="@dimen/margin_25"
+            android:paddingBottom="@dimen/margin_6"
+            android:textColor="@color/color999999"
+            android:textSize="@dimen/size_16" />
+    </LinearLayout>
 </layout>
