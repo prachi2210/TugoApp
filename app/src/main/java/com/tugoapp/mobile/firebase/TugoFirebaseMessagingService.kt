@@ -24,7 +24,7 @@ class TugoFirebaseMessagingService : FirebaseMessagingService() {
         super.onNewToken(token)
 
         println("$tag token --> $token")
-        SharedPrefsUtils.setStringPreference(applicationContext,AppConstant.PREF_KEY_PUSH_TOKEN,token)
+        SharedPrefsUtils.savePushToken(applicationContext,AppConstant.PREF_KEY_PUSH_TOKEN,token)
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {

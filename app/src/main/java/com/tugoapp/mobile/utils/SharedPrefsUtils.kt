@@ -216,6 +216,22 @@ object SharedPrefsUtils {
         return false
     }
 
+    fun savePushToken(context: Context, key: String?, value: String?): Boolean {
+        val preferences = context.getSharedPreferences(AppConstant.WALKTHROUGH_PREFS_NAME, Context.MODE_PRIVATE)
+        if (preferences != null) {
+            val editor = preferences.edit()
+            editor.putString(key, value)
+            return editor.commit()
+        }
+        return false
+    }
+
+    fun getPushToken(context: Context, key: String?): String {
+        val preferences = context.getSharedPreferences(AppConstant.WALKTHROUGH_PREFS_NAME, Context.MODE_PRIVATE)
+        var data = preferences.getString(key,"")
+        return data.toString()
+    }
+
     fun didUserSeenWalkthrough(context: Context, key: String?): Boolean {
         val preferences = context.getSharedPreferences(AppConstant.WALKTHROUGH_PREFS_NAME, Context.MODE_PRIVATE)
         return preferences?.contains(key) ?: false

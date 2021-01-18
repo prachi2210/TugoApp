@@ -101,6 +101,11 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
         mViewModel?.mIsUserDetailSubmitted?.observe(viewLifecycleOwner, Observer {
             if(it == 1) {
                 if(mIsFromLoginFlow) {
+                    SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
+                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, mPersonalInfo?.userName)
+                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, mPersonalInfo?.userEmail)
+                    SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_PHONE, mPersonalInfo?.userPhone)
+
                     if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, FirebaseAuth.getInstance().currentUser?.uid)) {
                         Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentPersonalInformation_to_fragmentHome)
                     } else {
@@ -125,7 +130,7 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
                         mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(edtEmail.text.toString(), edtPhone.text.toString(),
                                 edtName.text.toString(),
                                 FirebaseAuth.getInstance().currentUser?.uid,
-                                mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
+                                mContext?.let { CommonUtils.getDeviceId(it) }, mContext?.let { SharedPrefsUtils.getPushToken(it,AppConstant.PREF_KEY_PUSH_TOKEN) },
                                 "android", TimeZone.getDefault()?.displayName))
                     } catch (e: IOException) {
                     }

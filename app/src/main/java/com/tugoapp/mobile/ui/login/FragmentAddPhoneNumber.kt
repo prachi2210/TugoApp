@@ -195,7 +195,7 @@ class FragmentAddPhoneNumber : BaseFragment<AddPhoneNumberViewModel?>() {
                         mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mEmailAddress, mPhoneNumber,
                                 SharedPrefsUtils.getStringPreference(mContext, AppConstant.FULL_NAME, "NO-NAME"),
                                 FirebaseAuth.getInstance().currentUser?.uid,
-                                mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
+                                mContext?.let { CommonUtils.getDeviceId(it) }, mContext?.let { SharedPrefsUtils.getPushToken(it,AppConstant.PREF_KEY_PUSH_TOKEN) },
                                 "android", TimeZone.getDefault()?.displayName))
                     } catch (e: IOException) {
                     }

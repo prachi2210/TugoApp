@@ -3,6 +3,7 @@ package com.tugoapp.mobile.ui.splash
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_splash.*
 import java.io.IOException
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.log
 
 class FragmentSplash : BaseFragment<SplashViewModel?>() {
     @JvmField
@@ -52,15 +54,15 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
 
     override fun onResume() {
         super.onResume()
+        iniUI()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        iniUI()
     }
 
     private fun iniUI() {
-        mContext = context
+        mContext = requireContext()
         txtAppVersion.text = "App Version: " + getAppVersion(mContext!!)
         navigateToStartPage()
     }
@@ -107,7 +109,7 @@ class FragmentSplash : BaseFragment<SplashViewModel?>() {
             try {
                 FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        var token = SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN)
+                        var token = mContext?.let { SharedPrefsUtils.getPushToken(it,AppConstant.PREF_KEY_PUSH_TOKEN) }
                         mSplashViewModel?.doUpdateToken(SaveDeviceTokenRequestModel(mContext?.let { CommonUtils.getDeviceId(it) }, token , "android", TimeZone.getDefault().displayName))
 
                         mSplashViewModel?.doGetPaymentGatewayConfigs(task.result?.token)
