@@ -8,10 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.MerchantApiService
 import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
-import com.tugoapp.mobile.data.remote.model.response.BaseResponseModel
-import com.tugoapp.mobile.data.remote.model.response.CountryCodeModel
-import com.tugoapp.mobile.data.remote.model.response.GetCountryCodesResponseModel
-import com.tugoapp.mobile.data.remote.model.response.GetProvidersResponseModel
+import com.tugoapp.mobile.data.remote.model.response.*
 import com.tugoapp.mobile.ui.base.BaseViewModel
 import com.tugoapp.mobile.ui.base.SingleLiveEvent
 import com.tugoapp.mobile.utils.CommonUtils
@@ -24,11 +21,11 @@ class AddPhoneNumberViewModel(application: Application?, private val mPpsApiServ
     private val mApplicationContext: Context = getApplication<Application>().applicationContext
 
     var mIsUserDetailSubmitted : SingleLiveEvent<Int> = SingleLiveEvent()
+    var mIsUserDetailExistOnServer : SingleLiveEvent<UserDetailModel> = SingleLiveEvent()
     var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
 
     var mShowProgress: SingleLiveEvent<Pair<Boolean,String>> = SingleLiveEvent()
     var mCountryData: SingleLiveEvent<ArrayList<CountryCodeModel>> = SingleLiveEvent()
-
 
     fun doSaveUserDetailOnServer(token: String?, saveUserDetailRequestModel: SaveUserDetailRequestModel) {
         if(NetworkUtils.isNetworkConnected(mApplicationContext)) {
@@ -39,6 +36,24 @@ class AddPhoneNumberViewModel(application: Application?, private val mPpsApiServ
 
                 override fun onResponse(call: Call<BaseResponseModel>?, response: Response<BaseResponseModel>?) {
                     mIsUserDetailSubmitted.postValue(response?.body()?.isSuccess)
+                }
+
+            })
+        } else {
+            mToastMessage.postValue(mApplicationContext.getString(R.string.txt_no_internet))
+        }
+    }
+
+
+    fun checkIfUserExist(token: String?) {
+        if(NetworkUtils.isNetworkConnected(mApplicationContext)) {
+            mPpsApiService.isUserExist(token).enqueue(object : Callback<GetUserDetailResponseModel> {
+                override fun onFailure(call: Call<GetUserDetailResponseModel>?, t: Throwable?) {
+                    mToastMessage.postValue(t?.localizedMessage)
+                }
+
+                override fun onResponse(call: Call<GetUserDetailResponseModel>?, response: Response<GetUserDetailResponseModel>?) {
+                    mIsUserDetailExistOnServer.postValue(response?.body()?.data)
                 }
 
             })

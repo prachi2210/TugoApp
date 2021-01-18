@@ -39,4 +39,6 @@ object AppConstant {
     const val LOGGED_IN_EMAIL = "LOGGED_IN_EMAIL"
     const val LOGGED_IN_PHONE = "LOGGED_IN_PHONE"
     const val PREF_KEY_SHOW_DATE_DIALOG = "PREF_KEY_SHOW_DATE_DIALOG"
+
+    const val KEY_IS_PROFILE_FROM_LOGIN = "KEY_IS_PROFILE_FROM_LOGIN"
 }

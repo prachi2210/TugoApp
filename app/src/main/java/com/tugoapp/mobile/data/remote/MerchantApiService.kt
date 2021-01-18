@@ -93,6 +93,10 @@ interface MerchantApiService { //
 
     @GET("getPaymentConfig")
     fun doGetPaymentConfig(@Header("token") token: String?): Call<PaymentConfigResponseModel>
+
+    @GET("isUserExists")
+    fun isUserExist(@Header("token") token: String?): Call<GetUserDetailResponseModel>
+
 }
 
 

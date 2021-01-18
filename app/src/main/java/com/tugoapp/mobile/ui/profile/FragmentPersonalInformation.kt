@@ -31,6 +31,7 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
     var factory: ViewModelProviderFactory? = null
     private var mViewModel: PersonalInformationViewModel? = null
     var mContext: Context? = null
+    var mIsFromLoginFlow : Boolean = false
 
     override val layoutId: Int
         get() = R.layout.fragment_personal_info
@@ -57,6 +58,9 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
         mContext = context
 
         mPersonalInfo = arguments?.getParcelable<UserDetailModel>(AppConstant.USER_DETAIL_DATA)
+        if(arguments?.containsKey(AppConstant.KEY_IS_PROFILE_FROM_LOGIN)!!) {
+            mIsFromLoginFlow = arguments?.getBoolean(AppConstant.KEY_IS_PROFILE_FROM_LOGIN)!!
+        }
 
         if (mPersonalInfo == null) {
             CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
@@ -72,8 +76,8 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
         btnProfileUpdate.setOnClickListener(View.OnClickListener {
             var newPhone = edtPhone.text.toString()
             var name = edtName.text.toString()
-            if(mPersonalInfo?.userPhone?.equals(newPhone)!!) {
-                if(mPersonalInfo?.userName?.equals(edtName.text.toString())!!) {
+            if(mPersonalInfo?.userPhone != null && mPersonalInfo?.userPhone?.equals(newPhone)!!) {
+                if(mPersonalInfo?.userName != null && mPersonalInfo?.userName?.equals(edtName.text.toString())!!) {
                     CommonUtils.showSnakeBar(rootView,"No information is changed!")
                 } else {
                     if(!edtName.text.toString().isNullOrBlank()) {
@@ -96,7 +100,16 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
 
         mViewModel?.mIsUserDetailSubmitted?.observe(viewLifecycleOwner, Observer {
             if(it == 1) {
-               Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentPersonalInformation_to_fragmentProfile)
+                if(mIsFromLoginFlow) {
+                    if (SharedPrefsUtils.didUserSeenWalkthrough(mContext!!, FirebaseAuth.getInstance().currentUser?.uid)) {
+                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentPersonalInformation_to_fragmentHome)
+                    } else {
+                        SharedPrefsUtils.setWalkthroughForUser(mContext!!,  FirebaseAuth.getInstance().currentUser?.uid)
+                        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentPersonalInformation_to_fragmentWalkthrough)
+                    }
+                } else {
+                    Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentPersonalInformation_to_fragmentProfile)
+                }
             } else {
                 CommonUtils.showSnakeBar(rootView!!,getString(R.string.txt_err_fail_user_detail))
             }

@@ -26,6 +26,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.iid.FirebaseInstanceId
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.request.SaveUserDetailRequestModel
+import com.tugoapp.mobile.data.remote.model.response.UserDetailModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.utils.AppConstant
@@ -134,11 +135,13 @@ class FragmentLogin : BaseFragment<AddPhoneNumberViewModel?>() {
                             FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     try {
-                                        mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
-                                                mUserDisplayNameToStore,
-                                                FirebaseAuth.getInstance().currentUser?.uid,
-                                                mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
-                                                "android", TimeZone.getDefault()?.displayName))
+//                                        mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
+//                                                mUserDisplayNameToStore,
+//                                                FirebaseAuth.getInstance().currentUser?.uid,
+//                                                mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
+//                                                "android", TimeZone.getDefault()?.displayName))
+
+                                        mViewModel?.checkIfUserExist(task.result?.token)
                                     } catch (e: IOException) {
                                     }
                                 } else {
@@ -202,8 +205,8 @@ class FragmentLogin : BaseFragment<AddPhoneNumberViewModel?>() {
             }
         })
 
-        mViewModel?.mIsUserDetailSubmitted?.observe(viewLifecycleOwner, Observer {
-            if(it == 1) {
+        mViewModel?.mIsUserDetailExistOnServer?.observe(viewLifecycleOwner, Observer {
+            if(it != null) {
                 SharedPrefsUtils.setBooleanPreference(mContext, AppConstant.IS_LOGGED_IN, true)
                 SharedPrefsUtils.setStringPreference(mContext, AppConstant.FULL_NAME, mUserDisplayNameToStore)
                 SharedPrefsUtils.setStringPreference(mContext, AppConstant.LOGGED_IN_EMAIL, mUserEmailToStore)
@@ -215,7 +218,10 @@ class FragmentLogin : BaseFragment<AddPhoneNumberViewModel?>() {
                     Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentWalkthrough)
                 }
             } else {
-                CommonUtils.showSnakeBar(rootView!!,getString(R.string.txt_err_fail_user_detail))
+               // CommonUtils.showSnakeBar(rootView!!,getString(R.string.txt_err_fail_user_detail))
+                var model = UserDetailModel(mUserEmailToStore,mUserDisplayNameToStore,mUserPhoneToStore,true,true,true)
+                var bundle  = bundleOf(AppConstant.USER_DETAIL_DATA to model,AppConstant.KEY_IS_PROFILE_FROM_LOGIN to true)
+                Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentLogin_to_fragmentPersonalInformation,bundle)
             }
         })
     }
@@ -286,11 +292,12 @@ class FragmentLogin : BaseFragment<AddPhoneNumberViewModel?>() {
                     FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                                 try {
-                                    mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
-                                            mUserDisplayNameToStore,
-                                            FirebaseAuth.getInstance().currentUser?.uid,
-                                            mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
-                                            "android", TimeZone.getDefault()?.displayName))
+//                                    mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
+//                                            mUserDisplayNameToStore,
+//                                            FirebaseAuth.getInstance().currentUser?.uid,
+//                                            mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
+//                                            "android", TimeZone.getDefault()?.displayName))
+                                    mViewModel?.checkIfUserExist(task.result?.token)
                                 } catch (e: IOException) {
                                 }
                         } else {
@@ -344,11 +351,12 @@ class FragmentLogin : BaseFragment<AddPhoneNumberViewModel?>() {
                                 FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         try {
-                                            mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
-                                                    mUserDisplayNameToStore,
-                                                    FirebaseAuth.getInstance().currentUser?.uid,
-                                                    mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
-                                                    "android", TimeZone.getDefault()?.displayName))
+//                                            mViewModel?.doSaveUserDetailOnServer(task.result?.token, SaveUserDetailRequestModel(mUserEmailToStore, mUserPhoneToStore,
+//                                                    mUserDisplayNameToStore,
+//                                                    FirebaseAuth.getInstance().currentUser?.uid,
+//                                                    mContext?.let { CommonUtils.getDeviceId(it) }, SharedPrefsUtils.getStringPreference(mContext,AppConstant.PREF_KEY_PUSH_TOKEN),
+//                                                    "android", TimeZone.getDefault()?.displayName))
+                                            mViewModel?.checkIfUserExist(task.result?.token)
                                         } catch (e: IOException) {
                                         }
                                     } else {

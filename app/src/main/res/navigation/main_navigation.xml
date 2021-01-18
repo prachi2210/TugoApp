@@ -331,6 +331,25 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentPersonalInformation_to_fragmentHome"
+            app:destination="@id/fragmentHome"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragmentPersonalInformation"/>
+
+        <action
+            android:id="@+id/action_fragmentPersonalInformation_to_fragmentWalkthrough"
+            app:destination="@id/fragmentWalkthrough"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragmentPersonalInformation"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentPaymentMethods"
