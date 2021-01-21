@@ -193,7 +193,7 @@
     <string name="txt_no_of_reviews">(%s reviews)</string>
     <string name="whatsapp_not_found">Whats App is not installed in phone to send message</string>
     <string name="txt_duration_days">Duration: %s Days</string>
-    <string name="txt_end_date_is">End date is \n %s</string>
+    <string name="txt_end_date_is">End date is \n%s</string>
     <string name="txt_no_provider_available">Sorry!\nProvider detail not found with this name.</string>
     <string name="txt_no_provider_available_for_category">Sorry!\nNo Providers are available
         for this category</string>

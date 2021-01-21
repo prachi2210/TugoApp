@@ -192,11 +192,11 @@
                             <TextView
                                 android:id="@+id/txtEnddate"
                                 style="@style/HeaderSemiMedium"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
+                                android:layout_weight="0.55"
                                 android:padding="@dimen/margin_10"
-                                android:text="@string/txt_end_date_is"
                                 android:textColor="@color/emptyViewColor" />
                         </LinearLayout>
                     </LinearLayout>

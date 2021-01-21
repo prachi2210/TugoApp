@@ -169,7 +169,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.cancel_url = ApiConstants.BASE_URL.trim() + model.cancelUrl?.trim()
                 merchantDetail.rsa_url = ApiConstants.BASE_URL.trim() + model.getRSA?.trim()
                 merchantDetail.order_id = placeOrderModel.orderId.toString().trim()
-                merchantDetail.customer_id = "Test".trim()
+
                 merchantDetail.promo_code = "".trim()
                 merchantDetail.add1 = "test1"
                 merchantDetail.add2 = "test2"
@@ -186,8 +186,10 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                     billingAddress.name = placeOrderModel.name?.trim()
                     shippingAddress.name = placeOrderModel.name?.trim()
                 } else {
-                    billingAddress.name = "Tugo".trim()
-                    shippingAddress.name = "Tugo".trim()
+//                    billingAddress.name = "Tugo".trim()
+//                    shippingAddress.name = "Tugo".trim()
+                    CommonUtils.showSnakeBar(rootView, "Name detail not found for billling and shipping address.")
+                    return
                 }
 
                 if(!mPlaceOrderRequestModel?.address?.trim().isNullOrBlank()) {
@@ -199,27 +201,34 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                     shippingAddress.state = mPlaceOrderRequestModel?.address?.trim()
                     shippingAddress.city = mPlaceOrderRequestModel?.address?.trim()
                 } else {
-                    billingAddress.address = "Tugo".trim()
-                    billingAddress.state = "Tugo".trim()
-                    billingAddress.city = "Tugo".trim()
-
-                    shippingAddress.address = "Tugo".trim()
-                    shippingAddress.state = "Tugo".trim()
-                    shippingAddress.city = "Tugo".trim()
+//                    billingAddress.address = "Tugo".trim()
+//                    billingAddress.state = "Tugo".trim()
+//                    billingAddress.city = "Tugo".trim()
+//
+//                    shippingAddress.address = "Tugo".trim()
+//                    shippingAddress.state = "Tugo".trim()
+//                    shippingAddress.city = "Tugo".trim()
+                    CommonUtils.showSnakeBar(rootView, "Address detail not found for billling and shipping address.")
+                    return
                 }
 
                 if(!placeOrderModel.number?.trim().isNullOrBlank()) {
                     billingAddress.telephone = placeOrderModel.number?.trim()
                     shippingAddress.telephone = placeOrderModel.number?.trim()
                 } else {
-                    billingAddress.telephone = "999999999".trim()
-                    shippingAddress.telephone = "999999999".trim()
+//                    billingAddress.telephone = "999999999".trim()
+//                    shippingAddress.telephone = "999999999".trim()
+                    CommonUtils.showSnakeBar(rootView, "Phone detail not found for billling and shipping address.")
+                    return
                 }
 
                 if(!placeOrderModel.email?.trim().isNullOrBlank()) {
                     billingAddress.email = placeOrderModel.email?.trim()
+                    merchantDetail.customer_id = placeOrderModel.email?.trim()
                 } else {
-                    billingAddress.email = "paras.gangwal@avenues.info".trim()
+                    //billingAddress.email = "paras.gangwal@avenues.info".trim()
+                    CommonUtils.showSnakeBar(rootView, "Email detail not found for billling address.")
+                    return
                 }
 
                 billingAddress.country = "UAE".trim()
@@ -290,7 +299,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         }
 
         mCalender.timeInMillis = System.currentTimeMillis()
-        updateLabel()
+       // updateLabel()
         llDeliveryStartDate.setOnClickListener(View.OnClickListener {
             var canShowDateInfoDialog = SharedPrefsUtils.getBooleanPreference(mContext, AppConstant.PREF_KEY_SHOW_DATE_DIALOG, true)
             if (canShowDateInfoDialog) {
