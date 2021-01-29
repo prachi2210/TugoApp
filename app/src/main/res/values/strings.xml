@@ -283,10 +283,10 @@
 
 
     <string-array name="locations">
+        <item>Dubai</item>
         <item>Abu dhabi</item>
         <item>Ajman</item>
         <item>Al Fujayrah</item>
-        <item>Dubai</item>
         <item>Ra\'s al Khaymah</item>
         <item>Sharjah</item>
         <item>Umm al Qaywayn</item>

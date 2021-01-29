@@ -245,10 +245,13 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
 
                     if(mOrderDetailData?.orderState.equals("1")) {
                         btnPause.isEnabled = true
-                        btnCancel.isEnabled = true
-                    } else {
-                        btnPause.isEnabled = false
                         btnCancel.isEnabled = false
+                    } else {
+                        if(mOrderDetailData?.orderState.equals("0")) {
+                            btnPause.isEnabled = false
+                        }
+                        btnPause.isEnabled = true
+                        btnCancel.isEnabled = true
                     }
                 }
             }

@@ -77,7 +77,7 @@ class FragmentPersonalInformation : BaseFragment<PersonalInformationViewModel?>(
             var newPhone = edtPhone.text.toString()
             var name = edtName.text.toString()
             if(mPersonalInfo?.userPhone != null && mPersonalInfo?.userPhone?.equals(newPhone)!!) {
-                if(mPersonalInfo?.userName != null && mPersonalInfo?.userName?.equals(edtName.text.toString())!!) {
+                if(mPersonalInfo?.userName != null && mPersonalInfo?.userName?.equals(edtName.text.toString())!! && !mIsFromLoginFlow) {
                     CommonUtils.showSnakeBar(rootView,"No information is changed!")
                 } else {
                     if(!edtName.text.toString().isNullOrBlank()) {
