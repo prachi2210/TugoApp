@@ -246,12 +246,19 @@ class FragmentOrderDetails : BaseFragment<OrderDetailsViewModel?>() {
                     if(mOrderDetailData?.orderState.equals("1")) {
                         btnPause.isEnabled = true
                         btnCancel.isEnabled = false
+                        btnCancel.alpha = 0.5f
+                        btnPause.visibility = View.VISIBLE
+                        btnCancel.visibility = View.VISIBLE
                     } else {
                         if(mOrderDetailData?.orderState.equals("0")) {
                             btnPause.isEnabled = false
+                            btnPause.alpha = 0.5f
+                            btnPause.visibility = View.VISIBLE
+                            btnCancel.visibility = View.VISIBLE
+                        } else {
+                            btnPause.visibility = View.GONE
+                            btnCancel.visibility = View.GONE
                         }
-                        btnPause.isEnabled = true
-                        btnCancel.isEnabled = true
                     }
                 }
             }

@@ -62,6 +62,11 @@ class OrderHistoryListAdapter(private val context: Context,
             holder.isPaused.visibility = View.GONE
             holder.isOngoing.visibility = View.GONE
             holder.imgHistoryOrder.setColorFilter(R.color.grey)
+            if(data.isCancelled) {
+                holder.isCancelled.visibility = View.VISIBLE
+            } else {
+                holder.isCancelled.visibility = View.GONE
+            }
         } else {
             holder.txtExpiryDate.text = String.format(context.getString(R.string.txt_order_started_on), data.startedOn)
             if(data.orderState.equals("1")) {
