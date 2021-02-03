@@ -37,6 +37,7 @@ public object PlaceOrderObject {
     var startFrom : String? = null
     var endOn : String? = null
     var price : String? = null
+    var amount : String? = null
     var planObj : MealPlanModel? = null
 }
 

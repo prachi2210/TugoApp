@@ -22,7 +22,7 @@ public data class GetProviderDetailsResponseModel(var data : GetProviderDetailsD
 @Parcelize
 public data class MealPlanModel(var title : String?, var description : String?, var planId : String? ,var startingFrom : String?,
                                 var featuredImage : String?,var trailPlanMainDescription : String?,var deliveryDays : String?,
-                                var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trialPlanDays : String,
+                                var trialPlanDescription : String?, var isTrialPlanAvailable : Boolean,var trailPlanPricing : String,var trialPlanDays : String, var trialPlanAmount : String,
                                 var trialPlanMeals : String,var trialPlanWeeks : String,var phoneNumber : String?,
                                 var review : String?, var locations : String?, var noOfReviews : String?, var sampleMenu : ArrayList<SampleMenu>?, var deliveryTime: String?,
                                 var mealOptions : ArrayList<MealOptionsModel>?, var startTime : String?,var endTime : String?, var avgMeal : String?, var avgDay : String?,
@@ -32,5 +32,5 @@ public data class MealPlanModel(var title : String?, var description : String?, 
 public data class SampleMenu(var planId : String?, var title : String?, var imagePath : String? ,var description : String?) : Parcelable{}
 
 @Parcelize
-public data class MealOptionsModel(var planId : String?, var weeks : String?, var noOfDays : String? ,var noOfMeals : String?,var price : String?,var mealId : String?) : Parcelable{}
+public data class MealOptionsModel(var planId : String?, var weeks : String?, var noOfDays : String? ,var noOfMeals : String?,var price : String?,var amount : String?,var mealId : String?) : Parcelable{}
 

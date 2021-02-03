@@ -94,11 +94,13 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
             mPlaceOrderRequestModel?.noOfMeals = mSelectedMealPlan?.noOfMeals
             mPlaceOrderRequestModel?.noOfWeeks = mSelectedMealPlan?.weeks
             mPlaceOrderRequestModel?.price = mSelectedMealPlan?.price
+            mPlaceOrderRequestModel?.amount = mSelectedMealPlan?.amount
         } else {
             mPlaceOrderRequestModel?.mealId = null
             mPlaceOrderRequestModel?.noOfMeals = mPlanObject?.trialPlanMeals
             mPlaceOrderRequestModel?.noOfWeeks = mPlanObject?.trialPlanWeeks
             mPlaceOrderRequestModel?.price = mPlanObject?.trailPlanPricing
+            mPlaceOrderRequestModel?.amount = mPlanObject?.trialPlanAmount
         }
 
         doInitDeliveryDetails()
@@ -164,7 +166,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.access_code = model.access_code?.trim()
                 merchantDetail.merchant_id = model.merchant_id?.trim()
                 merchantDetail.currency = "AED".trim()
-                merchantDetail.amount = mPlaceOrderRequestModel?.price?.trim()
+                merchantDetail.amount = mPlaceOrderRequestModel?.amount?.trim()
                 merchantDetail.redirect_url = ApiConstants.BASE_URL.trim() + model.redirectUrl?.trim()
                 merchantDetail.cancel_url = ApiConstants.BASE_URL.trim() + model.cancelUrl?.trim()
                 merchantDetail.rsa_url = ApiConstants.BASE_URL.trim() + model.getRSA?.trim()
