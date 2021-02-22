@@ -1,0 +1,46 @@
+Branch Name on git: master
+
+
+Basics of the application:
+
+This is maily for a tiffin service kind of app. User can subscribe for tiffin from a specified provider and pay for the same. Further user can cancel, Pause and resume plan too.
+
+Flow of the application:
+
+1.) In this application there is firebase user authentication using email and phone number both. First we will register/login user using email address and than ask for phone number which will get link with email after sucess
+- We also support for facebook and gmail login/registration. After Successful login/registration, We will check on our server if user exist on our server or not?, If not we will ask user to fill basic detail and store the same on our server.
+
+2.) After user login for the first time or registration success we will show walk through screens which are local images and text only 
+
+3.) On Home screen user can select location and category based filters to serach for the food providers . There is search functionality available on perticular region
+
+4.) Each provider will have its detail with list of available meal plan. User can see each plan details like calories and price, sample menu, reviews, provider address  etc. Some will also have trial menu available. User can further filter on providers here on price and trial meal plan availbility
+   
+5) As per the selection of meal plan user can see list of plans available inside that menu plan and its price. It will vary with days, weeks and meal per day 
+
+6) After selection of meal plan user can add required delivery details like address , Plan start date, any instructions related to food to provider.
+
+7) After successfully adding delivery details, user can see order summary screen
+
+8) User can place order after successfully verifying order summary screen. If order will get place successfully on our server, It will open CCAvenue payment gateway .
+
+9) After successful payments user can see thank you screen.. and basic of the plan ordered.
+
+10) Orders screen will show Ongoing and history orders listing. This orders can be in pending state or ongoing can be resume/paused/cancelled as per status of order. User can also reorder same order
+
+11.) User can leave a comment for the ordered food
+
+12) There is a Profile screen to manage basic user info, addresses etc
+
+13) User  can save provider as favourite and have list of it
+
+14) It has push notification on order state change
+
+Key store details:
+
+Its addded inside project: Tugo-Keystore.jks
+Alias: TUGO
+Password: 321@Tugo
+
+
+
