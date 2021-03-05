@@ -7,16 +7,24 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tugoapp.mobile.R
 import com.tugoapp.mobile.data.remote.model.response.MealOptionsModel
 import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
+import com.tugoapp.mobile.ui.home.adapters.CategoryListAdapter
 import com.tugoapp.mobile.ui.home.adapters.MealOptionsListAdapter
+import com.tugoapp.mobile.ui.home.adapters.MealOptionsNumbersAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
+import kotlinx.android.synthetic.main.bottom_sheet_select_snacks.view.*
+import kotlinx.android.synthetic.main.fragment_delivery_detail.*
+import kotlinx.android.synthetic.main.fragment_order_summary.*
+import kotlinx.android.synthetic.main.fragment_order_summary.view.*
 import kotlinx.android.synthetic.main.fragment_select_plan.*
+import kotlinx.android.synthetic.main.fragment_select_plan.txtPlanName
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import javax.inject.Inject
 
@@ -73,14 +81,24 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
                 CommonUtils.showSnakeBar(rootView,getString(R.string.err_select_plan))
                 return@OnClickListener
             }
-            var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
-                    AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to false)
-            Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
+
+            var maxSnack = mSelectedMealPlan?.maxSnack!!.toInt()
+            if(maxSnack > 0) {
+                doShowSnackPopup()
+            } else {
+               navigateToNextScreen()
+            }
         })
 
         imgBackSelectPlan.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(rootView!!).popBackStack()
         })
+    }
+
+    private fun navigateToNextScreen() {
+        var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
+                AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to false)
+        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
     }
 
     private fun doSetPlanData() {
@@ -109,20 +127,75 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         deliveryDaysSelectPlan.text = mSelectedPlanObject?.deliveryDays
         txtPlanDescSelectPlan.text = mSelectedPlanObject?.description
 
-        if (mSelectedPlanObject?.mealOptions != null && mSelectedPlanObject?.mealOptions?.size!! > 0) {
-            rvMealOptions.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
-            val data = ArrayList<MealOptionsModel>()
-            data.addAll(mSelectedPlanObject?.mealOptions!!)
+        if (mSelectedPlanObject != null && mSelectedPlanObject?.mealOptions != null && mSelectedPlanObject?.mealOptions?.size!! > 0) {
 
-            val adapter = mContext?.let {
-                MealOptionsListAdapter(it, data, object : OnListItemClickListener {
+            rvMealOptionsNumbers.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+            val dataOfMealNumbers = ArrayList<String>()
+            mSelectedPlanObject?.mealOptions?.keys?.let { dataOfMealNumbers.addAll(it) }
+
+            val adapterOfMealNumbers = mContext?.let {
+                MealOptionsNumbersAdapter(it, dataOfMealNumbers, object : OnListItemClickListener {
                     override fun onListItemClick(position: Int) {
-                        mSelectedMealPlan = mSelectedPlanObject?.mealOptions!![position]
+                        doRefreshPlanList(mSelectedPlanObject?.mealOptions!![dataOfMealNumbers[position]])
                     }
-                })
+                },0)
             }
-            rvMealOptions.adapter = adapter
+            rvMealOptionsNumbers.adapter = adapterOfMealNumbers
         }
+    }
+
+    private fun doRefreshPlanList(planData: ArrayList<MealOptionsModel>?) {
+        rvMealOptions.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+        val data = ArrayList<MealOptionsModel>()
+        planData?.let { data.addAll(it) }
+
+        val adapter = mContext?.let {
+            MealOptionsListAdapter(it, data, object : OnListItemClickListener {
+                override fun onListItemClick(position: Int) {
+                    mSelectedMealPlan = planData?.get(position)
+                    val maxSnack = mSelectedMealPlan?.maxSnack!!.toInt()
+                    if(maxSnack > 0) {
+                        btnSelectPlan.text = getString(R.string.txt_select_snack)
+                    } else {
+                        btnSelectPlan.text = getString(R.string.txt_continue)
+                    }
+                }
+            })
+        }
+        rvMealOptions.adapter = adapter
+    }
+
+    private fun doShowSnackPopup() {
+        val view: View = layoutInflater.inflate(R.layout.bottom_sheet_select_snacks, null)
+        val dialog = mContext.let { it1 -> BottomSheetDialog(it1) }
+        dialog.setContentView(view)
+        dialog.show()
+        val maxSnack = mSelectedMealPlan?.maxSnack!!.toInt()
+        var numOfSnack = 1
+        view.txtSnackTitle.text = mSelectedMealPlan?.pricePerSnack + "AED"
+        view.txtPlanDetailSnack.text = "for " + mSelectedMealPlan?.noOfDays + " days plan"
+        view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it).toString() } + " AED"
+        view.txtPlus.setOnClickListener {
+            if(numOfSnack < maxSnack) {
+                numOfSnack++
+                view.noOfSnack.text = numOfSnack.toString()
+                view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it).toString() } + " AED"
+            }
+        }
+
+        view.txtMinus.setOnClickListener {
+            if(numOfSnack > 1) {
+                numOfSnack--
+                view.noOfSnack.text = numOfSnack.toString()
+                view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it).toString() } + " AED"
+            }
+        }
+
+        view.btnSnackContinue.setOnClickListener(View.OnClickListener {
+            mSelectedMealPlan?.snackQty = numOfSnack.toString()
+            dialog.dismiss()
+            navigateToNextScreen()
+        })
     }
 }
 

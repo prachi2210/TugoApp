@@ -91,12 +91,14 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
 
         if (!mIsTrialMeal) {
             mPlaceOrderRequestModel?.mealId = mSelectedMealPlan?.mealId.toString()
+            mPlaceOrderRequestModel?.snackQty = mSelectedMealPlan?.snackQty
             mPlaceOrderRequestModel?.noOfMeals = mSelectedMealPlan?.noOfMeals
             mPlaceOrderRequestModel?.noOfWeeks = mSelectedMealPlan?.weeks
             mPlaceOrderRequestModel?.price = mSelectedMealPlan?.price
             mPlaceOrderRequestModel?.amount = mSelectedMealPlan?.amount
         } else {
             mPlaceOrderRequestModel?.mealId = null
+            mPlaceOrderRequestModel?.snackQty = mSelectedMealPlan?.snackQty
             mPlaceOrderRequestModel?.noOfMeals = mPlanObject?.trialPlanMeals
             mPlaceOrderRequestModel?.noOfWeeks = mPlanObject?.trialPlanWeeks
             mPlaceOrderRequestModel?.price = mPlanObject?.trailPlanPricing
@@ -146,7 +148,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         mViewModel?.mPlaceOrderResponse?.observe(viewLifecycleOwner, Observer {
             if (it.first == 1) {
                 if (it.second == null || it.second?.orderId.isNullOrEmpty()) {
-                    CommonUtils.showSnakeBar(rootView, "OrderId shoild not be null from server")
+                    CommonUtils.showSnakeBar(rootView, "OrderId should not be null from server")
                 } else {
                     doOpenPaymentGateway(it.second!!)
                 }
@@ -172,14 +174,14 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.rsa_url = ApiConstants.BASE_URL.trim() + model.getRSA?.trim()
                 merchantDetail.order_id = placeOrderModel.orderId.toString().trim()
 
-                merchantDetail.promo_code = "".trim()
+                merchantDetail.promo_code = ""
                 merchantDetail.add1 = "test1"
                 merchantDetail.add2 = "test2"
                 merchantDetail.add3 = "test3"
                 merchantDetail.add4 = "test4"
                 merchantDetail.add5 = "test5"
                 merchantDetail.isShow_addr = false
-                merchantDetail.isCCAvenue_promo = false
+                merchantDetail.isCCAvenue_promo = true
 
                 val billingAddress = BillingAddress()
                 val shippingAddress = ShippingAddress()
@@ -417,7 +419,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         if (!paymentConfigs.isNullOrEmpty()) {
             var model = Gson().fromJson(paymentConfigs, PaymentConfigModel::class.java)
             if (model != null) {
-                mViewModel?.doPlaceOrder(PlaceOrderRequestModel(mPlaceOrderRequestModel?.isTrialPlan, mPlaceOrderRequestModel?.noOfMeals, mPlaceOrderRequestModel?.noOfWeeks,
+                mViewModel?.doPlaceOrder(PlaceOrderRequestModel(mPlaceOrderRequestModel?.isTrialPlan, mPlaceOrderRequestModel?.noOfMeals,mPlaceOrderRequestModel?.snackQty, mPlaceOrderRequestModel?.noOfWeeks,
                         mPlaceOrderRequestModel?.instructions, mPlaceOrderRequestModel?.planId, mPlaceOrderRequestModel?.mealId, mPlaceOrderRequestModel?.deliveryTime,
                         mPlaceOrderRequestModel?.deliveryLocation, mPlaceOrderRequestModel?.address, mPlaceOrderRequestModel?.startFrom, mPlaceOrderRequestModel?.endOn,
                         mPlaceOrderRequestModel?.price, mPlaceOrderRequestModel?.planObj))

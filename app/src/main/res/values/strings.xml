@@ -280,6 +280,10 @@
     <string name="txt_about_your_delivery_detail">Your delivery will be assigned to the next available delivery date from the date of your selection</string>
     <string name="txt_got_it">Got it</string>
     <string name="txt_dont_show_again">Don\'t show again</string>
+    <string name="txt_snacks">Snacks</string>
+    <string name="txt_select">Select</string>
+    <string name="txt_select_snack">Select Snacks</string>
+    <string name="txt_days">Days</string>
 
 
     <string-array name="locations">

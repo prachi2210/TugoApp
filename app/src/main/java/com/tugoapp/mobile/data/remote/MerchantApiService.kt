@@ -22,8 +22,14 @@ interface MerchantApiService { //
     @POST("getProviderDetailsAdvace")
     fun doGetProviderDetails(@Header("token") token: String?, @Body data : GetProviderDetailRequestModel): Call<GetProviderDetailsResponseModel>
 
+    @POST("getProviderDetailsAdvacev2")
+    fun doGetProviderDetailsAdvance(@Header("token") token: String?, @Body data : GetProviderDetailRequestModel): Call<GetProviderDetailsResponseModel>
+
     @POST("placeOrder")
     fun doPlaceOrder(@Header("token") token: String?, @Body data : PlaceOrderRequestModel?): Call<PlaceOrderResponseModel>
+
+    @POST("placeOrderv2")
+    fun doPlaceOrderV2(@Header("token") token: String?, @Body data : PlaceOrderRequestModel?): Call<PlaceOrderResponseModel>
 
     @POST("searchProviders")
     fun doSearchTermForProvider(@Header("token") token: String?, @Body data : GetProvidersRequestModel): Call<GetProvidersResponseModel>

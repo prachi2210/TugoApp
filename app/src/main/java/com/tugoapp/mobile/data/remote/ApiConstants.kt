@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 object ApiConstants {
     const val URL_PRODUCTION = "https://admin.tugo.ae/api/"
     const val URL_STAGING = "https://staging-admin.tugo.ae/api/"
-    var BASE_URL = URL_PRODUCTION
+    var BASE_URL = URL_STAGING
     const val CONNECT_TIMEOUT: Long = 120000
     const val READ_TIMEOUT: Long = 120000
     const val WRITE_TIMEOUT: Long = 120000

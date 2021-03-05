@@ -25,7 +25,6 @@ class MealOptionsListAdapter(private val context: Context,
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val mealOptionPrice: TextView = view.findViewById(R.id.mealOptionPrice)
-        val mealOptionSubTitle: TextView = view.findViewById(R.id.txtMealOptionSubTitle)
         val mealOptionTitle: TextView = view.findViewById(R.id.txtMealOptionTitle)
         val isMealSelected: RadioButton = view.findViewById(R.id.cbMealOption)
         val llMenu : LinearLayout = view.findViewById(R.id.llMenuMealOptions)
@@ -43,8 +42,7 @@ class MealOptionsListAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
 
-        holder.mealOptionTitle.text = data.noOfMeals + " meals × " + data.noOfDays + " days"
-        holder.mealOptionSubTitle.text = data.weeks + " weeks"
+        holder.mealOptionTitle.text = data.noOfDays
         holder.mealOptionPrice.text = data.price
         holder.isMealSelected.isChecked = position == mLastCheckedPosition
         holder.llMenu.setOnClickListener {

@@ -109,7 +109,17 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:background="@color/grey" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMealOptionsNumbers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_10"/>
 
             <TextView
                 style="@style/HeaderMedium"
@@ -142,7 +152,7 @@
                     android:layout_marginTop="@dimen/margin_15"
                     android:layout_marginRight="@dimen/margin_15"
                     android:layout_marginBottom="@dimen/margin_10"
-                    android:text="@string/txt_select_plan" />
+                    android:text="@string/txt_continue" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -19,7 +19,7 @@ public data class DeleteAddressRequestModel(var addressId : String?) {}
 
 public data class ResumeOrderRequestModel(var orderId : String?,var startFrom : String?)
 
-public data class PlaceOrderRequestModel(var isTrialPlan : Boolean?,var noOfMeals : String?,var noOfWeeks : String?,var instructions : String?,var planId : String? ,var mealId : String?,
+public data class PlaceOrderRequestModel(var isTrialPlan : Boolean?,var noOfMeals : String?,var snackQty : String?,var noOfWeeks : String?,var instructions : String?,var planId : String? ,var mealId : String?,
                                         var deliveryTime : String? ,var deliveryLocation : String? , var address : String?,var startFrom : String?,var endOn : String?,
                                          var price : String?, var planObj : MealPlanModel?) {}
 
@@ -27,6 +27,7 @@ public data class PlaceOrderRequestModel(var isTrialPlan : Boolean?,var noOfMeal
 public object PlaceOrderObject {
     var isTrialPlan : Boolean = false
     var noOfMeals : String? = null
+    var snackQty : String? = null
     var noOfWeeks : String? = null
     var instructions : String? = null
     var planId : String? = null

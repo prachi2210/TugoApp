@@ -125,7 +125,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
             FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
                 if (task.isSuccessful) {
                     mShowProgress.postValue(Pair(true, mApplicationContext.getString(R.string.txt_loading_searching_provider_detail)))
-                    mPpsApiService.doGetProviderDetails(task.result?.token, GetProviderDetailRequestModel(mBusinessId)).enqueue(object : Callback<GetProviderDetailsResponseModel> {
+                    mPpsApiService.doGetProviderDetailsAdvance(task.result?.token, GetProviderDetailRequestModel(mBusinessId)).enqueue(object : Callback<GetProviderDetailsResponseModel> {
                         override fun onFailure(call: Call<GetProviderDetailsResponseModel>, t: Throwable) {
                             mShowProgress.postValue(Pair(false, ""))
                             mToastMessage.postValue(t.localizedMessage)
@@ -152,7 +152,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
             FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
                 if (task.isSuccessful) {
                     mShowProgress.postValue(Pair(true, mApplicationContext.getString(R.string.txt_loading_place_order)))
-                    mPpsApiService.doPlaceOrder(task.result?.token, model).enqueue(object : Callback<PlaceOrderResponseModel> {
+                    mPpsApiService.doPlaceOrderV2(task.result?.token, model).enqueue(object : Callback<PlaceOrderResponseModel> {
                         override fun onFailure(call: Call<PlaceOrderResponseModel>, t: Throwable) {
                             mShowProgress.postValue(Pair(false, ""))
                             mToastMessage.postValue(t.localizedMessage)
