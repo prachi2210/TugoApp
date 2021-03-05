@@ -71,6 +71,7 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
             return
         }
 
+        if(mSelectedMealPlan == null)
         doSetPlanData()
         initControls()
     }
