@@ -94,8 +94,13 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
             mPlaceOrderRequestModel?.snackQty = mSelectedMealPlan?.snackQty
             mPlaceOrderRequestModel?.noOfMeals = mSelectedMealPlan?.noOfMeals
             mPlaceOrderRequestModel?.noOfWeeks = mSelectedMealPlan?.weeks
-            mPlaceOrderRequestModel?.price = mSelectedMealPlan?.price
-            mPlaceOrderRequestModel?.amount = mSelectedMealPlan?.amount
+            if(mSelectedMealPlan?.snackQty?.toInt()!! > 0) {
+                mPlaceOrderRequestModel?.price = mSelectedMealPlan?.priceWithSnack
+                mPlaceOrderRequestModel?.amount = mSelectedMealPlan?.priceWithSnack
+            } else {
+                mPlaceOrderRequestModel?.price = mSelectedMealPlan?.price
+                mPlaceOrderRequestModel?.amount = mSelectedMealPlan?.amount
+            }
         } else {
             mPlaceOrderRequestModel?.mealId = null
             mPlaceOrderRequestModel?.snackQty = mSelectedMealPlan?.snackQty
@@ -181,7 +186,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.add4 = "test4"
                 merchantDetail.add5 = "test5"
                 merchantDetail.isShow_addr = false
-                merchantDetail.isCCAvenue_promo = true
+                merchantDetail.isCCAvenue_promo = false
 
                 val billingAddress = BillingAddress()
                 val shippingAddress = ShippingAddress()
@@ -386,7 +391,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         if (mIsTrialMeal) {
             view.txtPlanTotalAmount.text = mPlanObject?.trailPlanPricing
         } else {
-            view.txtPlanTotalAmount.text = mSelectedMealPlan?.price
+            view.txtPlanTotalAmount.text = mPlaceOrderRequestModel?.price
         }
     }
 

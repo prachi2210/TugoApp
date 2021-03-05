@@ -86,6 +86,7 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
             if(maxSnack > 0) {
                 doShowSnackPopup()
             } else {
+                mSelectedMealPlan?.snackQty = "0"
                navigateToNextScreen()
             }
         })
@@ -193,6 +194,8 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
 
         view.btnSnackContinue.setOnClickListener(View.OnClickListener {
             mSelectedMealPlan?.snackQty = numOfSnack.toString()
+            var snackPrice = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it)}
+            mSelectedMealPlan?.priceWithSnack =  (snackPrice?.let { it1 -> mSelectedMealPlan?.amount?.toInt()?.plus(it1).toString() })
             dialog.dismiss()
             navigateToNextScreen()
         })

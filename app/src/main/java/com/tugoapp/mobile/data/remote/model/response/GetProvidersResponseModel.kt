@@ -32,6 +32,6 @@ public data class MealPlanModel(var title : String?, var description : String?, 
 public data class SampleMenu(var planId : String?, var title : String?, var imagePath : String? ,var description : String?) : Parcelable{}
 
 @Parcelize
-public data class MealOptionsModel(var planId : String?, var weeks : String?, var noOfDays : String? ,var noOfMeals : String?,var price : String?,var amount : String?,
+public data class MealOptionsModel(var planId : String?, var weeks : String?, var noOfDays : String? ,var noOfMeals : String?,var price : String?,var amount : String?,var priceWithSnack : String?,
                                    var mealId : String?,var maxSnack: String?,var pricePerSnack : String?,var originalPrice : String?,var sortOrder : String?,var discount : String?, var snackQty : String?) : Parcelable{}
 
