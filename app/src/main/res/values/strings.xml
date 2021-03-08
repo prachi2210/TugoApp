@@ -284,6 +284,8 @@
     <string name="txt_select">Select</string>
     <string name="txt_select_snack">Select Snacks</string>
     <string name="txt_days">Days</string>
+    <string name="hint_promo_code">Enter Promo Code</string>
+    <string name="txt_promo_code">Promo Code</string>
 
 
     <string-array name="locations">

@@ -96,7 +96,7 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
             mPlaceOrderRequestModel?.noOfWeeks = mSelectedMealPlan?.weeks
             if(mSelectedMealPlan?.snackQty?.toInt()!! > 0) {
                 mPlaceOrderRequestModel?.price = mSelectedMealPlan?.priceWithSnack
-                mPlaceOrderRequestModel?.amount = mSelectedMealPlan?.priceWithSnack
+                mPlaceOrderRequestModel?.amount = mSelectedMealPlan?.amountWithSnack
             } else {
                 mPlaceOrderRequestModel?.price = mSelectedMealPlan?.price
                 mPlaceOrderRequestModel?.amount = mSelectedMealPlan?.amount
@@ -179,14 +179,22 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
                 merchantDetail.rsa_url = ApiConstants.BASE_URL.trim() + model.getRSA?.trim()
                 merchantDetail.order_id = placeOrderModel.orderId.toString().trim()
 
-                merchantDetail.promo_code = ""
                 merchantDetail.add1 = "test1"
                 merchantDetail.add2 = "test2"
                 merchantDetail.add3 = "test3"
                 merchantDetail.add4 = "test4"
                 merchantDetail.add5 = "test5"
                 merchantDetail.isShow_addr = false
-                merchantDetail.isCCAvenue_promo = false
+//                merchantDetail.promo_code = ""
+ //               merchantDetail.isCCAvenue_promo = true
+                val promocode = txtDeliveryPromocode.text.toString()
+                if(promocode.isNullOrBlank()) {
+                    merchantDetail.isCCAvenue_promo = false
+                    merchantDetail.promo_code = ""
+                } else {
+                    merchantDetail.isCCAvenue_promo = true
+                    merchantDetail.promo_code = promocode
+                }
 
                 val billingAddress = BillingAddress()
                 val shippingAddress = ShippingAddress()
@@ -270,6 +278,14 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
             view.txtEdit.setOnClickListener(View.OnClickListener {
                 dialog?.dismiss()
             })
+
+            var promocode = txtDeliveryPromocode.text.toString()
+            if(promocode.isNullOrBlank()) {
+                view.llPromoCode.visibility = View.GONE
+            } else {
+                view.txtPromocode.text = promocode
+                view.llPromoCode.visibility = View.VISIBLE
+            }
 
             dialog?.btnPay?.setOnClickListener(View.OnClickListener {
                 dialog.dismiss()

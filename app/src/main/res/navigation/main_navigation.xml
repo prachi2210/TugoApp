@@ -21,7 +21,7 @@
             android:id="@+id/action_fragmentSplash_to_fragmentHome"
             app:destination="@id/fragmentHome"
             app:popUpToInclusive="true"
-            app:popUpTo="@id/fragmentSplash"
+            app:popUpTo="@id/main_navigation"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

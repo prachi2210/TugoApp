@@ -14,19 +14,17 @@ import com.tugoapp.mobile.data.remote.model.response.MealPlanModel
 import com.tugoapp.mobile.ui.base.BaseFragment
 import com.tugoapp.mobile.ui.base.OnListItemClickListener
 import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
-import com.tugoapp.mobile.ui.home.adapters.CategoryListAdapter
 import com.tugoapp.mobile.ui.home.adapters.MealOptionsListAdapter
 import com.tugoapp.mobile.ui.home.adapters.MealOptionsNumbersAdapter
 import com.tugoapp.mobile.utils.AppConstant
 import com.tugoapp.mobile.utils.CommonUtils
 import kotlinx.android.synthetic.main.bottom_sheet_select_snacks.view.*
-import kotlinx.android.synthetic.main.fragment_delivery_detail.*
-import kotlinx.android.synthetic.main.fragment_order_summary.*
-import kotlinx.android.synthetic.main.fragment_order_summary.view.*
 import kotlinx.android.synthetic.main.fragment_select_plan.*
-import kotlinx.android.synthetic.main.fragment_select_plan.txtPlanName
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
+import java.text.NumberFormat
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
@@ -133,7 +131,8 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
 
             rvMealOptionsNumbers.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             val dataOfMealNumbers = ArrayList<String>()
-            mSelectedPlanObject?.mealOptions?.keys?.let { dataOfMealNumbers.addAll(it) }
+            var keys =  mSelectedPlanObject?.mealOptions?.keys?.sorted()
+            keys?.let { dataOfMealNumbers.addAll(it) }
 
             val adapterOfMealNumbers = mContext?.let {
                 MealOptionsNumbersAdapter(it, dataOfMealNumbers, object : OnListItemClickListener {
@@ -196,7 +195,9 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         view.btnSnackContinue.setOnClickListener(View.OnClickListener {
             mSelectedMealPlan?.snackQty = numOfSnack.toString()
             var snackPrice = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it)}
-            mSelectedMealPlan?.priceWithSnack =  (snackPrice?.let { it1 -> mSelectedMealPlan?.amount?.toInt()?.plus(it1).toString() })
+            mSelectedMealPlan?.amountWithSnack =  (snackPrice?.let { it1 -> mSelectedMealPlan?.amount?.toInt()?.plus(it1).toString() })
+            val nf: NumberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            mSelectedMealPlan?.priceWithSnack = nf.format(mSelectedMealPlan?.amountWithSnack?.toInt()) + ""
             dialog.dismiss()
             navigateToNextScreen()
         })
