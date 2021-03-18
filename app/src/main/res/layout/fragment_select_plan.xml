@@ -98,7 +98,7 @@
                     style="@style/HeaderSemiMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="test plan description"
+                    android:text="@string/txt_select_plan_desc"
                     android:fontFamily="@font/font_raleway_regular"
                     android:layout_marginTop="@dimen/margin_10"
                     android:layout_marginBottom="@dimen/margin_10"

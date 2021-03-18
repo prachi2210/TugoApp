@@ -125,7 +125,7 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
 
         txtPlanName.text = mSelectedPlanObject?.title
         deliveryDaysSelectPlan.text = mSelectedPlanObject?.deliveryDays
-        txtPlanDescSelectPlan.text = mSelectedPlanObject?.description
+        //txtPlanDescSelectPlan.text = mSelectedPlanObject?.description
 
         if (mSelectedPlanObject != null && mSelectedPlanObject?.mealOptions != null && mSelectedPlanObject?.mealOptions?.size!! > 0) {
 

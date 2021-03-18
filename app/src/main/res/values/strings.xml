@@ -286,6 +286,7 @@
     <string name="txt_days">Days</string>
     <string name="hint_promo_code">Enter Promo Code</string>
     <string name="txt_promo_code">Promo Code</string>
+    <string name="txt_select_plan_desc">Select the number of meals per day and your plan duration.</string>
 
 
     <string-array name="locations">

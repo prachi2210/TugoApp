@@ -399,7 +399,11 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         if (mIsTrialMeal) {
             view.txtPlanSub?.text = mPlanObject?.trialPlanDescription
         } else {
-            view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " meals for " + mSelectedMealPlan?.noOfDays + " days "
+            if(mSelectedMealPlan?.snackQty?.toInt()!! > 0) {
+                view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " Meals for " + mSelectedMealPlan?.noOfDays + " days \n" + mSelectedMealPlan?.snackQty + " Snacks for "+ mSelectedMealPlan?.noOfDays + " days "
+            } else {
+                view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " Meals for " + mSelectedMealPlan?.noOfDays + " days "
+            }
         }
         view.txtLocation?.text = mPlanObject?.defaultUserAddress
         view.txtDeliveryTime.text = mPlanObject?.deliveryTime
