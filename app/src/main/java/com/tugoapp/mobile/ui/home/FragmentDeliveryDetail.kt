@@ -399,10 +399,30 @@ class FragmentDeliveryDetail : BaseFragment<HomeViewModel?>(), OnCustomStateList
         if (mIsTrialMeal) {
             view.txtPlanSub?.text = mPlanObject?.trialPlanDescription
         } else {
-            if(mSelectedMealPlan?.snackQty?.toInt()!! > 0) {
-                view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " Meals for " + mSelectedMealPlan?.noOfDays + " days \n" + mSelectedMealPlan?.snackQty + " Snacks for "+ mSelectedMealPlan?.noOfDays + " days "
+            var noOfSnacks = mSelectedMealPlan?.snackQty?.toInt()!!
+            var noOfMeals =  mSelectedMealPlan?.noOfMeals?.toInt()!!
+            var text = ""
+            if(noOfSnacks > 0) {
+
+                text = if(noOfMeals == 1) {
+                    text +  mSelectedMealPlan?.noOfMeals + " Meal for " + mSelectedMealPlan?.noOfDays + " days \n"
+                } else {
+                    text +  mSelectedMealPlan?.noOfMeals + " Meals for " + mSelectedMealPlan?.noOfDays + " days \n"
+                }
+
+                text = if(noOfSnacks == 1) {
+                    text + mSelectedMealPlan?.snackQty + " Snack for "+ mSelectedMealPlan?.noOfDays + " days "
+                } else {
+                    text + mSelectedMealPlan?.snackQty + " Snacks for "+ mSelectedMealPlan?.noOfDays + " days "
+                }
+
+                view.txtPlanSub?.text = text
             } else {
-                view.txtPlanSub?.text = mSelectedMealPlan?.noOfMeals + " Meals for " + mSelectedMealPlan?.noOfDays + " days "
+                view.txtPlanSub?.text = if(noOfMeals == 1) {
+                    mSelectedMealPlan?.noOfMeals + " Meal for " + mSelectedMealPlan?.noOfDays + " days "
+                } else {
+                    mSelectedMealPlan?.noOfMeals + " Meals for " + mSelectedMealPlan?.noOfDays + " days "
+                }
             }
         }
         view.txtLocation?.text = mPlanObject?.defaultUserAddress
