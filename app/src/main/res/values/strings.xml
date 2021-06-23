@@ -291,11 +291,11 @@
 
     <string-array name="locations">
         <item>Dubai</item>
-        <item>Abu dhabi</item>
+        <item>Abu Dhabi</item>
         <item>Ajman</item>
-        <item>Al Fujayrah</item>
-        <item>Ra\'s al Khaymah</item>
+        <item>Fujairah</item>
+        <item>Ras Al Khaimah</item>
         <item>Sharjah</item>
-        <item>Umm al Qaywayn</item>
+        <item>Umm Al Quwain</item>
     </string-array>
 </resources>
