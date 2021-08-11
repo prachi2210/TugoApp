@@ -81,7 +81,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtPlanName"
+                android:id="@+id/txtPlanNamee"
                 style="@style/HeaderMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -96,6 +96,7 @@
             style="@style/HeaderSemiMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginLeft="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_5"
             android:text="" />
@@ -191,7 +192,7 @@
             android:maxLines="6"
             android:text="" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/llPromoCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -200,28 +201,45 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:id="@+id/view"
                 android:layout_marginTop="@dimen/margin_10"
                 android:background="@color/grey" />
 
             <TextView
                 style="@style/HeaderMedium"
                 android:layout_width="wrap_content"
+                android:id="@+id/tv"
+                android:layout_below="@+id/view"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_15"
                 android:fontFamily="@font/font_raleway_bold"
-                android:text="@string/txt_promo_code" />
+                android:text="@string/apply_a_promo_code" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/view"
+                android:layout_alignParentEnd="true"
+android:layout_marginTop="@dimen/margin_10"
+                android:text="@string/apply"
+                android:textAllCaps="false"
+                android:fontFamily="@font/font_raleway_bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:background="@drawable/light_green_curve_button"
+                android:layout_height="35dp"/>
 
             <TextView
                 android:id="@+id/txtPromocode"
                 style="@style/HeaderSemiMedium"
+                android:layout_below="@+id/tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_5"
                 android:maxLines="6"
                 android:text="" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"

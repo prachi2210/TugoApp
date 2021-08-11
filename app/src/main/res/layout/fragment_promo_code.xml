@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/rounded_border_bottom_sheet"
+    android:backgroundTint="@color/grey"
+    android:minHeight="300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_15">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/grey"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/txtPlanName"
+            style="@style/HeaderMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_18"
+            android:layout_marginTop="@dimen/margin_8"
+            android:fontFamily="@font/font_raleway_bold"
+            android:text="Available Codes"
+            android:textSize="20sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_18"
+            android:layout_marginTop="10dp"
+            android:id="@+id/edtPromoValue"
+            android:layout_marginEnd="@dimen/margin_18"
+            android:layout_toStartOf="@+id/btnApplyPromoCode"
+            android:backgroundTint="@android:color/darker_gray"
+            android:fontFamily="@font/font_raleway_regular"
+            android:hint="@string/enter_promo_code"
+            android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimary"
+                android:elevation="5dp"
+                android:textAllCaps="false"
+                android:id="@+id/btnApplyPromoCode"
+                android:text="@string/apply"
+                android:fontFamily="@font/font_raleway_semibold"
+                android:backgroundTint="@color/grey"
+                android:layout_height="40dp"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/itemListEmpty"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/noPromoCode"
+                style="@style/HeaderMedium"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_18"
+                android:layout_marginTop="@dimen/margin_50"
+                android:fontFamily="@font/font_raleway_bold"
+                android:text="@string/no_promo_codes_found"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/rvPromoCode"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/rv_promo_code" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

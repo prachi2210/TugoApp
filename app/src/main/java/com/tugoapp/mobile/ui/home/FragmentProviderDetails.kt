@@ -171,7 +171,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
             }
         })
         btnCustomize.setOnClickListener(View.OnClickListener {
-            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan)
+            var bundle = bundleOf(AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan,AppConstant.BUSINESS_ID to mBusinessId)
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentSelectPlan,bundle)
         })
         
@@ -186,7 +186,8 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
 
         btnTryNow.setOnClickListener(View.OnClickListener {
             var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedMealPlan,
-                    AppConstant.SELECTED_MEAL_PLAN to null, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true)
+
+                AppConstant.SELECTED_PLAN_OBJECT to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to true,   AppConstant.BUSINESS_ID to mBusinessId)
             Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentProviderDetails_to_fragmentDeliveryDetail,bundle)
         })
     }
@@ -243,6 +244,7 @@ class FragmentProviderDetails : BaseFragment<HomeViewModel?>() {
                             mSelectedMealPlan.addressId = providerData.addressId
                             mSelectedMealPlan.phoneNumber = providerData?.phoneNumber
                             mSelectedMealPlan.defaultUserAddress = providerData.defaultUserAddress
+                         //   mealId = mSelectedMealPlan.mealOptions
                             doSetTabDetails()
                         }
                     }

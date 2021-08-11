@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/curve_border_white"
+    android:clipToPadding="false"
+    android:elevation="2dp"
+    android:paddingTop="@dimen/margin_15"
+    android:paddingBottom="@dimen/margin_15"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_offer_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="Code 15% off Applied"
+        android:fontFamily="@font/font_poppins_medium"
+         />
+
+
+    <TextView
+        android:id="@+id/tv_offer_price"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="-AED 223"
+        android:textColor="@color/flat_red_1"
+        android:layout_alignParentEnd="true"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/tv_change_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:text="Click here to change to code"
+        android:textSize="12sp"
+        android:layout_below="@+id/tv_offer_msg"
+        android:layout_marginStart="@dimen/margin_18"
+        android:fontFamily="@font/font_poppins_medium"
+        />
+
+
+
+
+
+    <TextView
+
+        android:id="@+id/tv_item_total"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="Item Total"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textColor="@color/black"
+        android:layout_below="@+id/tv_change_code"
+        android:fontFamily="@font/font_poppins_medium"
+        />
+
+    <TextView
+
+        android:id="@+id/tv_item_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="AED 220"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textColor="@color/black"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tv_change_code"
+        android:fontFamily="@font/font_poppins_medium"
+        />
+
+
+
+
+    <TextView
+
+        android:id="@+id/tv_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="Delivery"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textColor="@color/black"
+        android:layout_below="@+id/tv_item_total"
+        android:fontFamily="@font/font_poppins_medium"
+        />
+
+
+
+    <TextView
+
+        android:id="@+id/tv_delivery_charges"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="Free"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/black"
+        android:layout_below="@+id/tv_item_total"
+        android:fontFamily="@font/font_poppins_medium"
+        />
+
+
+
+
+    <TextView
+
+        android:id="@+id/tv_promo_code"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="Promo code"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textColor="@color/black"
+        android:layout_below="@+id/tv_delivery"
+        android:fontFamily="@font/font_poppins_medium"
+        />
+
+
+
+
+    <TextView
+
+        android:id="@+id/tv_promo_amount"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="-AED 224"
+        android:textColor="@color/black"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tv_delivery"
+        android:fontFamily="@font/font_poppins_medium"
+        />
+
+
+
+
+
+
+
+    <TextView
+
+        android:id="@+id/tv_grandtotal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="Grand Total"
+        android:textColor="@color/black"
+        android:layout_below="@+id/tv_promo_code"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_15"
+        android:fontFamily="@font/font_poppins_bold"
+        />
+
+
+    <TextView
+
+        android:id="@+id/tv_grandtotal_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_20"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:text="AED 187.0"
+        android:layout_marginTop="@dimen/margin_15"
+        android:textColor="@color/black"
+        android:layout_below="@+id/tv_promo_code"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/font_poppins_bold"
+        />
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tv_grandtotal"
+        android:layout_marginTop="@dimen/margin_20"
+        android:fontFamily="@font/font_raleway_semibold"
+        android:text="@string/proceed_to_payment"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_8"
+        android:textAllCaps="false"
+        android:layout_marginStart="@dimen/margin_18"
+        android:id="@+id/btnPaymemt"
+        android:textColor="@color/white"
+        style="@style/StyleButtonNext"
+        android:layout_height="35dp"/>
+
+
+
+</RelativeLayout>

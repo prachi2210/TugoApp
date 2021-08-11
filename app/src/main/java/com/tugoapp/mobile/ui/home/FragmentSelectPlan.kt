@@ -30,6 +30,7 @@ import kotlin.collections.ArrayList
 class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     private var mSelectedPlanObject: MealPlanModel? = null
     private var mSelectedMealPlan: MealOptionsModel? = null
+    private var mBusinessId=""
 
 
     @JvmField
@@ -50,43 +51,40 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     override val screenTitle: String
         get() = getString(R.string.txt_select_plan)
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         iniUI()
     }
 
     private fun iniUI() {
-        mContext = this!!.requireContext()
+        mContext = this.requireContext()
 
         mSelectedPlanObject = arguments?.getParcelable(AppConstant.SELECTED_MEAL_PLAN)
+        mBusinessId= arguments?.getString(AppConstant.BUSINESS_ID).toString()
 
         if (mSelectedPlanObject == null) {
             CommonUtils.showSnakeBar(rootView, getString(R.string.txt_err_no_pref_value))
             return
         }
 
-        if(mSelectedMealPlan == null)
-        doSetPlanData()
+        if (mSelectedMealPlan == null)
+            doSetPlanData()
         initControls()
     }
 
     private fun initControls() {
         btnSelectPlan.setOnClickListener(View.OnClickListener {
-            if(mSelectedMealPlan == null || mSelectedMealPlan?.mealId.isNullOrBlank()) {
-                CommonUtils.showSnakeBar(rootView,getString(R.string.err_select_plan))
+            if (mSelectedMealPlan == null || mSelectedMealPlan?.mealId.isNullOrBlank()) {
+                CommonUtils.showSnakeBar(rootView, getString(R.string.err_select_plan))
                 return@OnClickListener
             }
 
             var maxSnack = mSelectedMealPlan?.maxSnack!!.toInt()
-            if(maxSnack > 0) {
+            if (maxSnack > 0) {
                 doShowSnackPopup()
             } else {
                 mSelectedMealPlan?.snackQty = "0"
-               navigateToNextScreen()
+                navigateToNextScreen()
             }
         })
 
@@ -96,9 +94,23 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
     }
 
     private fun navigateToNextScreen() {
-        var bundle = bundleOf(AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
-                AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan, AppConstant.SELECTED_MEAL_PLAN_TRIAL to false)
-        Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail,bundle)
+
+        //FragmentDeliveryDetails
+
+        /*val bundle = bundleOf(
+    "KEY_PRICE" to 50.0,
+    "KEY_IS_FROZEN" to false
+)*/
+
+        var bundle = bundleOf(
+            AppConstant.SELECTED_PLAN_OBJECT to mSelectedPlanObject,
+            AppConstant.SELECTED_MEAL_PLAN to mSelectedMealPlan,
+            AppConstant.SELECTED_MEAL_PLAN_TRIAL to false,
+            AppConstant.BUSINESS_ID to mBusinessId
+        )
+
+        Navigation.findNavController(rootView!!)
+            .navigate(R.id.action_fragmentSelectPlan_to_fragmentDeliveryDetail, bundle)
     }
 
     private fun doSetPlanData() {
@@ -106,18 +118,18 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
 
         if (mSelectedPlanObject?.sampleMenu == null || mSelectedPlanObject?.sampleMenu!!.size <= 0) {
             list.add(
-                    CarouselItem(
-                            imageUrl = mSelectedPlanObject?.featuredImage,
-                            caption = mSelectedPlanObject?.title
-                    )
+                CarouselItem(
+                    imageUrl = mSelectedPlanObject?.featuredImage,
+                    caption = mSelectedPlanObject?.title
+                )
             )
         } else {
             for (sample in mSelectedPlanObject?.sampleMenu!!) {
                 list.add(
-                        CarouselItem(
-                                imageUrl = sample.imagePath,
-                                caption = sample.title
-                        )
+                    CarouselItem(
+                        imageUrl = sample.imagePath,
+                        caption = sample.title
+                    )
                 )
             }
         }
@@ -129,33 +141,35 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
 
         if (mSelectedPlanObject != null && mSelectedPlanObject?.mealOptions != null && mSelectedPlanObject?.mealOptions?.size!! > 0) {
 
-            rvMealOptionsNumbers.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+            rvMealOptionsNumbers.layoutManager =
+                LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             val dataOfMealNumbers = ArrayList<String>()
-            var keys =  mSelectedPlanObject?.mealOptions?.keys?.sorted()
+            var keys = mSelectedPlanObject?.mealOptions?.keys?.sorted()
             keys?.let { dataOfMealNumbers.addAll(it) }
 
-            val adapterOfMealNumbers = mContext?.let {
+            val adapterOfMealNumbers = mContext.let {
                 MealOptionsNumbersAdapter(it, dataOfMealNumbers, object : OnListItemClickListener {
                     override fun onListItemClick(position: Int) {
                         doRefreshPlanList(mSelectedPlanObject?.mealOptions!![dataOfMealNumbers[position]])
                     }
-                },0)
+                }, 0)
             }
             rvMealOptionsNumbers.adapter = adapterOfMealNumbers
         }
     }
 
     private fun doRefreshPlanList(planData: ArrayList<MealOptionsModel>?) {
-        rvMealOptions.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+        rvMealOptions.layoutManager =
+            LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
         val data = ArrayList<MealOptionsModel>()
         planData?.let { data.addAll(it) }
 
-        val adapter = mContext?.let {
+        val adapter = mContext.let {
             MealOptionsListAdapter(it, data, object : OnListItemClickListener {
                 override fun onListItemClick(position: Int) {
                     mSelectedMealPlan = planData?.get(position)
                     val maxSnack = mSelectedMealPlan?.maxSnack!!.toInt()
-                    if(maxSnack > 0) {
+                    if (maxSnack > 0) {
                         btnSelectPlan.text = getString(R.string.txt_select_snack)
                     } else {
                         btnSelectPlan.text = getString(R.string.txt_continue)
@@ -175,29 +189,41 @@ class FragmentSelectPlan : BaseFragment<HomeViewModel?>() {
         var numOfSnack = 1
         view.txtSnackTitle.text = mSelectedMealPlan?.pricePerSnack + "AED"
         view.txtPlanDetailSnack.text = "for " + mSelectedMealPlan?.noOfDays + " days plan"
-        view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it).toString() } + " AED"
+        view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let {
+            (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it).toString()
+        } + " AED"
         view.txtPlus.setOnClickListener {
-            if(numOfSnack < maxSnack) {
+            if (numOfSnack < maxSnack) {
                 numOfSnack++
                 view.noOfSnack.text = numOfSnack.toString()
-                view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it).toString() } + " AED"
+                view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let {
+                    (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it)
+                        .toString()
+                } + " AED"
             }
         }
 
         view.txtMinus.setOnClickListener {
-            if(numOfSnack > 1) {
+            if (numOfSnack > 1) {
                 numOfSnack--
                 view.noOfSnack.text = numOfSnack.toString()
-                view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it).toString() } + " AED"
+                view.txtSnackTotalAmount.text = mSelectedMealPlan?.noOfDays?.toInt()?.let {
+                    (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it)
+                        .toString()
+                } + " AED"
             }
         }
 
         view.btnSnackContinue.setOnClickListener(View.OnClickListener {
             mSelectedMealPlan?.snackQty = numOfSnack.toString()
-            var snackPrice = mSelectedMealPlan?.noOfDays?.toInt()?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it)}
-            mSelectedMealPlan?.amountWithSnack =  (snackPrice?.let { it1 -> mSelectedMealPlan?.amount?.toInt()?.plus(it1).toString() })
+            var snackPrice = mSelectedMealPlan?.noOfDays?.toInt()
+                ?.let { (mSelectedMealPlan?.pricePerSnack?.toInt()?.times(numOfSnack))?.times(it) }
+            mSelectedMealPlan?.amountWithSnack = (snackPrice?.let { it1 ->
+                mSelectedMealPlan?.amount?.toInt()?.plus(it1).toString()
+            })
             val nf: NumberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
-            mSelectedMealPlan?.priceWithSnack = nf.format(mSelectedMealPlan?.amountWithSnack?.toInt()) + ""
+            mSelectedMealPlan?.priceWithSnack =
+                nf.format(mSelectedMealPlan?.amountWithSnack?.toInt()) + ""
             dialog.dismiss()
             navigateToNextScreen()
         })

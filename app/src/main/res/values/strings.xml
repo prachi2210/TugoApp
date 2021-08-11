@@ -246,6 +246,7 @@
     <string name="txt_emptyview_review">No reviews found</string>
     <string name="err_enter_pswd">Please enter correct password</string>
     <string name="err_enter_new_pswd">Please enter correct new password</string>
+    <string name="err_enter_promo_code">Please enter Promo Code</string>
     <string name="err_enter_confirm_pswd">Please enter correct confirm password</string>
     <string name="err_wrong_pswd">Please enter correct password</string>
     <string name="txt_change_pswd_success">Password changed successfully</string>
@@ -287,6 +288,12 @@
     <string name="hint_promo_code">Enter Promo Code</string>
     <string name="txt_promo_code">Promo Code</string>
     <string name="txt_select_plan_desc">Select the number of meals per day and your plan duration.</string>
+    <string name="apply_a_promo_code">Apply a Promo Code</string>
+    <string name="apply">Apply</string>
+    <string name="enter_promo_code">Enter promo code</string>
+    <string name="no_promo_codes_found">No promo codes found</string>
+    <string name="promo_code_unavailable">Not available</string>
+    <string name="proceed_to_payment">Proceed to Payment</string>
 
 
     <string-array name="locations">

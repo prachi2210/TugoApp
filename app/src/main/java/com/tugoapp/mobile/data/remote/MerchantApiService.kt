@@ -2,6 +2,7 @@ package com.tugoapp.mobile.data.remote
 
 import com.tugoapp.mobile.data.remote.model.request.*
 import com.tugoapp.mobile.data.remote.model.response.*
+import com.tugoapp.mobile.ui.home.PromoCodeList
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -102,6 +103,12 @@ interface MerchantApiService { //
 
     @GET("isUserExists")
     fun isUserExist(@Header("token") token: String?): Call<GetUserDetailResponseModel>
+
+    @POST("getPromo")
+    fun getPromoCode(@Header("token") token: String?, @Body map : HashMap<String, String>?): Call<PromoCodeList>
+
+    @POST("searchPromo")
+    fun searchPromoCode(@Header("token") token: String?, @Body map : HashMap<String, String>?): Call<PromoCodeList>
 
 }
 

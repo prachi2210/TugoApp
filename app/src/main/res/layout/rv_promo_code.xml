@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/curve_border_white"
+    android:clipToPadding="false"
+    android:elevation="2dp"
+    android:paddingTop="@dimen/margin_15"
+    android:paddingBottom="@dimen/margin_15"
+   >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:id="@+id/iv"
+        android:layout_height="@dimen/margin_20"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_5"
+        android:gravity="start"
+        android:text="For vegan plan only"
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:id="@+id/promoRestriction"
+        android:fontFamily="@font/font_raleway_regular"
+        android:textColor="@color/flat_red_1"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_marginTop="@dimen/margin_5"
+    android:text="Get 20% off on VEGAN plans"
+    android:textSize="16sp"
+    android:layout_below="@+id/iv"
+    android:id="@+id/promoDescription"
+android:layout_marginStart="@dimen/margin_18"
+    android:fontFamily="@font/font_poppins_medium"
+    android:textColor="@color/black"
+    android:layout_height="wrap_content"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/promoDescription"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/font_poppins_medium"
+        android:text="FT120"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_18"
+        android:id="@+id/btnPromoCode"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/light_green_curve_button"
+        android:layout_height="35dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/promoDescription"
+        android:layout_marginTop="12dp"
+        android:id="@+id/tvPromoApply"
+        android:fontFamily="@font/font_raleway_semibold"
+        android:text="Apply"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"
+android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

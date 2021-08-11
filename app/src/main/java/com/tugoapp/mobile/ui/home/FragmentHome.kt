@@ -21,6 +21,7 @@ import com.tugoapp.mobile.ui.base.ViewModelProviderFactory
 import com.tugoapp.mobile.ui.home.adapters.BrowseByDietListAdapter
 import com.tugoapp.mobile.ui.home.adapters.SearchHomeListAdapter
 import com.tugoapp.mobile.utils.AppConstant
+import com.tugoapp.mobile.utils.AppConstant.BUSINESS_ID
 import com.tugoapp.mobile.utils.CommonUtils
 import com.tugoapp.mobile.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.fragment_browse_all_providers.*
@@ -84,6 +85,8 @@ class FragmentHome : BaseFragment<HomeViewModel?>(), androidx.appcompat.widget.S
                             override fun onListItemClick(position: Int) {
                                 var bundle = bundleOf(AppConstant.SELECTED_CATEGORY_FOR_PROVIDERS to position,
                                         AppConstant.ALL_CATEGORY_FOR_PROVIDERS to categoryData)
+
+
                                 Navigation.findNavController(rootView!!).navigate(R.id.action_fragmentHome_to_fragmentBrowseAllProviders, bundle)
                             }
                         })

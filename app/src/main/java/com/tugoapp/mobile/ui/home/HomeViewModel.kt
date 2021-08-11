@@ -2,6 +2,7 @@ package com.tugoapp.mobile.ui.home
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
@@ -26,6 +27,7 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
     var mProvidersDetailData: SingleLiveEvent<GetProviderDetailsData> = SingleLiveEvent()
     var mReviewModel: SingleLiveEvent<ReviewMainModel> = SingleLiveEvent()
     var mFavoriteData: SingleLiveEvent<ArrayList<FavoriteModel>> = SingleLiveEvent()
+    var promoCodeList: SingleLiveEvent<ArrayList<Data>> = SingleLiveEvent()
 
 
     var mToastMessage: SingleLiveEvent<String> = SingleLiveEvent()
@@ -359,6 +361,63 @@ class HomeViewModel(application: Application?, private val mPpsApiService: Merch
         })
     }
 
+    fun getPromoCodes( map : HashMap<String, String>) {
+        if (NetworkUtils.isNetworkConnected(mApplicationContext)) {
+            FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    mShowProgress.postValue(Pair(true, ""))
+                    mPpsApiService.getPromoCode(task.result?.token, map).enqueue(object : Callback<PromoCodeList> {
+                        override fun onFailure(call: Call<PromoCodeList>, t: Throwable) {
+                            mShowProgress.postValue(Pair(false, ""))
+                            mToastMessage.postValue(t.localizedMessage)
+                        }
+
+                        override fun onResponse(call: Call<PromoCodeList>, response: Response<PromoCodeList>) {
+                            promoCodeList.postValue(response.body()?.data)
+                            mShowProgress.postValue(Pair(false, ""))
+                        }
+
+                    })
+                } else {
+                    mToastMessage.postValue(task.exception?.localizedMessage)
+                }
+
+            })
+        } else {
+            mToastMessage.postValue(mApplicationContext.getString(R.string.txt_no_internet))
+        }
+    }
+    fun searchPromoCode( map : HashMap<String, String>): SingleLiveEvent<ArrayList<Data>> {
+        if (NetworkUtils.isNetworkConnected(mApplicationContext)) {
+            FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener(OnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    mShowProgress.postValue(Pair(true, ""))
+                    mPpsApiService.searchPromoCode(task.result?.token, map).enqueue(object : Callback<PromoCodeList> {
+                        override fun onFailure(call: Call<PromoCodeList>, t: Throwable) {
+                            mShowProgress.postValue(Pair(false, ""))
+                            mToastMessage.postValue(t.localizedMessage)
+                            Log.e("FragmentDelivery","Error In Promo code"+t.localizedMessage)
+                        }
+
+                        override fun onResponse(call: Call<PromoCodeList>, response: Response<PromoCodeList>) {
+                            Log.e("FragmentDelivery","Error In onResponse code"+response.body()?.message)
+                            promoCodeList.postValue(response.body()?.data)
+                            mShowProgress.postValue(Pair(false, ""))
+
+                        }
+
+                    })
+                } else {
+                    mToastMessage.postValue(task.exception?.localizedMessage)
+                }
+
+            })
+        } else {
+            mToastMessage.postValue(mApplicationContext.getString(R.string.txt_no_internet))
+        }
+
+        return promoCodeList
+    }
 
     private val mApplicationContext: Context = getApplication<Application>().applicationContext
 }
